@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>PixoraAI Admin</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:#080b16;color:#f7f8ff;padding:18px}
+.container{max-width:1100px;margin:auto}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;gap:12px}
+.brand{display:flex;align-items:center;gap:11px}
+.logo{width:48px;height:48px;border-radius:15px;background:linear-gradient(135deg,#7c5cff,#20d9a1);display:grid;place-items:center;font-weight:900;font-size:20px}
+.brand h1{font-size:19px}.brand small{color:#8994b0;font-size:11px}
+button{border:0;cursor:pointer;font:inherit}
+.refresh{padding:11px 15px;border-radius:12px;background:#151c30;color:white}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+.stat{background:linear-gradient(180deg,#161d34,#101629);border:1px solid #ffffff0d;border-radius:18px;padding:17px}
+.stat-icon{font-size:22px}.stat b{display:block;font-size:24px;margin-top:7px}.stat small{color:#8994b0}
+.tabs{display:flex;gap:8px;margin-bottom:12px}
+.tab{padding:11px 16px;border-radius:12px;background:#151c30;color:#aab4cc}
+.tab.active{background:#7c5cff;color:white}
+.panel{display:none;background:#11172a;border:1px solid #ffffff0b;border-radius:20px;padding:15px}
+.panel.active{display:block}
+.panel-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+.panel-head h2{font-size:17px}
+.search{width:220px;max-width:45%;padding:10px 12px;border-radius:11px;background:#090e1d;color:white;border:1px solid #ffffff10;outline:none}
+.table-wrap{overflow:auto}
+table{width:100%;border-collapse:collapse;min-width:700px}
+th,td{padding:12px 9px;text-align:left;border-bottom:1px solid #ffffff0a;font-size:12px}
+th{color:#8994b0;font-size:10px}
+td small{display:block;color:#8d98b2;margin-top:3px}
+.badge{display:inline-block;padding:6px 9px;border-radius:20px;font-size:10px}
+.pending{background:#f5a6231a;color:#f5b74f}
+.approved,.completed{background:#20d9a11a;color:#20d9a1}
+.rejected,.cancelled{background:#ff4d671a;color:#ff7184}
+.processing{background:#7c5cff1a;color:#a999ff}
+.actions{display:flex;gap:6px;flex-wrap:wrap}
+.btn{padding:7px 10px;border-radius:9px;color:white;font-size:10px}
+.approve{background:#168c6b}.reject{background:#9b3043}.view{background:#353e5c}
+.select{background:#20283d;color:white;border:1px solid #ffffff10;border-radius:8px;padding:7px}
+.loading,.empty{padding:30px;text-align:center;color:#8994b0}
+.modal{position:fixed;inset:0;background:#000b;display:none;align-items:flex-end}
+.modal.show{display:flex}
+.sheet{width:min(700px,100%);margin:auto 0 0;background:#10162a;border-radius:25px 25px 0 0;padding:22px;max-height:85vh;overflow:auto}
+.sheet h3{font-size:19px;margin-bottom:12px}
+.detail{background:#090e1d;padding:13px;border-radius:13px;margin-bottom:9px}
+.detail small{display:block;color:#7f8aa6;margin-bottom:4px}
+.close{width:100%;padding:12px;border-radius:12px;background:#20283d;color:white}
+.toast{position:fixed;bottom:25px;left:50%;transform:translateX(-50%);background:white;color:#101323;padding:11px 16px;border-radius:12px;font-size:12px;font-weight:800;display:none}
+.toast.show{display:block}
+@media(max-width:700px){.stats{grid-template-columns:1fr 1fr}.panel-head{align-items:flex-start}.search{width:150px}}
+@media(max-width:400px){body{padding:12px}.stat{padding:13px}.stat b{font-size:20px}}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<header>
+<div class="brand">
+<div class="logo">A</div>
+<div>
+<h1>PixoraAI Admin</h1>
+<small>Atik Branding • Control Panel</small>
+</div>
+</div>
+<button class="refresh" onclick="loadAll()">🔄 Refresh</button>
+</header>
+
+<section class="stats">
+<div class="stat"><div class="stat-icon">👥</div><b id="usersCount">0</b><small>Total Users</small></div>
+<div class="stat"><div class="stat-icon">💰</div><b id="depositCount">0</b><small>Deposits</small></div>
+<div class="stat"><div class="stat-icon">💸</div><b id="withdrawCount">0</b><small>Withdrawals</small></div>
+<div class="stat"><div class="stat-icon">📦</div><b id="ordersCount">0</b><small>Orders</small></div>
+</section>
+
+<div class="tabs">
+<button class="tab active" onclick="showTab('transactions',this)">💰 Transactions</button>
+<button class="tab" onclick="showTab('orders',this)">📦 Orders</button>
+</div>
+
+<section id="transactions" class="panel active">
+<div class="panel-head">
+<h2>Deposit / Withdrawal</h2>
+<input id="transactionSearch" class="search" placeholder="Search..." oninput="renderTransactions()">
+</div>
+<div id="transactionContent"><div class="loading">Loading...</div></div>
+</section>
+
+<section id="orders" class="panel">
+<div class="panel-head">
+<h2>Photo / Video Orders</h2>
+<input id="orderSearch" class="search" placeholder="Search..." oninput="renderOrders()">
+</div>
+<div id="orderContent"><div class="loading">Loading...</div></div>
+</section>
+
+</div>
+
+<div class="modal" id="detailModal">
+<div class="sheet">
+<h3 id="detailTitle">Details</h3>
+<div id="detailBody"></div>
+<button class="close" onclick="closeDetails()">Close</button>
+</div>
+</div>
+
+<div class="toast" id="toast">Done ✅</div>
+
+<script>
+let transactions=[];
+let orders=[];
+
+async function api(url,options={}){
+const response=await fetch(url,{
+headers:{"Content-Type":"application/json"},
+...options
+});
+const data=await response.json();
+if(!response.ok)throw new Error(data.message||"Server error");
+return data;
+}
+
+async function loadAll(){
+try{
+await Promise.all([loadTransactions(),loadOrders()]);
+}catch(error){
+console.error(error);
+showToast(error.message);
+}
+}
+
+async function loadTransactions(){
+const box=document.getElementById("transactionContent");
+box.innerHTML='<div class="loading">Loading...</div>';
+
+try{
+const data=await api("/api/admin/transactions");
+transactions=data.transactions||[];
+
+document.getElementById("depositCount").textContent=
+transactions.filter(x=>x.type==="deposit").length;
+
+document.getElementById("withdrawCount").textContent=
+transactions.filter(x=>x.type==="withdraw").length;
+
+renderTransactions();
+}catch(error){
+transactions=[];
+document.getElementById("depositCount").textContent="0";
+document.getElementById("withdrawCount").textContent="0";
+box.innerHTML='<div class="empty">Transactions API is not connected yet.</div>';
+}
+}
+
+function renderTransactions(){
+const box=document.getElementById("transactionContent");
+const search=document.getElementById("transactionSearch").value.toLowerCase().trim();
+
+const list=transactions.filter(t=>{
+const text=`
+${t.id}
+${t.name||""}
+${t.phone||""}
+${t.type||""}
+${t.status||""}
+${t.transaction_id||""}
+`.toLowerCase();
+return text.includes(search);
+});
+
+if(!list.length){
+box.innerHTML='<div class="empty">No transactions found.</div>';
+return;
+}
+
+let html=`
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>ID</th><th>User</th><th>Type</th><th>Amount</th>
+<th>Payment</th><th>Status</th><th>Action</th>
+</tr>
+</thead>
+<tbody>`;
+
+list.forEach(t=>{
+let actions=`
+<button class="btn view" onclick="showTransaction(${t.id})">View</button>`;
+
+if(t.status==="pending"){
+if(t.type==="deposit"){
+actions+=`
+<button class="btn approve" onclick="approveDeposit(${t.id})">Approve</button>
+<button class="btn reject" onclick="rejectDeposit(${t.id})">Reject</button>`;
+}else{
+actions+=`
+<button class="btn approve" onclick="approveWithdraw(${t.id})">Approve</button>
+<button class="btn reject" onclick="rejectWithdraw(${t.id})">Reject</button>`;
+}
+}
+
+html+=`
+<tr>
+<td>#${t.id}</td>
+<td><b>${esc(t.name||"Unknown")}</b><small>${esc(t.phone||"")}</small></td>
+<td>${esc(t.type||"-")}</td>
+<td><b>৳${Number(t.amount||0)}</b></td>
+<td>${esc(t.payment_method||"-")}<small>${esc(t.transaction_id||"-")}</small></td>
+<td><span class="badge ${esc(t.status||"pending")}">${esc(t.status||"pending")}</span></td>
+<td><div class="actions">${actions}</div></td>
+</tr>`;
+});
+
+html+=`</tbody></table></div>`;
+box.innerHTML=html;
+}
+
+async function approveDeposit(id){
+if(!confirm("Are you sure you want to approve this deposit?"))return;
+try{
+await api(`/api/admin/deposit/${id}/approve`,{method:"POST"});
+showToast("Deposit approved ✅");
+await loadTransactions();
+}catch(error){showToast(error.message);}
+}
+
+async function rejectDeposit(id){
+if(!confirm("Are you sure you want to reject this deposit?"))return;
+try{
+await api(`/api/admin/deposit/${id}/reject`,{method:"POST"});
+showToast("Deposit rejected");
+await loadTransactions();
+}catch(error){showToast(error.message);}
+}
+
+async function approveWithdraw(id){
+if(!confirm("Are you sure you want to approve this withdrawal?"))return;
+try{
+await api(`/api/admin/withdraw/${id}/approve`,{method:"POST"});
+showToast("Withdrawal approved ✅");
+await loadTransactions();
+}catch(error){showToast(error.message);}
+}
+
+async function rejectWithdraw(id){
+if(!confirm("Are you sure you want to reject this withdrawal?"))return;
+try{
+await api(`/api/admin/withdraw/${id}/reject`,{method:"POST"});
+showToast("Withdrawal rejected");
+await loadTransactions();
+}catch(error){showToast(error.message);}
+}
+
+async function loadOrders(){
+const box=document.getElementById("orderContent");
+box.innerHTML='<div class="loading">Loading...</div>';
+
+try{
+const data=await api("/api/admin/orders");
+orders=data.orders||[];
+
+document.getElementById("ordersCount").textContent=orders.length;
+
+document.getElementById("usersCount").textContent=
+new Set(orders.map(x=>x.phone).filter(Boolean)).size;
+
+renderOrders();
+}catch(error){
+orders=[];
+document.getElementById("ordersCount").textContent="0";
+document.getElementById("usersCount").textContent="0";
+box.innerHTML='<div class="empty">Orders API is not connected yet.</div>';
+}
+}
+
+function renderOrders(){
+const box=document.getElementById("

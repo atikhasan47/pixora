@@ -1,0 +1,3196 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080b16">
+<title>Pixora Editor + Income</title>
+
+<style>
+:root{
+  --bg:#080b16;
+  --panel:#12192b;
+  --panel2:#1b2540;
+  --purple:#7c5cff;
+  --blue:#00b9ff;
+  --text:#fff;
+  --muted:#aeb6cf;
+  --green:#62e6b5;
+  --red:#ff6678;
+  --yellow:#ffd166;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:linear-gradient(180deg,#080b16,#10182d);
+  color:var(--text);
+  font-family:Arial,"Noto Sans Bengali",sans-serif;
+}
+
+button,input,select,textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.app{
+  max-width:900px;
+  margin:auto;
+  min-height:100vh;
+  padding-bottom:85px;
+}
+
+.header{
+  padding:18px;
+  background:linear-gradient(135deg,#6948e8,#00aeea);
+  border-radius:0 0 26px 26px;
+}
+
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+}
+
+.logo{
+  font-size:23px;
+  font-weight:bold;
+}
+
+.tag{
+  font-size:12px;
+  margin-top:5px;
+}
+
+.badge{
+  background:#ffffff25;
+  padding:9px 11px;
+  border-radius:14px;
+  font-size:12px;
+  white-space:nowrap;
+}
+
+main{
+  padding:12px;
+}
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+.panel,
+.hero,
+.service,
+.balance{
+  background:var(--panel);
+  border:1px solid #ffffff12;
+  border-radius:20px;
+  padding:16px;
+  margin-bottom:13px;
+}
+
+.hero{
+  background:linear-gradient(135deg,#151e38,#162c49);
+}
+
+h1,h2,h3,p{
+  margin-top:0;
+}
+
+.muted,
+.notice{
+  color:var(--muted);
+  line-height:1.55;
+}
+
+.notice{
+  font-size:12px;
+}
+
+.primary,
+.small{
+  border:0;
+  border-radius:13px;
+  padding:13px;
+  color:#fff;
+}
+
+.primary{
+  width:100%;
+  background:linear-gradient(135deg,var(--purple),var(--blue));
+  font-weight:bold;
+}
+
+.small{
+  width:100%;
+  background:#263354;
+  margin-top:7px;
+}
+
+.danger{
+  background:#482330;
+}
+
+.success{
+  color:var(--green);
+}
+
+.warning{
+  color:var(--yellow);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.service{
+  margin:0;
+}
+
+.icon{
+  font-size:30px;
+}
+
+.price{
+  color:var(--green);
+  font-size:18px;
+  font-weight:bold;
+  margin:7px 0;
+}
+
+.ad{
+  border:2px dashed #53617f;
+  padding:18px;
+  border-radius:16px;
+  text-align:center;
+  color:var(--muted);
+  margin-bottom:13px;
+}
+
+input,
+select,
+textarea{
+  width:100%;
+  background:#0b1122;
+  border:1px solid #36415f;
+  color:#fff;
+  padding:12px;
+  border-radius:12px;
+  margin:6px 0;
+  outline:none;
+}
+
+textarea{
+  min-height:95px;
+  resize:vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:var(--blue);
+}
+
+.bottomNav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  z-index:1000;
+  background:#0b1020f7;
+  backdrop-filter:blur(10px);
+  border-top:1px solid #ffffff18;
+  display:flex;
+  justify-content:center;
+  overflow:auto;
+}
+
+.bottomNav button{
+  background:none;
+  border:0;
+  color:#aeb6cf;
+  padding:10px 12px;
+  font-size:11px;
+  min-width:65px;
+  white-space:nowrap;
+}
+
+.bottomNav button.active{
+  color:#7ee7ff;
+}
+
+/* EDITOR */
+
+.editorHeader{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:10px;
+}
+
+.editorPreview{
+  width:100%;
+  height:430px;
+  max-height:62vh;
+  background:#000;
+  border-radius:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  position:relative;
+}
+
+.editorPreview video{
+  max-width:100%;
+  max-height:100%;
+  transition:.2s;
+}
+
+.emptyPreview{
+  color:#8992aa;
+  text-align:center;
+  padding:25px;
+}
+
+.uploadBox{
+  border:2px dashed #536184;
+  border-radius:16px;
+  padding:15px;
+  margin-bottom:12px;
+  text-align:center;
+}
+
+.timeline{
+  background:#0b1122;
+  border-radius:15px;
+  padding:13px;
+  margin-top:12px;
+}
+
+.timeRow{
+  display:flex;
+  justify-content:space-between;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.timeline input[type=range]{
+  margin:8px 0;
+}
+
+.playControls{
+  display:flex;
+  gap:8px;
+  justify-content:center;
+}
+
+.playControls button{
+  border:0;
+  background:#253252;
+  color:#fff;
+  padding:10px 15px;
+  border-radius:12px;
+  font-size:16px;
+}
+
+/* TOOLBAR */
+
+.editorTools{
+  background:#10172af5;
+  border:1px solid #ffffff12;
+  border-radius:19px;
+  padding:10px;
+  margin-top:12px;
+}
+
+.toolbar{
+  display:flex;
+  gap:9px;
+  overflow-x:auto;
+  padding-bottom:4px;
+}
+
+.toolButton{
+  min-width:68px;
+  border:0;
+  background:#202b48;
+  color:#fff;
+  border-radius:14px;
+  padding:10px 7px;
+  font-size:11px;
+}
+
+.toolButton span{
+  display:block;
+  font-size:21px;
+  margin-bottom:4px;
+}
+
+.toolButton.active{
+  background:linear-gradient(135deg,#7c5cff,#00b9ff);
+}
+
+.toolPanel{
+  display:none;
+  background:#151e35;
+  border-radius:16px;
+  padding:13px;
+  margin-top:10px;
+}
+
+.toolPanel.active{
+  display:block;
+}
+
+.toolGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.control{
+  background:#0b1122;
+  padding:11px;
+  border-radius:13px;
+}
+
+.control label{
+  font-size:12px;
+  color:#d8def0;
+  display:block;
+  margin-bottom:5px;
+}
+
+.rangeValue{
+  color:#7ee7ff;
+  float:right;
+}
+
+.effectButtons{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+}
+
+.effectButtons button{
+  border:0;
+  background:#263354;
+  color:white;
+  padding:11px 5px;
+  border-radius:11px;
+  font-size:12px;
+}
+
+.trimBox{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+/* WORKS */
+
+.task{
+  background:#0b1122;
+  padding:14px;
+  border-radius:14px;
+  margin:9px 0;
+}
+
+.taskTop{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+}
+
+.taskTitle{
+  font-weight:bold;
+  font-size:16px;
+}
+
+.tagPill{
+  background:#263354;
+  padding:5px 8px;
+  border-radius:9px;
+  font-size:11px;
+  white-space:nowrap;
+}
+
+.taskActions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+}
+
+/* WALLET */
+
+.balance{
+  text-align:center;
+  background:linear-gradient(135deg,#17234a,#263b72);
+}
+
+.amount{
+  font-size:32px;
+  color:#7ee7ff;
+  font-weight:bold;
+  margin:8px;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:13px;
+}
+
+.stat{
+  background:#0b1122;
+  padding:13px;
+  border-radius:14px;
+}
+
+.stat b{
+  display:block;
+  font-size:19px;
+  margin-top:5px;
+}
+
+.history,
+.orderCard{
+  background:#0b1122;
+  padding:13px;
+  border-radius:13px;
+  margin:8px 0;
+}
+
+/* ADMIN */
+
+.adminBox{
+  border:1px solid #ffffff12;
+  background:#151e35;
+  padding:13px;
+  border-radius:15px;
+  margin-top:10px;
+}
+
+.owner{
+  background:linear-gradient(135deg,#2c1e5c,#163c55);
+  padding:14px;
+  border-radius:15px;
+  margin-bottom:12px;
+}
+
+.orderStatus{
+  padding:5px 8px;
+  border-radius:8px;
+  background:#263354;
+  font-size:11px;
+}
+
+.contact{
+  display:block;
+  background:#202b48;
+  color:#fff;
+  text-decoration:none;
+  padding:14px;
+  border-radius:14px;
+  margin:8px 0;
+}
+
+.number{
+  color:#7ee7ff;
+  font-size:20px;
+  font-weight:bold;
+}
+
+.pay{
+  background:#0b1122;
+  padding:14px;
+  border-radius:14px;
+}
+
+.template{
+  display:flex;
+  gap:10px;
+  overflow:auto;
+}
+
+.temp{
+  min-width:145px;
+  background:#202b48;
+  padding:18px;
+  border-radius:15px;
+  text-align:center;
+}
+
+.empty{
+  padding:18px;
+  text-align:center;
+  color:var(--muted);
+  background:#0b1122;
+  border-radius:13px;
+}
+
+@media(max-width:600px){
+  .logo{
+    font-size:19px;
+  }
+
+  .badge{
+    font-size:10px;
+  }
+
+  .grid,
+  .toolGrid,
+  .stats,
+  .trimBox{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .editorPreview{
+    height:330px;
+  }
+
+  .effectButtons{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:380px){
+  .grid,
+  .toolGrid,
+  .stats,
+  .trimBox{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header class="header">
+  <div class="top">
+    <div>
+      <div class="logo">✨ Pixora Editor + Income</div>
+      <div class="tag">আতিক ব্রান্ড • Creative Platform</div>
+    </div>
+    <div class="badge">👑 Owner Control</div>
+  </div>
+</header>
+
+<main>
+
+<!-- HOME -->
+
+<section id="home" class="page active">
+
+<div class="panel">
+  <h2>👑 আতিক ব্রান্ড ড্যাশবোর্ড</h2>
+  <p class="muted">
+    Pixora Editor + Income — Video Editing, Service & Income Platform
+  </p>
+</div>
+
+<div class="hero">
+  <h2>তোমার আইডিয়াকে ক্রিয়েটিভ করে তুলি ✨</h2>
+  <p class="muted">
+    নিজে Video Editor ব্যবহার করুন অথবা Professional Service অর্ডার করুন।
+  </p>
+
+  <button class="primary" onclick="showPage('editor')">
+    🎬 Video Editor খুলুন
+  </button>
+</div>
+
+<div class="ad">
+  📢 ADVERTISEMENT SPACE
+</div>
+
+<div class="grid">
+
+<div class="service">
+  <div class="icon">🎬</div>
+  <h3>Video Editor</h3>
+  <p class="muted">সহজ Toolbar দিয়ে Preview Edit</p>
+  <button class="small" onclick="showPage('editor')">
+    Open Editor
+  </button>
+</div>
+
+<div class="service">
+  <div class="icon">🖼️</div>
+  <h3>Photo Edit</h3>
+  <div class="price">৪০ টাকা</div>
+  <button class="small" onclick="chooseService('Photo Edit — ৪০ টাকা')">
+    Order
+  </button>
+</div>
+
+<div class="service">
+  <div class="icon">🎞️</div>
+  <h3>Video Edit</h3>
+  <div class="price">৭০ টাকা</div>
+  <button class="small" onclick="chooseService('Video Edit — ৭০ টাকা')">
+    Order
+  </button>
+</div>
+
+<div class="service">
+  <div class="icon">🛠️</div>
+  <h3>Custom Work</h3>
+  <p class="muted">Admin যোগ করা কাজ</p>
+  <button class="small" onclick="showPage('works')">
+    View Works
+  </button>
+</div>
+
+</div>
+
+<h3 style="margin-top:18px">🎞️ Video Templates</h3>
+
+<div class="template">
+  <div class="temp">🔥<br>Trending</div>
+  <div class="temp">❤️<br>Love</div>
+  <div class="temp">🎉<br>Birthday</div>
+  <div class="temp">🎬<br>Cinematic</div>
+</div>
+
+</section>
+
+
+<!-- EDITOR -->
+
+<section id="editor" class="page">
+
+<div class="editorHeader">
+  <div>
+    <h2>🎬 Pixora Editor</h2>
+    <div class="notice">
+      সহজ নিচের Toolbar দিয়ে ভিডিও Preview Edit করুন
+    </div>
+  </div>
+
+  <button class="small" style="width:auto" onclick="showPage('home')">
+    ← Back
+  </button>
+</div>
+
+<div class="uploadBox">
+
+<input
+  id="videoFile"
+  type="file"
+  accept="video/*"
+  onchange="loadVideo(event)"
+>
+
+<div class="notice">
+  📁 আপনার ভিডিও নির্বাচন করুন
+</div>
+
+</div>
+
+<div class="editorPreview" id="previewBox">
+
+<div class="emptyPreview">
+  🎬<br><br>
+  ভিডিও নির্বাচন করলে এখানে Preview দেখা যাবে
+</div>
+
+</div>
+
+<div class="timeline">
+
+<div class="timeRow">
+  <span id="currentTime">00:00</span>
+  <span id="durationTime">00:00</span>
+</div>
+
+<input
+  id="seekBar"
+  type="range"
+  min="0"
+  max="100"
+  value="0"
+  style="width:100%"
+  oninput="seekVideo(this.value)"
+>
+
+<div class="playControls">
+  <button onclick="backward()">⏪</button>
+  <button onclick="playPause()" id="playButton">▶️</button>
+  <button onclick="forward()">⏩</button>
+</div>
+
+</div>
+
+
+<div class="editorTools">
+
+<div class="toolbar">
+
+<button class="toolButton active" onclick="openTool('basic',this)">
+<span>✂️</span>Basic
+</button>
+
+<button class="toolButton" onclick="openTool('color',this)">
+<span>🎨</span>Color
+</button>
+
+<button class="toolButton" onclick="openTool('blur',this)">
+<span>🌫️</span>Blur
+</button>
+
+<button class="toolButton" onclick="openTool('motion',this)">
+<span>🎥</span>Motion
+</button>
+
+<button class="toolButton" onclick="openTool('speed',this)">
+<span>⚡</span>Speed
+</button>
+
+<button class="toolButton" onclick="openTool('audio',this)">
+<span>🔊</span>Audio
+</button>
+
+<button class="toolButton" onclick="openTool('effects',this)">
+<span>✨</span>Effects
+</button>
+
+<button class="toolButton" onclick="openTool('transform',this)">
+<span>🔄</span>Transform
+</button>
+
+</div>
+
+
+<!-- BASIC -->
+
+<div id="basic" class="toolPanel active">
+
+<div class="trimBox">
+
+<div class="control">
+<label>
+⏱️ Trim Start
+<span class="rangeValue" id="startValue">00:00</span>
+</label>
+
+<input
+id="trimStart"
+type="range"
+min="0"
+max="0"
+value="0"
+oninput="setTrimStart(this.value)"
+>
+</div>
+
+<div class="control">
+<label>
+⏱️ Trim End
+<span class="rangeValue" id="endValue">00:00</span>
+</label>
+
+<input
+id="trimEnd"
+type="range"
+min="0"
+max="0"
+value="0"
+oninput="setTrimEnd(this.value)"
+>
+</div>
+
+</div>
+
+<div class="control" style="margin-top:10px">
+
+<label>📐 Aspect Ratio</label>
+
+<select onchange="changeAspect(this.value)">
+<option value="auto">Original</option>
+<option value="16/9">16:9</option>
+<option value="9/16">9:16</option>
+<option value="1/1">1:1</option>
+</select>
+
+<button class="small" onclick="previewTrim()">
+✂️ Preview Trim
+</button>
+
+</div>
+
+</div>
+
+
+<!-- COLOR -->
+
+<div id="color" class="toolPanel">
+
+<div class="toolGrid">
+
+<div class="control">
+
+<label>
+Brightness
+<span class="rangeValue" id="brightnessValue">100</span>
+</label>
+
+<input
+type="range"
+min="50"
+max="150"
+value="100"
+oninput="changeFilter('brightness',this.value,'brightnessValue')"
+>
+
+</div>
+
+<div class="control">
+
+<label>
+Contrast
+<span class="rangeValue" id="contrastValue">100</span>
+</label>
+
+<input
+type="range"
+min="50"
+max="180"
+value="100"
+oninput="changeFilter('contrast',this.value,'contrastValue')"
+>
+
+</div>
+
+<div class="control">
+
+<label>
+Saturation
+<span class="rangeValue" id="saturationValue">100</span>
+</label>
+
+<input
+type="range"
+min="0"
+max="200"
+value="100"
+oninput="changeFilter('saturate',this.value,'saturationValue')"
+>
+
+</div>
+
+<div class="control">
+
+<label>
+Grayscale
+<span class="rangeValue" id="grayValue">0</span>
+</label>
+
+<input
+type="range"
+min="0"
+max="100"
+value="0"
+oninput="changeFilter('grayscale',this.value,'grayValue')"
+>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- BLUR -->
+
+<div id="blur" class="toolPanel">
+
+<div class="toolGrid">
+
+<div class="control">
+
+<label>
+Video Blur
+<span class="rangeValue" id="blurValue">0</span>
+</label>
+
+<input
+type="range"
+min="0"
+max="20"
+value="0"
+oninput="changeBlur(this.value)"
+>
+
+</div>
+
+<div class="control">
+
+<label>Background Blur</label>
+
+<p class="notice">
+Preview-এ পুরো ভিডিও Blur করা যায়।
+AI subject separation-এর জন্য আলাদা processing engine লাগবে।
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- MOTION -->
+
+<div id="motion" class="toolPanel">
+
+<div class="toolGrid">
+
+<div class="control">
+
+<label>
+Zoom
+<span class="rangeValue" id="zoomValue">100</span>
+</label>
+
+<input
+type="range"
+min="80"
+max="160"
+value="100"
+oninput="changeZoom(this.value)"
+>
+
+</div>
+
+<div class="control">
+
+<label>Motion</label>
+
+<button class="small" onclick="shakeVideo()">
+📳 Shake
+</button>
+
+<button class="small" onclick="pulseVideo()">
+🔍 Pulse Zoom
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- SPEED -->
+
+<div id="speed" class="toolPanel">
+
+<div class="effectButtons">
+
+<button onclick="setSpeed(.5)">
+0.5x<br>Slow
+</button>
+
+<button onclick="setSpeed(.75)">
+0.75x
+</button>
+
+<button onclick="setSpeed(1)">
+1x<br>Normal
+</button>
+
+<button onclick="setSpeed(1.25)">
+1.25x
+</button>
+
+<button onclick="setSpeed(1.5)">
+1.5x
+</button>
+
+<button onclick="setSpeed(2)">
+2x<br>Fast
+</button>
+
+</div>
+
+</div>
+
+
+<!-- AUDIO -->
+
+<div id="audio" class="toolPanel">
+
+<div class="toolGrid">
+
+<div class="control">
+
+<label>
+Volume
+<span class="rangeValue" id="volumeValue">100</span>
+</label>
+
+<input
+type="range"
+min="0"
+max="100"
+value="100"
+oninput="changeVolume(this.value)"
+>
+
+</div>
+
+<div class="control">
+
+<label>Audio</label>
+
+<button class="small" onclick="toggleMute()">
+🔇 Mute / Unmute
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- EFFECTS -->
+
+<div id="effects" class="toolPanel">
+
+<div class="effectButtons">
+
+<button onclick="setEffect('normal')">
+🌈 Normal
+</button>
+
+<button onclick="setEffect('cinematic')">
+🎬 Cinematic
+</button>
+
+<button onclick="setEffect('vivid')">
+🔥 Vivid
+</button>
+
+<button onclick="setEffect('bw')">
+⚫ B&W
+</button>
+
+<button onclick="setEffect('warm')">
+☀️ Warm
+</button>
+
+<button onclick="setEffect('cool')">
+❄️ Cool
+</button>
+
+</div>
+
+</div>
+
+
+<!-- TRANSFORM -->
+
+<div id="transform" class="toolPanel">
+
+<div class="toolGrid">
+
+<div class="control">
+
+<label>Rotate</label>
+
+<div class="effectButtons">
+
+<button onclick="rotateBy(-90)">
+↩️ -90°
+</button>
+
+<button onclick="rotateBy(90)">
+↪️ +90°
+</button>
+
+</div>
+
+</div>
+
+<div class="control">
+
+<label>Flip / Reset</label>
+
+<button class="small" onclick="flipVideo()">
+↔️ Flip
+</button>
+
+<button class="small" onclick="resetEditor()">
+↺ Reset
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="panel">
+
+<h3>📥 Video Export</h3>
+
+<p class="notice">
+এই Version-এ Browser Preview Editing কাজ করে।
+নতুন MP4 ফাইল তৈরি করতে FFmpeg/WebAssembly বা Server Processing প্রয়োজন।
+</p>
+
+<button class="primary" onclick="exportInfo()">
+📥 Export Video
+</button>
+
+</div>
+
+</section>
+
+
+<!-- WORKS -->
+
+<section id="works" class="page">
+
+<div class="panel">
+
+<h2>🛠️ Available Works</h2>
+
+<p class="muted">
+Admin যে কাজগুলো যোগ করবে সেগুলো এখানে দেখা যাবে।
+</p>
+
+<div id="publicTasks"></div>
+
+</div>
+
+</section>
+
+
+<!-- ORDER -->
+
+<section id="order" class="page">
+
+<div class="panel">
+
+<h2>📦 কাজের অর্ডার</h2>
+
+<input
+id="customerName"
+placeholder="আপনার নাম"
+>
+
+<input
+id="customerPhone"
+placeholder="আপনার মোবাইল নম্বর"
+>
+
+<select id="serviceSelect">
+<option>Photo Edit — ৪০ টাকা</option>
+<option>Video Edit — ৭০ টাকা</option>
+</select>
+
+<textarea
+id="details"
+placeholder="কাজের বিস্তারিত লিখুন"
+></textarea>
+
+<button class="primary" onclick="showPage('payment')">
+পেমেন্টে যান →
+</button>
+
+</div>
+
+</section>
+
+
+<!-- PAYMENT -->
+
+<section id="payment" class="page">
+
+<div class="panel">
+
+<h2>💳 Payment</h2>
+
+<div class="pay">
+
+<b>📱 bKash Payment</b>
+
+<div class="number">
+01988891195
+</div>
+
+</div>
+
+<input
+id="trx"
+placeholder="bKash Transaction ID"
+>
+
+<button class="primary" onclick="submitOrder()">
+✅ অর্ডার পাঠান
+</button>
+
+<div id="orderMessage" class="notice"></div>
+
+</div>
+
+</section>
+
+
+<!-- WALLET -->
+
+<section id="wallet" class="page">
+
+<div class="balance">
+
+<div>💰 Wallet Balance</div>
+
+<div class="amount">
+৳ <span id="balanceAmount">0</span>
+</div>
+
+<button class="primary" onclick="showPage('withdraw')">
+💸 টাকা উত্তোলন
+</button>
+
+</div>
+
+<div class="stats">
+
+<div class="stat">
+মোট ইনকাম
+<b id="totalEarn">0</b>
+</div>
+
+<div class="stat">
+মোট উত্তোলন
+<b id="totalWithdraw">0</b>
+</div>
+
+</div>
+
+<div class="panel">
+
+<h3>📜 Wallet History</h3>
+
+<div id="history"></div>
+
+</div>
+
+</section>
+
+
+<!-- WITHDRAW -->
+
+<section id="withdraw" class="page">
+
+<div class="panel">
+
+<h2>💸 Withdrawal Request</h2>
+
+<input
+id="withdrawName"
+placeholder="আপনার নাম"
+>
+
+<select id="withdrawMethod">
+<option>bKash</option>
+<option>Nagad</option>
+<option>Rocket</option>
+</select>
+
+<input
+id="withdrawNumber"
+placeholder="পেমেন্ট নম্বর"
+>
+
+<input
+id="withdrawAmount"
+type="number"
+min="1"
+placeholder="পরিমাণ"
+>
+
+<button class="primary" onclick="requestWithdraw()">
+📤 Request পাঠান
+</button>
+
+<div id="withdrawMessage" class="notice"></div>
+
+</div>
+
+</section>
+
+
+<!-- ADMIN -->
+
+<section id="admin" class="page">
+
+<div class="owner">
+
+<h2>👑 Owner / Admin Control</h2>
+
+<p class="muted">
+এখান থেকে নিজের মতো কাজ যোগ করুন, দাম সেট করুন এবং কাজ সম্পন্ন হলে Wallet-এ টাকা যোগ করুন।
+</p>
+
+<b>Owner: আতিক ব্রান্ড</b>
+
+</div>
+
+
+<div class="panel">
+
+<h3>➕ নতুন কাজ দিন</h3>
+
+<input
+id="taskTitle"
+placeholder="কাজের নাম"
+>
+
+<textarea
+id="taskDesc"
+placeholder="কাজের বিস্তারিত"
+></textarea>
+
+<input
+id="taskPrice"
+type="number"
+min="0"
+placeholder="কাজের দাম"
+>
+
+<button class="primary" onclick="addTask()">
+➕ কাজ প্রকাশ করুন
+</button>
+
+</div>
+
+
+<div class="panel">
+
+<h3>📋 আমার কাজগুলো</h3>
+
+<div id="adminTasks"></div>
+
+</div>
+
+
+<div class="panel">
+
+<h3>📦 Customer Orders</h3>
+
+<div id="adminOrders"></div>
+
+</div>
+
+
+<div class="panel">
+
+<h3>💰 Wallet Control</h3>
+
+<input
+id="incomeAmount"
+type="number"
+min="1"
+placeholder="কত টাকা যোগ করবেন"
+>
+
+<input
+id="incomeNote"
+placeholder="কারণ / কাজের নাম"
+>
+
+<button class="primary" onclick="addWalletIncome()">
+💰 Wallet-এ টাকা যোগ করুন
+</button>
+
+<button class="small danger" onclick="resetWallet()">
+🗑️ Wallet Reset
+</button>
+
+</div>
+
+
+<div class="panel">
+
+<h3>💸 Withdrawal Requests</h3>
+
+<div id="adminWithdrawals"></div>
+
+</div>
+
+</section>
+
+
+<!-- CONTACT -->
+
+<section id="contact" class="page">
+
+<div class="panel">
+
+<h2>💬 যোগাযোগ</h2>
+
+<a
+class="contact"
+href="https://wa.me/8801988891195"
+target="_blank"
+>
+🟢 WhatsApp<br>
+01988891195
+</a>
+
+<a
+class="contact"
+href="https://t.me/atikbreand420"
+target="_blank"
+>
+🔵 Telegram<br>
+@atikbreand420
+</a>
+
+<div class="pay">
+
+<b>📱 bKash</b>
+
+<div class="number">
+01988891195
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+</div>
+
+
+<!-- NAV -->
+
+<nav class="bottomNav">
+
+<button class="active" onclick="showPage('home',this)">
+🏠<br>Home
+</button>
+
+<button onclick="showPage('editor',this)">
+🎬<br>Editor
+</button>
+
+<button onclick="showPage('works',this)">
+🛠️<br>Works
+</button>
+
+<button onclick="showPage('order',this)">
+📦<br>Order
+</button>
+
+<button onclick="showPage('wallet',this)">
+💰<br>Income
+</button>
+
+<button onclick="showPage('admin',this)">
+👑<br>Admin
+</button>
+
+<button onclick="showPage('contact',this)">
+💬<br>Contact
+</button>
+
+</nav>
+
+
+<script>
+
+/* =========================
+   GLOBAL
+========================= */
+
+let video=null;
+let videoURL=null;
+
+let filters={
+  brightness:100,
+  contrast:100,
+  saturate:100,
+  grayscale:0,
+  blur:0
+};
+
+let rotation=0;
+let flipped=false;
+let zoom=100;
+let trimStart=0;
+let trimEnd=0;
+
+
+/* =========================
+   HELPER
+========================= */
+
+function $(id){
+  return document.getElementById(id);
+}
+
+function escapeHTML(value){
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+
+/* =========================
+   PAGE
+========================= */
+
+function showPage(id,button){
+
+  document.querySelectorAll(".page").forEach(function(page){
+    page.classList.remove("active");
+  });
+
+  const page=$(id);
+
+  if(page){
+    page.classList.add("active");
+  }
+
+  document.querySelectorAll(".bottomNav button").forEach(function(btn){
+    btn.classList.remove("active");
+  });
+
+  if(button){
+    button.classList.add("active");
+  }
+
+  if(id==="wallet"){
+    loadWallet();
+  }
+
+  if(id==="works"){
+    loadPublicTasks();
+  }
+
+  if(id==="admin"){
+    loadAdmin();
+  }
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+}
+
+
+/* =========================
+   SERVICE
+========================= */
+
+function chooseService(name){
+
+  $("serviceSelect").value=name;
+
+  showPage("order");
+}
+
+
+/* =========================
+   VIDEO LOAD
+========================= */
+
+function loadVideo(event){
+
+  const file=
+    event.target.files &&
+    event.target.files[0];
+
+  if(!file){
+    return;
+  }
+
+  if(!file.type.startsWith("video/")){
+    alert("শুধু Video File নির্বাচন করুন।");
+    return;
+  }
+
+  if(videoURL){
+    URL.revokeObjectURL(videoURL);
+  }
+
+  videoURL=URL.createObjectURL(file);
+
+  $("previewBox").innerHTML=
+    '<video id="video" controls playsinline></video>';
+
+  video=$("video");
+
+  video.src=videoURL;
+
+  video.onloadedmetadata=function(){
+
+    const duration=
+      Number(video.duration)||0;
+
+    $("durationTime").textContent=
+      formatTime(duration);
+
+    $("seekBar").max=duration;
+    $("seekBar").value=0;
+
+    $("trimStart").max=duration;
+    $("trimEnd").max=duration;
+
+    $("trimStart").value=0;
+    $("trimEnd").value=duration;
+
+    trimStart=0;
+    trimEnd=duration;
+
+    $("startValue").textContent=
+      formatTime(0);
+
+    $("endValue").textContent=
+      formatTime(duration);
+
+    applyPreview();
+  };
+
+  video.ontimeupdate=function(){
+
+    $("currentTime").textContent=
+      formatTime(video.currentTime);
+
+    $("seekBar").value=
+      video.currentTime;
+
+    if(
+      trimEnd>trimStart &&
+      video.currentTime>=trimEnd
+    ){
+
+      video.currentTime=trimStart;
+      video.pause();
+
+      $("playButton").textContent="▶️";
+    }
+  };
+
+  video.onplay=function(){
+    $("playButton").textContent="⏸️";
+  };
+
+  video.onpause=function(){
+    $("playButton").textContent="▶️";
+  };
+
+  applyPreview();
+}
+
+
+/* =========================
+   TIME
+========================= */
+
+function formatTime(seconds){
+
+  seconds=Number(seconds);
+
+  if(
+    !isFinite(seconds) ||
+    seconds<0
+  ){
+    seconds=0;
+  }
+
+  const minutes=
+    Math.floor(seconds/60);
+
+  const sec=
+    Math.floor(seconds%60);
+
+  return String(minutes).padStart(2,"0")
+    +":"
+    +String(sec).padStart(2,"0");
+}
+
+
+/* =========================
+   PLAYBACK
+========================= */
+
+function playPause(){
+
+  if(!video){
+    alert("আগে একটি ভিডিও নির্বাচন করুন।");
+    return;
+  }
+
+  if(video.paused){
+
+    if(
+      trimEnd>trimStart &&
+      video.currentTime>=trimEnd
+    ){
+      video.currentTime=trimStart;
+    }
+
+    video.play();
+
+  }else{
+
+    video.pause();
+  }
+}
+
+
+function backward(){
+
+  if(video){
+    video.currentTime=
+      Math.max(
+        trimStart||0,
+        video.currentTime-5
+      );
+  }
+}
+
+
+function forward(){
+
+  if(video){
+
+    const end=
+      trimEnd||video.duration;
+
+    video.currentTime=
+      Math.min(
+        end,
+        video.currentTime+5
+      );
+  }
+}
+
+
+function seekVideo(value){
+
+  if(video){
+    video.currentTime=
+      Number(value);
+  }
+}
+
+
+/* =========================
+   TOOL PANELS
+========================= */
+
+function openTool(id,button){
+
+  document.querySelectorAll(".toolPanel")
+    .forEach(function(panel){
+      panel.classList.remove("active");
+    });
+
+  const panel=$(id);
+
+  if(panel){
+    panel.classList.add("active");
+  }
+
+  document.querySelectorAll(".toolButton")
+    .forEach(function(btn){
+      btn.classList.remove("active");
+    });
+
+  if(button){
+    button.classList.add("active");
+  }
+}
+
+
+/* =========================
+   PREVIEW
+========================= */
+
+function applyPreview(){
+
+  if(!video){
+    return;
+  }
+
+  video.style.filter=
+    "brightness("+filters.brightness+"%) "
+    +"contrast("+filters.contrast+"%) "
+    +"saturate("+filters.saturate+"%) "
+    +"grayscale("+filters.grayscale+"%) "
+    +"blur("+filters.blur+"px)";
+
+  video.style.transform=
+    "rotate("+rotation+"deg) "
+    +"scaleX("+(flipped?-1:1)+") "
+    +"scale("+zoom/100+")";
+}
+
+
+/* =========================
+   COLOR
+========================= */
+
+function changeFilter(name,value,id){
+
+  filters[name]=Number(value);
+
+  if($(id)){
+    $(id).textContent=value;
+  }
+
+  applyPreview();
+}
+
+
+function changeBlur(value){
+
+  filters.blur=
+    Number(value);
+
+  $("blurValue").textContent=value;
+
+  applyPreview();
+}
+
+
+function changeZoom(value){
+
+  zoom=Number(value);
+
+  $("zoomValue").textContent=value;
+
+  applyPreview();
+}
+
+
+/* =========================
+   SPEED
+========================= */
+
+function setSpeed(speed){
+
+  if(!video){
+    alert("আগে একটি ভিডিও নির্বাচন করুন।");
+    return;
+  }
+
+  video.playbackRate=speed;
+}
+
+
+/* =========================
+   AUDIO
+========================= */
+
+function changeVolume(value){
+
+  $("volumeValue").textContent=value;
+
+  if(video){
+    video.volume=
+      Number(value)/100;
+  }
+}
+
+
+function toggleMute(){
+
+  if(!video){
+    alert("আগে একটি ভিডিও নির্বাচন করুন।");
+    return;
+  }
+
+  video.muted=!video.muted;
+}
+
+
+/* =========================
+   EFFECTS
+========================= */
+
+function setEffect(effect){
+
+  if(effect==="normal"){
+    filters={
+      brightness:100,
+      contrast:100,
+      saturate:100,
+      grayscale:0,
+      blur:0
+    };
+  }
+
+  if(effect==="cinematic"){
+    filters={
+      brightness:92,
+      contrast:130,
+      saturate:115,
+      grayscale:0,
+      blur:0
+    };
+  }
+
+  if(effect==="vivid"){
+    filters={
+      brightness:108,
+      contrast:125,
+      saturate:160,
+      grayscale:0,
+      blur:0
+    };
+  }
+
+  if(effect==="bw"){
+    filters={
+      brightness:100,
+      contrast:120,
+      saturate:100,
+      grayscale:100,
+      blur:0
+    };
+  }
+
+  if(effect==="warm"){
+    filters={
+      brightness:108,
+      contrast:110,
+      saturate:135,
+      grayscale:0,
+      blur:0
+    };
+  }
+
+  if(effect==="cool"){
+    filters={
+      brightness:96,
+      contrast:115,
+      saturate:110,
+      grayscale:0,
+      blur:0
+    };
+  }
+
+  $("brightnessValue").textContent=
+    filters.brightness;
+
+  $("contrastValue").textContent=
+    filters.contrast;
+
+  $("saturationValue").textContent=
+    filters.saturate;
+
+  $("grayValue").textContent=
+    filters.grayscale;
+
+  $("blurValue").textContent=
+    filters.blur;
+
+  applyPreview();
+}
+
+
+/* =========================
+   TRANSFORM
+========================= */
+
+function rotateBy(value){
+
+  rotation=
+    (rotation+value)%360;
+
+  applyPreview();
+}
+
+
+function flipVideo(){
+
+  flipped=!flipped;
+
+  applyPreview();
+}
+
+
+/* =========================
+   MOTION
+========================= */
+
+function shakeVideo(){
+
+  if(!video){
+    alert("আগে একটি ভিডিও নির্বাচন করুন।");
+    return;
+  }
+
+  const base=
+    video.style.transform;
+
+  video.animate(
+    [
+      {
+        transform:base+" translateX(0)"
+      },
+      {
+        transform:base+" translateX(-10px)"
+      },
+      {
+        transform:base+" translateX(10px)"
+      },
+      {
+        transform:base+" translateX(0)"
+      }
+    ],
+    {
+      duration:450,
+      iterations:2
+    }
+  );
+}
+
+
+function pulseVideo(){
+
+  if(!video){
+    alert("আগে একটি ভিডিও নির্বাচন করুন।");
+    return;
+  }
+
+  const base=
+    video.style.transform;
+
+  video.animate(
+    [
+      {
+        transform:base
+      },
+      {
+        transform:base+" scale(1.08)"
+      },
+      {
+        transform:base
+      }
+    ],
+    {
+      duration:700,
+      iterations:2
+    }
+  );
+}
+
+
+/* =========================
+   ASPECT
+========================= */
+
+function changeAspect(value){
+
+  $("previewBox").style.aspectRatio=
+    value==="auto" ? "" : value;
+}
+
+
+/* =========================
+   TRIM
+========================= */
+
+function setTrimStart(value){
+
+  trimStart=
+    Number(value);
+
+  if(
+    trimEnd &&
+    trimStart>trimEnd
+  ){
+    trimStart=trimEnd;
+  }
+
+  $("trimStart").value=
+    trimStart;
+
+  $("startValue").textContent=
+    formatTime(trimStart);
+
+  if(video){
+    video.currentTime=
+      trimStart;
+  }
+}
+
+
+function setTrimEnd(value){
+
+  trimEnd=
+    Number(value);
+
+  if(trimEnd<trimStart){
+    trimEnd=trimStart;
+  }
+
+  $("trimEnd").value=
+    trimEnd;
+
+  $("endValue").textContent=
+    formatTime(trimEnd);
+}
+
+
+function previewTrim(){
+
+  if(!video){
+    alert("আগে একটি ভিডিও নির্বাচন করুন।");
+    return;
+  }
+
+  video.currentTime=
+    trimStart;
+
+  video.play();
+}
+
+
+/* =========================
+   RESET
+========================= */
+
+function resetEditor(){
+
+  filters={
+    brightness:100,
+    contrast:100,
+    saturate:100,
+    grayscale:0,
+    blur:0
+  };
+
+  rotation=0;
+  flipped=false;
+  zoom=100;
+
+  $("brightnessValue").textContent=100;
+  $("contrastValue").textContent=100;
+  $("saturationValue").textContent=100;
+  $("grayValue").textContent=0;
+  $("blurValue").textContent=0;
+  $("zoomValue").textContent=100;
+
+  applyPreview();
+}
+
+
+/* =========================
+   EXPORT INFO
+========================= */
+
+function exportInfo(){
+
+  alert(
+    "Pixora Editor Preview\n\n"
+    +"আপনার Edit settings Preview-তে কাজ করছে।\n\n"
+    +"নতুন MP4 তৈরি করার জন্য FFmpeg/WebAssembly "
+    +"বা Server Processing Engine যুক্ত করতে হবে।"
+  );
+}
+
+
+/* =========================
+   ORDERS
+========================= */
+
+function submitOrder(){
+
+  const name=
+    $("customerName").value.trim();
+
+  const phone=
+    $("customerPhone").value.trim();
+
+  const details=
+    $("details").value.trim();
+
+  const transaction=
+    $("trx").value.trim();
+
+  if(
+    !name ||
+    !phone ||
+    !details ||
+    !transaction
+  ){
+    alert("সব তথ্য পূরণ করুন।");
+    return;
+  }
+
+  let orders=
+    JSON.parse(
+      localStorage.getItem("pixora_orders")
+      ||"[]"
+    );
+
+  orders.unshift({
+
+    id:Date.now(),
+
+    name:name,
+
+    phone:phone,
+
+    service:
+      $("serviceSelect").value,
+
+    details:details,
+
+    transaction:transaction,
+
+    status:"Payment Verification Pending",
+
+    time:new Date().toLocaleString()
+
+  });
+
+  localStorage.setItem(
+    "pixora_orders",
+    JSON.stringify(orders)
+  );
+
+  $("orderMessage").innerHTML=
+    "✅ অর্ডার সফলভাবে সেভ হয়েছে।";
+
+  $("trx").value="";
+
+  loadAdmin();
+}
+
+
+/* =========================
+   WALLET
+========================= */
+
+function getWallet(){
+
+  return JSON.parse(
+    localStorage.getItem("pixora_wallet")
+    ||
+    '{"earned":0,"withdrawn":0,"history":[]}'
+  );
+}
+
+
+function saveWallet(wallet){
+
+  localStorage.setItem(
+    "pixora_wallet",
+    JSON.stringify(wallet)
+  );
+}
+
+
+function loadWallet(){
+
+  const wallet=
+    getWallet();
+
+  const earned=
+    Number(wallet.earned)||0;
+
+  const withdrawn=
+    Number(wallet.withdrawn)||0;
+
+  const balance=
+    Math.max(0,earned-withdrawn);
+
+  $("balanceAmount").textContent=
+    balance;
+
+  $("totalEarn").textContent=
+    earned;
+
+  $("totalWithdraw").textContent=
+    withdrawn;
+
+  if(wallet.history.length){
+
+    $("history").innerHTML=
+      wallet.history.map(function(item){
+
+        return `
+        <div class="history">
+          <b>${escapeHTML(item.type)}</b>
+          <br>
+          ৳ ${Number(item.amount)||0}
+          <br>
+          <small>
+            ${escapeHTML(item.time)}
+          </small>
+        </div>
+        `;
+
+      }).join("");
+
+  }else{
+
+    $("history").innerHTML=
+      '<div class="empty">কোনো Activity নেই।</div>';
+  }
+}
+
+
+/* =========================
+   WALLET INCOME
+========================= */
+
+function addWalletIncome(){
+
+  const amount=
+    Number($("incomeAmount").value);
+
+  const note=
+    $("incomeNote").value.trim()
+    ||"Admin Added Income";
+
+  if(
+    !amount ||
+    amount<=0 ||
+    !Number.isFinite(amount)
+  ){
+    alert("সঠিক টাকার পরিমাণ দিন।");
+    return;
+  }
+
+  const wallet=
+    getWallet();
+
+  wallet.earned=
+    Number(wallet.earned)+amount;
+
+  wallet.history.unshift({
+
+    type:note,
+
+    amount:amount,
+
+    time:new Date().toLocaleString()
+
+  });
+
+  saveWallet(wallet);
+
+  $("incomeAmount").value="";
+  $("incomeNote").value="";
+
+  loadWallet();
+
+  alert(
+    "✅ Wallet-এ ৳"+amount
+    +" যোগ হয়েছে।"
+  );
+}
+
+
+/* =========================
+   WITHDRAW
+========================= */
+
+function requestWithdraw(){
+
+  const name=
+    $("withdrawName").value.trim();
+
+  const number=
+    $("withdrawNumber").value.trim();
+
+  const amount=
+    Number($("withdrawAmount").value);
+
+  const wallet=
+    getWallet();
+
+  const balance=
+    Number(wallet.earned)
+    -
+    Number(wallet.withdrawn);
+
+  if(
+    !name ||
+    !number ||
+    !amount ||
+    amount<=0
+  ){
+    alert("সব তথ্য সঠিকভাবে পূরণ করুন।");
+    return;
+  }
+
+  if(amount>balance){
+
+    alert(
+      "পর্যাপ্ত Wallet Balance নেই।"
+    );
+
+    return;
+  }
+
+  let requests=
+    JSON.parse(
+      localStorage.getItem("pixora_withdrawals")
+      ||"[]"
+    );
+
+  requests.unshift({
+
+    id:Date.now(),
+
+    name:name,
+
+    method:
+      $("withdrawMethod").value,
+
+    number:number,
+
+    amount:amount,
+
+    status:"Pending Admin Verification",
+
+    time:new Date().toLocaleString()
+
+  });
+
+  localStorage.setItem(
+    "pixora_withdrawals",
+    JSON.stringify(requests)
+  );
+
+  wallet.withdrawn+=amount;
+
+  wallet.history.unshift({
+
+    type:"Withdrawal Request",
+
+    amount:amount,
+
+    time:new Date().toLocaleString()
+
+  });
+
+  saveWallet(wallet);
+
+  $("withdrawMessage").innerHTML=
+    "✅ Withdrawal Request পাঠানো হয়েছে।";
+
+  $("withdrawAmount").value="";
+
+  loadWallet();
+}
+
+
+/* =========================
+   TASKS
+========================= */
+
+function getTasks(){
+
+  return JSON.parse(
+    localStorage.getItem("pixora_tasks")
+    ||"[]"
+  );
+}
+
+
+function saveTasks(tasks){
+
+  localStorage.setItem(
+    "pixora_tasks",
+    JSON.stringify(tasks)
+  );
+}
+
+
+function addTask(){
+
+  const title=
+    $("taskTitle").value.trim();
+
+  const desc=
+    $("taskDesc").value.trim();
+
+  const price=
+    Number($("taskPrice").value);
+
+  if(
+    !title ||
+    !Number.isFinite(price) ||
+    price<0
+  ){
+    alert(
+      "কাজের নাম ও সঠিক দাম দিন।"
+    );
+
+    return;
+  }
+
+  let tasks=
+    getTasks();
+
+  tasks.unshift({
+
+    id:Date.now(),
+
+    title:title,
+
+    desc:desc,
+
+    price:price,
+
+    status:"Open",
+
+    created:new Date().toLocaleString()
+
+  });
+
+  saveTasks(tasks);
+
+  $("taskTitle").value="";
+  $("taskDesc").value="";
+  $("taskPrice").value="";
+
+  loadAdmin();
+  loadPublicTasks();
+
+  alert("✅ কাজ প্রকাশ হয়েছে।");
+}
+
+
+/* =========================
+   PUBLIC TASKS
+========================= */
+
+function loadPublicTasks(){
+
+  const tasks=
+    getTasks();
+
+  if(!tasks.length){
+
+    $("publicTasks").innerHTML=
+      '<div class="empty">এখনো কোনো Custom Work নেই।</div>';
+
+    return;
+  }
+
+  $("publicTasks").innerHTML=
+    tasks.map(function(task){
+
+      return `
+      <div class="task">
+
+        <div class="taskTop">
+
+          <div class="taskTitle">
+            ${escapeHTML(task.title)}
+          </div>
+
+          <span class="tagPill">
+            ${escapeHTML(task.status)}
+          </span>
+
+        </div>
+
+        <p class="notice">
+          ${escapeHTML(task.desc||"বিস্তারিত নেই")}
+        </p>
+
+        <div class="price">
+          ৳ ${Number(task.price)||0}
+        </div>
+
+        ${
+          task.status==="Open"
+          ?
+          `<button
+            class="small"
+            onclick="orderCustomTask(${task.id})"
+          >
+            📦 এই কাজটি অর্ডার করুন
+          </button>`
+          :
+          `<div class="success">
+            ✅ কাজটি সম্পন্ন
+          </div>`
+        }
+
+      </div>
+      `;
+
+    }).join("");
+}
+
+
+function orderCustomTask(id){
+
+  const task=
+    getTasks().find(function(x){
+      return x.id===id;
+    });
+
+  if(!task){
+    return;
+  }
+
+  $("serviceSelect").innerHTML=
+    `<option>
+      ${escapeHTML(task.title)}
+      — ${Number(task.price)||0} টাকা
+    </option>`;
+
+  $("details").value=
+    task.desc||"";
+
+  showPage("order");
+}
+
+
+/* =========================
+   COMPLETE TASK
+========================= */
+
+function completeTask(id){
+
+  let tasks=
+    getTasks();
+
+  const task=
+    tasks.find(function(x){
+      return x.id===id;
+    });
+
+  if(
+    !task ||
+    task.status==="Completed"
+  ){
+    return;
+  }
+
+  task.status="Completed";
+
+  const wallet=
+    getWallet();
+
+  wallet.earned=
+    Number(wallet.earned)
+    +
+    Number(task.price);
+
+  wallet.history.unshift({
+
+    type:
+      "কাজ সম্পন্ন: "
+      +task.title,
+
+    amount:
+      Number(task.price),
+
+    time:
+      new Date().toLocaleString()
+
+  });
+
+  saveTasks(tasks);
+  saveWallet(wallet);
+
+  loadAdmin();
+  loadPublicTasks();
+
+  alert(
+    "✅ কাজ সম্পন্ন হয়েছে।\n\n"
+    +"৳"+Number(task.price)
+    +" Wallet-এ যোগ হয়েছে।"
+  );
+}
+
+
+/* =========================
+   DELETE TASK
+========================= */
+
+function deleteTask(id){
+
+  if(
+    !confirm(
+      "এই কাজটি Delete করতে চান?"
+    )
+  ){
+    return;
+  }
+
+  let tasks=
+    getTasks().filter(function(task){
+      return task.id!==id;
+    });
+
+  saveTasks(tasks);
+
+  loadAdmin();
+  loadPublicTasks();
+}
+
+
+/* =========================
+   ADMIN
+========================= */
+
+function loadAdmin(){
+
+  loadAdminTasks();
+  loadAdminOrders();
+  loadAdminWithdrawals();
+}
+
+
+function loadAdminTasks(){
+
+  const tasks=
+    getTasks();
+
+  if(!tasks.length){
+
+    $("adminTasks").innerHTML=
+      '<div class="empty">এখনো কোনো কাজ যোগ করা হয়নি।</div>';
+
+    return;
+  }
+
+  $("adminTasks").innerHTML=
+    tasks.map(function(task){
+
+      return `
+      <div class="task">
+
+        <div class="taskTop">
+
+          <div class="taskTitle">
+            ${escapeHTML(task.title)}
+          </div>
+
+          <span class="tagPill">
+            ${escapeHTML(task.status)}
+          </span>
+
+        </div>
+
+        <p class="notice">
+          ${escapeHTML(task.desc||"বিস্তারিত নেই")}
+        </p>
+
+        <div class="price">
+          ৳ ${Number(task.price)||0}
+        </div>
+
+        ${
+          task.status!=="Completed"
+          ?
+          `
+          <button
+            class="small"
+            onclick="completeTask(${task.id})"
+          >
+            ✅ কাজ সম্পন্ন — Wallet-এ
+            ৳${Number(task.price)||0} যোগ
+          </button>
+          `
+          :
+          `
+          <div class="success">
+            ✅ সম্পন্ন এবং Wallet-এ যোগ হয়েছে
+          </div>
+          `
+        }
+
+        <button
+          class="small danger"
+          onclick="deleteTask(${task.id})"
+        >
+          🗑️ Delete
+        </button>
+
+      </div>
+      `;
+
+    }).join("");
+}
+
+
+/* =========================
+   ADMIN ORDERS
+========================= */
+
+function loadAdminOrders(){
+
+  let orders=
+    JSON.parse(
+      localStorage.getItem("pixora_orders")
+      ||"[]"
+    );
+
+  if(!orders.length){
+
+    $("adminOrders").innerHTML=
+      '<div class="empty">কোনো Customer Order নেই।</div>';
+
+    return;
+  }
+
+  $("adminOrders").innerHTML=
+    orders.map(function(order){
+
+      return `
+      <div class="orderCard">
+
+        <div class="taskTop">
+
+          <b>
+            ${escapeHTML(order.name)}
+          </b>
+
+          <span class="orderStatus">
+            ${escapeHTML(order.status)}
+          </span>
+
+        </div>
+
+        <p class="notice">
+          📱 ${escapeHTML(order.phone)}
+          <br>
+          📦 ${escapeHTML(order.service)}
+          <br>
+          💳 ${escapeHTML(order.transaction)}
+          <br>
+          📝 ${escapeHTML(order.details)}
+          <br>
+          🕒 ${escapeHTML(order.time)}
+        </p>
+
+        <button
+          class="small"
+          onclick="completeOrder(${order.id})"
+        >
+          ✅ Order Complete
+        </button>
+
+        <button
+          class="small danger"
+          onclick="deleteOrder(${order.id})"
+        >
+          🗑️ Delete Order
+        </button>
+
+      </div>
+      `;
+
+    }).join("");
+}
+
+
+function completeOrder(id){
+
+  let orders=
+    JSON.parse(
+      localStorage.getItem("pixora_orders")
+      ||"[]"
+    );
+
+  const order=
+    orders.find(function(x){
+      return x.id===id;
+    });
+
+  if(!order){
+    return;
+  }
+
+  order.status="Completed";
+
+  localStorage.setItem(
+    "pixora_orders",
+    JSON.stringify(orders)
+  );
+
+  loadAdminOrders();
+
+  alert("✅ Order Completed");
+}
+
+
+function deleteOrder(id){
+
+  if(
+    !confirm(
+      "এই Order Delete করতে চান?"
+    )
+  ){
+    return;
+  }
+
+  let orders=
+    JSON.parse(
+      localStorage.getItem("pixora_orders")
+      ||"[]"
+    );
+
+  orders=
+    orders.filter(function(order){
+      return order.id!==id;
+    });
+
+  localStorage.setItem(
+    "pixora_orders",
+    JSON.stringify(orders)
+  );
+
+  loadAdminOrders();
+}
+
+
+/* =========================
+   ADMIN WITHDRAWALS
+========================= */
+
+function loadAdminWithdrawals(){
+
+  let requests=
+    JSON.parse(
+      localStorage.getItem("pixora_withdrawals")
+      ||"[]"
+    );
+
+  if(!requests.length){
+
+    $("adminWithdrawals").innerHTML=
+      '<div class="empty">কোনো Withdrawal Request নেই।</div>';
+
+    return;
+  }
+
+  $("adminWithdrawals").innerHTML=
+    requests.map(function(request){
+
+      return `
+      <div class="orderCard">
+
+        <div class="taskTop">
+
+          <b>
+            ${escapeHTML(request.name)}
+          </b>
+
+          <span class="orderStatus">
+            ${escapeHTML(request.status)}
+          </span>
+
+        </div>
+
+        <p class="notice">
+          Method: ${escapeHTML(request.method)}
+          <br>
+          Number: ${escapeHTML(request.number)}
+          <br>
+          Amount: ৳${Number(request.amount)||0}
+          <br>
+          ${escapeHTML(request.time)}
+        </p>
+
+        <button
+          class="small"
+          onclick="approveWithdrawal(${request.id})"
+        >
+          ✅ Approve
+        </button>
+
+        <button
+          class="small danger"
+          onclick="rejectWithdrawal(${request.id})"
+        >
+          ❌ Reject
+        </button>
+
+      </div>
+      `;
+
+    }).join("");
+}
+
+
+/* =========================
+   APPROVE WITHDRAWAL
+========================= */
+
+function approveWithdrawal(id){
+
+  let requests=
+    JSON.parse(
+      localStorage.getItem("pixora_withdrawals")
+      ||"[]"
+    );
+
+  const request=
+    requests.find(function(x){
+      return x.id===id;
+    });
+
+  if(!request){
+    return;
+  }
+
+  request.status="Approved";
+
+  localStorage.setItem(
+    "pixora_withdrawals",
+    JSON.stringify(requests)
+  );
+
+  loadAdminWithdrawals();
+
+  alert("✅ Withdrawal Approved");
+}
+
+
+/* =========================
+   REJECT WITHDRAWAL
+========================= */
+
+function rejectWithdrawal(id){
+
+  let requests=
+    JSON.parse(
+      localStorage.getItem("pixora_withdrawals")
+      ||"[]"
+    );
+
+  const index=
+    requests.findIndex(function(x){
+      return x.id===id;
+    });
+
+  if(index===-1){
+    return;
+  }
+
+  const request=
+    requests[index];
+
+  const wallet=
+    getWallet();
+
+  if(request.status!=="Rejected"){
+
+    wallet.withdrawn=
+      Math.max(
+        0,
+        Number(wallet.withdrawn)
+        -
+        Number(request.amount)
+      );
+
+    wallet.history.unshift({
+
+      type:"Withdrawal Rejected — টাকা ফেরত",
+
+      amount:Number(request.amount),
+
+      time:new Date().toLocaleString()
+
+    });
+
+    saveWallet(wallet);
+  }
+
+  request.status="Rejected";
+
+  localStorage.setItem(
+    "pixora_withdrawals",
+    JSON.stringify(requests)
+  );
+
+  loadAdminWithdrawals();
+  loadWallet();
+
+  alert("❌ Withdrawal Rejected এবং টাকা Wallet-এ ফেরত দেওয়া হয়েছে।");
+}
+
+
+/* =========================
+   RESET WALLET
+========================= */
+
+function resetWallet(){
+
+  if(
+    !confirm(
+      "সত্যিই Wallet Reset করতে চান?"
+    )
+  ){
+    return;
+  }
+
+  saveWallet({
+    earned:0,
+    withdrawn:0,
+    history:[]
+  });
+
+  loadWallet();
+
+  alert("✅ Wallet Reset হয়েছে।");
+}
+
+
+/* =========================
+   STARTUP
+========================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    loadWallet();
+    loadPublicTasks();
+    loadAdmin();
+
+  }
+);
+
+</script>
+
+</body>
+</html>

@@ -1,1 +1,18 @@
+name: Pixora
 
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check Pixora files
+        run: |
+          echo "Pixora workflow is working"
+          ls -la

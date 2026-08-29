@@ -3225,5 +3225,460 @@ async function checkPixoraUser() {
 
 document.addEventListener("DOMContentLoaded", checkPixoraUser);
 </script>
+<!-- PIXORA LOGIN + SIGNUP UI -->
+
+<style>
+#pixoraAuthOverlay{
+  position:fixed;
+  inset:0;
+  z-index:99999;
+  background:linear-gradient(180deg,#080b16,#10182d);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  overflow:auto;
+}
+
+.pixoraAuthBox{
+  width:100%;
+  max-width:420px;
+  background:#12192b;
+  border:1px solid #ffffff15;
+  border-radius:24px;
+  padding:22px;
+  box-shadow:0 20px 60px #0008;
+}
+
+.pixoraAuthLogo{
+  text-align:center;
+  margin-bottom:18px;
+}
+
+.pixoraAuthLogo .logoIcon{
+  font-size:48px;
+}
+
+.pixoraAuthLogo h2{
+  margin:7px 0 4px;
+}
+
+.pixoraAuthLogo p{
+  color:#aeb6cf;
+  font-size:13px;
+  margin:0;
+}
+
+.pixoraAuthTabs{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+  background:#0b1122;
+  padding:5px;
+  border-radius:14px;
+  margin-bottom:15px;
+}
+
+.pixoraAuthTabs button{
+  border:0;
+  background:transparent;
+  color:#aeb6cf;
+  padding:11px;
+  border-radius:10px;
+  font-weight:bold;
+}
+
+.pixoraAuthTabs button.active{
+  background:linear-gradient(135deg,#7c5cff,#00b9ff);
+  color:#fff;
+}
+
+.pixoraAuthForm{
+  display:none;
+}
+
+.pixoraAuthForm.active{
+  display:block;
+}
+
+.pixoraAuthForm label{
+  display:block;
+  color:#d8def0;
+  font-size:13px;
+  margin-top:10px;
+}
+
+.pixoraAuthForm input{
+  width:100%;
+  background:#0b1122;
+  border:1px solid #36415f;
+  color:#fff;
+  padding:13px;
+  border-radius:12px;
+  margin:6px 0;
+  outline:none;
+}
+
+.pixoraAuthButton{
+  width:100%;
+  border:0;
+  border-radius:13px;
+  padding:14px;
+  margin-top:13px;
+  color:#fff;
+  background:linear-gradient(135deg,#7c5cff,#00b9ff);
+  font-weight:bold;
+}
+
+.pixoraAuthMessage{
+  min-height:20px;
+  margin-top:12px;
+  text-align:center;
+  font-size:12px;
+  line-height:1.5;
+}
+</style>
+
+<div id="pixoraAuthOverlay">
+
+  <div class="pixoraAuthBox">
+
+    <div class="pixoraAuthLogo">
+
+      <div class="logoIcon">✨</div>
+
+      <h2>Pixora Editor</h2>
+
+      <p>আতিক ব্রান্ড • Creative Platform</p>
+
+    </div>
+
+    <div class="pixoraAuthTabs">
+
+      <button
+        id="pixoraLoginTab"
+        class="active"
+        onclick="pixoraShowAuthForm('login')">
+        🔐 Login
+      </button>
+
+      <button
+        id="pixoraSignupTab"
+        onclick="pixoraShowAuthForm('signup')">
+        📝 Signup
+      </button>
+
+    </div>
+
+    <div
+      id="pixoraLoginForm"
+      class="pixoraAuthForm active">
+
+      <h3>🔐 Login করুন</h3>
+
+      <label>Email</label>
+
+      <input
+        id="authEmail"
+        type="email"
+        placeholder="আপনার Email"
+        autocomplete="email">
+
+      <label>Password</label>
+
+      <input
+        id="authPassword"
+        type="password"
+        placeholder="আপনার Password"
+        autocomplete="current-password">
+
+      <button
+        class="pixoraAuthButton"
+        onclick="pixoraSignIn()">
+        🔐 Login
+      </button>
+
+    </div>
+
+    <div
+      id="pixoraSignupForm"
+      class="pixoraAuthForm">
+
+      <h3>📝 নতুন Account</h3>
+
+      <label>আপনার নাম</label>
+
+      <input
+        id="authName"
+        type="text"
+        placeholder="আপনার নাম"
+        autocomplete="name">
+
+      <label>Email</label>
+
+      <input
+        id="authSignupEmail"
+        type="email"
+        placeholder="আপনার Email"
+        autocomplete="email">
+
+      <label>Password</label>
+
+      <input
+        id="authSignupPassword"
+        type="password"
+        placeholder="কমপক্ষে ৬ characters"
+        autocomplete="new-password">
+
+      <button
+        class="pixoraAuthButton"
+        onclick="pixoraSignUp()">
+        📝 Account তৈরি করুন
+      </button>
+
+    </div>
+
+    <div
+      id="authMessage"
+      class="pixoraAuthMessage">
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+function pixoraShowAuthForm(type){
+
+  const loginForm =
+    document.getElementById("pixoraLoginForm");
+
+  const signupForm =
+    document.getElementById("pixoraSignupForm");
+
+  const loginTab =
+    document.getElementById("pixoraLoginTab");
+
+  const signupTab =
+    document.getElementById("pixoraSignupTab");
+
+  const message =
+    document.getElementById("authMessage");
+
+  message.textContent="";
+
+  if(type==="login"){
+
+    loginForm.classList.add("active");
+    signupForm.classList.remove("active");
+
+    loginTab.classList.add("active");
+    signupTab.classList.remove("active");
+
+  }else{
+
+    loginForm.classList.remove("active");
+    signupForm.classList.add("active");
+
+    loginTab.classList.remove("active");
+    signupTab.classList.add("active");
+
+  }
+}
+
+async function pixoraSignIn(){
+
+  const email =
+    document.getElementById("authEmail").value.trim();
+
+  const password =
+    document.getElementById("authPassword").value;
+
+  const message =
+    document.getElementById("authMessage");
+
+  if(!email || !password){
+
+    message.textContent =
+      "⚠️ Email এবং Password দিন।";
+
+    return;
+  }
+
+  message.textContent =
+    "⏳ Login হচ্ছে...";
+
+  const { data, error } =
+    await pixoraSupabase.auth.signInWithPassword({
+      email:email,
+      password:password
+    });
+
+  if(error){
+
+    message.textContent =
+      "❌ "+error.message;
+
+    return;
+  }
+
+  await checkPixoraUser();
+
+  message.textContent =
+    "✅ Login সফল হয়েছে।";
+
+  setTimeout(function(){
+
+    const overlay =
+      document.getElementById("pixoraAuthOverlay");
+
+    if(overlay){
+      overlay.style.display="none";
+    }
+
+  },500);
+}
+
+async function pixoraSignUp(){
+
+  const name =
+    document.getElementById("authName").value.trim();
+
+  const email =
+    document.getElementById("authSignupEmail").value.trim();
+
+  const password =
+    document.getElementById("authSignupPassword").value;
+
+  const message =
+    document.getElementById("authMessage");
+
+  if(!name || !email || !password){
+
+    message.textContent =
+      "⚠️ সব তথ্য পূরণ করুন।";
+
+    return;
+  }
+
+  if(password.length < 6){
+
+    message.textContent =
+      "⚠️ Password কমপক্ষে ৬ characters হতে হবে।";
+
+    return;
+  }
+
+  message.textContent =
+    "⏳ Account তৈরি হচ্ছে...";
+
+  const { data, error } =
+    await pixoraSupabase.auth.signUp({
+
+      email:email,
+
+      password:password,
+
+      options:{
+        data:{
+          full_name:name
+        }
+      }
+
+    });
+
+  if(error){
+
+    message.textContent =
+      "❌ "+error.message;
+
+    return;
+  }
+
+  if(data.session){
+
+    await checkPixoraUser();
+
+    message.textContent =
+      "✅ Account তৈরি হয়েছে।";
+
+    setTimeout(function(){
+
+      const overlay =
+        document.getElementById("pixoraAuthOverlay");
+
+      if(overlay){
+        overlay.style.display="none";
+      }
+
+    },700);
+
+  }else{
+
+    message.textContent =
+      "✅ Account তৈরি হয়েছে। Email verify করে Login করুন।";
+
+  }
+}
+
+async function pixoraCheckAuth(){
+
+  const { data } =
+    await pixoraSupabase.auth.getSession();
+
+  const overlay =
+    document.getElementById("pixoraAuthOverlay");
+
+  if(data && data.session){
+
+    await checkPixoraUser();
+
+    if(overlay){
+      overlay.style.display="none";
+    }
+
+  }else{
+
+    if(overlay){
+      overlay.style.display="flex";
+    }
+
+  }
+}
+
+pixoraSupabase.auth.onAuthStateChange(
+  function(event,session){
+
+    const overlay =
+      document.getElementById("pixoraAuthOverlay");
+
+    if(session){
+
+      if(overlay){
+        overlay.style.display="none";
+      }
+
+    }else{
+
+      if(overlay){
+        overlay.style.display="flex";
+      }
+
+    }
+
+  }
+);
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    pixoraCheckAuth();
+
+  }
+);
+
+</script>
 </body>
 </html>

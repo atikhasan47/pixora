@@ -3191,6 +3191,39 @@ document.addEventListener(
 );
 
 </script>
+<!-- PIXORA SUPABASE AUTH -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<script>
+const PIXORA_SUPABASE_URL = "https://yijviyxdcrhkjqxqcbul.supabase.co";
+const PIXORA_SUPABASE_KEY = "sb_publishable_wlq00hXvpHtoa5rmG-A7PA_OXgY4VMd";
+
+const pixoraSupabase = window.supabase.createClient(
+  PIXORA_SUPABASE_URL,
+  PIXORA_SUPABASE_KEY
+);
+
+async function checkPixoraUser() {
+  const { data, error } = await pixoraSupabase.auth.getUser();
+
+  if (error || !data.user) {
+    window.pixoraIsAdmin = false;
+    return;
+  }
+
+  const { data: profile } = await pixoraSupabase
+    .from("profiles")
+    .select("id,email,full_name,role")
+    .eq("id", data.user.id)
+    .maybeSingle();
+
+  window.pixoraProfile = profile;
+  window.pixoraIsAdmin = profile?.role === "admin";
+
+  console.log("Pixora Admin:", window.pixoraIsAdmin);
+}
+
+document.addEventListener("DOMContentLoaded", checkPixoraUser);
+</script>
 </body>
 </html>

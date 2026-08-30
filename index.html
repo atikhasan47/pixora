@@ -2,3683 +2,1089 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#080b16">
+<meta name="description" content="Pixora Creative Platform — Video & Photo Editor + Income">
 <title>Pixora Editor + Income</title>
-
 <style>
-:root{
-  --bg:#080b16;
-  --panel:#12192b;
-  --panel2:#1b2540;
-  --purple:#7c5cff;
-  --blue:#00b9ff;
-  --text:#fff;
-  --muted:#aeb6cf;
-  --green:#62e6b5;
-  --red:#ff6678;
-  --yellow:#ffd166;
-}
-
-*{box-sizing:border-box}
-
-body{
-  margin:0;
-  background:linear-gradient(180deg,#080b16,#10182d);
-  color:var(--text);
-  font-family:Arial,"Noto Sans Bengali",sans-serif;
-}
-
-button,input,select,textarea{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
-}
-
-.app{
-  max-width:900px;
-  margin:auto;
-  min-height:100vh;
-  padding-bottom:85px;
-}
-
-.header{
-  padding:18px;
-  background:linear-gradient(135deg,#6948e8,#00aeea);
-  border-radius:0 0 26px 26px;
-}
-
-.top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-}
-
-.logo{
-  font-size:23px;
-  font-weight:bold;
-}
-
-.tag{
-  font-size:12px;
-  margin-top:5px;
-}
-
-.badge{
-  background:#ffffff25;
-  padding:9px 11px;
-  border-radius:14px;
-  font-size:12px;
-  white-space:nowrap;
-}
-
-main{
-  padding:12px;
-}
-
-.page{
-  display:none;
-}
-
-.page.active{
-  display:block;
-}
-
-.panel,
-.hero,
-.service,
-.balance{
-  background:var(--panel);
-  border:1px solid #ffffff12;
-  border-radius:20px;
-  padding:16px;
-  margin-bottom:13px;
-}
-
-.hero{
-  background:linear-gradient(135deg,#151e38,#162c49);
-}
-
-h1,h2,h3,p{
-  margin-top:0;
-}
-
-.muted,
-.notice{
-  color:var(--muted);
-  line-height:1.55;
-}
-
-.notice{
-  font-size:12px;
-}
-
-.primary,
-.small{
-  border:0;
-  border-radius:13px;
-  padding:13px;
-  color:#fff;
-}
-
-.primary{
-  width:100%;
-  background:linear-gradient(135deg,var(--purple),var(--blue));
-  font-weight:bold;
-}
-
-.small{
-  width:100%;
-  background:#263354;
-  margin-top:7px;
-}
-
-.danger{
-  background:#482330;
-}
-
-.success{
-  color:var(--green);
-}
-
-.warning{
-  color:var(--yellow);
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
-
-.service{
-  margin:0;
-}
-
-.icon{
-  font-size:30px;
-}
-
-.price{
-  color:var(--green);
-  font-size:18px;
-  font-weight:bold;
-  margin:7px 0;
-}
-
-.ad{
-  border:2px dashed #53617f;
-  padding:18px;
-  border-radius:16px;
-  text-align:center;
-  color:var(--muted);
-  margin-bottom:13px;
-}
-
-input,
-select,
-textarea{
-  width:100%;
-  background:#0b1122;
-  border:1px solid #36415f;
-  color:#fff;
-  padding:12px;
-  border-radius:12px;
-  margin:6px 0;
-  outline:none;
-}
-
-textarea{
-  min-height:95px;
-  resize:vertical;
-}
-
-input:focus,
-select:focus,
-textarea:focus{
-  border-color:var(--blue);
-}
-
-.bottomNav{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  z-index:1000;
-  background:#0b1020f7;
-  backdrop-filter:blur(10px);
-  border-top:1px solid #ffffff18;
-  display:flex;
-  justify-content:center;
-  overflow:auto;
-}
-
-.bottomNav button{
-  background:none;
-  border:0;
-  color:#aeb6cf;
-  padding:10px 12px;
-  font-size:11px;
-  min-width:65px;
-  white-space:nowrap;
-}
-
-.bottomNav button.active{
-  color:#7ee7ff;
-}
-
-/* EDITOR */
-
-.editorHeader{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  margin-bottom:10px;
-}
-
-.editorPreview{
-  width:100%;
-  height:430px;
-  max-height:62vh;
-  background:#000;
-  border-radius:18px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-  position:relative;
-}
-
-.editorPreview video{
-  max-width:100%;
-  max-height:100%;
-  transition:.2s;
-}
-
-.emptyPreview{
-  color:#8992aa;
-  text-align:center;
-  padding:25px;
-}
-
-.uploadBox{
-  border:2px dashed #536184;
-  border-radius:16px;
-  padding:15px;
-  margin-bottom:12px;
-  text-align:center;
-}
-
-.timeline{
-  background:#0b1122;
-  border-radius:15px;
-  padding:13px;
-  margin-top:12px;
-}
-
-.timeRow{
-  display:flex;
-  justify-content:space-between;
-  color:var(--muted);
-  font-size:12px;
-}
-
-.timeline input[type=range]{
-  margin:8px 0;
-}
-
-.playControls{
-  display:flex;
-  gap:8px;
-  justify-content:center;
-}
-
-.playControls button{
-  border:0;
-  background:#253252;
-  color:#fff;
-  padding:10px 15px;
-  border-radius:12px;
-  font-size:16px;
-}
-
-/* TOOLBAR */
-
-.editorTools{
-  background:#10172af5;
-  border:1px solid #ffffff12;
-  border-radius:19px;
-  padding:10px;
-  margin-top:12px;
-}
-
-.toolbar{
-  display:flex;
-  gap:9px;
-  overflow-x:auto;
-  padding-bottom:4px;
-}
-
-.toolButton{
-  min-width:68px;
-  border:0;
-  background:#202b48;
-  color:#fff;
-  border-radius:14px;
-  padding:10px 7px;
-  font-size:11px;
-}
-
-.toolButton span{
-  display:block;
-  font-size:21px;
-  margin-bottom:4px;
-}
-
-.toolButton.active{
-  background:linear-gradient(135deg,#7c5cff,#00b9ff);
-}
-
-.toolPanel{
-  display:none;
-  background:#151e35;
-  border-radius:16px;
-  padding:13px;
-  margin-top:10px;
-}
-
-.toolPanel.active{
-  display:block;
-}
-
-.toolGrid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
-
-.control{
-  background:#0b1122;
-  padding:11px;
-  border-radius:13px;
-}
-
-.control label{
-  font-size:12px;
-  color:#d8def0;
-  display:block;
-  margin-bottom:5px;
-}
-
-.rangeValue{
-  color:#7ee7ff;
-  float:right;
-}
-
-.effectButtons{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
-}
-
-.effectButtons button{
-  border:0;
-  background:#263354;
-  color:white;
-  padding:11px 5px;
-  border-radius:11px;
-  font-size:12px;
-}
-
-.trimBox{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
-
-/* WORKS */
-
-.task{
-  background:#0b1122;
-  padding:14px;
-  border-radius:14px;
-  margin:9px 0;
-}
-
-.taskTop{
-  display:flex;
-  justify-content:space-between;
-  gap:8px;
-}
-
-.taskTitle{
-  font-weight:bold;
-  font-size:16px;
-}
-
-.tagPill{
-  background:#263354;
-  padding:5px 8px;
-  border-radius:9px;
-  font-size:11px;
-  white-space:nowrap;
-}
-
-.taskActions{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:7px;
-}
-
-/* WALLET */
-
-.balance{
-  text-align:center;
-  background:linear-gradient(135deg,#17234a,#263b72);
-}
-
-.amount{
-  font-size:32px;
-  color:#7ee7ff;
-  font-weight:bold;
-  margin:8px;
-}
-
-.stats{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-bottom:13px;
-}
-
-.stat{
-  background:#0b1122;
-  padding:13px;
-  border-radius:14px;
-}
-
-.stat b{
-  display:block;
-  font-size:19px;
-  margin-top:5px;
-}
-
-.history,
-.orderCard{
-  background:#0b1122;
-  padding:13px;
-  border-radius:13px;
-  margin:8px 0;
-}
-
-/* ADMIN */
-
-.adminBox{
-  border:1px solid #ffffff12;
-  background:#151e35;
-  padding:13px;
-  border-radius:15px;
-  margin-top:10px;
-}
-
-.owner{
-  background:linear-gradient(135deg,#2c1e5c,#163c55);
-  padding:14px;
-  border-radius:15px;
-  margin-bottom:12px;
-}
-
-.orderStatus{
-  padding:5px 8px;
-  border-radius:8px;
-  background:#263354;
-  font-size:11px;
-}
-
-.contact{
-  display:block;
-  background:#202b48;
-  color:#fff;
-  text-decoration:none;
-  padding:14px;
-  border-radius:14px;
-  margin:8px 0;
-}
-
-.number{
-  color:#7ee7ff;
-  font-size:20px;
-  font-weight:bold;
-}
-
-.pay{
-  background:#0b1122;
-  padding:14px;
-  border-radius:14px;
-}
-
-.template{
-  display:flex;
-  gap:10px;
-  overflow:auto;
-}
-
-.temp{
-  min-width:145px;
-  background:#202b48;
-  padding:18px;
-  border-radius:15px;
-  text-align:center;
-}
-
-.empty{
-  padding:18px;
-  text-align:center;
-  color:var(--muted);
-  background:#0b1122;
-  border-radius:13px;
-}
-
-@media(max-width:600px){
-  .logo{
-    font-size:19px;
-  }
-
-  .badge{
-    font-size:10px;
-  }
-
-  .grid,
-  .toolGrid,
-  .stats,
-  .trimBox{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .editorPreview{
-    height:330px;
-  }
-
-  .effectButtons{
-    grid-template-columns:repeat(2,1fr);
-  }
-}
-
-@media(max-width:380px){
-  .grid,
-  .toolGrid,
-  .stats,
-  .trimBox{
-    grid-template-columns:1fr;
-  }
-}
+:root{--bg:#080b16;--panel:#12192b;--panel2:#1b2540;--purple:#7c5cff;--blue:#00b9ff;--text:#fff;--muted:#aeb6cf;--green:#62e6b5;--red:#ff6678;--yellow:#ffd166;--border:#ffffff12}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 10% 0%,#18235a55,transparent 35%),radial-gradient(circle at 90% 20%,#006c9850,transparent 35%),linear-gradient(180deg,#080b16,#10182d);color:var(--text);font-family:Arial,"Noto Sans Bengali",sans-serif;min-height:100vh}button,input,select,textarea{font:inherit}button{cursor:pointer;-webkit-tap-highlight-color:transparent}button:active{transform:scale(.97)}.app{max-width:900px;margin:auto;min-height:100vh;padding-bottom:90px}.header{padding:18px;background:linear-gradient(135deg,#6948e8,#00aeea);border-radius:0 0 26px 26px;box-shadow:0 12px 40px #0005;animation:headerIn .7s ease}.top{display:flex;justify-content:space-between;align-items:center;gap:12px}.logo{font-size:23px;font-weight:bold}.tag{font-size:12px;margin-top:5px}.badge{background:#ffffff25;padding:9px 11px;border-radius:14px;font-size:12px;white-space:nowrap;backdrop-filter:blur(8px)}main{padding:12px}.page{display:none}.page.active{display:block;animation:pageIn .35s ease}.panel,.hero,.service,.balance{background:var(--panel);border:1px solid var(--border);border-radius:20px;padding:16px;margin-bottom:13px;box-shadow:0 10px 35px #00018}.hero{background:linear-gradient(135deg,#151e38,#162c49);position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:150px;height:150px;border-radius:50%;background:#7c5cff22;right:-50px;top:-50px;animation:float 4s ease-in-out infinite}h1,h2,h3,p{margin-top:0}.muted,.notice{color:var(--muted);line-height:1.55}.notice{font-size:12px}.primary,.small{border:0;border-radius:13px;padding:13px;color:#fff;transition:.2s}.primary{width:100%;background:linear-gradient(135deg,var(--purple),var(--blue));font-weight:bold;box-shadow:0 8px 25px #006eff25}.primary:hover{filter:brightness(1.1);transform:translateY(-2px)}.small{width:100%;background:#263354;margin-top:7px}.small:hover{background:#304166}.danger{background:#482330}.success{color:var(--green)}.warning{color:var(--yellow)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.service{margin:0;transition:.25s}.service:hover{transform:translateY(-3px);border-color:#7c5cff55}.icon{font-size:30px}.price{color:var(--green);font-size:18px;font-weight:bold;margin:7px 0}.ad{border:2px dashed #53617f;padding:18px;border-radius:16px;text-align:center;color:var(--muted);margin-bottom:13px;animation:pulseSoft 3s infinite}input,select,textarea{width:100%;background:#0b1122;border:1px solid #36415f;color:#fff;padding:12px;border-radius:12px;margin:6px 0;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px #00b9ff12}textarea{min-height:95px;resize:vertical}.bottomNav{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#0b1020f7;backdrop-filter:blur(14px);border-top:1px solid #ffffff18;display:flex;justify-content:center;overflow:auto}.bottomNav button{background:none;border:0;color:#aeb6cf;padding:10px 12px;font-size:11px;min-width:65px;white-space:nowrap}.bottomNav button.active{color:#7ee7ff;text-shadow:0 0 12px #00b9ff88}
+/* Editor */
+.editorHeader{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}.editorPreview{width:100%;height:430px;max-height:62vh;background:#000;border-radius:18px;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;box-shadow:0 15px 45px #0008}.editorPreview video,.editorPreview img{max-width:100%;max-height:100%;object-fit:contain;transition:filter .25s ease,transform .25s ease;transform-origin:center center}.emptyPreview{color:#8992aa;text-align:center;padding:25px}.previewOverlay{position:absolute;inset:0;pointer-events:none;overflow:hidden}.effectOverlay{position:absolute;inset:-20%;opacity:0;pointer-events:none;transition:.3s;mix-blend-mode:screen}.effectOverlay.active{opacity:.16;background:radial-gradient(circle at 20% 20%,#fff,transparent 20%),radial-gradient(circle at 80% 80%,#00b9ff,transparent 25%);animation:overlayMove 4s linear infinite}.vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle,transparent 45%,#0008 100%);opacity:0;transition:.3s}.vignette.active{opacity:.55}.scanlines{position:absolute;inset:0;pointer-events:none;opacity:0;background:repeating-linear-gradient(0deg,transparent 0,transparent 3px,#fff08 4px)}.scanlines.active{opacity:.08}.textLayer{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-weight:800;text-align:center;text-shadow:0 3px 10px #000;white-space:pre-wrap;max-width:90%;pointer-events:none;line-height:1.15}.captionLayer{position:absolute;left:8%;right:8%;bottom:10%;text-align:center;font-size:20px;font-weight:700;text-shadow:0 2px 8px #000;pointer-events:none}.stickerLayer{position:absolute;left:50%;top:40%;transform:translate(-50%,-50%);font-size:70px;pointer-events:none;filter:drop-shadow(0 4px 8px #0008)}.uploadBox{border:2px dashed #536184;border-radius:16px;padding:15px;margin-bottom:12px;text-align:center;transition:.25s}.uploadBox:hover{border-color:var(--blue);background:#00b9ff06}.mediaActions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}.timeline{background:#0b1122;border-radius:15px;padding:13px;margin-top:12px}.timeRow{display:flex;justify-content:space-between;color:var(--muted);font-size:12px}.timeline input[type=range]{margin:8px 0}.playControls{display:flex;gap:8px;justify-content:center}.playControls button{border:0;background:#253252;color:#fff;padding:10px 15px;border-radius:12px;font-size:16px}.editorTools{background:#10172af5;border:1px solid #ffffff12;border-radius:19px;padding:10px;margin-top:12px}.toolbar{display:flex;gap:9px;overflow-x:auto;padding-bottom:4px}.toolButton{min-width:68px;border:0;background:#202b48;color:#fff;border-radius:14px;padding:10px 7px;font-size:11px}.toolButton span{display:block;font-size:21px;margin-bottom:4px}.toolButton.active{background:linear-gradient(135deg,#7c5cff,#00b9ff)}.toolPanel{display:none;background:#151e35;border-radius:16px;padding:13px;margin-top:10px}.toolPanel.active{display:block;animation:panelIn .25s ease}.toolGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.control{background:#0b1122;padding:11px;border-radius:13px}.control label{font-size:12px;color:#d8def0;display:block;margin-bottom:5px}.rangeValue{color:#7ee7ff;float:right}.effectButtons{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.effectButtons button,.animationGrid button,.chip{border:0;background:#263354;color:white;padding:11px 5px;border-radius:11px;font-size:12px;transition:.2s}.effectButtons button:hover,.animationGrid button:hover{background:#344466;transform:translateY(-2px)}.trimBox{display:grid;grid-template-columns:1fr 1fr;gap:10px}.animationGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.animationGrid button.active,.chip.active{background:linear-gradient(135deg,#7c5cff,#00b9ff)}.animationInfo{padding:10px;background:#0b1122;border-radius:12px;margin-top:10px;color:var(--muted);font-size:12px}.assetList{display:flex;gap:8px;overflow:auto;padding:4px 0}.asset{min-width:85px;height:70px;background:#202b48;border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden;border:2px solid transparent}.asset.selected{border-color:var(--blue)}.asset img,.asset video{width:100%;height:100%;object-fit:cover}.miniRow{display:flex;gap:7px;overflow:auto}.miniRow .chip{white-space:nowrap}.template{display:flex;gap:10px;overflow:auto}.temp{min-width:145px;background:#202b48;padding:18px;border-radius:15px;text-align:center;transition:.25s}.temp:hover{transform:translateY(-4px) scale(1.02)}
+/* Other pages */
+.task{background:#0b1122;padding:14px;border-radius:14px;margin:9px 0}.taskTop{display:flex;justify-content:space-between;gap:8px}.taskTitle{font-weight:bold;font-size:16px}.tagPill{background:#263354;padding:5px 8px;border-radius:9px;font-size:11px;white-space:nowrap}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:13px}.stat{background:#0b1122;padding:13px;border-radius:14px}.stat b{display:block;font-size:19px;margin-top:5px}.history,.orderCard{background:#0b1122;padding:13px;border-radius:13px;margin:8px 0}.adminBox{border:1px solid #ffffff12;background:#151e35;padding:13px;border-radius:15px;margin-top:10px}.owner{background:linear-gradient(135deg,#2c1e5c,#163c55);padding:14px;border-radius:15px;margin-bottom:12px}.orderStatus{padding:5px 8px;border-radius:8px;background:#263354;font-size:11px}.contact{display:block;background:#202b48;color:#fff;text-decoration:none;padding:14px;border-radius:14px;margin:8px 0}.number{color:#7ee7ff;font-size:20px;font-weight:bold}.pay{background:#0b1122;padding:14px;border-radius:14px}.empty{padding:18px;text-align:center;color:var(--muted);background:#0b1122;border-radius:13px}.toast{position:fixed;left:50%;bottom:82px;transform:translateX(-50%) translateY(20px);background:#18233c;border:1px solid #ffffff20;color:#fff;padding:12px 18px;border-radius:13px;z-index:3000;opacity:0;pointer-events:none;transition:.3s;max-width:90%;text-align:center}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}.modal{position:fixed;inset:0;background:#0009;z-index:2500;display:none;align-items:flex-end;justify-content:center;padding:12px}.modal.show{display:flex}.modalCard{width:min(650px,100%);background:#12192b;border:1px solid #ffffff18;border-radius:22px;padding:16px;max-height:88vh;overflow:auto}.modalTop{display:flex;justify-content:space-between;align-items:center}.closeBtn{background:#263354;border:0;color:#fff;border-radius:10px;padding:8px 11px}.loading{opacity:.55;pointer-events:none}
+@keyframes headerIn{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}@keyframes pageIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}@keyframes panelIn{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:scale(1)}}@keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(-15px,15px)}}@keyframes pulseSoft{0%,100%{opacity:1}50%{opacity:.65}}@keyframes overlayMove{from{transform:rotate(0deg) scale(1)}to{transform:rotate(360deg) scale(1.1)}}@keyframes pixoraZoomIn{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}@keyframes pixoraZoomOut{from{opacity:0;transform:scale(1.15)}to{opacity:1;transform:scale(1)}}@keyframes pixoraSlideLeft{from{opacity:0;transform:translateX(35px)}to{opacity:1;transform:translateX(0)}}@keyframes pixoraSlideRight{from{opacity:0;transform:translateX(-35px)}to{opacity:1;transform:translateX(0)}}@keyframes pixoraBounce{0%{opacity:0;transform:scale(.7)}60%{opacity:1;transform:scale(1.08)}100%{transform:scale(1)}}@keyframes pixoraShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}50%{transform:translateX(7px)}75%{transform:translateX(-4px)}}@keyframes pixoraPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}@keyframes pixoraFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@media(max-width:600px){.logo{font-size:19px}.badge{font-size:10px}.grid,.toolGrid,.stats,.trimBox{grid-template-columns:1fr 1fr}.animationGrid{grid-template-columns:repeat(2,1fr)}.editorPreview{height:330px}.effectButtons{grid-template-columns:repeat(2,1fr)}}@media(max-width:380px){.grid,.toolGrid,.stats,.trimBox{grid-template-columns:1fr}}
+
+/* PIXORA 2.0 UI — original mobile-first creative workspace */
+body{background:#070a12;overflow-x:hidden}.app{max-width:980px}.header{position:sticky;top:0;z-index:900;padding:14px 16px;border-radius:0 0 22px 22px;background:linear-gradient(135deg,#15152aee,#101c35ee);backdrop-filter:blur(18px);border-bottom:1px solid #ffffff18}.header:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#7c5cff18,#00b9ff12,transparent);pointer-events:none}.logo{letter-spacing:-.3px}.badge{background:#ffffff12;border:1px solid #ffffff18}.panel,.hero,.service,.balance{background:linear-gradient(180deg,#121a2b,#0d1424);border-color:#ffffff10}.hero{border:1px solid #ffffff12;box-shadow:0 18px 55px #0007}.service{min-height:145px}.editorHeader{position:sticky;top:74px;z-index:700;background:#080c16e8;padding:10px 0;backdrop-filter:blur(12px)}.editorPreview{height:min(58vh,520px);border:1px solid #ffffff16;background:radial-gradient(circle,#151515,#000);border-radius:22px}.editorTools{border-radius:22px;background:#0b101d;border:1px solid #ffffff12}.toolbar{scrollbar-width:none;padding:2px 1px 7px}.toolbar::-webkit-scrollbar{display:none}.toolButton{min-width:74px;background:#151e31;border:1px solid #ffffff0c}.toolButton.active{box-shadow:0 8px 25px #006eff25}.toolPanel{background:#111a2b;border:1px solid #ffffff0a}.timeline{border:1px solid #ffffff0b;box-shadow:inset 0 1px #ffffff08}.timeline input[type=range]{accent-color:#7c5cff}.bottomNav{height:68px;padding:5px 6px env(safe-area-inset-bottom);background:#080c16f5;border-top:1px solid #ffffff12}.bottomNav button{min-width:68px;border-radius:13px;padding:8px 9px}.bottomNav button.active{background:#7c5cff18;color:#fff}.earnHero{background:linear-gradient(135deg,#182b48,#142034);border:1px solid #ffffff12;border-radius:22px;padding:18px;margin-bottom:13px;position:relative;overflow:hidden}.earnHero:after{content:"৳";position:absolute;right:18px;top:2px;font-size:90px;font-weight:900;color:#62e6b508}.earnBalance{font-size:36px;font-weight:900;color:#62e6b5;margin:5px 0}.earnActions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.taskReward{font-size:19px;font-weight:900;color:#62e6b5}.quickGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.quickCard{background:#111a2b;border:1px solid #ffffff0b;border-radius:16px;padding:12px 8px;text-align:center}.quickCard b{display:block;margin-top:4px;font-size:12px}.sectionTitle{display:flex;justify-content:space-between;align-items:center;margin:17px 2px 9px}.sectionTitle h3{margin:0}.pillGreen{color:#62e6b5;background:#62e6b512;border:1px solid #62e6b520;padding:4px 8px;border-radius:99px;font-size:11px}.template{padding-bottom:3px}.temp{cursor:pointer;border:1px solid #ffffff0b;background:linear-gradient(145deg,#1a2540,#111a2d)}
+@media(max-width:600px){.quickGrid{grid-template-columns:repeat(2,1fr)}.editorHeader{top:64px}.earnBalance{font-size:32px}}
+.effectButtons button{min-height:44px}.chip{border:0;background:#263354;color:#fff;padding:9px 11px;border-radius:10px}.timeline{position:relative}.timeline:before{content:"";display:block;height:4px;border-radius:9px;background:linear-gradient(90deg,#7c5cff,#00b9ff);margin-bottom:8px}.editorTools{position:relative}.toolButton{flex:0 0 auto} .quickEffects{display:flex;gap:8px;overflow-x:auto;overflow-y:hidden;padding:9px 2px 5px;margin-top:8px;scrollbar-width:none;-webkit-overflow-scrolling:touch;white-space:nowrap;position:relative;z-index:2}.quickEffects::-webkit-scrollbar{display:none}.quickEffect{flex:0 0 auto;border:1px solid #ffffff12;background:#151e31;color:#fff;border-radius:999px;padding:9px 13px;font-size:12px;line-height:1;box-shadow:0 4px 14px #0003;transition:.2s}.quickEffect:active{transform:scale(.96)}.quickEffect.active{background:linear-gradient(135deg,#7c5cff,#00b9ff);border-color:#ffffff25;box-shadow:0 6px 18px #006eff35}.editorPreview{flex-shrink:0}
+.editorFeatureRows{margin:10px 0 12px;background:#0b101d;border:1px solid #ffffff12;border-radius:18px;padding:8px;position:relative;z-index:40}.featureRow{padding:7px 2px;border-bottom:1px solid #ffffff0b}.featureRow:last-child{border-bottom:0}.featureTitle{font-size:10px;font-weight:800;color:#aeb6cf;margin:0 0 6px 2px;letter-spacing:.5px}.featureScroll{display:flex;gap:7px;overflow-x:auto;overflow-y:hidden;white-space:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:1px 1px 4px}.featureScroll::-webkit-scrollbar{display:none}.featureChip{flex:0 0 auto;border:1px solid #ffffff12;background:#18233b;color:#fff;border-radius:999px;padding:9px 12px;font-size:11px;line-height:1;box-shadow:0 3px 10px #0003}.featureChip:active{transform:scale(.96)}.featureChip.active{background:linear-gradient(135deg,#7c5cff,#00b9ff)}.dangerChip{border-color:#ff667855}.editorPreview{position:sticky!important;top:76px;z-index:60;box-shadow:0 14px 35px #0008}.editorPreview video,.editorPreview img{position:relative;z-index:2}.previewOverlay{z-index:5}.editorTools{position:relative;z-index:30}.toolPanel{scroll-margin-top:80px}.miniRow{scrollbar-width:none}
+@media(max-width:600px){.editorPreview{top:68px!important;height:min(43vh,360px)!important;border-radius:18px}.editorFeatureRows{border-radius:16px}.featureChip{padding:10px 12px;font-size:11px}}
+
+@keyframes beatPulseFlash{0%{filter:brightness(1)}45%{filter:brightness(1.35)}100%{filter:brightness(1)}}@keyframes beatPulseZoom{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}@keyframes beatPulseShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}50%{transform:translateX(8px)}75%{transform:translateX(-5px)}}
 </style>
 </head>
-
 <body>
-
-<div class="app">
-
-<header class="header">
-  <div class="top">
-    <div>
-      <div class="logo">✨ Pixora Editor + Income</div>
-      <div class="tag">আতিক ব্রান্ড • Creative Platform</div>
-    </div>
-    <div class="badge">👑 Owner Control</div>
-  </div>
-</header>
-
+<div id="authGate" style="position:fixed;inset:0;z-index:5000;background:#080b16;display:grid;place-items:center;padding:18px"><div style="width:min(430px,100%);background:#11172a;border:1px solid #ffffff12;border-radius:24px;padding:24px;box-shadow:0 20px 60px #0008"><div style="font-size:26px;font-weight:900;margin-bottom:8px">✨ Pixora</div><div class="muted" style="margin-bottom:18px">Editor + Earning</div><input id="authEmail" type="email" placeholder="Email" style="width:100%;padding:13px;margin-bottom:10px;border-radius:12px;border:1px solid #ffffff12;background:#090e1d;color:#fff"><input id="authPassword" type="password" placeholder="Password" style="width:100%;padding:13px;margin-bottom:10px;border-radius:12px;border:1px solid #ffffff12;background:#090e1d;color:#fff"><input id="authName" placeholder="নাম (শুধু Signup-এর সময়)" style="width:100%;padding:13px;margin-bottom:10px;border-radius:12px;border:1px solid #ffffff12;background:#090e1d;color:#fff"><input id="authPhone" placeholder="মোবাইল (শুধু Signup-এর সময়)" style="width:100%;padding:13px;margin-bottom:12px;border-radius:12px;border:1px solid #ffffff12;background:#090e1d;color:#fff"><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><button class="primary" onclick="pixoraLogin()">🔐 Login</button><button class="small" onclick="pixoraSignup()">📝 Signup</button></div><button class="small danger" style="width:100%;margin-top:8px" onclick="pixoraLogout()">Logout</button><div id="authMsg" class="notice" style="margin-top:10px">Account দিয়ে ঢুকুন।</div></div></div><div class="app" id="pixoraApp" style="display:none">
+<header class="header"><div class="top"><div><div class="logo">✨ Pixora Editor + Income</div><div class="tag">আতিক ব্রান্ড • Creative Platform</div></div><div class="badge">👑 Owner Control</div></div></header>
 <main>
-
-<!-- HOME -->
-
 <section id="home" class="page active">
-
-<div class="panel">
-  <h2>👑 আতিক ব্রান্ড ড্যাশবোর্ড</h2>
-  <p class="muted">
-    Pixora Editor + Income — Video Editing, Service & Income Platform
-  </p>
-</div>
-
-<div class="hero">
-  <h2>তোমার আইডিয়াকে ক্রিয়েটিভ করে তুলি ✨</h2>
-  <p class="muted">
-    নিজে Video Editor ব্যবহার করুন অথবা Professional Service অর্ডার করুন।
-  </p>
-
-  <button class="primary" onclick="showPage('editor')">
-    🎬 Video Editor খুলুন
-  </button>
-</div>
-
-<div class="ad">
-  📢 ADVERTISEMENT SPACE
-</div>
-
-<div class="grid">
-
-<div class="service">
-  <div class="icon">🎬</div>
-  <h3>Video Editor</h3>
-  <p class="muted">সহজ Toolbar দিয়ে Preview Edit</p>
-  <button class="small" onclick="showPage('editor')">
-    Open Editor
-  </button>
-</div>
-
-<div class="service">
-  <div class="icon">🖼️</div>
-  <h3>Photo Edit</h3>
-  <div class="price">৪০ টাকা</div>
-  <button class="small" onclick="chooseService('Photo Edit — ৪০ টাকা')">
-    Order
-  </button>
-</div>
-
-<div class="service">
-  <div class="icon">🎞️</div>
-  <h3>Video Edit</h3>
-  <div class="price">৭০ টাকা</div>
-  <button class="small" onclick="chooseService('Video Edit — ৭০ টাকা')">
-    Order
-  </button>
-</div>
-
-<div class="service">
-  <div class="icon">🛠️</div>
-  <h3>Custom Work</h3>
-  <p class="muted">Admin যোগ করা কাজ</p>
-  <button class="small" onclick="showPage('works')">
-    View Works
-  </button>
-</div>
-
-</div>
-
-<h3 style="margin-top:18px">🎞️ Video Templates</h3>
-
-<div class="template">
-  <div class="temp">🔥<br>Trending</div>
-  <div class="temp">❤️<br>Love</div>
-  <div class="temp">🎉<br>Birthday</div>
-  <div class="temp">🎬<br>Cinematic</div>
-</div>
-
+<div class="panel"><h2>👑 আতিক ব্রান্ড ড্যাশবোর্ড</h2><p class="muted">Pixora Editor + Income — Video Editing, Service & Income Platform</p></div>
+<div class="hero"><h2>তোমার আইডিয়াকে ক্রিয়েটিভ করে তুলি ✨</h2><p class="muted">Video/Photo edit করুন, project save করুন এবং নিজের creative workflow তৈরি করুন।</p><button class="primary" onclick="showPage('editor')">🎬 Video Create</button></div>
+<div class="earnHero"><div class="notice">💰 PIXORA EARNING</div><div class="earnBalance">৳ <span id="homeBalance">0</span></div><div class="notice">Tasks complete করে eligible earning সংগ্রহ করুন।</div><div class="earnActions"><button class="small" onclick="showPage('wallet')">💰 Wallet</button><button class="small" onclick="showPage('works')">🎯 Earn Tasks</button></div></div>
+<div class="quickGrid"><div class="quickCard" onclick="showPage('editor')">🎬<b>Editor</b></div><div class="quickCard" onclick="showPage('order')">📦<b>Orders</b></div><div class="quickCard" onclick="showPage('wallet')">💰<b>Income</b></div><div class="quickCard" onclick="showPage('profile')">👤<b>Profile</b></div></div>
+<div class="sectionTitle"><h3>🎯 Earn Tasks</h3><span class="pillGreen">Admin Posted</span></div>
+<div id="homeTasks"></div>
+<div class="ad">📢 ADVERTISEMENT SPACE</div>
+<div class="grid"><div class="service"><div class="icon">🎬</div><h3>Video Editor</h3><p class="muted">Timeline, text, audio, effects, filters ও export</p><button class="small" onclick="showPage('editor')">Open Editor</button></div><div class="service"><div class="icon">🖼️</div><h3>Photo Edit</h3><div class="price">৪০ টাকা</div><button class="small" onclick="openPhotoEditor()">Edit Photo</button></div><div class="service"><div class="icon">🎞️</div><h3>Video Edit</h3><div class="price">৭০ টাকা</div><button class="small" onclick="chooseService('Video Edit — ৭০ টাকা')">Order</button></div><div class="service"><div class="icon">🛠️</div><h3>Custom Work</h3><p class="muted">Admin যোগ করা কাজ</p><button class="small" onclick="showPage('works')">View Works</button></div></div>
+<h3 style="margin-top:18px">🎞️ Video Templates</h3><div class="template"><div class="temp" onclick="applyTemplate('trending')">🔥<br>Trending</div><div class="temp" onclick="applyTemplate('love')">❤️<br>Love</div><div class="temp" onclick="applyTemplate('birthday')">🎉<br>Birthday</div><div class="temp" onclick="applyTemplate('cinematic')">🎬<br>Cinematic</div></div>
+<div class="panel" style="margin-top:13px"><h3>📂 Recent Projects</h3><div id="recentProjects"></div></div>
 </section>
-
-
-<!-- EDITOR -->
 
 <section id="editor" class="page">
-
-<div class="editorHeader">
-  <div>
-    <h2>🎬 Pixora Editor</h2>
-    <div class="notice">
-      সহজ নিচের Toolbar দিয়ে ভিডিও Preview Edit করুন
-    </div>
-  </div>
-
-  <button class="small" style="width:auto" onclick="showPage('home')">
-    ← Back
-  </button>
+<div class="editorHeader"><div><h2>🎬 Pixora Studio</h2><div class="notice">CapCut-inspired workflow, কিন্তু Pixora-এর নিজস্ব interface</div></div><button class="small" style="width:auto" onclick="showPage('home')">← Back</button></div>
+<div class="uploadBox"><input id="mediaFile" type="file" accept="video/*,image/*" onchange="loadMedia(event)"><div class="mediaActions"><button class="small" onclick="triggerVideo()">🎬 Add Video</button><button class="small" onclick="triggerPhoto()">🖼️ Add Photo</button></div><div class="notice">📁 Device থেকে media নির্বাচন করুন</div></div>
+<div class="editorPreview" id="previewBox"><div class="emptyPreview">🎬<br><br>ভিডিও/ছবি নির্বাচন করলে এখানে Preview দেখা যাবে</div></div>
+<div class="editorFeatureRows" aria-label="Pixora editing controls">
+  <div class="featureRow"><div class="featureTitle">✨ EFFECTS</div><div class="featureScroll">
+    <button class="featureChip" onclick="setEffect('none')">❌ None</button><button class="featureChip" onclick="setEffect('glow')">✨ Glow</button><button class="featureChip" onclick="setEffect('cinematic')">🎞️ Cinematic</button><button class="featureChip" onclick="setEffect('vivid')">🌈 Vivid</button><button class="featureChip" onclick="setEffect('pulse')">🔥 Pulse</button><button class="featureChip" onclick="setEffect('retro')">🌟 Retro</button><button class="featureChip" onclick="setEffect('warm')">☀️ Warm</button><button class="featureChip" onclick="setEffect('cool')">❄️ Cool</button><button class="featureChip" onclick="setEffect('dream')">☁️ Dream</button><button class="featureChip" onclick="setEffect('bw')">⚫ B&W</button><button class="featureChip" onclick="setEffect('vintage')">📼 Vintage</button><button class="featureChip" onclick="setEffect('flash')">⚡ Flash</button><button class="featureChip" onclick="setEffect('shake')">📳 Shake</button>
+  </div></div>
+  <div class="featureRow"><div class="featureTitle">🎨 COLOR GRADING</div><div class="featureScroll">
+    <button class="featureChip" onclick="applyColorGrade('normal')">Natural</button><button class="featureChip" onclick="applyColorGrade('cinematic')">🎞️ Film</button><button class="featureChip" onclick="applyColorGrade('hdr')">💎 HDR</button><button class="featureChip" onclick="applyColorGrade('tealorange')">🟦 Teal & Orange</button><button class="featureChip" onclick="applyColorGrade('golden')">🌅 Golden</button><button class="featureChip" onclick="applyColorGrade('moody')">🌑 Moody</button><button class="featureChip" onclick="applyColorGrade('sunset')">🌇 Sunset</button><button class="featureChip" onclick="applyColorGrade('forest')">🌲 Forest</button><button class="featureChip" onclick="applyColorGrade('ocean')">🌊 Ocean</button><button class="featureChip" onclick="applyColorGrade('pink')">🌸 Pink</button><button class="featureChip" onclick="applyColorGrade('noir')">🖤 Noir</button><button class="featureChip" onclick="applyColorGrade('vintage')">📼 Vintage</button>
+  </div></div>
+  <div class="featureRow"><div class="featureTitle">🎬 ANIMATION</div><div class="featureScroll">
+    <button class="featureChip" onclick="setAnimation('none',this)">⏹️ None</button><button class="featureChip" onclick="setAnimation('zoomIn',this)">🔍 Zoom In</button><button class="featureChip" onclick="setAnimation('zoomOut',this)">🔎 Zoom Out</button><button class="featureChip" onclick="setAnimation('left',this)">⬅️ Slide Left</button><button class="featureChip" onclick="setAnimation('right',this)">➡️ Slide Right</button><button class="featureChip" onclick="setAnimation('bounce',this)">🏀 Bounce</button><button class="featureChip" onclick="setAnimation('shake',this)">📳 Shake</button><button class="featureChip" onclick="setAnimation('pulse',this)">💓 Pulse</button><button class="featureChip" onclick="setAnimation('float',this)">🎈 Float</button><button class="featureChip" onclick="setAnimation('flash',this)">⚡ Flash</button>
+  </div></div>
+  <div class="featureRow"><div class="featureTitle">🎵 BEAT SYNC</div><div class="featureScroll">
+    <button class="featureChip" onclick="detectBeats()">🥁 Auto Beat</button><button class="featureChip" onclick="addBeatAtPlayhead()">➕ Add Beat</button><button class="featureChip" onclick="setBeatSync('pulse')">💓 Beat Pulse</button><button class="featureChip" onclick="setBeatSync('zoomIn')">🔍 Beat Zoom</button><button class="featureChip" onclick="setBeatSync('shake')">📳 Beat Shake</button><button class="featureChip" onclick="setBeatSync('flash')">⚡ Beat Flash</button><button class="featureChip dangerChip" onclick="setBeatSync('none')">🚫 Sync Off</button>
+  </div></div>
+  <div class="featureRow"><div class="featureTitle">🐌 SLOW MOTION</div><div class="featureScroll">
+    <button class="featureChip" onclick="setPlaybackRate(0.25)">0.25×</button><button class="featureChip" onclick="setPlaybackRate(0.5)">0.5×</button><button class="featureChip" onclick="setPlaybackRate(0.75)">0.75×</button><button class="featureChip" onclick="setPlaybackRate(1)">1× Normal</button><button class="featureChip" onclick="setPlaybackRate(1.25)">1.25×</button><button class="featureChip" onclick="setPlaybackRate(1.5)">1.5×</button><button class="featureChip" onclick="setPlaybackRate(2)">2×</button>
+  </div></div>
+  <div class="featureRow"><div class="featureTitle">🔊 AUDIO</div><div class="featureScroll"><button class="featureChip" onclick="openTool('audio',this)">🎵 Music</button><button class="featureChip" onclick="openTool('audio',this)">🔊 Volume</button><button class="featureChip" onclick="setMusicFade('in')">↗️ Fade In</button><button class="featureChip" onclick="setMusicFade('out')">↘️ Fade Out</button><button class="featureChip" onclick="removeAudio()">🗑️ Remove</button></div></div>
+  <div class="featureRow"><div class="featureTitle">📐 TRANSFORM</div><div class="featureScroll"><button class="featureChip" onclick="changeZoom(100)">🔍 100%</button><button class="featureChip" onclick="changeZoom(125)">🔎 125%</button><button class="featureChip" onclick="changeZoom(150)">🔎 150%</button><button class="featureChip" onclick="rotateBy(90)">↻ Rotate</button><button class="featureChip" onclick="flipVideo()">↔️ Flip</button><button class="featureChip" onclick="resetTransform()">♻️ Reset</button></div></div>
+  <div class="featureRow"><div class="featureTitle">📝 TEXT / OVERLAY</div><div class="featureScroll"><button class="featureChip" onclick="openTool('text',this)">🔤 Text</button><button class="featureChip" onclick="openTool('captions',this)">💬 Captions</button><button class="featureChip" onclick="openTool('stickers',this)">😀 Stickers</button><button class="featureChip" onclick="openTool('overlay',this)">🖼️ Overlay</button></div></div>
 </div>
-
-<div class="uploadBox">
-
-<input
-  id="videoFile"
-  type="file"
-  accept="video/*"
-  onchange="loadVideo(event)"
->
-
-<div class="notice">
-  📁 আপনার ভিডিও নির্বাচন করুন
+<div class="editorTools"><div class="toolbar">
+<button class="toolButton active" onclick="openTool('basic',this)"><span>✂️</span>Basic</button><button class="toolButton" onclick="openTool('color',this)"><span>🎨</span>Adjust</button><button class="toolButton" onclick="openTool('filters',this)"><span>🌈</span>Filters</button><button class="toolButton" onclick="openTool('text',this)"><span>🔤</span>Text</button><button class="toolButton" onclick="openTool('audio',this)"><span>🎵</span>Audio</button><button class="toolButton" onclick="openTool('beat',this)"><span>🥁</span>Beat</button><button class="toolButton" onclick="openTool('overlay',this)"><span>🖼️</span>Overlay</button><button class="toolButton" onclick="openTool('effects',this)"><span>✨</span>Effects</button><button class="toolButton" onclick="openTool('animation',this)"><span>🎞️</span>Animation</button><button class="toolButton" onclick="openTool('stickers',this)"><span>😀</span>Stickers</button><button class="toolButton" onclick="openTool('captions',this)"><span>💬</span>Captions</button><button class="toolButton" onclick="openTool('transform',this)"><span>🔄</span>Transform</button><button class="toolButton" onclick="openTool('project',this)"><span>📂</span>Project</button></div>
+<div id="basic" class="toolPanel active"><div class="trimBox"><div class="control"><label>⏱️ Trim Start <span class="rangeValue" id="startValue">00:00</span></label><input id="trimStart" type="range" min="0" max="0" value="0" oninput="setTrimStart(this.value)"></div><div class="control"><label>⏱️ Trim End <span class="rangeValue" id="endValue">00:00</span></label><input id="trimEnd" type="range" min="0" max="0" value="0" oninput="setTrimEnd(this.value)"></div></div><div class="control" style="margin-top:10px"><label>📐 Aspect Ratio</label><select onchange="changeAspect(this.value)"><option value="auto">Original</option><option value="16/9">16:9</option><option value="9/16">9:16</option><option value="1/1">1:1</option><option value="4/5">4:5</option></select><button class="small" onclick="previewTrim()">✂️ Preview Trim</button></div></div>
+<div id="color" class="toolPanel"><div class="toolGrid"><div class="control"><label>Brightness <span class="rangeValue" id="brightnessValue">100</span></label><input type="range" min="50" max="150" value="100" oninput="changeFilter('brightness',this.value,'brightnessValue')"></div><div class="control"><label>Contrast <span class="rangeValue" id="contrastValue">100</span></label><input type="range" min="50" max="180" value="100" oninput="changeFilter('contrast',this.value,'contrastValue')"></div><div class="control"><label>Saturation <span class="rangeValue" id="saturationValue">100</span></label><input type="range" min="0" max="200" value="100" oninput="changeFilter('saturate',this.value,'saturationValue')"></div><div class="control"><label>Grayscale <span class="rangeValue" id="grayValue">0</span></label><input type="range" min="0" max="100" value="0" oninput="changeFilter('grayscale',this.value,'grayValue')"></div><div class="control"><label>Blur <span class="rangeValue" id="blurValue">0</span></label><input type="range" min="0" max="20" value="0" oninput="changeBlur(this.value)"></div><div class="control"><label>Opacity <span class="rangeValue" id="opacityValue">100</span></label><input type="range" min="20" max="100" value="100" oninput="changeOpacity(this.value)"></div></div></div>
+<div id="filters" class="toolPanel"><div class="effectButtons"><button onclick="setEffect('normal')">🌈 Normal</button><button onclick="setEffect('cinematic')">🎬 Cinematic</button><button onclick="setEffect('vivid')">🔥 Vivid</button><button onclick="setEffect('bw')">⚫ B&W</button><button onclick="setEffect('warm')">☀️ Warm</button><button onclick="setEffect('cool')">❄️ Cool</button><button onclick="setEffect('vintage')">📼 Vintage</button><button onclick="setEffect('dream')">☁️ Dream</button><button onclick="setEffect('teal')">🌊 Teal</button></div></div>
+<div id="text" class="toolPanel"><div class="control"><label>📝 Text</label><textarea id="textInput" placeholder="এখানে text লিখুন..."></textarea><div class="toolGrid"><select id="textSize"><option value="24">Small</option><option value="36" selected>Medium</option><option value="52">Large</option><option value="72">XL</option></select><select id="textWeight"><option value="600">Semi Bold</option><option value="800" selected>Bold</option><option value="900">Black</option></select></div><div class="toolGrid"><input id="textColor" type="color" value="#ffffff"><select id="textPosition"><option value="top">Top</option><option value="center" selected>Center</option><option value="bottom">Bottom</option></select></div><button class="small" onclick="addTextLayer()">➕ Add Text</button><button class="small danger" onclick="clearTextLayer()">🗑️ Clear Text</button></div></div>
+<div id="audio" class="toolPanel"><div class="control"><label>🎵 Add Audio</label><input id="audioFile" type="file" accept="audio/*" onchange="loadAudio(event)"><p id="audioName" class="notice">কোনো external audio যোগ করা হয়নি।</p><div class="toolGrid"><label class="notice">Volume<input id="volumeRange" type="range" min="0" max="100" value="100" oninput="changeVolume(this.value)"></label><label class="notice">Music Volume<input id="musicVolume" type="range" min="0" max="100" value="60" oninput="document.getElementById('musicVolumeValue').textContent=this.value"><span class="rangeValue" id="musicVolumeValue">60</span></label></div></div></div>
+<div id="overlay" class="toolPanel"><div class="control"><label>🖼️ Add Overlay Image</label><input id="overlayFile" type="file" accept="image/*" onchange="loadOverlay(event)"><p class="notice">PNG/JPG overlay preview-তে দেখা যাবে।</p><div class="toolGrid"><label class="notice">Size<input type="range" min="10" max="100" value="40" oninput="changeOverlaySize(this.value)"></label><label class="notice">Opacity<input type="range" min="10" max="100" value="100" oninput="changeOverlayOpacity(this.value)"></label></div><button class="small danger" onclick="clearOverlay()">🗑️ Remove Overlay</button></div></div>
+<div id="effects" class="toolPanel"><div class="control"><b>✨ Video Effects</b><p class="notice">নতুন effect দিলে আগেরটি replace হবে। None দিলে effect চলে যাবে। Preview-তে সঙ্গে সঙ্গে দেখা যাবে।</p><div class="effectButtons"><button onclick="setEffect('none')">❌ None</button><button onclick="setEffect('cinematic')">🎬 Cinematic</button><button onclick="setEffect('vivid')">🔥 Vivid</button><button onclick="setEffect('bw')">⚫ B&W</button><button onclick="setEffect('warm')">☀️ Warm</button><button onclick="setEffect('cool')">❄️ Cool</button><button onclick="setEffect('vintage')">📼 Vintage</button><button onclick="setEffect('dream')">☁️ Dream</button><button onclick="setEffect('glow')">✨ Glow</button><button onclick="setEffect('flash')">⚡ Flash</button><button onclick="setEffect('shake')">📳 Shake</button><button onclick="setEffect('pulse')">🔍 Pulse</button></div><label class="notice">Intensity <span class="rangeValue" id="effectIntensityValue">100</span></label><input id="effectIntensity" type="range" min="0" max="100" value="100" oninput="setEffectIntensity(this.value)"><div class="trimBox"><label class="notice">Start<input id="effectStart" type="range" min="0" max="0" value="0" oninput="updateEffectRange()"><span class="rangeValue" id="effectStartValue">00:00</span></label><label class="notice">End<input id="effectEnd" type="range" min="0" max="0" value="0" oninput="updateEffectRange()"><span class="rangeValue" id="effectEndValue">00:00</span></label></div><div class="notice" id="activeEffectLabel">Effect: None</div></div></div>
+<div id="animation" class="toolPanel"><div class="animationGrid"><button onclick="setAnimation('none',this)">⏹️ None</button><button onclick="setAnimation('zoomIn',this)">🔍 Zoom In</button><button onclick="setAnimation('zoomOut',this)">🔎 Zoom Out</button><button onclick="setAnimation('left',this)">⬅️ Slide Left</button><button onclick="setAnimation('right',this)">➡️ Slide Right</button><button onclick="setAnimation('bounce',this)">🏀 Bounce</button><button onclick="setAnimation('shake',this)">📳 Shake</button><button onclick="setAnimation('pulse',this)">💓 Pulse</button><button onclick="setAnimation('float',this)">🎈 Float</button></div><div class="animationInfo">✨ Preview animation নির্বাচিত media-তে প্রয়োগ হবে।</div></div>
+<div id="beat" class="toolPanel"><div class="control"><b>🥁 Beat / Beat Sync</b><p class="notice">Audio যোগ করে Auto Detect বা playhead-এ beat marker দিন। Play করলে beat-এর সময় visual pulse হবে।</p><button class="small" onclick="detectBeats()">🥁 Auto Detect Beats</button><button class="small" onclick="addBeatAtPlayhead()">➕ Add Beat at Playhead</button><button class="small danger" onclick="clearBeats()">🗑️ Clear Beats</button><div id="beatList" class="miniRow"></div></div></div><div id="stickers" class="toolPanel"><div class="effectButtons"><button onclick="addSticker('❤️')">❤️ Love</button><button onclick="addSticker('🔥')">🔥 Fire</button><button onclick="addSticker('⭐')">⭐ Star</button><button onclick="addSticker('😂')">😂 Laugh</button><button onclick="addSticker('🎉')">🎉 Party</button><button onclick="addSticker('✨')">✨ Spark</button><button onclick="addSticker('😎')">😎 Cool</button><button onclick="addSticker('💯')">💯 100</button><button onclick="clearSticker()">🗑️ Clear</button></div></div>
+<div id="captions" class="toolPanel"><div class="control"><label>💬 Caption</label><textarea id="captionInput" placeholder="ভিডিওর caption লিখুন..."></textarea><button class="small" onclick="addCaptionLayer()">➕ Show Caption</button><button class="small danger" onclick="clearCaptionLayer()">🗑️ Clear Caption</button><p class="notice">এটি manual caption overlay। Automatic speech-to-text-এর জন্য পরে AI/server engine যুক্ত করা যাবে।</p></div></div>
+<div id="transform" class="toolPanel"><div class="toolGrid"><div class="control"><label>Zoom <span class="rangeValue" id="zoomValue">100</span></label><input type="range" min="80" max="160" value="100" oninput="changeZoom(this.value)"></div><div class="control"><label>Rotate</label><div class="effectButtons"><button onclick="rotateBy(-90)">↩️ -90°</button><button onclick="rotateBy(90)">↪️ +90°</button></div></div></div><div class="toolGrid"><button class="small" onclick="flipVideo()">↔️ Flip</button><button class="small" onclick="resetEditor()">↺ Reset</button></div></div>
+<div id="project" class="toolPanel"><div class="control"><label>📂 Project Name</label><input id="projectName" placeholder="My Pixora Project"><button class="small" onclick="saveProject()">💾 Save Project</button><button class="small" onclick="showProjects()">📂 Open Saved Projects</button></div></div>
 </div>
-
-</div>
-
-<div class="editorPreview" id="previewBox">
-
-<div class="emptyPreview">
-  🎬<br><br>
-  ভিডিও নির্বাচন করলে এখানে Preview দেখা যাবে
-</div>
-
-</div>
-
-<div class="timeline">
-
-<div class="timeRow">
-  <span id="currentTime">00:00</span>
-  <span id="durationTime">00:00</span>
-</div>
-
-<input
-  id="seekBar"
-  type="range"
-  min="0"
-  max="100"
-  value="0"
-  style="width:100%"
-  oninput="seekVideo(this.value)"
->
-
-<div class="playControls">
-  <button onclick="backward()">⏪</button>
-  <button onclick="playPause()" id="playButton">▶️</button>
-  <button onclick="forward()">⏩</button>
-</div>
-
-</div>
-
-
-<div class="editorTools">
-
-<div class="toolbar">
-
-<button class="toolButton active" onclick="openTool('basic',this)">
-<span>✂️</span>Basic
-</button>
-
-<button class="toolButton" onclick="openTool('color',this)">
-<span>🎨</span>Color
-</button>
-
-<button class="toolButton" onclick="openTool('blur',this)">
-<span>🌫️</span>Blur
-</button>
-
-<button class="toolButton" onclick="openTool('motion',this)">
-<span>🎥</span>Motion
-</button>
-
-<button class="toolButton" onclick="openTool('speed',this)">
-<span>⚡</span>Speed
-</button>
-
-<button class="toolButton" onclick="openTool('audio',this)">
-<span>🔊</span>Audio
-</button>
-
-<button class="toolButton" onclick="openTool('effects',this)">
-<span>✨</span>Effects
-</button>
-
-<button class="toolButton" onclick="openTool('transform',this)">
-<span>🔄</span>Transform
-</button>
-
-</div>
-
-
-<!-- BASIC -->
-
-<div id="basic" class="toolPanel active">
-
-<div class="trimBox">
-
-<div class="control">
-<label>
-⏱️ Trim Start
-<span class="rangeValue" id="startValue">00:00</span>
-</label>
-
-<input
-id="trimStart"
-type="range"
-min="0"
-max="0"
-value="0"
-oninput="setTrimStart(this.value)"
->
-</div>
-
-<div class="control">
-<label>
-⏱️ Trim End
-<span class="rangeValue" id="endValue">00:00</span>
-</label>
-
-<input
-id="trimEnd"
-type="range"
-min="0"
-max="0"
-value="0"
-oninput="setTrimEnd(this.value)"
->
-</div>
-
-</div>
-
-<div class="control" style="margin-top:10px">
-
-<label>📐 Aspect Ratio</label>
-
-<select onchange="changeAspect(this.value)">
-<option value="auto">Original</option>
-<option value="16/9">16:9</option>
-<option value="9/16">9:16</option>
-<option value="1/1">1:1</option>
-</select>
-
-<button class="small" onclick="previewTrim()">
-✂️ Preview Trim
-</button>
-
-</div>
-
-</div>
-
-
-<!-- COLOR -->
-
-<div id="color" class="toolPanel">
-
-<div class="toolGrid">
-
-<div class="control">
-
-<label>
-Brightness
-<span class="rangeValue" id="brightnessValue">100</span>
-</label>
-
-<input
-type="range"
-min="50"
-max="150"
-value="100"
-oninput="changeFilter('brightness',this.value,'brightnessValue')"
->
-
-</div>
-
-<div class="control">
-
-<label>
-Contrast
-<span class="rangeValue" id="contrastValue">100</span>
-</label>
-
-<input
-type="range"
-min="50"
-max="180"
-value="100"
-oninput="changeFilter('contrast',this.value,'contrastValue')"
->
-
-</div>
-
-<div class="control">
-
-<label>
-Saturation
-<span class="rangeValue" id="saturationValue">100</span>
-</label>
-
-<input
-type="range"
-min="0"
-max="200"
-value="100"
-oninput="changeFilter('saturate',this.value,'saturationValue')"
->
-
-</div>
-
-<div class="control">
-
-<label>
-Grayscale
-<span class="rangeValue" id="grayValue">0</span>
-</label>
-
-<input
-type="range"
-min="0"
-max="100"
-value="0"
-oninput="changeFilter('grayscale',this.value,'grayValue')"
->
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- BLUR -->
-
-<div id="blur" class="toolPanel">
-
-<div class="toolGrid">
-
-<div class="control">
-
-<label>
-Video Blur
-<span class="rangeValue" id="blurValue">0</span>
-</label>
-
-<input
-type="range"
-min="0"
-max="20"
-value="0"
-oninput="changeBlur(this.value)"
->
-
-</div>
-
-<div class="control">
-
-<label>Background Blur</label>
-
-<p class="notice">
-Preview-এ পুরো ভিডিও Blur করা যায়।
-AI subject separation-এর জন্য আলাদা processing engine লাগবে।
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- MOTION -->
-
-<div id="motion" class="toolPanel">
-
-<div class="toolGrid">
-
-<div class="control">
-
-<label>
-Zoom
-<span class="rangeValue" id="zoomValue">100</span>
-</label>
-
-<input
-type="range"
-min="80"
-max="160"
-value="100"
-oninput="changeZoom(this.value)"
->
-
-</div>
-
-<div class="control">
-
-<label>Motion</label>
-
-<button class="small" onclick="shakeVideo()">
-📳 Shake
-</button>
-
-<button class="small" onclick="pulseVideo()">
-🔍 Pulse Zoom
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- SPEED -->
-
-<div id="speed" class="toolPanel">
-
-<div class="effectButtons">
-
-<button onclick="setSpeed(.5)">
-0.5x<br>Slow
-</button>
-
-<button onclick="setSpeed(.75)">
-0.75x
-</button>
-
-<button onclick="setSpeed(1)">
-1x<br>Normal
-</button>
-
-<button onclick="setSpeed(1.25)">
-1.25x
-</button>
-
-<button onclick="setSpeed(1.5)">
-1.5x
-</button>
-
-<button onclick="setSpeed(2)">
-2x<br>Fast
-</button>
-
-</div>
-
-</div>
-
-
-<!-- AUDIO -->
-
-<div id="audio" class="toolPanel">
-
-<div class="toolGrid">
-
-<div class="control">
-
-<label>
-Volume
-<span class="rangeValue" id="volumeValue">100</span>
-</label>
-
-<input
-type="range"
-min="0"
-max="100"
-value="100"
-oninput="changeVolume(this.value)"
->
-
-</div>
-
-<div class="control">
-
-<label>Audio</label>
-
-<button class="small" onclick="toggleMute()">
-🔇 Mute / Unmute
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- EFFECTS -->
-
-<div id="effects" class="toolPanel">
-
-<div class="effectButtons">
-
-<button onclick="setEffect('normal')">
-🌈 Normal
-</button>
-
-<button onclick="setEffect('cinematic')">
-🎬 Cinematic
-</button>
-
-<button onclick="setEffect('vivid')">
-🔥 Vivid
-</button>
-
-<button onclick="setEffect('bw')">
-⚫ B&W
-</button>
-
-<button onclick="setEffect('warm')">
-☀️ Warm
-</button>
-
-<button onclick="setEffect('cool')">
-❄️ Cool
-</button>
-
-</div>
-
-</div>
-
-
-<!-- TRANSFORM -->
-
-<div id="transform" class="toolPanel">
-
-<div class="toolGrid">
-
-<div class="control">
-
-<label>Rotate</label>
-
-<div class="effectButtons">
-
-<button onclick="rotateBy(-90)">
-↩️ -90°
-</button>
-
-<button onclick="rotateBy(90)">
-↪️ +90°
-</button>
-
-</div>
-
-</div>
-
-<div class="control">
-
-<label>Flip / Reset</label>
-
-<button class="small" onclick="flipVideo()">
-↔️ Flip
-</button>
-
-<button class="small" onclick="resetEditor()">
-↺ Reset
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="panel">
-
-<h3>📥 Video Export</h3>
-
-<p class="notice">
-এই Version-এ Browser Preview Editing কাজ করে।
-নতুন MP4 ফাইল তৈরি করতে FFmpeg/WebAssembly বা Server Processing প্রয়োজন।
-</p>
-
-<button class="primary" onclick="exportInfo()">
-📥 Export Video
-</button>
-
-</div>
-
+<div class="panel"><h3>📤 Export / Save</h3><p class="notice">Browser-এ সরাসরি MP4 encoding সব device-এ available নয়। Pixora এই version-এ supported browser হলে WebM recording export করবে; পরে FFmpeg/server pipeline দিয়ে MP4 যোগ করা যাবে।</p><div class="grid"><button class="primary" onclick="exportVideo()">📥 Export Video</button><button class="small" onclick="saveProject()">💾 Save Project</button></div></div>
 </section>
 
-
-<!-- WORKS -->
-
-<section id="works" class="page">
-
-<div class="panel">
-
-<h2>🛠️ Available Works</h2>
-
-<p class="muted">
-Admin যে কাজগুলো যোগ করবে সেগুলো এখানে দেখা যাবে।
-</p>
-
-<div id="publicTasks"></div>
-
-</div>
-
-</section>
-
-
-<!-- ORDER -->
-
-<section id="order" class="page">
-
-<div class="panel">
-
-<h2>📦 কাজের অর্ডার</h2>
-
-<input
-id="customerName"
-placeholder="আপনার নাম"
->
-
-<input
-id="customerPhone"
-placeholder="আপনার মোবাইল নম্বর"
->
-
-<select id="serviceSelect">
-<option>Photo Edit — ৪০ টাকা</option>
-<option>Video Edit — ৭০ টাকা</option>
-</select>
-
-<textarea
-id="details"
-placeholder="কাজের বিস্তারিত লিখুন"
-></textarea>
-
-<button class="primary" onclick="showPage('payment')">
-পেমেন্টে যান →
-</button>
-
-</div>
-
-</section>
-
-
-<!-- PAYMENT -->
-
-<section id="payment" class="page">
-
-<div class="panel">
-
-<h2>💳 Payment</h2>
-
-<div class="pay">
-
-<b>📱 bKash Payment</b>
-
-<div class="number">
-01988891195
-</div>
-
-</div>
-
-<input
-id="trx"
-placeholder="bKash Transaction ID"
->
-
-<button class="primary" onclick="submitOrder()">
-✅ অর্ডার পাঠান
-</button>
-
-<div id="orderMessage" class="notice"></div>
-
-</div>
-
-</section>
-
-
-<!-- WALLET -->
-
-<section id="wallet" class="page">
-
-<div class="balance">
-
-<div>💰 Wallet Balance</div>
-
-<div class="amount">
-৳ <span id="balanceAmount">0</span>
-</div>
-
-<button class="primary" onclick="showPage('withdraw')">
-💸 টাকা উত্তোলন
-</button>
-
-</div>
-
-<div class="stats">
-
-<div class="stat">
-মোট ইনকাম
-<b id="totalEarn">0</b>
-</div>
-
-<div class="stat">
-মোট উত্তোলন
-<b id="totalWithdraw">0</b>
-</div>
-
-</div>
-
-<div class="panel">
-
-<h3>📜 Wallet History</h3>
-
-<div id="history"></div>
-
-</div>
-
-</section>
-
-
-<!-- WITHDRAW -->
-
-<section id="withdraw" class="page">
-
-<div class="panel">
-
-<h2>💸 Withdrawal Request</h2>
-
-<input
-id="withdrawName"
-placeholder="আপনার নাম"
->
-
-<select id="withdrawMethod">
-<option>bKash</option>
-<option>Nagad</option>
-<option>Rocket</option>
-</select>
-
-<input
-id="withdrawNumber"
-placeholder="পেমেন্ট নম্বর"
->
-
-<input
-id="withdrawAmount"
-type="number"
-min="1"
-placeholder="পরিমাণ"
->
-
-<button class="primary" onclick="requestWithdraw()">
-📤 Request পাঠান
-</button>
-
-<div id="withdrawMessage" class="notice"></div>
-
-</div>
-
-</section>
-
-
-<!-- ADMIN -->
-
-<section id="admin" class="page">
-
-<div class="owner">
-
-<h2>👑 Owner / Admin Control</h2>
-
-<p class="muted">
-এখান থেকে নিজের মতো কাজ যোগ করুন, দাম সেট করুন এবং কাজ সম্পন্ন হলে Wallet-এ টাকা যোগ করুন।
-</p>
-
-<b>Owner: আতিক ব্রান্ড</b>
-
-</div>
-
-
-<div class="panel">
-
-<h3>➕ নতুন কাজ দিন</h3>
-
-<input
-id="taskTitle"
-placeholder="কাজের নাম"
->
-
-<textarea
-id="taskDesc"
-placeholder="কাজের বিস্তারিত"
-></textarea>
-
-<input
-id="taskPrice"
-type="number"
-min="0"
-placeholder="কাজের দাম"
->
-
-<button class="primary" onclick="addTask()">
-➕ কাজ প্রকাশ করুন
-</button>
-
-</div>
-
-
-<div class="panel">
-
-<h3>📋 আমার কাজগুলো</h3>
-
-<div id="adminTasks"></div>
-
-</div>
-
-
-<div class="panel">
-
-<h3>📦 Customer Orders</h3>
-
-<div id="adminOrders"></div>
-
-</div>
-
-
-<div class="panel">
-
-<h3>💰 Wallet Control</h3>
-
-<input
-id="incomeAmount"
-type="number"
-min="1"
-placeholder="কত টাকা যোগ করবেন"
->
-
-<input
-id="incomeNote"
-placeholder="কারণ / কাজের নাম"
->
-
-<button class="primary" onclick="addWalletIncome()">
-💰 Wallet-এ টাকা যোগ করুন
-</button>
-
-<button class="small danger" onclick="resetWallet()">
-🗑️ Wallet Reset
-</button>
-
-</div>
-
-
-<div class="panel">
-
-<h3>💸 Withdrawal Requests</h3>
-
-<div id="adminWithdrawals"></div>
-
-</div>
-
-</section>
-
-
-<!-- CONTACT -->
-
-<section id="contact" class="page">
-
-<div class="panel">
-
-<h2>💬 যোগাযোগ</h2>
-
-<a
-class="contact"
-href="https://wa.me/8801988891195"
-target="_blank"
->
-🟢 WhatsApp<br>
-01988891195
-</a>
-
-<a
-class="contact"
-href="https://t.me/atikbreand420"
-target="_blank"
->
-🔵 Telegram<br>
-@atikbreand420
-</a>
-
-<div class="pay">
-
-<b>📱 bKash</b>
-
-<div class="number">
-01988891195
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-</main>
-
-</div>
-
-
-<!-- NAV -->
-
-<nav class="bottomNav">
-
-<button class="active" onclick="showPage('home',this)">
-🏠<br>Home
-</button>
-
-<button onclick="showPage('editor',this)">
-🎬<br>Editor
-</button>
-
-<button onclick="showPage('works',this)">
-🛠️<br>Works
-</button>
-
-<button onclick="showPage('order',this)">
-📦<br>Order
-</button>
-
-<button onclick="showPage('wallet',this)">
-💰<br>Income
-</button>
-
-<button onclick="showPage('admin',this)">
-👑<br>Admin
-</button>
-
-<button onclick="showPage('contact',this)">
-💬<br>Contact
-</button>
-
-</nav>
-
-
+<section id="works" class="page"><div class="panel"><h2>🎯 Earn & Work</h2><p class="muted">Admin যে কাজগুলো প্রকাশ করবে সেগুলো এখানে দেখা যাবে। কাজ সম্পন্ন হলে Admin verification-এর পর earning যোগ করা যাবে।</p><div class="earnHero"><div class="notice">Available Balance</div><div class="earnBalance">৳ <span id="workBalance">0</span></div></div><div id="publicTasks"></div></div></section>
+<section id="order" class="page"><div class="panel"><h2>📦 কাজের অর্ডার</h2><input id="customerName" placeholder="আপনার নাম"><input id="customerPhone" placeholder="আপনার মোবাইল নম্বর"><select id="serviceSelect"><option>Photo Edit — ৪০ টাকা</option><option>Video Edit — ৭০ টাকা</option></select><textarea id="details" placeholder="কাজের বিস্তারিত লিখুন"></textarea><button class="primary" onclick="showPage('payment')">পেমেন্টে যান →</button></div></section>
+<section id="payment" class="page"><div class="panel"><h2>💳 Payment</h2><div class="pay"><b>📱 bKash Payment</b><div class="number">01988891195</div><p class="notice">উপরের নম্বরে Payment করার পর Transaction ID দিন।</p></div><input id="trx" placeholder="bKash Transaction ID"><button class="primary" onclick="submitOrder()">✅ অর্ডার পাঠান</button><div id="orderMessage" class="notice"></div></div></section>
+<section id="wallet" class="page"><div class="balance"><div>💰 Wallet Balance</div><div class="amount">৳ <span id="balanceAmount">0</span></div><button class="primary" onclick="showPage('deposit')">💳 Deposit টাকা যোগ করুন</button><button class="primary" onclick="showPage('withdraw')">💸 টাকা উত্তোলন</button></div><div class="stats"><div class="stat">মোট ইনকাম<b id="totalEarn">0</b></div><div class="stat">মোট উত্তোলন<b id="totalWithdraw">0</b></div></div><div class="panel"><h3>📜 Wallet History</h3><div id="history"></div></div></section>
+<section id="deposit" class="page"><div class="panel"><h2>💳 Wallet Deposit</h2><div class="pay"><b>📱 bKash Personal</b><div class="number">01988891195</div><p class="notice">এই নম্বরে bKash Send Money করার পর নিচের তথ্য দিন।</p></div><input id="depositAmount" type="number" min="1" placeholder="কত টাকা Deposit করেছেন"><input id="depositTrx" placeholder="bKash Transaction ID"><button class="primary" onclick="submitDeposit()">✅ Deposit Request পাঠান</button><div id="depositMessage" class="notice"></div><div class="notice" style="margin-top:10px">⏳ Admin যাচাই করে Approve করলে টাকা Wallet-এ যোগ হবে।</div></div></section>
+<section id="withdraw" class="page"><div class="panel"><h2>💸 Withdrawal Request</h2><input id="withdrawName" placeholder="আপনার নাম"><select id="withdrawMethod"><option>bKash</option><option>Nagad</option><option>Rocket</option></select><input id="withdrawNumber" placeholder="পেমেন্ট নম্বর"><input id="withdrawAmount" type="number" min="1" placeholder="পরিমাণ"><button class="primary" onclick="requestWithdraw()">📤 Request পাঠান</button><div id="withdrawMessage" class="notice"></div></div></section>
+<section id="profile" class="page"><div class="panel"><h2>👤 Profile</h2><div class="control-box"><label>Your User ID</label><input id="profileUserId" readonly placeholder="Login করলে User ID দেখাবে"></div><input id="profileName" placeholder="আপনার নাম"><input id="profilePhone" placeholder="আপনার মোবাইল নম্বর"><button class="primary" onclick="saveProfile()">💾 Profile Save</button><p class="notice">WhatsApp: 01762209184 • Telegram: @atikbreand420</p></div></section>
+<section id="messages" class="page"><div class="panel"><h2>💬 Admin Messages</h2><p class="muted">Admin-এর message, reply এবং status এখানে দেখা যাবে।</p><div class="control-box" style="margin-top:10px"><label>User ID</label><input id="messageUserId" placeholder="আপনার User ID"><button class="primary" onclick="saveMessageUserId()">💾 Save User ID</button></div><div id="userMessageList" style="margin-top:12px"><div class="empty">User ID দিয়ে Messages দেখুন।</div></div><div class="control-box" style="margin-top:12px"><label>Admin-কে Message</label><textarea id="userMessageText" placeholder="আপনার message লিখুন..."></textarea><button class="primary" onclick="sendUserMessage()">📤 Send Message</button></div></div></section>
+<section id="contact" class="page"><div class="panel"><h2>💬 যোগাযোগ</h2><a class="contact" href="https://wa.me/8801762209184" target="_blank" rel="noopener">🟢 WhatsApp<br>01762209184</a><a class="contact" href="https://t.me/atikbreand420" target="_blank" rel="noopener">🔵 Telegram<br>@atikbreand420</a><div class="pay"><b>📱 bKash Personal</b><div class="number">01988891195</div></div></div></section>
+</main></div>
+<section class="panel" id="sharePanel"><h2>📤 Share & Earn</h2><p class="muted">Pixora-এর লিংক শেয়ার করুন। Share option ব্যবহার করার পর ৳5 reward request তৈরি হবে; Admin approve করলে Wallet-এ ৳5 যোগ হবে।</p><div class="grid"><button class="primary" onclick="sharePixoraWhatsApp()">🟢 WhatsApp Share</button><button class="primary" onclick="sharePixoraTelegram()">🔵 Telegram Share</button></div><button class="small" onclick="copyPixoraLink()">📋 Copy Pixora Link</button><div id="shareStatus" class="notice" style="margin-top:8px">প্রতি User-এর Share reward Admin-এর মাধ্যমে যাচাই/কন্ট্রোল হবে।</div></section>
+<nav class="bottomNav"><button class="active" onclick="showPage('home',this)">🏠<br>Home</button><button onclick="showPage('editor',this)">🎬<br>Editor</button><button onclick="showPage('works',this)">🛠️<br>Works</button><button onclick="showPage('order',this)">📦<br>Order</button><button onclick="showPage('wallet',this)">💰<br>Income</button><button onclick="showPage('messages',this)">💬<br>Messages</button><button onclick="showPage('contact',this)">📞<br>Contact</button></nav>
+<div id="toast" class="toast"></div>
+<div id="projectModal" class="modal"><div class="modalCard"><div class="modalTop"><h3>📂 Saved Projects</h3><button class="closeBtn" onclick="closeProjects()">✕</button></div><div id="projectList"></div></div></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+/* ==================================================
+   PIXORA — COMBINED & CORRECTED APP SCRIPT
+   Merged with the latest Pixora UI and the supplied
+   second-part functionality. Local-first; Supabase-ready.
+================================================== */
 
-/* =========================
-   GLOBAL
-========================= */
+const SUPABASE_URL = "https://yijviyxdcrhkjqxqcbul.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_wlq00hXvpHtoa5rmG-A7PA_OXgY4VMd";
+let supabaseClient = null;
 
-let video=null;
-let videoURL=null;
+const $ = id => document.getElementById(id);
 
-let filters={
-  brightness:100,
-  contrast:100,
-  saturate:100,
-  grayscale:0,
-  blur:0
+let video = null;
+let canvas = null;
+let ctx = null;
+let animationFrame = null;
+let audioElement = null;
+let overlayImage = null;
+let lastBeatPulse = -1;
+
+const DEFAULT_STATE = {
+  mediaType: '', mediaUrl: '', mediaName: '', duration: 0,
+  audioUrl: '', audioName: '', musicVolume: 60,
+  overlayUrl: '', overlaySize: 40, overlayOpacity: 100,
+  filter: 'normal', brightness: 100, contrast: 100, saturate: 100,
+  grayscale: 0, blur: 0, opacity: 100,
+  zoom: 100, rotation: 0, flipX: 1, aspect: 'auto',
+  text: '', textSize: 36, textColor: '#ffffff', textPosition: 'center', textWeight: 800,
+  caption: '', sticker: '', effect: 'none', effectIntensity: 100,
+  effectStart: 0, effectEnd: 0, animation: 'none', animationStart: 0, animationEnd: 0,
+  playbackRate: 1, colorGrade: 'normal', beatSync: false, beatAnimation: 'pulse',
+  beats: [],
+  balance: 0, totalIncome: 0, totalWithdraw: 0,
+  walletHistory: [], tasks: [], taskSubmissions: [], orders: [], withdrawals: [], deposits: [], messages: [], projects: [],
+  profile: {name:'', phone:''}
 };
 
-let rotation=0;
-let flipped=false;
-let zoom=100;
-let trimStart=0;
-let trimEnd=0;
+let state = loadStateFromStorage();
 
+function cloneDefault(){ return JSON.parse(JSON.stringify(DEFAULT_STATE)); }
 
-/* =========================
-   HELPER
-========================= */
+function loadStateFromStorage(){
+  try{
+    const saved = JSON.parse(localStorage.getItem('pixora_state') || 'null');
+    return normalizeState(saved || cloneDefault());
+  }catch(e){
+    return cloneDefault();
+  }
+}
 
-function $(id){
-  return document.getElementById(id);
+function normalizeState(s){
+  const d = cloneDefault();
+  const out = {...d, ...s};
+  out.profile = {...d.profile, ...(s.profile || {})};
+  out.playbackRate=Number(out.playbackRate)||1;
+  out.colorGrade=out.colorGrade||'normal';
+  out.beatSync=!!out.beatSync;
+  out.beatAnimation=out.beatAnimation||'pulse';
+  ['beats','walletHistory','tasks','taskSubmissions','orders','withdrawals','deposits','messages','projects'].forEach(k=>{
+    out[k] = Array.isArray(s[k]) ? s[k] : d[k];
+  });
+  return out;
+}
+
+function persist(){
+  localStorage.setItem('pixora_state', JSON.stringify(state));
 }
 
 function escapeHTML(value){
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+  return String(value ?? '')
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#039;');
 }
 
-
-/* =========================
-   PAGE
-========================= */
-
-function showPage(id,button){
-
-  document.querySelectorAll(".page").forEach(function(page){
-    page.classList.remove("active");
-  });
-
-  const page=$(id);
-
-  if(page){
-    page.classList.add("active");
-  }
-
-  document.querySelectorAll(".bottomNav button").forEach(function(btn){
-    btn.classList.remove("active");
-  });
-
-  if(button){
-    button.classList.add("active");
-  }
-
-  if(id==="wallet"){
-    loadWallet();
-  }
-
-  if(id==="works"){
-    loadPublicTasks();
-  }
-
-  if(id==="admin"){
-    loadAdmin();
-  }
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
+function toast(message){
+  const el = $('toast');
+  if(!el) return;
+  el.textContent = message;
+  el.classList.add('show');
+  clearTimeout(window.__pixoraToastTimer);
+  window.__pixoraToastTimer = setTimeout(()=>el.classList.remove('show'),2600);
 }
-
-
-/* =========================
-   SERVICE
-========================= */
-
-function chooseService(name){
-
-  $("serviceSelect").value=name;
-
-  showPage("order");
-}
-
-
-/* =========================
-   VIDEO LOAD
-========================= */
-
-function loadVideo(event){
-
-  const file=
-    event.target.files &&
-    event.target.files[0];
-
-  if(!file){
-    return;
-  }
-
-  if(!file.type.startsWith("video/")){
-    alert("শুধু Video File নির্বাচন করুন।");
-    return;
-  }
-
-  if(videoURL){
-    URL.revokeObjectURL(videoURL);
-  }
-
-  videoURL=URL.createObjectURL(file);
-
-  $("previewBox").innerHTML=
-    '<video id="video" controls playsinline></video>';
-
-  video=$("video");
-
-  video.src=videoURL;
-
-  video.onloadedmetadata=function(){
-
-    const duration=
-      Number(video.duration)||0;
-
-    $("durationTime").textContent=
-      formatTime(duration);
-
-    $("seekBar").max=duration;
-    $("seekBar").value=0;
-
-    $("trimStart").max=duration;
-    $("trimEnd").max=duration;
-
-    $("trimStart").value=0;
-    $("trimEnd").value=duration;
-
-    trimStart=0;
-    trimEnd=duration;
-
-    $("startValue").textContent=
-      formatTime(0);
-
-    $("endValue").textContent=
-      formatTime(duration);
-
-    applyPreview();
-  };
-
-  video.ontimeupdate=function(){
-
-    $("currentTime").textContent=
-      formatTime(video.currentTime);
-
-    $("seekBar").value=
-      video.currentTime;
-
-    if(
-      trimEnd>trimStart &&
-      video.currentTime>=trimEnd
-    ){
-
-      video.currentTime=trimStart;
-      video.pause();
-
-      $("playButton").textContent="▶️";
-    }
-  };
-
-  video.onplay=function(){
-    $("playButton").textContent="⏸️";
-  };
-
-  video.onpause=function(){
-    $("playButton").textContent="▶️";
-  };
-
-  applyPreview();
-}
-
-
-/* =========================
-   TIME
-========================= */
 
 function formatTime(seconds){
-
-  seconds=Number(seconds);
-
-  if(
-    !isFinite(seconds) ||
-    seconds<0
-  ){
-    seconds=0;
-  }
-
-  const minutes=
-    Math.floor(seconds/60);
-
-  const sec=
-    Math.floor(seconds%60);
-
-  return String(minutes).padStart(2,"0")
-    +":"
-    +String(sec).padStart(2,"0");
+  let s = Number(seconds);
+  if(!Number.isFinite(s) || s < 0) s = 0;
+  const m = Math.floor(s/60);
+  const sec = Math.floor(s%60);
+  return String(m).padStart(2,'0') + ':' + String(sec).padStart(2,'0');
 }
 
-
-/* =========================
-   PLAYBACK
-========================= */
-
-function playPause(){
-
-  if(!video){
-    alert("আগে একটি ভিডিও নির্বাচন করুন।");
-    return;
-  }
-
-  if(video.paused){
-
-    if(
-      trimEnd>trimStart &&
-      video.currentTime>=trimEnd
-    ){
-      video.currentTime=trimStart;
-    }
-
-    video.play();
-
-  }else{
-
-    video.pause();
+function initSupabase(){
+  const valid=!!(SUPABASE_URL && SUPABASE_ANON_KEY && !SUPABASE_URL.includes('YOUR_') && !SUPABASE_ANON_KEY.includes('YOUR_'));
+  if(valid && window.supabase?.createClient){
+    supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY,{auth:{autoRefreshToken:true,persistSession:true,detectSessionInUrl:true}});
   }
 }
 
+function setAuthMsg(msg,ok=false){const el=$('authMsg');if(el){el.textContent=msg;el.style.color=ok?'#20d9a1':'#ff9cad'}}
+function openApp(){ $('authGate').style.display='none'; $('pixoraApp').style.display='block'; }
+function showAuth(){ $('authGate').style.display='grid'; $('pixoraApp').style.display='none'; }
 
-function backward(){
-
-  if(video){
-    video.currentTime=
-      Math.max(
-        trimStart||0,
-        video.currentTime-5
-      );
+async function ensureUserRow(user){
+  if(!supabaseClient||!user)return;
+  const {data}=await supabaseClient.from('users').select('id').eq('id',user.id).maybeSingle();
+  if(!data){
+    const name=$('authName')?.value.trim()||user.user_metadata?.name||user.email?.split('@')[0]||'User';
+    const phone=$('authPhone')?.value.trim()||user.user_metadata?.phone||'';
+    const {error}=await supabaseClient.from('users').insert({id:user.id,name,email:user.email,phone,balance:0});
+    if(error && !String(error.message||'').toLowerCase().includes('duplicate')) throw error;
   }
 }
 
+async function pixoraLogin(){
+  const email=$('authEmail')?.value.trim(),password=$('authPassword')?.value||'';
+  if(!email||!password){setAuthMsg('Email ও Password দিন।');return}
+  try{const {data,error}=await supabaseClient.auth.signInWithPassword({email,password});if(error)throw error;await ensureUserRow(data.user);await syncUserData();openApp();setAuthMsg('Login সফল হয়েছে।',true);}catch(e){setAuthMsg(e.message||'Login failed');}
+}
+async function pixoraSignup(){
+  const email=$('authEmail')?.value.trim(),password=$('authPassword')?.value||'',name=$('authName')?.value.trim(),phone=$('authPhone')?.value.trim();
+  if(!email||!password){setAuthMsg('Email ও Password দিন।');return}
+  if(password.length<6){setAuthMsg('Password কমপক্ষে 6 অক্ষরের দিন।');return}
+  try{const {data,error}=await supabaseClient.auth.signUp({email,password,options:{data:{name:name||'',phone:phone||''}}});if(error)throw error;if(data.session){await ensureUserRow(data.user);await syncUserData();openApp();setAuthMsg('Signup সফল হয়েছে।',true);}else setAuthMsg('Signup হয়েছে। Email confirmation লাগতে পারে।');}catch(e){setAuthMsg(e.message||'Signup failed');}
+}
+async function pixoraLogout(){if(supabaseClient)await supabaseClient.auth.signOut();showAuth();}
 
-function forward(){
-
-  if(video){
-
-    const end=
-      trimEnd||video.duration;
-
-    video.currentTime=
-      Math.min(
-        end,
-        video.currentTime+5
-      );
-  }
+async function syncUserData(){
+  if(!supabaseClient)return;
+  const {data:{user}}=await supabaseClient.auth.getUser();if(!user)return;
+  state.user=user; const uidEl=$('profileUserId'); if(uidEl)uidEl.value=user.id;
+  try{
+    const [uR,tR,oR,dR,wR,mR,sR]=await Promise.all([
+      supabaseClient.from('users').select('*').eq('id',user.id).maybeSingle(),
+      supabaseClient.from('tasks').select('*').eq('status','published').order('created_at',{ascending:false}),
+      supabaseClient.from('orders').select('*').eq('user_id',user.id).order('created_at',{ascending:false}),
+      supabaseClient.from('deposits').select('*').eq('user_id',user.id).order('created_at',{ascending:false}),
+      supabaseClient.from('withdrawals').select('*').eq('user_id',user.id).order('created_at',{ascending:false}),
+      supabaseClient.from('messages').select('*').eq('user_id',user.id).order('created_at',{ascending:false}),
+      supabaseClient.from('task_submissions').select('*').eq('user_id',user.id).order('submitted_at',{ascending:false})
+    ]);
+    if(uR.data){state.balance=Number(uR.data.balance||0);state.profile={...state.profile,name:uR.data.name||state.profile.name||'',phone:uR.data.phone||state.profile.phone||''};}
+    if(Array.isArray(tR.data))state.tasks=tR.data.map(t=>({...t,reward:Number(t.reward||0),createdAt:t.created_at}));
+    if(Array.isArray(oR.data))state.orders=oR.data.map(o=>({...o,service:o.order_type||o.service||o.type,transactionId:o.transaction_id,date:o.created_at}));
+    if(Array.isArray(dR.data))state.deposits=dR.data.map(d=>({...d,transactionId:d.transaction_id,date:d.created_at}));
+    if(Array.isArray(wR.data))state.withdrawals=wR.data.map(w=>({...w,number:w.account,date:w.created_at}));
+    if(Array.isArray(mR.data))state.messages=mR.data;
+    if(Array.isArray(sR.data))state.taskSubmissions=sR.data;
+    persist();renderTasks();renderOrders();renderIncome();renderUserMessages();
+  }catch(e){console.warn('User sync:',e.message||e)}
 }
 
-
-function seekVideo(value){
-
-  if(video){
-    video.currentTime=
-      Number(value);
-  }
+async function supabaseRequest(table, options={}){
+  if(!supabaseClient) throw new Error('Supabase is not configured.');
+  let url = supabaseClient.url + '/rest/v1/' + table;
+  if(options.query) url += '?' + options.query;
+  const response = await fetch(url, {
+    method: options.method || 'GET',
+    headers: {
+      apikey: supabaseClient.key,
+      Authorization: 'Bearer ' + supabaseClient.key,
+      'Content-Type': 'application/json',
+      Prefer: options.prefer || 'return=representation'
+    },
+    body: options.body ? JSON.stringify(options.body) : undefined
+  });
+  if(!response.ok) throw new Error(await response.text());
+  const text = await response.text();
+  return text ? JSON.parse(text) : null;
 }
 
+/* ==================================================
+   NAVIGATION
+================================================== */
+function showPage(id, button){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const page = $(id);
+  if(page) page.classList.add('active');
 
-/* =========================
-   TOOL PANELS
-========================= */
-
-function openTool(id,button){
-
-  document.querySelectorAll(".toolPanel")
-    .forEach(function(panel){
-      panel.classList.remove("active");
-    });
-
-  const panel=$(id);
-
-  if(panel){
-    panel.classList.add("active");
+  document.querySelectorAll('.bottomNav button').forEach(b=>b.classList.remove('active'));
+  if(button) button.classList.add('active');
+  else{
+    const map={home:0,editor:1,works:2,order:3,wallet:4,admin:5,contact:6};
+    const bs=document.querySelectorAll('.bottomNav button');
+    if(map[id] != null && bs[map[id]]) bs[map[id]].classList.add('active');
   }
 
-  document.querySelectorAll(".toolButton")
-    .forEach(function(btn){
-      btn.classList.remove("active");
-    });
-
-  if(button){
-    button.classList.add("active");
-  }
+  if(id==='wallet') renderIncome();
+  if(id==='deposit') 
+  if(id==='works') renderTasks();
+  if(id==='order') renderOrders();
+  if(id==='admin') 
+  if(id==='home') renderRecentProjects();
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
-
-/* =========================
-   PREVIEW
-========================= */
-
-function applyPreview(){
-
-  if(!video){
-    return;
+function chooseService(service){
+  const select = $('serviceSelect');
+  if(!select) return;
+  let option = [...select.options].find(o=>o.value===service || o.text===service);
+  if(!option){
+    option=document.createElement('option');
+    option.value=service; option.textContent=service;
+    select.appendChild(option);
   }
-
-  video.style.filter=
-    "brightness("+filters.brightness+"%) "
-    +"contrast("+filters.contrast+"%) "
-    +"saturate("+filters.saturate+"%) "
-    +"grayscale("+filters.grayscale+"%) "
-    +"blur("+filters.blur+"px)";
-
-  video.style.transform=
-    "rotate("+rotation+"deg) "
-    +"scaleX("+(flipped?-1:1)+") "
-    +"scale("+zoom/100+")";
+  select.value = service;
+  showPage('order');
 }
 
+/* ==================================================
+   MEDIA
+================================================== */
+function triggerVideo(){ const input=$('mediaFile'); if(input){input.accept='video/*';input.click();} }
+function triggerPhoto(){ const input=$('mediaFile'); if(input){input.accept='image/*';input.click();} }
+function openPhotoEditor(){ showPage('editor'); setTimeout(triggerPhoto,250); }
 
-/* =========================
-   COLOR
-========================= */
-
-function changeFilter(name,value,id){
-
-  filters[name]=Number(value);
-
-  if($(id)){
-    $(id).textContent=value;
-  }
-
-  applyPreview();
+function buildPreview(){
+  $('previewBox').innerHTML = `
+    ${state.mediaType==='video' ? '<video id="pixoraMedia" playsinline></video>' : '<img id="pixoraMedia" alt="Pixora preview">'}
+    <div class="previewOverlay">
+      <div id="effectOverlay" class="effectOverlay"></div>
+      <div id="vignette" class="vignette"></div>
+      <div id="scanlines" class="scanlines"></div>
+      <div id="overlayLayer"></div>
+      <div id="textLayer" class="textLayer"></div>
+      <div id="captionLayer" class="captionLayer"></div>
+      <div id="stickerLayer" class="stickerLayer"></div>
+    </div>`;
+  video = $('pixoraMedia');
+  if(video) video.src = state.mediaUrl;
 }
 
-
-function changeBlur(value){
-
-  filters.blur=
-    Number(value);
-
-  $("blurValue").textContent=value;
-
-  applyPreview();
-}
-
-
-function changeZoom(value){
-
-  zoom=Number(value);
-
-  $("zoomValue").textContent=value;
-
-  applyPreview();
-}
-
-
-/* =========================
-   SPEED
-========================= */
-
-function setSpeed(speed){
-
-  if(!video){
-    alert("আগে একটি ভিডিও নির্বাচন করুন।");
-    return;
+function loadMedia(event){
+  const file = event.target.files?.[0];
+  if(!file) return;
+  if(!file.type.startsWith('video/') && !file.type.startsWith('image/')){
+    toast('Video অথবা Image নির্বাচন করুন।'); return;
   }
-
-  video.playbackRate=speed;
-}
-
-
-/* =========================
-   AUDIO
-========================= */
-
-function changeVolume(value){
-
-  $("volumeValue").textContent=value;
-
-  if(video){
-    video.volume=
-      Number(value)/100;
-  }
-}
-
-
-function toggleMute(){
-
-  if(!video){
-    alert("আগে একটি ভিডিও নির্বাচন করুন।");
-    return;
-  }
-
-  video.muted=!video.muted;
-}
-
-
-/* =========================
-   EFFECTS
-========================= */
-
-function setEffect(effect){
-
-  if(effect==="normal"){
-    filters={
-      brightness:100,
-      contrast:100,
-      saturate:100,
-      grayscale:0,
-      blur:0
-    };
-  }
-
-  if(effect==="cinematic"){
-    filters={
-      brightness:92,
-      contrast:130,
-      saturate:115,
-      grayscale:0,
-      blur:0
-    };
-  }
-
-  if(effect==="vivid"){
-    filters={
-      brightness:108,
-      contrast:125,
-      saturate:160,
-      grayscale:0,
-      blur:0
-    };
-  }
-
-  if(effect==="bw"){
-    filters={
-      brightness:100,
-      contrast:120,
-      saturate:100,
-      grayscale:100,
-      blur:0
-    };
-  }
-
-  if(effect==="warm"){
-    filters={
-      brightness:108,
-      contrast:110,
-      saturate:135,
-      grayscale:0,
-      blur:0
-    };
-  }
-
-  if(effect==="cool"){
-    filters={
-      brightness:96,
-      contrast:115,
-      saturate:110,
-      grayscale:0,
-      blur:0
-    };
-  }
-
-  $("brightnessValue").textContent=
-    filters.brightness;
-
-  $("contrastValue").textContent=
-    filters.contrast;
-
-  $("saturationValue").textContent=
-    filters.saturate;
-
-  $("grayValue").textContent=
-    filters.grayscale;
-
-  $("blurValue").textContent=
-    filters.blur;
-
-  applyPreview();
-}
-
-
-/* =========================
-   TRANSFORM
-========================= */
-
-function rotateBy(value){
-
-  rotation=
-    (rotation+value)%360;
-
-  applyPreview();
-}
-
-
-function flipVideo(){
-
-  flipped=!flipped;
-
-  applyPreview();
-}
-
-
-/* =========================
-   MOTION
-========================= */
-
-function shakeVideo(){
-
-  if(!video){
-    alert("আগে একটি ভিডিও নির্বাচন করুন।");
-    return;
-  }
-
-  const base=
-    video.style.transform;
-
-  video.animate(
-    [
-      {
-        transform:base+" translateX(0)"
-      },
-      {
-        transform:base+" translateX(-10px)"
-      },
-      {
-        transform:base+" translateX(10px)"
-      },
-      {
-        transform:base+" translateX(0)"
-      }
-    ],
-    {
-      duration:450,
-      iterations:2
-    }
-  );
-}
-
-
-function pulseVideo(){
-
-  if(!video){
-    alert("আগে একটি ভিডিও নির্বাচন করুন।");
-    return;
-  }
-
-  const base=
-    video.style.transform;
-
-  video.animate(
-    [
-      {
-        transform:base
-      },
-      {
-        transform:base+" scale(1.08)"
-      },
-      {
-        transform:base
-      }
-    ],
-    {
-      duration:700,
-      iterations:2
-    }
-  );
-}
-
-
-/* =========================
-   ASPECT
-========================= */
-
-function changeAspect(value){
-
-  $("previewBox").style.aspectRatio=
-    value==="auto" ? "" : value;
-}
-
-
-/* =========================
-   TRIM
-========================= */
-
-function setTrimStart(value){
-
-  trimStart=
-    Number(value);
-
-  if(
-    trimEnd &&
-    trimStart>trimEnd
-  ){
-    trimStart=trimEnd;
-  }
-
-  $("trimStart").value=
-    trimStart;
-
-  $("startValue").textContent=
-    formatTime(trimStart);
-
-  if(video){
-    video.currentTime=
-      trimStart;
-  }
-}
-
-
-function setTrimEnd(value){
-
-  trimEnd=
-    Number(value);
-
-  if(trimEnd<trimStart){
-    trimEnd=trimStart;
-  }
-
-  $("trimEnd").value=
-    trimEnd;
-
-  $("endValue").textContent=
-    formatTime(trimEnd);
-}
-
-
-function previewTrim(){
-
-  if(!video){
-    alert("আগে একটি ভিডিও নির্বাচন করুন।");
-    return;
-  }
-
-  video.currentTime=
-    trimStart;
-
-  video.play();
-}
-
-
-/* =========================
-   RESET
-========================= */
-
-function resetEditor(){
-
-  filters={
-    brightness:100,
-    contrast:100,
-    saturate:100,
-    grayscale:0,
-    blur:0
+  if(state.mediaUrl) URL.revokeObjectURL(state.mediaUrl);
+  state.mediaUrl = URL.createObjectURL(file);
+  state.mediaName = file.name;
+  state.mediaType = file.type.startsWith('video/') ? 'video' : 'image';
+  buildPreview();
+
+  const ready = ()=>{
+    const duration = state.mediaType==='video' ? Number(video.duration)||0 : 5;
+    state.duration = duration;
+    if(state.trimEnd===0 || state.trimEnd>duration) state.trimEnd=duration;
+    state.effectEnd = duration;
+    state.animationEnd = duration;
+    if(video) video.playbackRate=Number(state.playbackRate)||1;
+    syncTimelineUI(duration);
+    applyEffectVisual();
+    startRenderLoop();
   };
 
-  rotation=0;
-  flipped=false;
-  zoom=100;
-
-  $("brightnessValue").textContent=100;
-  $("contrastValue").textContent=100;
-  $("saturationValue").textContent=100;
-  $("grayValue").textContent=0;
-  $("blurValue").textContent=0;
-  $("zoomValue").textContent=100;
-
-  applyPreview();
-}
-
-
-/* =========================
-   EXPORT INFO
-========================= */
-
-function exportInfo(){
-
-  alert(
-    "Pixora Editor Preview\n\n"
-    +"আপনার Edit settings Preview-তে কাজ করছে।\n\n"
-    +"নতুন MP4 তৈরি করার জন্য FFmpeg/WebAssembly "
-    +"বা Server Processing Engine যুক্ত করতে হবে।"
-  );
-}
-
-
-/* =========================
-   ORDERS
-========================= */
-
-function submitOrder(){
-
-  const name=
-    $("customerName").value.trim();
-
-  const phone=
-    $("customerPhone").value.trim();
-
-  const details=
-    $("details").value.trim();
-
-  const transaction=
-    $("trx").value.trim();
-
-  if(
-    !name ||
-    !phone ||
-    !details ||
-    !transaction
-  ){
-    alert("সব তথ্য পূরণ করুন।");
-    return;
-  }
-
-  let orders=
-    JSON.parse(
-      localStorage.getItem("pixora_orders")
-      ||"[]"
-    );
-
-  orders.unshift({
-
-    id:Date.now(),
-
-    name:name,
-
-    phone:phone,
-
-    service:
-      $("serviceSelect").value,
-
-    details:details,
-
-    transaction:transaction,
-
-    status:"Payment Verification Pending",
-
-    time:new Date().toLocaleString()
-
-  });
-
-  localStorage.setItem(
-    "pixora_orders",
-    JSON.stringify(orders)
-  );
-
-  $("orderMessage").innerHTML=
-    "✅ অর্ডার সফলভাবে সেভ হয়েছে।";
-
-  $("trx").value="";
-
-  loadAdmin();
-}
-
-
-/* =========================
-   WALLET
-========================= */
-
-function getWallet(){
-
-  return JSON.parse(
-    localStorage.getItem("pixora_wallet")
-    ||
-    '{"earned":0,"withdrawn":0,"history":[]}'
-  );
-}
-
-
-function saveWallet(wallet){
-
-  localStorage.setItem(
-    "pixora_wallet",
-    JSON.stringify(wallet)
-  );
-}
-
-
-function loadWallet(){
-
-  const wallet=
-    getWallet();
-
-  const earned=
-    Number(wallet.earned)||0;
-
-  const withdrawn=
-    Number(wallet.withdrawn)||0;
-
-  const balance=
-    Math.max(0,earned-withdrawn);
-
-  $("balanceAmount").textContent=
-    balance;
-
-  $("totalEarn").textContent=
-    earned;
-
-  $("totalWithdraw").textContent=
-    withdrawn;
-
-  if(wallet.history.length){
-
-    $("history").innerHTML=
-      wallet.history.map(function(item){
-
-        return `
-        <div class="history">
-          <b>${escapeHTML(item.type)}</b>
-          <br>
-          ৳ ${Number(item.amount)||0}
-          <br>
-          <small>
-            ${escapeHTML(item.time)}
-          </small>
-        </div>
-        `;
-
-      }).join("");
-
+  if(state.mediaType==='video'){
+    video.onloadedmetadata = ready;
+    video.ontimeupdate = ()=>{
+      const t=video.currentTime||0;
+      $('currentTime').textContent=formatTime(t);
+      $('seekBar').value=t;
+      checkBeatPulse(t);
+      applyEffectVisual();
+      syncAudioToVideo(false);
+      if(state.trimEnd>state.trimStart && t>=state.trimEnd){
+        video.currentTime=state.trimStart; video.pause();
+      }
+    };
+    video.onplay=()=>{
+      $('playButton').textContent='⏸️';
+      startAnimation();
+      syncAudioToVideo(true);
+      startRenderLoop();
+    };
+    video.onpause=()=>{
+      $('playButton').textContent='▶️';
+      stopAnimation();
+      syncAudioToVideo(false);
+    };
   }else{
-
-    $("history").innerHTML=
-      '<div class="empty">কোনো Activity নেই।</div>';
+    video.onload = ready;
   }
+  persist();
+  toast('🎬 Media loaded successfully');
 }
 
+function syncTimelineUI(duration){
+  const d=Number(duration)||0;
+  $('durationTime').textContent=formatTime(d);
+  $('seekBar').max=d; $('seekBar').value=state.mediaType==='video' ? (video?.currentTime||0) : 0;
+  $('trimStart').max=d; $('trimEnd').max=d;
+  $('trimStart').value=Math.min(state.trimStart,d);
+  $('trimEnd').value=Math.min(state.trimEnd||d,d);
+  $('startValue').textContent=formatTime(state.trimStart);
+  $('endValue').textContent=formatTime(state.trimEnd||d);
+  if($('effectStart')){$('effectStart').max=d;$('effectStart').value=Math.min(state.effectStart,d);}
+  if($('effectEnd')){$('effectEnd').max=d;$('effectEnd').value=Math.min(state.effectEnd||d,d);}
+  if($('effectStartValue'))$('effectStartValue').textContent=formatTime(state.effectStart);
+  if($('effectEndValue'))$('effectEndValue').textContent=formatTime(state.effectEnd||d);
+}
 
-/* =========================
-   WALLET INCOME
-========================= */
+function playPause(){
+  if(!video || state.mediaType!=='video'){toast('আগে একটি video নির্বাচন করুন।');return;}
+  if(video.paused){
+    if(state.trimEnd && video.currentTime>=state.trimEnd) video.currentTime=state.trimStart;
+    video.play().catch(()=>toast('Browser play অনুমতি দেয়নি।'));
+  }else video.pause();
+}
+function backward(){if(video&&state.mediaType==='video')video.currentTime=Math.max(state.trimStart||0,video.currentTime-5)}
+function forward(){if(video&&state.mediaType==='video')video.currentTime=Math.min(state.trimEnd||video.duration,video.currentTime+5)}
+function seekMedia(value){if(video&&state.mediaType==='video')video.currentTime=Number(value)}
 
-function addWalletIncome(){
+/* ==================================================
+   TOOLS / RENDER
+================================================== */
+function openTool(id,button){
+  document.querySelectorAll('.toolPanel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.toolButton').forEach(b=>b.classList.remove('active'));
+  button?.classList.add('active');
 
-  const amount=
-    Number($("incomeAmount").value);
-
-  const note=
-    $("incomeNote").value.trim()
-    ||"Admin Added Income";
-
-  if(
-    !amount ||
-    amount<=0 ||
-    !Number.isFinite(amount)
-  ){
-    alert("সঠিক টাকার পরিমাণ দিন।");
+  // Effects are always available in the horizontal quick-effect row
+  // under the preview, so opening Effects never pushes the video away.
+  if(id==='effects'){
+    document.querySelector('.quickEffects')?.scrollIntoView({behavior:'smooth',block:'nearest'});
     return;
   }
 
-  const wallet=
-    getWallet();
+  $(id)?.classList.add('active');
+}
 
-  wallet.earned=
-    Number(wallet.earned)+amount;
+function getFilterCSS(){
+  return `brightness(${state.brightness}%) contrast(${state.contrast}%) saturate(${state.saturate}%) grayscale(${state.grayscale}%) blur(${state.blur}px)`;
+}
 
-  wallet.history.unshift({
+function getCanvasSize(){
+  const box=$('previewBox');
+  let width=Math.max(1,box?.clientWidth||720), height=Math.max(1,box?.clientHeight||405);
+  if(state.aspect!=='auto'){
+    const [w,h]=state.aspect.split('/').map(Number); const ratio=w/h;
+    if(width/height>ratio) width=height*ratio; else height=width/ratio;
+  }
+  return {width:Math.floor(width),height:Math.floor(height)};
+}
 
-    type:note,
+function renderFrame(){
+  if(!video) return;
+  const active = state.effect==='none' || state.mediaType!=='video' ||
+    ((video.currentTime||0)>=state.effectStart && (video.currentTime||0)<=state.effectEnd);
+  const k = active ? state.effectIntensity/100 : 0;
+  const b=100+(state.brightness-100)*k;
+  const c=100+(state.contrast-100)*k;
+  const s=100+(state.saturate-100)*k;
+  const g=state.grayscale*k;
+  const bl=state.blur*k;
+  video.style.filter=`brightness(${b}%) contrast(${c}%) saturate(${s}%) grayscale(${g}%) blur(${bl}px)`;
+  video.style.opacity=state.opacity/100;
+  video.style.transform=`rotate(${state.rotation}deg) scaleX(${state.flipX}) scale(${state.zoom/100})`;
+  applyEffectVisual();
+}
 
-    amount:amount,
+function startRenderLoop(){
+  if(animationFrame) return;
+  const loop=()=>{
+    renderFrame();
+    if(state.mediaType==='video' && video && video.paused){animationFrame=null;return;}
+    animationFrame=requestAnimationFrame(loop);
+  };
+  animationFrame=requestAnimationFrame(loop);
+}
+function stopRenderLoop(){if(animationFrame){cancelAnimationFrame(animationFrame);animationFrame=null;}}
 
-    time:new Date().toLocaleString()
-
+function applyEffectVisual(){
+  renderLayers();
+  document.querySelectorAll('.quickEffect').forEach(btn=>{
+    btn.classList.toggle('active',btn.dataset.effect===state.effect);
   });
-
-  saveWallet(wallet);
-
-  $("incomeAmount").value="";
-  $("incomeNote").value="";
-
-  loadWallet();
-
-  alert(
-    "✅ Wallet-এ ৳"+amount
-    +" যোগ হয়েছে।"
-  );
+  const overlay=$('effectOverlay');
+  if(overlay) overlay.classList.toggle('active',state.effect!=='none');
+  const vignette=$('vignette'); if(vignette) vignette.classList.toggle('active',state.effect==='cinematic'||state.effect==='vintage');
+  const scan=$('scanlines'); if(scan) scan.classList.toggle('active',state.effect==='vintage');
+  renderFrameAnimationClass();
 }
 
+function changeFilter(name,value,valueId){
+  state[name]=Number(value);
+  if($(valueId))$(valueId).textContent=value;
+  persist(); renderFrame();
+}
+function changeBlur(value){state.blur=Number(value);$('blurValue').textContent=value;persist();renderFrame()}
+function changeOpacity(value){state.opacity=Number(value);$('opacityValue').textContent=value;persist();renderFrame()}
+function changeZoom(value){state.zoom=Number(value);$('zoomValue').textContent=value;persist();renderFrame()}
 
-/* =========================
-   WITHDRAW
-========================= */
+function setEffect(effect){
+  const presets={
+    none:[100,100,100,0,0], normal:[100,100,100,0,0], cinematic:[92,130,115,0,0],
+    vivid:[108,125,160,0,0], bw:[100,120,100,100,0], warm:[108,110,135,0,0],
+    cool:[96,115,110,0,0], vintage:[100,115,85,15,0], retro:[105,118,90,8,0], dream:[110,105,120,0,2],
+    teal:[98,125,120,0,0], glow:[110,105,125,0,1], flash:[125,135,145,0,0],
+    shake:[100,115,110,0,0], pulse:[105,120,125,0,0], party:[115,130,155,0,0]
+  };
+  state.effect=effect;
+  const p=presets[effect]||presets.none;
+  [state.brightness,state.contrast,state.saturate,state.grayscale,state.blur]=p;
+  state.effectStart=0; state.effectEnd=state.duration||state.effectEnd||0;
+  syncEffectUI(); persist(); renderFrame();
+  toast(effect==='none'?'❌ Effect removed':'✨ '+effect+' effect applied');
+}
+function setEffectIntensity(value){state.effectIntensity=Number(value);$('effectIntensityValue').textContent=value;persist();renderFrame()}
+function updateEffectRange(){state.effectStart=Number($('effectStart').value);state.effectEnd=Math.max(state.effectStart,Number($('effectEnd').value));syncTimelineUI(state.duration);persist();renderFrame()}
+function syncEffectUI(){
+  const ids=['brightnessValue','contrastValue','saturationValue','grayValue','blurValue'];
+  const vals=[state.brightness,state.contrast,state.saturate,state.grayscale,state.blur];
+  ids.forEach((id,i)=>{if($(id))$(id).textContent=vals[i]});
+  if($('effectIntensityValue'))$('effectIntensityValue').textContent=state.effectIntensity;
+  if($('activeEffectLabel'))$('activeEffectLabel').textContent='Effect: '+state.effect;
+}
 
-function requestWithdraw(){
+function rotateBy(value){state.rotation=(state.rotation+value+360)%360;persist();renderFrame();toast('🔄 Rotation: '+state.rotation+'°')}
+function flipVideo(){state.flipX*=-1;persist();renderFrame();toast('↔️ Flip applied')}
+function toggleVignette(){state.effect=state.effect==='cinematic'?'none':'cinematic';persist();renderFrame();toast('🌑 Vignette style updated')}
+function toggleScanlines(){state.effect=state.effect==='vintage'?'none':'vintage';persist();renderFrame();toast('📺 Scanlines style updated')}
+function shakeVideo(){
+  if(!video){toast('আগে media নির্বাচন করুন।');return}
+  const base=video.style.transform;
+  video.animate([{transform:base},{transform:base+' translateX(-10px)'},{transform:base+' translateX(10px)'},{transform:base}],{duration:450,iterations:3});
+  toast('📳 Shake Effect');
+}
+function pulseVideo(){
+  if(!video){toast('আগে media নির্বাচন করুন।');return}
+  const base=video.style.transform;
+  video.animate([{transform:base},{transform:base+' scale(1.08)'},{transform:base}],{duration:700,iterations:2});
+  toast('🔍 Pulse Zoom');
+}
 
-  const name=
-    $("withdrawName").value.trim();
+/* ==================================================
+   ADVANCED COLOR / SPEED / BEAT CONTROLS
+================================================== */
+function applyColorGrade(name){
+  const grades={
+    normal:{brightness:100,contrast:100,saturate:100,grayscale:0,blur:0},
+    cinematic:{brightness:96,contrast:118,saturate:92,grayscale:0,blur:0},
+    hdr:{brightness:104,contrast:125,saturate:125,grayscale:0,blur:0},
+    tealorange:{brightness:100,contrast:115,saturate:118,grayscale:0,blur:0},
+    golden:{brightness:106,contrast:108,saturate:115,grayscale:0,blur:0},
+    moody:{brightness:88,contrast:125,saturate:82,grayscale:4,blur:0},
+    sunset:{brightness:103,contrast:112,saturate:128,grayscale:0,blur:0},
+    forest:{brightness:98,contrast:108,saturate:120,grayscale:0,blur:0},
+    ocean:{brightness:101,contrast:110,saturate:112,grayscale:0,blur:0},
+    pink:{brightness:104,contrast:106,saturate:120,grayscale:0,blur:0},
+    noir:{brightness:95,contrast:130,saturate:0,grayscale:100,blur:0},
+    vintage:{brightness:101,contrast:105,saturate:78,grayscale:12,blur:.2}
+  };
+  const g=grades[name]||grades.normal;
+  Object.assign(state,g,{colorGrade:name});
+  persist(); syncEffectUI(); renderFrame();
+  toast('🎨 '+name+' color grading applied');
+}
+function setPlaybackRate(rate){
+  state.playbackRate=Number(rate)||1;
+  if(video) video.playbackRate=state.playbackRate;
+  persist();
+  toast(state.playbackRate<1?'🐌 Slow motion '+state.playbackRate+'×':'▶️ Speed '+state.playbackRate+'×');
+}
+function setBeatSync(mode){
+  state.beatSync=mode!=='none';
+  state.beatAnimation=mode==='none'?'pulse':mode;
+  persist();
+  toast(mode==='none'?'🥁 Beat sync off':'🥁 Beat sync: '+mode);
+}
+function setMusicFade(type){
+  state.musicFade=type;
+  persist();
+  toast(type==='in'?'↗️ Music Fade In selected':'↘️ Music Fade Out selected');
+}
+function resetTransform(){
+  state.zoom=100;state.rotation=0;state.flipX=1;
+  if($('zoomRange'))$('zoomRange').value=100;
+  if($('zoomValue'))$('zoomValue').textContent='100';
+  persist();renderFrame();toast('♻️ Transform reset');
+}
 
-  const number=
-    $("withdrawNumber").value.trim();
+/* ==================================================
+   ANIMATION
+================================================== */
+function setAnimation(name,button){
+  state.animation=name;
+  document.querySelectorAll('.animationGrid button').forEach(b=>b.classList.remove('active'));
+  button?.classList.add('active');
+  persist();
+  renderFrameAnimationClass();
+  toast(name==='none'?'⏹️ Animation Off':'🎞️ '+name+' selected');
+}
+function renderFrameAnimationClass(){
+  if(!video) return;
+  video.style.animation='none';
+  if(state.mediaType!=='video'||state.animation==='none'||video.paused) return;
+  const names={zoomIn:'pixoraZoomIn',zoomOut:'pixoraZoomOut',left:'pixoraSlideLeft',right:'pixoraSlideRight',bounce:'pixoraBounce',shake:'pixoraShake',pulse:'pixoraPulse',float:'pixoraFloat'};
+  const name=names[state.animation]; if(name) video.style.animation=name+' 2.5s ease-in-out infinite';
+}
+function startAnimation(){renderFrameAnimationClass()}
+function stopAnimation(){if(video)video.style.animation='none'}
 
-  const amount=
-    Number($("withdrawAmount").value);
+/* ==================================================
+   TRIM / ASPECT
+================================================== */
+function changeAspect(value){state.aspect=value;persist();$('previewBox').style.aspectRatio=value==='auto'?'':value;renderFrame();toast('📐 Aspect ratio updated')}
+function setTrimStart(value){state.trimStart=Math.min(Number(value),state.trimEnd||Number(value));$('trimStart').value=state.trimStart;$('startValue').textContent=formatTime(state.trimStart);if(video&&state.mediaType==='video')video.currentTime=state.trimStart;persist()}
+function setTrimEnd(value){state.trimEnd=Math.max(Number(value),state.trimStart);$('trimEnd').value=state.trimEnd;$('endValue').textContent=formatTime(state.trimEnd);persist()}
+function previewTrim(){if(!video||state.mediaType!=='video'){toast('Video নির্বাচন করুন।');return}video.currentTime=state.trimStart;video.play().catch(()=>{});toast('✂️ Trim Preview: '+formatTime(state.trimStart)+' → '+formatTime(state.trimEnd))}
 
-  const wallet=
-    getWallet();
+/* ==================================================
+   AUDIO
+================================================== */
+function loadAudio(event){
+  const file=event.target.files?.[0]; if(!file)return;
+  if(audioElement){audioElement.pause();audioElement.src='';audioElement=null;}
+  if(state.audioUrl) URL.revokeObjectURL(state.audioUrl);
+  state.audioUrl=URL.createObjectURL(file); state.audioName=file.name;
+  audioElement=new Audio(state.audioUrl); audioElement.preload='auto'; audioElement.loop=false;
+  audioElement.volume=state.musicVolume/100;
+  $('audioName').textContent='🎵 '+file.name;
+  persist(); toast('🎵 Audio selected');
+}
+function changeVolume(value){if(video&&state.mediaType==='video')video.volume=Number(value)/100}
+function changeMusicVolume(value){state.musicVolume=Number(value);if($('musicVolumeValue'))$('musicVolumeValue').textContent=value;if(audioElement)audioElement.volume=state.musicVolume/100;persist()}
+function syncAudioToVideo(shouldPlay){
+  if(!audioElement||!video||state.mediaType!=='video')return;
+  try{
+    const t=Number(video.currentTime)||0;
+    if(Math.abs((audioElement.currentTime||0)-t)>0.25) audioElement.currentTime=t;
+    audioElement.volume=state.musicVolume/100;
+    if(shouldPlay) audioElement.play().catch(()=>{}); else audioElement.pause();
+  }catch(e){}
+}
+function removeAudio(){
+  if(audioElement){audioElement.pause();audioElement.src='';audioElement=null;}
+  if(state.audioUrl){try{URL.revokeObjectURL(state.audioUrl)}catch(e){}}
+  state.audioUrl=''; state.audioName='';
+  if($('audioFile'))$('audioFile').value='';
+  if($('audioName'))$('audioName').textContent='কোনো external audio যোগ করা হয়নি।';
+  persist(); toast('🎵 Audio removed');
+}
 
-  const balance=
-    Number(wallet.earned)
-    -
-    Number(wallet.withdrawn);
+/* ==================================================
+   OVERLAY
+================================================== */
+function loadOverlay(event){
+  const file=event.target.files?.[0]; if(!file)return;
+  if(state.overlayUrl)try{URL.revokeObjectURL(state.overlayUrl)}catch(e){}
+  state.overlayUrl=URL.createObjectURL(file);
+  state.overlaySize=40; state.overlayOpacity=100;
+  renderOverlay(); persist(); toast('🖼️ Overlay added');
+}
+function renderOverlay(){
+  const layer=$('overlayLayer'); if(!layer)return;
+  layer.innerHTML='';
+  if(!state.overlayUrl)return;
+  const img=document.createElement('img'); img.id='overlayImage'; img.src=state.overlayUrl; overlayImage=img;
+  Object.assign(img.style,{position:'absolute',left:'50%',top:'50%',transform:'translate(-50%,-50%)',width:state.overlaySize+'%',maxWidth:'80%',maxHeight:'80%',objectFit:'contain',opacity:String(state.overlayOpacity/100)});
+  layer.appendChild(img);
+}
+function changeOverlaySize(value){state.overlaySize=Number(value);if($('overlayImage'))$('overlayImage').style.width=value+'%';persist()}
+function changeOverlayOpacity(value){state.overlayOpacity=Number(value);if($('overlayImage'))$('overlayImage').style.opacity=Number(value)/100;persist()}
+function clearOverlay(){if(state.overlayUrl)try{URL.revokeObjectURL(state.overlayUrl)}catch(e){}state.overlayUrl='';overlayImage=null;if($('overlayLayer'))$('overlayLayer').innerHTML='';persist();toast('Overlay removed')}
 
-  if(
-    !name ||
-    !number ||
-    !amount ||
-    amount<=0
-  ){
-    alert("সব তথ্য সঠিকভাবে পূরণ করুন।");
-    return;
+/* ==================================================
+   TEXT / CAPTION / STICKER
+================================================== */
+function addTextLayer(){
+  const text=$('textInput').value.trim(); if(!text){toast('Text লিখুন।');return;}
+  state.text=text; state.textSize=Number($('textSize').value)||36; state.textColor=$('textColor').value||'#fff'; state.textWeight=Number($('textWeight').value)||800; state.textPosition=$('textPosition').value||'center';
+  persist();renderLayers();toast('🔤 Text added');
+}
+function clearTextLayer(){state.text='';persist();renderLayers();toast('Text cleared')}
+function addCaptionLayer(){state.caption=$('captionInput').value.trim();persist();renderLayers();toast(state.caption?'💬 Caption added':'Caption cleared')}
+function clearCaptionLayer(){state.caption='';persist();renderLayers()}
+function addSticker(sticker){state.sticker=sticker;persist();renderLayers();toast('😀 Sticker added')}
+function clearSticker(){state.sticker='';persist();renderLayers()}
+function renderLayers(){
+  const t=$('textLayer'), c=$('captionLayer'), s=$('stickerLayer');
+  if(t){t.textContent=state.text;t.style.fontSize=state.textSize+'px';t.style.color=state.textColor;t.style.fontWeight=state.textWeight;t.style.top=state.textPosition==='top'?'15%':state.textPosition==='bottom'?'82%':'50%'}
+  if(c)c.textContent=state.caption;
+  if(s)s.textContent=state.sticker;
+  renderOverlay();
+}
+
+/* ==================================================
+   BEATS
+================================================== */
+function addBeat(){
+  if(!state.mediaType){toast('আগে Media যোগ করুন');return;}
+  const t=state.mediaType==='video' ? Number(video.currentTime||0) : Number($('seekBar').value||0);
+  if(!state.beats.some(b=>Math.abs(b-t)<0.15)){state.beats.push(t);state.beats.sort((a,b)=>a-b)}
+  renderBeatMarkers();updateBeatInfo();persist();toast('🥁 Beat marker যোগ হয়েছে');
+}
+function addBeatAtPlayhead(){addBeat()}
+function autoDetectBeats(){
+  if(!state.mediaType){toast('আগে Media যোগ করুন');return}
+  state.beats=[]; const start=state.trimStart,end=state.trimEnd||state.duration,length=end-start;
+  if(length<=0){toast('Media duration পাওয়া যায়নি');return}
+  const count=Math.min(20,Math.max(4,Math.floor(length/1.2)));
+  for(let i=1;i<count;i++)state.beats.push(start+(length/count)*i);
+  renderBeatMarkers();updateBeatInfo();persist();toast('🥁 Beat markers তৈরি হয়েছে');
+}
+function detectBeats(){autoDetectBeats()}
+function clearBeats(){state.beats=[];lastBeatPulse=-1;renderBeatMarkers();updateBeatInfo();persist();toast('Beat markers clear হয়েছে')}
+function updateBeatInfo(){const el=$('beatInfo');if(el)el.textContent='Beat: '+state.beats.length;}
+function renderBeatMarkers(){
+  const container=$('beatMarkers');
+  if(container){container.innerHTML='';const duration=state.duration||1;state.beats.forEach(time=>{const marker=document.createElement('div');marker.className='beatMarker';marker.style.left=(time/duration*100)+'%';const dot=document.createElement('div');dot.className='beatDot';marker.appendChild(dot);container.appendChild(marker)})}
+  const list=$('beatList');if(list)list.innerHTML=state.beats.map(t=>`<button class="chip" onclick="seekMedia(${Number(t)})">🥁 ${formatTime(t)}</button>`).join('');
+}
+function checkBeatPulse(time){
+  const beat=state.beats.find(b=>Math.abs(b-time)<0.08);
+  if(beat!==undefined && Math.abs(beat-lastBeatPulse)>0.2){
+    lastBeatPulse=beat;
+    if(!state.beatSync) return;
+    const target=video||$('previewBox');
+    if(!target) return;
+    const mode=state.beatAnimation||'pulse';
+    target.classList.remove('beatPulseFlash','beatPulseZoom','beatPulseShake');
+    void target.offsetWidth;
+    target.classList.add(mode==='flash'?'beatPulseFlash':mode==='zoomIn'?'beatPulseZoom':mode==='shake'?'beatPulseShake':'beatPulseFlash');
+    setTimeout(()=>target.classList.remove('beatPulseFlash','beatPulseZoom','beatPulseShake'),220);
   }
+}
 
-  if(amount>balance){
+/* ==================================================
+   TEMPLATES
+================================================== */
+function applyTemplate(template){
+  showPage('editor');
+  const presets={
+    trending:{effect:'vivid',animation:'zoomIn',sticker:'🔥'},
+    love:{effect:'warm',animation:'float',sticker:'❤️'},
+    birthday:{effect:'vivid',animation:'bounce',sticker:'🎉'},
+    cinematic:{effect:'cinematic',animation:'zoomIn',sticker:'✨'}
+  };
+  const p=presets[template]; if(!p)return;
+  setEffect(p.effect);state.animation=p.animation;state.sticker=p.sticker;persist();renderLayers();toast('🎞️ Template applied');
+}
 
-    alert(
-      "পর্যাপ্ত Wallet Balance নেই।"
-    );
+/* ==================================================
+   PROJECTS
+================================================== */
+function saveProject(){
+  let name=$('projectName')?.value.trim();
+  if(!name)name='Pixora Project '+new Date().toLocaleString('bn-BD');
+  const project={id:Date.now(),name,createdAt:new Date().toLocaleString('bn-BD'),settings:{...JSON.parse(JSON.stringify(state)),mediaUrl:'',audioUrl:'',overlayUrl:''}};
+  state.projects.unshift(project);if(state.projects.length>30)state.projects.pop();persist();renderRecentProjects();toast('💾 Project saved successfully');
+}
+function openSavedProjects(){showProjects()}
+function showProjects(){
+  const list=$('projectList');if(!list)return;
+  if(!state.projects.length){list.innerHTML='<div class="empty">কোনো Saved Project নেই</div>'}
+  else list.innerHTML=state.projects.map(p=>`<div class="history"><div><b>${escapeHTML(p.name)}</b><div class="notice">${escapeHTML(p.createdAt||'')}</div></div><button class="small" onclick="loadProject(${p.id})">Open</button><button class="small danger" onclick="deleteProject(${p.id})">Delete</button></div>`).join('');
+  $('projectModal')?.classList.add('show');
+}
+function closeSavedProjects(){$('projectModal')?.classList.remove('show')}
+function closeProjects(){closeSavedProjects()}
+function loadProject(id){
+  const project=state.projects.find(p=>p.id===id);if(!project)return;
+  const s=project.settings||project;
+  const keep={mediaUrl:state.mediaUrl,mediaType:state.mediaType,duration:state.duration,audioUrl:state.audioUrl,audioName:state.audioName,overlayUrl:state.overlayUrl};
+  state=normalizeState({...state,...s,...keep});
+  resetUIFromState();renderFrame();renderBeatMarkers();closeSavedProjects();persist();toast('📂 Project settings loaded');
+}
+function deleteProject(id){state.projects=state.projects.filter(p=>p.id!==id);persist();showProjects();renderRecentProjects();toast('Project deleted')}
+function renderRecentProjects(){
+  const container=$('recentProjects');if(!container)return;
+  if(!state.projects.length){container.innerHTML='<div class="empty">এখনও কোনো Project Save করা হয়নি</div>';return}
+  container.innerHTML=state.projects.slice(0,5).map(p=>`<div class="projectItem history"><div><b>${escapeHTML(p.name)}</b><div class="notice">${escapeHTML(p.createdAt||'')}</div></div><button class="small" onclick="showProjects()">Open</button></div>`).join('');
+}
+function resetUIFromState(){
+  if(video) video.playbackRate=Number(state.playbackRate)||1;
+  if($('textInput'))$('textInput').value=state.text||'';
+  if($('captionInput'))$('captionInput').value=state.caption||'';
+  if($('profileName'))$('profileName').value=state.profile?.name||'';
+  if($('profilePhone'))$('profilePhone').value=state.profile?.phone||'';
+  if($('textSize'))$('textSize').value=state.textSize||36;
+  if($('textColor'))$('textColor').value=state.textColor||'#ffffff';
+  if($('textWeight'))$('textWeight').value=state.textWeight||800;
+  if($('textPosition'))$('textPosition').value=state.textPosition||'center';
+  if($('zoomValue'))$('zoomValue').textContent=state.zoom||100;
+  if($('effectIntensity'))$('effectIntensity').value=state.effectIntensity||100;
+  if($('effectIntensityValue'))$('effectIntensityValue').textContent=state.effectIntensity||100;
+  if($('musicVolume'))$('musicVolume').value=state.musicVolume||60;
+  if($('musicVolumeValue'))$('musicVolumeValue').textContent=state.musicVolume||60;
+  syncEffectUI();renderLayers();renderBeatMarkers();updateBeatInfo();
+}
 
-    return;
+/* ==================================================
+   EXPORT
+================================================== */
+async function exportVideo(){
+  if(!state.mediaType){toast('আগে Video অথবা Photo যোগ করুন');return}
+  if(state.mediaType==='image'){
+    const c=document.createElement('canvas');const size=getCanvasSize();c.width=size.width;c.height=size.height;const x=c.getContext('2d');
+    const sw=video.naturalWidth||video.width,sh=video.naturalHeight||video.height;
+    if(!sw||!sh){toast('Image export failed');return}
+    x.save();x.filter=getFilterCSS();x.globalAlpha=state.opacity/100;x.translate(c.width/2,c.height/2);x.rotate(state.rotation*Math.PI/180);x.scale(state.flipX*state.zoom/100,state.zoom/100);const fit=Math.max(c.width/sw,c.height/sh);x.drawImage(video,-sw*fit/2,-sh*fit/2,sw*fit,sh*fit);x.restore();
+    if(state.text){x.font=`${state.textWeight} ${state.textSize}px Arial`;x.fillStyle=state.textColor;x.textAlign='center';x.fillText(state.text,c.width/2,state.textPosition==='top'?60:state.textPosition==='bottom'?c.height-60:c.height/2)}
+    const a=document.createElement('a');a.href=c.toDataURL('image/png');a.download='pixora-image.png';a.click();toast('📥 Image exported');return;
   }
-
-  let requests=
-    JSON.parse(
-      localStorage.getItem("pixora_withdrawals")
-      ||"[]"
-    );
-
-  requests.unshift({
-
-    id:Date.now(),
-
-    name:name,
-
-    method:
-      $("withdrawMethod").value,
-
-    number:number,
-
-    amount:amount,
-
-    status:"Pending Admin Verification",
-
-    time:new Date().toLocaleString()
-
-  });
-
-  localStorage.setItem(
-    "pixora_withdrawals",
-    JSON.stringify(requests)
-  );
-
-  wallet.withdrawn+=amount;
-
-  wallet.history.unshift({
-
-    type:"Withdrawal Request",
-
-    amount:amount,
-
-    time:new Date().toLocaleString()
-
-  });
-
-  saveWallet(wallet);
-
-  $("withdrawMessage").innerHTML=
-    "✅ Withdrawal Request পাঠানো হয়েছে।";
-
-  $("withdrawAmount").value="";
-
-  loadWallet();
+  if(!window.MediaRecorder){toast('এই Browser-এ Video export support সীমিত');return}
+  const vw=video.videoWidth||720,vh=video.videoHeight||1280;const c=document.createElement('canvas');c.width=Math.min(vw,1280);c.height=Math.round(c.width*vh/vw);const x=c.getContext('2d');const stream=c.captureStream(30);
+  let audioContext=null;
+  try{
+    audioContext=new AudioContext();
+    const source=audioContext.createMediaElementSource(video);const dest=audioContext.createMediaStreamDestination();source.connect(dest);source.connect(audioContext.destination);dest.stream.getAudioTracks().forEach(t=>stream.addTrack(t));
+  }catch(e){}
+  const mime=MediaRecorder.isTypeSupported('video/webm;codecs=vp9')?'video/webm;codecs=vp9':MediaRecorder.isTypeSupported('video/webm')?'video/webm':'';
+  if(!mime){toast('Recording format supported নয়।');return}
+  const recorder=new MediaRecorder(stream,{mimeType:mime});const chunks=[];recorder.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)};
+  recorder.onstop=()=>{const blob=new Blob(chunks,{type:mime});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='pixora-export.webm';a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);if(audioContext)audioContext.close().catch(()=>{});toast('📥 Video export complete')};
+  const oldTime=video.currentTime;const end=state.trimEnd||video.duration;video.currentTime=state.trimStart||0;recorder.start(250);await video.play().catch(()=>{});toast('🎬 Recording export...');
+  const draw=()=>{
+    if(video.paused||video.ended||video.currentTime>=end){video.pause();if(recorder.state!=='inactive')recorder.stop();video.currentTime=oldTime;return}
+    x.save();x.clearRect(0,0,c.width,c.height);x.filter=getFilterCSS();x.globalAlpha=state.opacity/100;x.translate(c.width/2,c.height/2);x.rotate(state.rotation*Math.PI/180);x.scale(state.flipX*state.zoom/100,state.zoom/100);x.drawImage(video,-c.width/2,-c.height/2,c.width,c.height);x.restore();
+    if(state.text){x.font=`${state.textWeight} ${state.textSize}px Arial`;x.fillStyle=state.textColor;x.textAlign='center';x.fillText(state.text,c.width/2,state.textPosition==='top'?80:state.textPosition==='bottom'?c.height-80:c.height/2)}
+    if(state.caption){x.font='700 24px Arial';x.fillStyle='#fff';x.textAlign='center';x.fillText(state.caption,c.width/2,c.height-50)}
+    if(state.sticker){x.font='70px Arial';x.textAlign='center';x.fillText(state.sticker,c.width/2,c.height/2)}
+    requestAnimationFrame(draw);
+  };
+  draw();
 }
 
+/* ==================================================
+   TASKS / ORDERS / WALLET / ADMIN — SUPABASE LINKED
+================================================== */
+function publishTask(){ toast('Task শুধু Admin প্রকাশ করতে পারবেন।'); }
+async function addTask(){ toast('Task শুধু Admin প্রকাশ করতে পারবেন।'); }
+function deleteTask(id){ toast('Task User delete করতে পারবেন না।'); }
 
-/* =========================
-   TASKS
-========================= */
-
-function getTasks(){
-
-  return JSON.parse(
-    localStorage.getItem("pixora_tasks")
-    ||"[]"
-  );
+function taskStatusLabel(status){
+  const s=String(status||'pending').toLowerCase();
+  return s==='published'?'🟢 Published':s==='paused'?'🟡 Paused':s==='closed'?'🔴 Closed':s==='approved'?'🟢 Approved':s==='revision'?'🔄 Revision':s==='rejected'?'🔴 Rejected':'🟡 Pending';
 }
 
-
-function saveTasks(tasks){
-
-  localStorage.setItem(
-    "pixora_tasks",
-    JSON.stringify(tasks)
-  );
+function renderTasks(){
+  const list=$('publicTasks');
+  if($('taskCount'))$('taskCount').textContent=state.tasks.length;
+  if($('workBalance'))$('workBalance').textContent='৳ '+money(state.balance);
+  if(!list)return;
+  if(!state.tasks.length){list.innerHTML='<div class="empty">এখনও কোনো কাজ প্রকাশ করা হয়নি</div>';return;}
+  list.innerHTML=state.tasks.map(task=>{
+    const submitted=state.taskSubmissions?.some(x=>String(x.task_id)===String(task.id));
+    const closed=['paused','closed'].includes(String(task.status||'').toLowerCase());
+    return `<div class="task"><div class="taskTop"><div><b>${escapeHTML(task.title)}</b><p class="notice">${escapeHTML(task.description||'কাজের বিস্তারিত নেই')}</p></div><span class="tagPill">৳ ${Number(task.reward)||0}</span></div><div class="notice">Status: ${taskStatusLabel(task.status)}</div>${submitted?'<div class="success">✅ Submission পাঠানো হয়েছে — Admin review করবে</div>':(!closed?`<button class="small" onclick="completeTask('${escapeHTML(task.id)}')">📤 কাজ শেষ করে Submit করুন</button>`:'<div class="muted">এই কাজটি এখন নেওয়া যাচ্ছে না।</div>')}</div>`;
+  }).join('');
 }
 
+async function completeTask(id){
+  if(!supabaseClient){toast('Supabase connection নেই।');return;}
+  const task=state.tasks.find(t=>String(t.id)===String(id));
+  if(!task){toast('Task পাওয়া যায়নি');return;}
+  const {data:{user}}=await supabaseClient.auth.getUser();
+  if(!user){showAuth();return;}
+  const already=state.taskSubmissions?.some(x=>String(x.task_id)===String(task.id));
+  if(already){toast('এই Task-এর submission ইতিমধ্যে পাঠানো হয়েছে।');return;}
+  const proofNote=prompt('কাজের Proof / Screenshot-এর link বা সংক্ষিপ্ত তথ্য দিন:','');
+  if(proofNote===null)return;
+  const payload={task_id:task.id,user_id:user.id,status:'pending',proof_note:proofNote.trim()};
+  const {data,error}=await supabaseClient.from('task_submissions').insert(payload).select('*').single();
+  if(error){toast(error.message||'Task submit failed');return;}
+  state.taskSubmissions=state.taskSubmissions||[];state.taskSubmissions.push(data||payload);
+  persist();renderTasks();toast('✅ কাজ Admin verification-এর জন্য পাঠানো হয়েছে');
+}
 
-function addTask(){
+async function submitOrder(){
+  if(!supabaseClient){toast('Supabase connection নেই।');return;}
+  const {data:{user}}=await supabaseClient.auth.getUser();
+  if(!user){showAuth();return;}
+  const name=$('customerName')?.value.trim()||state.profile.name||'';
+  const phone=$('customerPhone')?.value.trim()||state.profile.phone||'';
+  const type=$('serviceSelect')?.value.trim();
+  const details=$('details')?.value.trim();
+  const transaction=$('trx')?.value.trim();
+  if(!name||!phone||!type||!details||!transaction){toast('সব তথ্য পূরণ করুন।');return;}
+  const {data,error}=await supabaseClient.from('orders').insert({user_id:user.id,order_type:type,details,transaction_id:transaction,status:'pending',amount:0}).select('*').single();
+  if(error){toast(error.message||'Order submit failed');return;}
+  state.orders.unshift({...data,service:data.order_type,transactionId:data.transaction_id,date:data.created_at});
+  persist();
+  if($('trx'))$('trx').value='';
+  if($('orderMessage'))$('orderMessage').textContent='✅ অর্ডার সফলভাবে পাঠানো হয়েছে। Admin status পরিবর্তন করলে এখানে দেখা যাবে।';
+  renderOrders();toast('📦 Order সফলভাবে পাঠানো হয়েছে');
+}
 
-  const title=
-    $("taskTitle").value.trim();
+function renderOrders(){
+  const list=$('ordersList');if(!list)return;
+  if(!state.orders.length){list.innerHTML='<div class="empty">এখনও কোনো Order নেই</div>';return;}
+  list.innerHTML=state.orders.map(o=>`<div class="orderCard"><div class="taskTop"><div><b>${escapeHTML(o.service||o.order_type||o.type||'Order')}</b><div class="notice">Transaction ID: ${escapeHTML(o.transactionId||o.transaction_id||'')}</div><div class="notice">৳ ${Number(o.amount||0).toFixed(2)} • ${escapeHTML(o.date||o.created_at||'')}</div></div><span class="orderStatus">${escapeHTML(String(o.status||'pending'))}</span></div><div class="notice">${escapeHTML(o.details||'')}</div></div>`).join('');
+}
+function updateOrderStatus(id,status){ toast('Order status শুধু Admin control করবেন।'); }
+function completeOrder(id){ toast('Order status শুধু Admin control করবেন।'); }
+function deleteOrder(id){ toast('Order User delete করতে পারবেন না।'); }
 
-  const desc=
-    $("taskDesc").value.trim();
+async function submitDeposit(){
+  if(!supabaseClient){toast('Supabase connection নেই।');return;}
+  const {data:{user}}=await supabaseClient.auth.getUser();if(!user){showAuth();return;}
+  const amount=Number($('depositAmount')?.value),transactionId=$('depositTrx')?.value.trim();
+  if(!Number.isFinite(amount)||amount<=0||!transactionId){toast('Deposit Amount এবং Transaction ID দিন।');return;}
+  const {data,error}=await supabaseClient.from('deposits').insert({user_id:user.id,amount,transaction_id:transactionId,method:'bKash Personal',status:'pending'}).select('*').single();
+  if(error){toast(error.message||'Deposit request failed');return;}
+  state.deposits.unshift(data||{user_id:user.id,amount,transaction_id:transactionId,method:'bKash Personal',status:'pending'});persist();
+  if($('depositAmount'))$('depositAmount').value='';if($('depositTrx'))$('depositTrx').value='';
+  if($('depositMessage'))$('depositMessage').textContent='✅ Deposit Request পাঠানো হয়েছে। Admin Approve করলে Wallet-এ টাকা যোগ হবে।';
+  toast('💳 Deposit Request পাঠানো হয়েছে');
+}
+function approveDeposit(id){toast('Deposit শুধু Admin approve করবেন।');}
+function rejectDeposit(id){toast('Deposit শুধু Admin control করবেন।');}
 
-  const price=
-    Number($("taskPrice").value);
+function renderIncome(){
+  if($('incomeBalance'))$('incomeBalance').textContent='৳ '+money(state.balance);
+  if($('homeBalance'))$('homeBalance').textContent=money(state.balance);
+  if($('workBalance'))$('workBalance').textContent='৳ '+money(state.balance);
+  if($('balanceAmount'))$('balanceAmount').textContent=money(state.balance);
+  if($('totalEarn'))$('totalEarn').textContent=money(state.totalIncome);
+  if($('totalIncome'))$('totalIncome').textContent='৳ '+money(state.totalIncome);
+  if($('totalWithdraw'))$('totalWithdraw').textContent=money(state.totalWithdraw);
+  const list=$('history')||$('walletHistory');if(!list)return;
+  if(!state.walletHistory.length){list.innerHTML='<div class="empty">Wallet History নেই</div>';return;}
+  list.innerHTML=state.walletHistory.map(i=>`<div class="history"><div class="taskTop"><div><b>${escapeHTML(i.title||i.type||'Wallet Activity')}</b><div class="notice">${escapeHTML(i.date||'')}</div></div><span class="${Number(i.amount)>=0?'success':'warning'}">${Number(i.amount)>=0?'+':'-'}৳${Math.abs(Number(i.amount)||0).toFixed(2)}</span></div></div>`).join('');
+}
+function addWalletIncome(){toast('Wallet income শুধু Admin control করবেন।');}
+function adminAddWallet(){addWalletIncome();}
+function requestWithdrawal(){requestWithdraw();}
+async function requestWithdraw(){
+  if(!supabaseClient){toast('Supabase connection নেই।');return;}
+  const {data:{user}}=await supabaseClient.auth.getUser();if(!user){showAuth();return;}
+  const method=$('withdrawMethod')?.value,number=$('withdrawNumber')?.value.trim(),amount=Number($('withdrawAmount')?.value),name=$('withdrawName')?.value.trim()||state.profile.name||'User';
+  if(!number||!Number.isFinite(amount)||amount<=0){toast('সঠিক Number এবং Amount দিন');return}
+  if(amount>state.balance){toast('Wallet-এ পর্যাপ্ত Balance নেই');return}
+  const {data,error}=await supabaseClient.from('withdrawals').insert({user_id:user.id,method,account:number,amount,status:'pending'}).select('*').single();
+  if(error){toast(error.message||'Withdrawal request failed');return;}
+  state.withdrawals.unshift(data||{user_id:user.id,method,account:number,amount,status:'pending'});persist();
+  if($('withdrawNumber'))$('withdrawNumber').value='';if($('withdrawAmount'))$('withdrawAmount').value='';
+  if($('withdrawMessage'))$('withdrawMessage').textContent='✅ Withdrawal Request পাঠানো হয়েছে। Admin review করবে।';
+  toast('💸 Withdrawal request পাঠানো হয়েছে');
+}
+function approveWithdrawal(id){toast('Withdrawal শুধু Admin approve করবেন।');}
+function rejectWithdrawal(id){toast('Withdrawal শুধু Admin control করবেন।');}
+function adminResetWallet(){toast('Wallet reset শুধু Admin control করবেন।');}
+function resetWallet(){toast('Wallet reset শুধু Admin control করবেন।');}
+function renderAdmin(){ /* User app-এ Admin controls নেই */ }
+function approveTask(id){toast('Task approval শুধু Admin করবেন।');}
 
-  if(
-    !title ||
-    !Number.isFinite(price) ||
-    price<0
-  ){
-    alert(
-      "কাজের নাম ও সঠিক দাম দিন।"
-    );
+/* ===================== MESSAGES ===================== */
+async function loadUserMessages(){
+  const box=$('userMessageList');if(!box||!supabaseClient)return;
+  const {data:{user}}=await supabaseClient.auth.getUser();if(!user)return;
+  box.innerHTML='<div class="loading">Loading messages...</div>';
+  const {data,error}=await supabaseClient.from('messages').select('*').eq('user_id',user.id).order('created_at',{ascending:false});
+  if(error){box.innerHTML=`<div class="empty">${escapeHTML(error.message||'Messages load failed')}</div>`;return;}
+  state.messages=Array.isArray(data)?data:[];persist();
+  if(!state.messages.length){box.innerHTML='<div class="empty">কোনো message নেই।</div>';return;}
+  box.innerHTML=state.messages.map(m=>`<div class="history"><b>${escapeHTML(m.message||m.content||m.text||'Message')}</b><div class="notice">Status: ${escapeHTML(String(m.status||'pending'))}</div>${m.admin_reply?`<div class="detail"><small>Admin Reply</small>${escapeHTML(m.admin_reply)}</div>`:''}<small>${escapeHTML(m.created_at||'')}</small></div>`).join('');
+}
+function saveMessageUserId(){ toast('Login করা User ID স্বয়ংক্রিয়ভাবে ব্যবহার হচ্ছে।');loadUserMessages(); }
+async function sendUserMessage(){
+  if(!supabaseClient){toast('Supabase connection নেই।');return;}
+  const {data:{user}}=await supabaseClient.auth.getUser();if(!user){showAuth();return;}
+  const text=$('userMessageText')?.value.trim();if(!text){toast('Message লিখুন।');return;}
+  const {data,error}=await supabaseClient.from('messages').insert({user_id:user.id,message:text,status:'pending'}).select('*').single();
+  if(error){toast(error.message||'Message send failed');return;}
+  $('userMessageText').value='';state.messages=state.messages||[];state.messages.unshift(data);persist();renderUserMessages();toast('📤 Admin-কে Message পাঠানো হয়েছে');
+}
+function renderUserMessages(){loadUserMessages();}
 
-    return;
+/* ==================================================
+   PROFILE
+================================================== */
+async function saveProfile(){
+  state.profile={name:$('profileName')?.value.trim()||state.profile?.name||'',phone:$('profilePhone')?.value.trim()||state.profile?.phone||''};persist();
+  try{const {data:{user}}=await supabaseClient.auth.getUser();if(user)await supabaseClient.from('users').update({name:state.profile.name,phone:state.profile.phone}).eq('id',user.id);toast('👤 Profile saved');}catch(e){toast('Profile save failed');}
+}
+
+/* ==================================================
+   COMPATIBILITY ALIASES
+================================================== */
+function addBeatAtPlayheadCompat(){addBeat()}
+function updateAnimRange(){return}
+function updateEditorStatus(message){if($('editorStatus'))$('editorStatus').textContent=message}
+
+/* ==================================================
+   INIT
+================================================== */
+document.addEventListener('DOMContentLoaded',async()=>{
+  initSupabase();
+  resetUIFromState();
+  if(supabaseClient){
+    const {data:{session}}=await supabaseClient.auth.getSession();
+    if(session?.user){try{await ensureUserRow(session.user);await syncUserData();openApp();}catch(e){showAuth();setAuthMsg(e.message||'Account sync failed');}}else showAuth();
+    supabaseClient.auth.onAuthStateChange((event,session)=>{if(session?.user){setTimeout(()=>syncUserData(),0);openApp();}else showAuth();});
+  }else{showAuth();setAuthMsg('Supabase configuration পাওয়া যায়নি।');}
+
+  renderRecentProjects();
+  renderTasks();
+  renderOrders();
+  renderIncome();
+  
+  renderBeatMarkers();
+  updateBeatInfo();
+  if($('projectModal'))$('projectModal').addEventListener('click',e=>{if(e.target===$('projectModal'))closeSavedProjects()});
+  if($('musicVolume'))$('musicVolume').addEventListener('input',e=>changeMusicVolume(e.target.value));
+  window.addEventListener('resize',()=>renderFrame());
+});
+
+window.addEventListener('beforeunload',()=>{
+  if(state.mediaUrl)try{URL.revokeObjectURL(state.mediaUrl)}catch(e){}
+  if(state.overlayUrl)try{URL.revokeObjectURL(state.overlayUrl)}catch(e){}
+  if(state.audioUrl)try{URL.revokeObjectURL(state.audioUrl)}catch(e){}
+});
+
+function getPixoraShareUrl(){
+  const url=String(location.href||'').split('#')[0];
+  return url || 'https://pixora.app/';
+}
+
+async function requestShareReward(){
+  if(!supabaseClient){toast('Supabase connection নেই।');return false;}
+  const {data:{user}}=await supabaseClient.auth.getUser();
+  if(!user){showAuth();return false;}
+  const marker='[PIXORA_SHARE_REWARD_5]';
+  try{
+    const {data:existing,error:findErr}=await supabaseClient.from('messages').select('id,status').eq('user_id',user.id).eq('message',marker).maybeSingle();
+    if(findErr) throw findErr;
+    if(existing){
+      const el=document.getElementById('shareStatus');
+      if(el) el.textContent = String(existing.status||'pending').toLowerCase()==='approved' ? '✅ Share reward already approved.' : '⏳ Share reward request already pending Admin approval.';
+      toast(String(existing.status||'').toLowerCase()==='approved'?'Share reward already approved':'Share reward already requested');
+      return true;
+    }
+    const {error}=await supabaseClient.from('messages').insert({user_id:user.id,message:marker,status:'pending'});
+    if(error) throw error;
+    const el=document.getElementById('shareStatus');
+    if(el) el.textContent='✅ Share recorded. ৳5 reward is pending Admin approval.';
+    toast('📤 Share recorded — ৳5 pending Admin approval');
+    await loadUserMessages();
+    return true;
+  }catch(e){
+    console.error('Share reward:',e);
+    toast('Share reward request করা যায়নি।');
+    return false;
   }
-
-  let tasks=
-    getTasks();
-
-  tasks.unshift({
-
-    id:Date.now(),
-
-    title:title,
-
-    desc:desc,
-
-    price:price,
-
-    status:"Open",
-
-    created:new Date().toLocaleString()
-
-  });
-
-  saveTasks(tasks);
-
-  $("taskTitle").value="";
-  $("taskDesc").value="";
-  $("taskPrice").value="";
-
-  loadAdmin();
-  loadPublicTasks();
-
-  alert("✅ কাজ প্রকাশ হয়েছে।");
 }
 
-
-/* =========================
-   PUBLIC TASKS
-========================= */
-
-function loadPublicTasks(){
-
-  const tasks=
-    getTasks();
-
-  if(!tasks.length){
-
-    $("publicTasks").innerHTML=
-      '<div class="empty">এখনো কোনো Custom Work নেই।</div>';
-
-    return;
-  }
-
-  $("publicTasks").innerHTML=
-    tasks.map(function(task){
-
-      return `
-      <div class="task">
-
-        <div class="taskTop">
-
-          <div class="taskTitle">
-            ${escapeHTML(task.title)}
-          </div>
-
-          <span class="tagPill">
-            ${escapeHTML(task.status)}
-          </span>
-
-        </div>
-
-        <p class="notice">
-          ${escapeHTML(task.desc||"বিস্তারিত নেই")}
-        </p>
-
-        <div class="price">
-          ৳ ${Number(task.price)||0}
-        </div>
-
-        ${
-          task.status==="Open"
-          ?
-          `<button
-            class="small"
-            onclick="orderCustomTask(${task.id})"
-          >
-            📦 এই কাজটি অর্ডার করুন
-          </button>`
-          :
-          `<div class="success">
-            ✅ কাজটি সম্পন্ন
-          </div>`
-        }
-
-      </div>
-      `;
-
-    }).join("");
+async function sharePixoraWhatsApp(){
+  const url=getPixoraShareUrl();
+  const text='✨ Pixora Editor + Income — '+url;
+  const shareUrl='https://wa.me/?text='+encodeURIComponent(text);
+  const opened=window.open(shareUrl,'_blank','noopener,noreferrer');
+  if(!opened) location.href=shareUrl;
+  await requestShareReward();
 }
 
-
-function orderCustomTask(id){
-
-  const task=
-    getTasks().find(function(x){
-      return x.id===id;
-    });
-
-  if(!task){
-    return;
-  }
-
-  $("serviceSelect").innerHTML=
-    `<option>
-      ${escapeHTML(task.title)}
-      — ${Number(task.price)||0} টাকা
-    </option>`;
-
-  $("details").value=
-    task.desc||"";
-
-  showPage("order");
+async function sharePixoraTelegram(){
+  const url=getPixoraShareUrl();
+  const shareUrl='https://t.me/share/url?url='+encodeURIComponent(url)+'&text='+encodeURIComponent('✨ Pixora Editor + Income');
+  const opened=window.open(shareUrl,'_blank','noopener,noreferrer');
+  if(!opened) location.href=shareUrl;
+  await requestShareReward();
 }
 
-
-/* =========================
-   COMPLETE TASK
-========================= */
-
-function completeTask(id){
-
-  let tasks=
-    getTasks();
-
-  const task=
-    tasks.find(function(x){
-      return x.id===id;
-    });
-
-  if(
-    !task ||
-    task.status==="Completed"
-  ){
-    return;
+async function copyPixoraLink(){
+  const url=getPixoraShareUrl();
+  let copied=false;
+  try{
+    if(navigator.clipboard && window.isSecureContext){
+      await navigator.clipboard.writeText(url); copied=true;
+    }
+  }catch(e){}
+  if(!copied){
+    try{
+      const ta=document.createElement('textarea');
+      ta.value=url;ta.setAttribute('readonly','');
+      ta.style.position='fixed';ta.style.opacity='0';
+      document.body.appendChild(ta);ta.focus();ta.select();
+      copied=document.execCommand('copy');ta.remove();
+    }catch(e){copied=false;}
   }
-
-  task.status="Completed";
-
-  const wallet=
-    getWallet();
-
-  wallet.earned=
-    Number(wallet.earned)
-    +
-    Number(task.price);
-
-  wallet.history.unshift({
-
-    type:
-      "কাজ সম্পন্ন: "
-      +task.title,
-
-    amount:
-      Number(task.price),
-
-    time:
-      new Date().toLocaleString()
-
-  });
-
-  saveTasks(tasks);
-  saveWallet(wallet);
-
-  loadAdmin();
-  loadPublicTasks();
-
-  alert(
-    "✅ কাজ সম্পন্ন হয়েছে।\n\n"
-    +"৳"+Number(task.price)
-    +" Wallet-এ যোগ হয়েছে।"
-  );
+  if(copied){toast('🔗 Pixora link copied');await requestShareReward();}
+  else toast('Link copy করা যায়নি।');
 }
-
-
-/* =========================
-   DELETE TASK
-========================= */
-
-function deleteTask(id){
-
-  if(
-    !confirm(
-      "এই কাজটি Delete করতে চান?"
-    )
-  ){
-    return;
-  }
-
-  let tasks=
-    getTasks().filter(function(task){
-      return task.id!==id;
-    });
-
-  saveTasks(tasks);
-
-  loadAdmin();
-  loadPublicTasks();
-}
-
-
-/* =========================
-   ADMIN
-========================= */
-
-function loadAdmin(){
-
-  loadAdminTasks();
-  loadAdminOrders();
-  loadAdminWithdrawals();
-}
-
-
-function loadAdminTasks(){
-
-  const tasks=
-    getTasks();
-
-  if(!tasks.length){
-
-    $("adminTasks").innerHTML=
-      '<div class="empty">এখনো কোনো কাজ যোগ করা হয়নি।</div>';
-
-    return;
-  }
-
-  $("adminTasks").innerHTML=
-    tasks.map(function(task){
-
-      return `
-      <div class="task">
-
-        <div class="taskTop">
-
-          <div class="taskTitle">
-            ${escapeHTML(task.title)}
-          </div>
-
-          <span class="tagPill">
-            ${escapeHTML(task.status)}
-          </span>
-
-        </div>
-
-        <p class="notice">
-          ${escapeHTML(task.desc||"বিস্তারিত নেই")}
-        </p>
-
-        <div class="price">
-          ৳ ${Number(task.price)||0}
-        </div>
-
-        ${
-          task.status!=="Completed"
-          ?
-          `
-          <button
-            class="small"
-            onclick="completeTask(${task.id})"
-          >
-            ✅ কাজ সম্পন্ন — Wallet-এ
-            ৳${Number(task.price)||0} যোগ
-          </button>
-          `
-          :
-          `
-          <div class="success">
-            ✅ সম্পন্ন এবং Wallet-এ যোগ হয়েছে
-          </div>
-          `
-        }
-
-        <button
-          class="small danger"
-          onclick="deleteTask(${task.id})"
-        >
-          🗑️ Delete
-        </button>
-
-      </div>
-      `;
-
-    }).join("");
-}
-
-
-/* =========================
-   ADMIN ORDERS
-========================= */
-
-function loadAdminOrders(){
-
-  let orders=
-    JSON.parse(
-      localStorage.getItem("pixora_orders")
-      ||"[]"
-    );
-
-  if(!orders.length){
-
-    $("adminOrders").innerHTML=
-      '<div class="empty">কোনো Customer Order নেই।</div>';
-
-    return;
-  }
-
-  $("adminOrders").innerHTML=
-    orders.map(function(order){
-
-      return `
-      <div class="orderCard">
-
-        <div class="taskTop">
-
-          <b>
-            ${escapeHTML(order.name)}
-          </b>
-
-          <span class="orderStatus">
-            ${escapeHTML(order.status)}
-          </span>
-
-        </div>
-
-        <p class="notice">
-          📱 ${escapeHTML(order.phone)}
-          <br>
-          📦 ${escapeHTML(order.service)}
-          <br>
-          💳 ${escapeHTML(order.transaction)}
-          <br>
-          📝 ${escapeHTML(order.details)}
-          <br>
-          🕒 ${escapeHTML(order.time)}
-        </p>
-
-        <button
-          class="small"
-          onclick="completeOrder(${order.id})"
-        >
-          ✅ Order Complete
-        </button>
-
-        <button
-          class="small danger"
-          onclick="deleteOrder(${order.id})"
-        >
-          🗑️ Delete Order
-        </button>
-
-      </div>
-      `;
-
-    }).join("");
-}
-
-
-function completeOrder(id){
-
-  let orders=
-    JSON.parse(
-      localStorage.getItem("pixora_orders")
-      ||"[]"
-    );
-
-  const order=
-    orders.find(function(x){
-      return x.id===id;
-    });
-
-  if(!order){
-    return;
-  }
-
-  order.status="Completed";
-
-  localStorage.setItem(
-    "pixora_orders",
-    JSON.stringify(orders)
-  );
-
-  loadAdminOrders();
-
-  alert("✅ Order Completed");
-}
-
-
-function deleteOrder(id){
-
-  if(
-    !confirm(
-      "এই Order Delete করতে চান?"
-    )
-  ){
-    return;
-  }
-
-  let orders=
-    JSON.parse(
-      localStorage.getItem("pixora_orders")
-      ||"[]"
-    );
-
-  orders=
-    orders.filter(function(order){
-      return order.id!==id;
-    });
-
-  localStorage.setItem(
-    "pixora_orders",
-    JSON.stringify(orders)
-  );
-
-  loadAdminOrders();
-}
-
-
-/* =========================
-   ADMIN WITHDRAWALS
-========================= */
-
-function loadAdminWithdrawals(){
-
-  let requests=
-    JSON.parse(
-      localStorage.getItem("pixora_withdrawals")
-      ||"[]"
-    );
-
-  if(!requests.length){
-
-    $("adminWithdrawals").innerHTML=
-      '<div class="empty">কোনো Withdrawal Request নেই।</div>';
-
-    return;
-  }
-
-  $("adminWithdrawals").innerHTML=
-    requests.map(function(request){
-
-      return `
-      <div class="orderCard">
-
-        <div class="taskTop">
-
-          <b>
-            ${escapeHTML(request.name)}
-          </b>
-
-          <span class="orderStatus">
-            ${escapeHTML(request.status)}
-          </span>
-
-        </div>
-
-        <p class="notice">
-          Method: ${escapeHTML(request.method)}
-          <br>
-          Number: ${escapeHTML(request.number)}
-          <br>
-          Amount: ৳${Number(request.amount)||0}
-          <br>
-          ${escapeHTML(request.time)}
-        </p>
-
-        <button
-          class="small"
-          onclick="approveWithdrawal(${request.id})"
-        >
-          ✅ Approve
-        </button>
-
-        <button
-          class="small danger"
-          onclick="rejectWithdrawal(${request.id})"
-        >
-          ❌ Reject
-        </button>
-
-      </div>
-      `;
-
-    }).join("");
-}
-
-
-/* =========================
-   APPROVE WITHDRAWAL
-========================= */
-
-function approveWithdrawal(id){
-
-  let requests=
-    JSON.parse(
-      localStorage.getItem("pixora_withdrawals")
-      ||"[]"
-    );
-
-  const request=
-    requests.find(function(x){
-      return x.id===id;
-    });
-
-  if(!request){
-    return;
-  }
-
-  request.status="Approved";
-
-  localStorage.setItem(
-    "pixora_withdrawals",
-    JSON.stringify(requests)
-  );
-
-  loadAdminWithdrawals();
-
-  alert("✅ Withdrawal Approved");
-}
-
-
-/* =========================
-   REJECT WITHDRAWAL
-========================= */
-
-function rejectWithdrawal(id){
-
-  let requests=
-    JSON.parse(
-      localStorage.getItem("pixora_withdrawals")
-      ||"[]"
-    );
-
-  const index=
-    requests.findIndex(function(x){
-      return x.id===id;
-    });
-
-  if(index===-1){
-    return;
-  }
-
-  const request=
-    requests[index];
-
-  const wallet=
-    getWallet();
-
-  if(request.status!=="Rejected"){
-
-    wallet.withdrawn=
-      Math.max(
-        0,
-        Number(wallet.withdrawn)
-        -
-        Number(request.amount)
-      );
-
-    wallet.history.unshift({
-
-      type:"Withdrawal Rejected — টাকা ফেরত",
-
-      amount:Number(request.amount),
-
-      time:new Date().toLocaleString()
-
-    });
-
-    saveWallet(wallet);
-  }
-
-  request.status="Rejected";
-
-  localStorage.setItem(
-    "pixora_withdrawals",
-    JSON.stringify(requests)
-  );
-
-  loadAdminWithdrawals();
-  loadWallet();
-
-  alert("❌ Withdrawal Rejected এবং টাকা Wallet-এ ফেরত দেওয়া হয়েছে।");
-}
-
-
-/* =========================
-   RESET WALLET
-========================= */
-
-function resetWallet(){
-
-  if(
-    !confirm(
-      "সত্যিই Wallet Reset করতে চান?"
-    )
-  ){
-    return;
-  }
-
-  saveWallet({
-    earned:0,
-    withdrawn:0,
-    history:[]
-  });
-
-  loadWallet();
-
-  alert("✅ Wallet Reset হয়েছে।");
-}
-
-
-/* =========================
-   STARTUP
-========================= */
-
-document.addEventListener(
-  "DOMContentLoaded",
-  function(){
-
-    loadWallet();
-    loadPublicTasks();
-    loadAdmin();
-
-  }
-);
 
 </script>
-<!-- PIXORA SUPABASE AUTH -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-const PIXORA_SUPABASE_URL = "https://yijviyxdcrhkjqxqcbul.supabase.co";
-const PIXORA_SUPABASE_KEY = "sb_publishable_wlq00hXvpHtoa5rmG-A7PA_OXgY4VMd";
-
-const pixoraSupabase = window.supabase.createClient(
-  PIXORA_SUPABASE_URL,
-  PIXORA_SUPABASE_KEY
-);
-
-async function checkPixoraUser() {
-  const { data, error } = await pixoraSupabase.auth.getUser();
-
-  if (error || !data.user) {
-    window.pixoraIsAdmin = false;
-    return;
-  }
-
-  const { data: profile } = await pixoraSupabase
-    .from("profiles")
-    .select("id,email,full_name,role")
-    .eq("id", data.user.id)
-    .maybeSingle();
-
-  window.pixoraProfile = profile;
-  window.pixoraIsAdmin = profile?.role === "admin";
-
-  console.log("Pixora Admin:", window.pixoraIsAdmin);
-}
-
-document.addEventListener("DOMContentLoaded", checkPixoraUser);
-</script>
-<!-- PIXORA LOGIN + SIGNUP UI -->
-
-<style>
-#pixoraAuthOverlay{
-  position:fixed;
-  inset:0;
-  z-index:99999;
-  background:linear-gradient(180deg,#080b16,#10182d);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:18px;
-  overflow:auto;
-}
-
-.pixoraAuthBox{
-  width:100%;
-  max-width:420px;
-  background:#12192b;
-  border:1px solid #ffffff15;
-  border-radius:24px;
-  padding:22px;
-  box-shadow:0 20px 60px #0008;
-}
-
-.pixoraAuthLogo{
-  text-align:center;
-  margin-bottom:18px;
-}
-
-.pixoraAuthLogo .logoIcon{
-  font-size:48px;
-}
-
-.pixoraAuthLogo h2{
-  margin:7px 0 4px;
-}
-
-.pixoraAuthLogo p{
-  color:#aeb6cf;
-  font-size:13px;
-  margin:0;
-}
-
-.pixoraAuthTabs{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:7px;
-  background:#0b1122;
-  padding:5px;
-  border-radius:14px;
-  margin-bottom:15px;
-}
-
-.pixoraAuthTabs button{
-  border:0;
-  background:transparent;
-  color:#aeb6cf;
-  padding:11px;
-  border-radius:10px;
-  font-weight:bold;
-}
-
-.pixoraAuthTabs button.active{
-  background:linear-gradient(135deg,#7c5cff,#00b9ff);
-  color:#fff;
-}
-
-.pixoraAuthForm{
-  display:none;
-}
-
-.pixoraAuthForm.active{
-  display:block;
-}
-
-.pixoraAuthForm label{
-  display:block;
-  color:#d8def0;
-  font-size:13px;
-  margin-top:10px;
-}
-
-.pixoraAuthForm input{
-  width:100%;
-  background:#0b1122;
-  border:1px solid #36415f;
-  color:#fff;
-  padding:13px;
-  border-radius:12px;
-  margin:6px 0;
-  outline:none;
-}
-
-.pixoraAuthButton{
-  width:100%;
-  border:0;
-  border-radius:13px;
-  padding:14px;
-  margin-top:13px;
-  color:#fff;
-  background:linear-gradient(135deg,#7c5cff,#00b9ff);
-  font-weight:bold;
-}
-
-.pixoraAuthMessage{
-  min-height:20px;
-  margin-top:12px;
-  text-align:center;
-  font-size:12px;
-  line-height:1.5;
-}
-</style>
-
-<div id="pixoraAuthOverlay">
-
-  <div class="pixoraAuthBox">
-
-    <div class="pixoraAuthLogo">
-
-      <div class="logoIcon">✨</div>
-
-      <h2>Pixora Editor</h2>
-
-      <p>আতিক ব্রান্ড • Creative Platform</p>
-
-    </div>
-
-    <div class="pixoraAuthTabs">
-
-      <button
-        id="pixoraLoginTab"
-        class="active"
-        onclick="pixoraShowAuthForm('login')">
-        🔐 Login
-      </button>
-
-      <button
-        id="pixoraSignupTab"
-        onclick="pixoraShowAuthForm('signup')">
-        📝 Signup
-      </button>
-
-    </div>
-
-    <div
-      id="pixoraLoginForm"
-      class="pixoraAuthForm active">
-
-      <h3>🔐 Login করুন</h3>
-
-      <label>Email</label>
-
-      <input
-        id="authEmail"
-        type="email"
-        placeholder="আপনার Email"
-        autocomplete="email">
-
-      <label>Password</label>
-
-      <input
-        id="authPassword"
-        type="password"
-        placeholder="আপনার Password"
-        autocomplete="current-password">
-
-      <button
-        class="pixoraAuthButton"
-        onclick="pixoraSignIn()">
-        🔐 Login
-      </button>
-
-    </div>
-
-    <div
-      id="pixoraSignupForm"
-      class="pixoraAuthForm">
-
-      <h3>📝 নতুন Account</h3>
-
-      <label>আপনার নাম</label>
-
-      <input
-        id="authName"
-        type="text"
-        placeholder="আপনার নাম"
-        autocomplete="name">
-
-      <label>Email</label>
-
-      <input
-        id="authSignupEmail"
-        type="email"
-        placeholder="আপনার Email"
-        autocomplete="email">
-
-      <label>Password</label>
-
-      <input
-        id="authSignupPassword"
-        type="password"
-        placeholder="কমপক্ষে ৬ characters"
-        autocomplete="new-password">
-
-      <button
-        class="pixoraAuthButton"
-        onclick="pixoraSignUp()">
-        📝 Account তৈরি করুন
-      </button>
-
-    </div>
-
-    <div
-      id="authMessage"
-      class="pixoraAuthMessage">
-    </div>
-
-  </div>
-
-</div>
-
-<script>
-
-function pixoraShowAuthForm(type){
-
-  const loginForm =
-    document.getElementById("pixoraLoginForm");
-
-  const signupForm =
-    document.getElementById("pixoraSignupForm");
-
-  const loginTab =
-    document.getElementById("pixoraLoginTab");
-
-  const signupTab =
-    document.getElementById("pixoraSignupTab");
-
-  const message =
-    document.getElementById("authMessage");
-
-  message.textContent="";
-
-  if(type==="login"){
-
-    loginForm.classList.add("active");
-    signupForm.classList.remove("active");
-
-    loginTab.classList.add("active");
-    signupTab.classList.remove("active");
-
-  }else{
-
-    loginForm.classList.remove("active");
-    signupForm.classList.add("active");
-
-    loginTab.classList.remove("active");
-    signupTab.classList.add("active");
-
-  }
-}
-
-async function pixoraSignIn(){
-
-  const email =
-    document.getElementById("authEmail").value.trim();
-
-  const password =
-    document.getElementById("authPassword").value;
-
-  const message =
-    document.getElementById("authMessage");
-
-  if(!email || !password){
-
-    message.textContent =
-      "⚠️ Email এবং Password দিন।";
-
-    return;
-  }
-
-  message.textContent =
-    "⏳ Login হচ্ছে...";
-
-  const { data, error } =
-    await pixoraSupabase.auth.signInWithPassword({
-      email:email,
-      password:password
-    });
-
-  if(error){
-
-    message.textContent =
-      "❌ "+error.message;
-
-    return;
-  }
-
-  await checkPixoraUser();
-
-  message.textContent =
-    "✅ Login সফল হয়েছে।";
-
-  setTimeout(function(){
-
-    const overlay =
-      document.getElementById("pixoraAuthOverlay");
-
-    if(overlay){
-      overlay.style.display="none";
-    }
-
-  },500);
-}
-
-async function pixoraSignUp(){
-
-  const name =
-    document.getElementById("authName").value.trim();
-
-  const email =
-    document.getElementById("authSignupEmail").value.trim();
-
-  const password =
-    document.getElementById("authSignupPassword").value;
-
-  const message =
-    document.getElementById("authMessage");
-
-  if(!name || !email || !password){
-
-    message.textContent =
-      "⚠️ সব তথ্য পূরণ করুন।";
-
-    return;
-  }
-
-  if(password.length < 6){
-
-    message.textContent =
-      "⚠️ Password কমপক্ষে ৬ characters হতে হবে।";
-
-    return;
-  }
-
-  message.textContent =
-    "⏳ Account তৈরি হচ্ছে...";
-
-  const { data, error } =
-    await pixoraSupabase.auth.signUp({
-
-      email:email,
-
-      password:password,
-
-      options:{
-        data:{
-          full_name:name
-        }
-      }
-
-    });
-
-  if(error){
-
-    message.textContent =
-      "❌ "+error.message;
-
-    return;
-  }
-
-  if(data.session){
-
-    await checkPixoraUser();
-
-    message.textContent =
-      "✅ Account তৈরি হয়েছে।";
-
-    setTimeout(function(){
-
-      const overlay =
-        document.getElementById("pixoraAuthOverlay");
-
-      if(overlay){
-        overlay.style.display="none";
-      }
-
-    },700);
-
-  }else{
-
-    message.textContent =
-      "✅ Account তৈরি হয়েছে। Email verify করে Login করুন।";
-
-  }
-}
-
-async function pixoraCheckAuth(){
-
-  const { data } =
-    await pixoraSupabase.auth.getSession();
-
-  const overlay =
-    document.getElementById("pixoraAuthOverlay");
-
-  if(data && data.session){
-
-    await checkPixoraUser();
-
-    if(overlay){
-      overlay.style.display="none";
-    }
-
-  }else{
-
-    if(overlay){
-      overlay.style.display="flex";
-    }
-
-  }
-}
-
-pixoraSupabase.auth.onAuthStateChange(
-  function(event,session){
-
-    const overlay =
-      document.getElementById("pixoraAuthOverlay");
-
-    if(session){
-
-      if(overlay){
-        overlay.style.display="none";
-      }
-
-    }else{
-
-      if(overlay){
-        overlay.style.display="flex";
-      }
-
-    }
-
-  }
-);
-
-document.addEventListener(
-  "DOMContentLoaded",
-  function(){
-
-    pixoraCheckAuth();
-
-  }
-);
-
-</script>
-</body>
-</html>
+</body></html>

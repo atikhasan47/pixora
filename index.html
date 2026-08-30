@@ -840,6 +840,14 @@ function taskStatusLabel(status){
   return s==='published'?'🟢 Published':s==='paused'?'🟡 Paused':s==='closed'?'🔴 Closed':s==='approved'?'🟢 Approved':s==='revision'?'🔄 Revision':s==='rejected'?'🔴 Rejected':'🟡 Pending';
 }
 
+function submissionStatusLabel(status){
+  const s=String(status||'pending').toLowerCase();
+  if(s==='approved')return '🟢 Approved — Reward যোগ হয়েছে';
+  if(s==='rejected')return '🔴 Rejected — আবার Submit করতে পারবেন';
+  if(s==='revision')return '🔄 Revision — আবার Submit করুন';
+  return '🟡 Pending — Admin review করছে';
+}
+
 function renderTasks(){
   const list=$('publicTasks');
   if($('taskCount'))$('taskCount').textContent=state.tasks.length;
@@ -847,9 +855,15 @@ function renderTasks(){
   if(!list)return;
   if(!state.tasks.length){list.innerHTML='<div class="empty">এখনও কোনো কাজ প্রকাশ করা হয়নি</div>';return;}
   list.innerHTML=state.tasks.map(task=>{
-    const submitted=state.taskSubmissions?.some(x=>String(x.task_id)===String(task.id));
+    const sub=(state.taskSubmissions||[]).filter(x=>String(x.task_id)===String(task.id)).sort((a,b)=>new Date(b.submitted_at||b.created_at||0)-new Date(a.submitted_at||a.created_at||0))[0];
+    const subStatus=String(sub?.status||'').toLowerCase();
     const closed=['paused','closed'].includes(String(task.status||'').toLowerCase());
-    return `<div class="task"><div class="taskTop"><div><b>${escapeHTML(task.title)}</b><p class="notice">${escapeHTML(task.description||'কাজের বিস্তারিত নেই')}</p></div><span class="tagPill">৳ ${Number(task.reward)||0}</span></div><div class="notice">Status: ${taskStatusLabel(task.status)}</div>${submitted?'<div class="success">✅ Submission পাঠানো হয়েছে — Admin review করবে</div>':(!closed?`<button class="small" onclick="completeTask('${escapeHTML(task.id)}')">📤 কাজ শেষ করে Submit করুন</button>`:'<div class="muted">এই কাজটি এখন নেওয়া যাচ্ছে না।</div>')}</div>`;
+    let action='';
+    if(subStatus==='approved') action='<div class="success">'+submissionStatusLabel(subStatus)+'</div>';
+    else if(subStatus==='pending') action='<div class="warning">'+submissionStatusLabel(subStatus)+'</div>';
+    else if(subStatus==='rejected'||subStatus==='revision') action=!closed?`<div class="warning">${submissionStatusLabel(subStatus)}</div><button class="small" onclick="completeTask('${escapeHTML(task.id)}')">📤 আবার Submit করুন</button>`:`<div class="muted">${submissionStatusLabel(subStatus)}</div>`;
+    else action=!closed?`<button class="small" onclick="completeTask('${escapeHTML(task.id)}')">📤 কাজ শেষ করে Submit করুন</button>`:'<div class="muted">এই কাজটি এখন নেওয়া যাচ্ছে না।</div>';
+    return `<div class="task"><div class="taskTop"><div><b>${escapeHTML(task.title)}</b><p class="notice">${escapeHTML(task.description||'কাজের বিস্তারিত নেই')}</p></div><span class="tagPill">৳ ${Number(task.reward)||0}</span></div><div class="notice">Status: ${taskStatusLabel(task.status)}</div>${action}</div>`;
   }).join('');
 }
 
@@ -859,8 +873,9 @@ async function completeTask(id){
   if(!task){toast('Task পাওয়া যায়নি');return;}
   const {data:{user}}=await supabaseClient.auth.getUser();
   if(!user){showAuth();return;}
-  const already=state.taskSubmissions?.some(x=>String(x.task_id)===String(task.id));
-  if(already){toast('এই Task-এর submission ইতিমধ্যে পাঠানো হয়েছে।');return;}
+  const latest=(state.taskSubmissions||[]).filter(x=>String(x.task_id)===String(task.id)).sort((a,b)=>new Date(b.submitted_at||b.created_at||0)-new Date(a.submitted_at||a.created_at||0))[0];
+  const latestStatus=String(latest?.status||'').toLowerCase();
+  if(latest && !['rejected','revision'].includes(latestStatus)){toast('এই Task-এর submission এখনো processed হয়নি।');return;}
   const proofNote=prompt('কাজের Proof / Screenshot-এর link বা সংক্ষিপ্ত তথ্য দিন:','');
   if(proofNote===null)return;
   const payload={task_id:task.id,user_id:user.id,status:'pending',proof_note:proofNote.trim()};
@@ -994,7 +1009,9 @@ document.addEventListener('DOMContentLoaded',async()=>{
   if(supabaseClient){
     const {data:{session}}=await supabaseClient.auth.getSession();
     if(session?.user){try{await ensureUserRow(session.user);await syncUserData();openApp();}catch(e){showAuth();setAuthMsg(e.message||'Account sync failed');}}else showAuth();
-    supabaseClient.auth.onAuthStateChange((event,session)=>{if(session?.user){setTimeout(()=>syncUserData(),0);openApp();}else showAuth();});
+    supabaseClient.auth.onAuthStateChange((event,session)=>{if(session?.user){setTimeout(()=>syncUserData(),0);openApp();}else{clearInterval(window.__pixoraUserSyncPoll);showAuth();}});
+    clearInterval(window.__pixoraUserSyncPoll);
+    window.__pixoraUserSyncPoll=setInterval(async()=>{try{const {data:{session}}=await supabaseClient.auth.getSession();if(session?.user)await syncUserData();}catch(e){}},5000);
   }else{showAuth();setAuthMsg('Supabase configuration পাওয়া যায়নি।');}
 
   renderRecentProjects();

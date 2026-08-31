@@ -33,6 +33,7 @@ body{background:#070a12;overflow-x:hidden}.app{max-width:980px}.header{position:
 <section id="home" class="page active">
 <div class="panel"><h2>👑 আতিক ব্রান্ড ড্যাশবোর্ড</h2><p class="muted">Pixora Editor + Income — Video Editing, Service & Income Platform</p></div>
 <div class="hero"><h2>তোমার আইডিয়াকে ক্রিয়েটিভ করে তুলি ✨</h2><p class="muted">Video/Photo edit করুন, project save করুন এবং নিজের creative workflow তৈরি করুন।</p><button class="primary" onclick="showPage('editor')">🎬 Video Create</button></div>
+<div class="panel"><h3>📢 Admin Notifications</h3><div id="userNotices"><div class="loading">Loading notifications...</div></div></div>
 <div class="earnHero"><div class="notice">💰 PIXORA EARNING</div><div class="earnBalance">৳ <span id="homeBalance">0</span></div><div class="notice">Tasks complete করে eligible earning সংগ্রহ করুন।</div><div class="earnActions"><button class="small" onclick="showPage('wallet')">💰 Wallet</button><button class="small" onclick="showPage('works')">🎯 Earn Tasks</button></div></div>
 <div class="quickGrid"><div class="quickCard" onclick="showPage('editor')">🎬<b>Editor</b></div><div class="quickCard" onclick="showPage('order')">📦<b>Orders</b></div><div class="quickCard" onclick="showPage('wallet')">💰<b>Income</b></div><div class="quickCard" onclick="showPage('profile')">👤<b>Profile</b></div></div>
 <div class="sectionTitle"><h3>🎯 Earn Tasks</h3><span class="pillGreen">Admin Posted</span></div>
@@ -95,9 +96,9 @@ body{background:#070a12;overflow-x:hidden}.app{max-width:980px}.header{position:
 <section id="messages" class="page"><div class="panel"><h2>💬 Admin Messages</h2><p class="muted">Admin-এর message, reply এবং status এখানে দেখা যাবে।</p><div class="control-box" style="margin-top:10px"><label>User ID</label><input id="messageUserId" placeholder="আপনার User ID"><button class="primary" onclick="saveMessageUserId()">💾 Save User ID</button></div><div id="userMessageList" style="margin-top:12px"><div class="empty">User ID দিয়ে Messages দেখুন।</div></div><div class="control-box" style="margin-top:12px"><label>Admin-কে Message</label><textarea id="userMessageText" placeholder="আপনার message লিখুন..."></textarea><button class="primary" onclick="sendUserMessage()">📤 Send Message</button></div></div></section>
 <section id="contact" class="page"><div class="panel"><h2>💬 যোগাযোগ</h2><a class="contact" href="https://wa.me/8801762209184" target="_blank" rel="noopener">🟢 WhatsApp<br>01762209184</a><a class="contact" href="https://t.me/atikbreand420" target="_blank" rel="noopener">🔵 Telegram<br>@atikbreand420</a><div class="pay"><b>📱 bKash Personal</b><div class="number">01988891195</div></div></div></section>
 </main></div>
-<section class="panel" id="sharePanel"><h2>📤 Share & Earn</h2><p class="muted">Pixora-এর লিংক শেয়ার করুন। Share option ব্যবহার করার পর ৳5 reward request তৈরি হবে; Admin approve করলে Wallet-এ ৳5 যোগ হবে।</p><div class="grid"><button class="primary" onclick="sharePixoraWhatsApp()">🟢 WhatsApp Share</button><button class="primary" onclick="sharePixoraTelegram()">🔵 Telegram Share</button></div><button class="small" onclick="copyPixoraLink()">📋 Copy Pixora Link</button><div id="shareStatus" class="notice" style="margin-top:8px">প্রতি User-এর Share reward Admin-এর মাধ্যমে যাচাই/কন্ট্রোল হবে।</div></section>
+<section class="panel" id="sharePanel"><h2>📤 Share & Earn</h2><p class="muted">Pixora শেয়ার করুন। Share সম্পন্ন হলে ৳5 reward-এর জন্য request তৈরি হবে এবং Admin control করবে।</p><button class="primary" onclick="sharePixora()">📤 Share Pixora — ৳5 Free</button><div id="shareStatus" class="notice" style="margin-top:8px">প্রতি User-এর Share reward Admin-এর মাধ্যমে যাচাই/কন্ট্রোল হবে।</div></section>
 <nav class="bottomNav"><button class="active" onclick="showPage('home',this)">🏠<br>Home</button><button onclick="showPage('editor',this)">🎬<br>Editor</button><button onclick="showPage('works',this)">🛠️<br>Works</button><button onclick="showPage('order',this)">📦<br>Order</button><button onclick="showPage('wallet',this)">💰<br>Income</button><button onclick="showPage('messages',this)">💬<br>Messages</button><button onclick="showPage('contact',this)">📞<br>Contact</button></nav>
-<div id="toast" class="toast"></div>
+<div id="taskSubmitModal" class="modal"><div class="modalCard"><div class="modalTop"><h3>📤 কাজ Submit করুন</h3><button class="closeBtn" onclick="closeTaskSubmit()">✕</button></div><p class="notice">কাজের প্রমাণ হিসেবে বিস্তারিত লিখুন এবং চাইলে Screenshot দিন।</p><input id="taskProofFile" type="file" accept="image/*"><textarea id="taskProofNote" placeholder="কাজের বিস্তারিত লিখুন... কী করেছেন, কীভাবে করেছেন ইত্যাদি"></textarea><div id="taskProofPreview" class="notice">কোনো Screenshot নির্বাচন করা হয়নি।</div><div class="grid"><button class="primary" onclick="closeTaskSubmit()">Cancel</button><button class="primary" onclick="confirmTaskSubmit()">OK — Submit</button></div></div></div><div id="toast" class="toast"></div>
 <div id="projectModal" class="modal"><div class="modalCard"><div class="modalTop"><h3>📂 Saved Projects</h3><button class="closeBtn" onclick="closeProjects()">✕</button></div><div id="projectList"></div></div></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -204,14 +205,24 @@ function openApp(){ $('authGate').style.display='none'; $('pixoraApp').style.dis
 function showAuth(){ $('authGate').style.display='grid'; $('pixoraApp').style.display='none'; }
 
 async function ensureUserRow(user){
-  if(!supabaseClient||!user)return;
-  const {data}=await supabaseClient.from('users').select('id').eq('id',user.id).maybeSingle();
-  if(!data){
-    const name=$('authName')?.value.trim()||user.user_metadata?.name||user.email?.split('@')[0]||'User';
-    const phone=$('authPhone')?.value.trim()||user.user_metadata?.phone||'';
-    const {error}=await supabaseClient.from('users').insert({id:user.id,name,email:user.email,phone,balance:0});
-    if(error && !String(error.message||'').toLowerCase().includes('duplicate')) throw error;
+  if(!supabaseClient||!user)return null;
+  const {data:existing,error:findError}=await supabaseClient
+    .from('users').select('id,auth_id').eq('auth_id',user.id).maybeSingle();
+  if(findError) throw findError;
+  if(existing) return existing;
+  const name=$('authName')?.value.trim()||user.user_metadata?.name||user.email?.split('@')[0]||'User';
+  const phone=$('authPhone')?.value.trim()||user.user_metadata?.phone||'';
+  const {data,error}=await supabaseClient.from('users').insert({
+    auth_id:user.id,name,email:user.email,phone,balance:0
+  }).select('id,auth_id').single();
+  if(error){
+    if(String(error.message||'').toLowerCase().includes('duplicate')){
+      const {data:again}=await supabaseClient.from('users').select('id,auth_id').eq('auth_id',user.id).maybeSingle();
+      return again||null;
+    }
+    throw error;
   }
+  return data;
 }
 
 async function pixoraLogin(){
@@ -229,733 +240,103 @@ async function pixoraLogout(){if(supabaseClient)await supabaseClient.auth.signOu
 
 async function syncUserData(){
   if(!supabaseClient)return;
-  const {data:{user}}=await supabaseClient.auth.getUser();if(!user)return;
-  state.user=user; const uidEl=$('profileUserId'); if(uidEl)uidEl.value=user.id;
   try{
-    const [uR,tR,oR,dR,wR,mR,sR]=await Promise.all([
-      supabaseClient.from('users').select('*').eq('id',user.id).maybeSingle(),
+    const {data:{user},error:authError}=await supabaseClient.auth.getUser();
+    if(authError)throw authError;
+    if(!user)return;
+
+    const {data:u,error:uError}=await supabaseClient.from('users').select('*').eq('auth_id',user.id).maybeSingle();
+    if(uError)throw uError;
+    const legacyUserId=u?.id;
+
+    const results=await Promise.allSettled([
       supabaseClient.from('tasks').select('*').eq('status','published').order('created_at',{ascending:false}),
-      supabaseClient.from('orders').select('*').eq('user_id',user.id).order('created_at',{ascending:false}),
+      legacyUserId!=null ? supabaseClient.from('orders').select('*').eq('user_id',legacyUserId).order('created_at',{ascending:false}) : Promise.resolve({data:[],error:null}),
       supabaseClient.from('deposits').select('*').eq('user_id',user.id).order('created_at',{ascending:false}),
       supabaseClient.from('withdrawals').select('*').eq('user_id',user.id).order('created_at',{ascending:false}),
-      supabaseClient.from('messages').select('*').eq('user_id',user.id).order('created_at',{ascending:false}),
-      supabaseClient.from('task_submissions').select('*').eq('user_id',user.id).order('submitted_at',{ascending:false})
+      supabaseClient.from('messages').select('*').or(`user_id.eq.${user.id},sender_id.eq.${user.id},receiver_id.eq.${user.id}`).order('created_at',{ascending:false}),
+      supabaseClient.from('task_submissions').select('*').eq('user_id',user.id).order('submitted_at',{ascending:false}),
+      supabaseClient.from('notices').select('*').eq('is_active',true).order('is_pinned',{ascending:false}).order('created_at',{ascending:false}),
+      supabaseClient.from('wallets').select('balance,total_earned,total_withdrawn').eq('user_id',user.id).maybeSingle()
     ]);
-    if(uR.data){state.balance=Number(uR.data.balance||0);state.profile={...state.profile,name:uR.data.name||state.profile.name||'',phone:uR.data.phone||state.profile.phone||''};}
-    if(Array.isArray(tR.data))state.tasks=tR.data.map(t=>({...t,reward:Number(t.reward||0),createdAt:t.created_at}));
-    if(Array.isArray(oR.data))state.orders=oR.data.map(o=>({...o,service:o.order_type||o.service||o.type,transactionId:o.transaction_id,date:o.created_at}));
-    if(Array.isArray(dR.data))state.deposits=dR.data.map(d=>({...d,transactionId:d.transaction_id,date:d.created_at}));
-    if(Array.isArray(wR.data))state.withdrawals=wR.data.map(w=>({...w,number:w.account,date:w.created_at}));
-    if(Array.isArray(mR.data))state.messages=mR.data;
-    if(Array.isArray(sR.data))state.taskSubmissions=sR.data;
-    persist();renderTasks();renderOrders();renderIncome();renderUserMessages();
+
+    const val=i=>results[i]?.status==='fulfilled'?results[i].value:null;
+    const tR=val(0),oR=val(1),dR=val(2),wR=val(3),mR=val(4),sR=val(5),nR=val(6),walletR=val(7);
+
+    if(u){
+      state.profile={...state.profile,name:u.name||state.profile?.name||'',phone:u.phone||state.profile?.phone||''};
+      state.balance=Number(u.balance||0);
+      if($('profileUserId'))$('profileUserId').value=String(u.id||user.id);
+      if($('messageUserId'))$('messageUserId').value=String(user.id);
+    }
+    // The legacy users.balance and wallets.balance are maintained together by Admin RPCs.
+    // Prefer users.balance for the spendable balance; use wallet totals for income/withdrawal stats.
+    if(walletR && !walletR.error && walletR.data){
+      state.totalIncome=Number(walletR.data.total_earned||0);
+      state.totalWithdraw=Number(walletR.data.total_withdrawn||0);
+      if(u?.balance==null)state.balance=Number(walletR.data.balance||0);
+    }
+    if(tR && !tR.error && Array.isArray(tR.data))state.tasks=tR.data.map(t=>({...t,reward:Number(t.reward||0),createdAt:t.created_at}));
+    if(oR && !oR.error && Array.isArray(oR.data))state.orders=oR.data.map(o=>({...o,service:o.order_type||o.service||o.type,transactionId:o.transaction_id,date:o.created_at}));
+    if(dR && !dR.error && Array.isArray(dR.data))state.deposits=dR.data.map(d=>({...d,transactionId:d.transaction_id,date:d.created_at}));
+    if(wR && !wR.error && Array.isArray(wR.data))state.withdrawals=wR.data.map(w=>({...w,number:w.account,date:w.created_at}));
+    if(mR && !mR.error && Array.isArray(mR.data))state.messages=mR.data;
+    if(sR && !sR.error && Array.isArray(sR.data))state.taskSubmissions=sR.data;
+    if(nR && !nR.error && Array.isArray(nR.data))renderUserNotices(nR.data);
+
+    state.walletHistory=[
+      ...state.deposits.map(d=>({id:'deposit-'+d.id,type:'deposit',title:`Deposit — ${String(d.status||'pending')}`,amount:String(d.status||'').toLowerCase()==='approved'?Number(d.amount)||0:0,status:String(d.status||'pending'),date:d.date||d.created_at||''})),
+      ...state.withdrawals.map(w=>({id:'withdraw-'+w.id,type:'withdrawal',title:`Withdrawal — ${String(w.status||'pending')}`,amount:Number(w.amount)||0,status:String(w.status||'pending'),date:w.date||w.created_at||''}))
+    ].sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
+
+    persist();
+    renderTasks();renderOrders();renderIncome();renderUserMessages();
   }catch(e){console.warn('User sync:',e.message||e)}
 }
 
-async function supabaseRequest(table, options={}){
-  if(!supabaseClient) throw new Error('Supabase is not configured.');
-  let url = supabaseClient.url + '/rest/v1/' + table;
-  if(options.query) url += '?' + options.query;
-  const response = await fetch(url, {
-    method: options.method || 'GET',
-    headers: {
-      apikey: supabaseClient.key,
-      Authorization: 'Bearer ' + supabaseClient.key,
-      'Content-Type': 'application/json',
-      Prefer: options.prefer || 'return=representation'
-    },
-    body: options.body ? JSON.stringify(options.body) : undefined
-  });
-  if(!response.ok) throw new Error(await response.text());
-  const text = await response.text();
-  return text ? JSON.parse(text) : null;
-}
-
-/* ==================================================
-   NAVIGATION
-================================================== */
-function showPage(id, button){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  const page = $(id);
-  if(page) page.classList.add('active');
-
-  document.querySelectorAll('.bottomNav button').forEach(b=>b.classList.remove('active'));
-  if(button) button.classList.add('active');
-  else{
-    const map={home:0,editor:1,works:2,order:3,wallet:4,admin:5,contact:6};
-    const bs=document.querySelectorAll('.bottomNav button');
-    if(map[id] != null && bs[map[id]]) bs[map[id]].classList.add('active');
-  }
-
-  if(id==='wallet') renderIncome();
-  if(id==='deposit') 
-  if(id==='works') renderTasks();
-  if(id==='order') renderOrders();
-  if(id==='admin') 
-  if(id==='home') renderRecentProjects();
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-
-function chooseService(service){
-  const select = $('serviceSelect');
-  if(!select) return;
-  let option = [...select.options].find(o=>o.value===service || o.text===service);
-  if(!option){
-    option=document.createElement('option');
-    option.value=service; option.textContent=service;
-    select.appendChild(option);
-  }
-  select.value = service;
-  showPage('order');
-}
-
-/* ==================================================
-   MEDIA
-================================================== */
-function triggerVideo(){ const input=$('mediaFile'); if(input){input.accept='video/*';input.click();} }
-function triggerPhoto(){ const input=$('mediaFile'); if(input){input.accept='image/*';input.click();} }
-function openPhotoEditor(){ showPage('editor'); setTimeout(triggerPhoto,250); }
-
-function buildPreview(){
-  $('previewBox').innerHTML = `
-    ${state.mediaType==='video' ? '<video id="pixoraMedia" playsinline></video>' : '<img id="pixoraMedia" alt="Pixora preview">'}
-    <div class="previewOverlay">
-      <div id="effectOverlay" class="effectOverlay"></div>
-      <div id="vignette" class="vignette"></div>
-      <div id="scanlines" class="scanlines"></div>
-      <div id="overlayLayer"></div>
-      <div id="textLayer" class="textLayer"></div>
-      <div id="captionLayer" class="captionLayer"></div>
-      <div id="stickerLayer" class="stickerLayer"></div>
-    </div>`;
-  video = $('pixoraMedia');
-  if(video) video.src = state.mediaUrl;
-}
-
-function loadMedia(event){
-  const file = event.target.files?.[0];
-  if(!file) return;
-  if(!file.type.startsWith('video/') && !file.type.startsWith('image/')){
-    toast('Video অথবা Image নির্বাচন করুন।'); return;
-  }
-  if(state.mediaUrl) URL.revokeObjectURL(state.mediaUrl);
-  state.mediaUrl = URL.createObjectURL(file);
-  state.mediaName = file.name;
-  state.mediaType = file.type.startsWith('video/') ? 'video' : 'image';
-  buildPreview();
-
-  const ready = ()=>{
-    const duration = state.mediaType==='video' ? Number(video.duration)||0 : 5;
-    state.duration = duration;
-    if(state.trimEnd===0 || state.trimEnd>duration) state.trimEnd=duration;
-    state.effectEnd = duration;
-    state.animationEnd = duration;
-    if(video) video.playbackRate=Number(state.playbackRate)||1;
-    syncTimelineUI(duration);
-    applyEffectVisual();
-    startRenderLoop();
-  };
-
-  if(state.mediaType==='video'){
-    video.onloadedmetadata = ready;
-    video.ontimeupdate = ()=>{
-      const t=video.currentTime||0;
-      $('currentTime').textContent=formatTime(t);
-      $('seekBar').value=t;
-      checkBeatPulse(t);
-      applyEffectVisual();
-      syncAudioToVideo(false);
-      if(state.trimEnd>state.trimStart && t>=state.trimEnd){
-        video.currentTime=state.trimStart; video.pause();
-      }
-    };
-    video.onplay=()=>{
-      $('playButton').textContent='⏸️';
-      startAnimation();
-      syncAudioToVideo(true);
-      startRenderLoop();
-    };
-    video.onpause=()=>{
-      $('playButton').textContent='▶️';
-      stopAnimation();
-      syncAudioToVideo(false);
-    };
-  }else{
-    video.onload = ready;
-  }
-  persist();
-  toast('🎬 Media loaded successfully');
-}
-
-function syncTimelineUI(duration){
-  const d=Number(duration)||0;
-  $('durationTime').textContent=formatTime(d);
-  $('seekBar').max=d; $('seekBar').value=state.mediaType==='video' ? (video?.currentTime||0) : 0;
-  $('trimStart').max=d; $('trimEnd').max=d;
-  $('trimStart').value=Math.min(state.trimStart,d);
-  $('trimEnd').value=Math.min(state.trimEnd||d,d);
-  $('startValue').textContent=formatTime(state.trimStart);
-  $('endValue').textContent=formatTime(state.trimEnd||d);
-  if($('effectStart')){$('effectStart').max=d;$('effectStart').value=Math.min(state.effectStart,d);}
-  if($('effectEnd')){$('effectEnd').max=d;$('effectEnd').value=Math.min(state.effectEnd||d,d);}
-  if($('effectStartValue'))$('effectStartValue').textContent=formatTime(state.effectStart);
-  if($('effectEndValue'))$('effectEndValue').textContent=formatTime(state.effectEnd||d);
-}
-
-function playPause(){
-  if(!video || state.mediaType!=='video'){toast('আগে একটি video নির্বাচন করুন।');return;}
-  if(video.paused){
-    if(state.trimEnd && video.currentTime>=state.trimEnd) video.currentTime=state.trimStart;
-    video.play().catch(()=>toast('Browser play অনুমতি দেয়নি।'));
-  }else video.pause();
-}
-function backward(){if(video&&state.mediaType==='video')video.currentTime=Math.max(state.trimStart||0,video.currentTime-5)}
-function forward(){if(video&&state.mediaType==='video')video.currentTime=Math.min(state.trimEnd||video.duration,video.currentTime+5)}
-function seekMedia(value){if(video&&state.mediaType==='video')video.currentTime=Number(value)}
-
-/* ==================================================
-   TOOLS / RENDER
-================================================== */
-function openTool(id,button){
-  document.querySelectorAll('.toolPanel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.toolButton').forEach(b=>b.classList.remove('active'));
-  button?.classList.add('active');
-
-  // Effects are always available in the horizontal quick-effect row
-  // under the preview, so opening Effects never pushes the video away.
-  if(id==='effects'){
-    document.querySelector('.quickEffects')?.scrollIntoView({behavior:'smooth',block:'nearest'});
-    return;
-  }
-
-  $(id)?.classList.add('active');
-}
-
-function getFilterCSS(){
-  return `brightness(${state.brightness}%) contrast(${state.contrast}%) saturate(${state.saturate}%) grayscale(${state.grayscale}%) blur(${state.blur}px)`;
-}
-
-function getCanvasSize(){
-  const box=$('previewBox');
-  let width=Math.max(1,box?.clientWidth||720), height=Math.max(1,box?.clientHeight||405);
-  if(state.aspect!=='auto'){
-    const [w,h]=state.aspect.split('/').map(Number); const ratio=w/h;
-    if(width/height>ratio) width=height*ratio; else height=width/ratio;
-  }
-  return {width:Math.floor(width),height:Math.floor(height)};
-}
-
-function renderFrame(){
-  if(!video) return;
-  const active = state.effect==='none' || state.mediaType!=='video' ||
-    ((video.currentTime||0)>=state.effectStart && (video.currentTime||0)<=state.effectEnd);
-  const k = active ? state.effectIntensity/100 : 0;
-  const b=100+(state.brightness-100)*k;
-  const c=100+(state.contrast-100)*k;
-  const s=100+(state.saturate-100)*k;
-  const g=state.grayscale*k;
-  const bl=state.blur*k;
-  video.style.filter=`brightness(${b}%) contrast(${c}%) saturate(${s}%) grayscale(${g}%) blur(${bl}px)`;
-  video.style.opacity=state.opacity/100;
-  video.style.transform=`rotate(${state.rotation}deg) scaleX(${state.flipX}) scale(${state.zoom/100})`;
-  applyEffectVisual();
-}
-
-function startRenderLoop(){
-  if(animationFrame) return;
-  const loop=()=>{
-    renderFrame();
-    if(state.mediaType==='video' && video && video.paused){animationFrame=null;return;}
-    animationFrame=requestAnimationFrame(loop);
-  };
-  animationFrame=requestAnimationFrame(loop);
-}
-function stopRenderLoop(){if(animationFrame){cancelAnimationFrame(animationFrame);animationFrame=null;}}
-
-function applyEffectVisual(){
-  renderLayers();
-  document.querySelectorAll('.quickEffect').forEach(btn=>{
-    btn.classList.toggle('active',btn.dataset.effect===state.effect);
-  });
-  const overlay=$('effectOverlay');
-  if(overlay) overlay.classList.toggle('active',state.effect!=='none');
-  const vignette=$('vignette'); if(vignette) vignette.classList.toggle('active',state.effect==='cinematic'||state.effect==='vintage');
-  const scan=$('scanlines'); if(scan) scan.classList.toggle('active',state.effect==='vintage');
-  renderFrameAnimationClass();
-}
-
-function changeFilter(name,value,valueId){
-  state[name]=Number(value);
-  if($(valueId))$(valueId).textContent=value;
-  persist(); renderFrame();
-}
-function changeBlur(value){state.blur=Number(value);$('blurValue').textContent=value;persist();renderFrame()}
-function changeOpacity(value){state.opacity=Number(value);$('opacityValue').textContent=value;persist();renderFrame()}
-function changeZoom(value){state.zoom=Number(value);$('zoomValue').textContent=value;persist();renderFrame()}
-
-function setEffect(effect){
-  const presets={
-    none:[100,100,100,0,0], normal:[100,100,100,0,0], cinematic:[92,130,115,0,0],
-    vivid:[108,125,160,0,0], bw:[100,120,100,100,0], warm:[108,110,135,0,0],
-    cool:[96,115,110,0,0], vintage:[100,115,85,15,0], retro:[105,118,90,8,0], dream:[110,105,120,0,2],
-    teal:[98,125,120,0,0], glow:[110,105,125,0,1], flash:[125,135,145,0,0],
-    shake:[100,115,110,0,0], pulse:[105,120,125,0,0], party:[115,130,155,0,0]
-  };
-  state.effect=effect;
-  const p=presets[effect]||presets.none;
-  [state.brightness,state.contrast,state.saturate,state.grayscale,state.blur]=p;
-  state.effectStart=0; state.effectEnd=state.duration||state.effectEnd||0;
-  syncEffectUI(); persist(); renderFrame();
-  toast(effect==='none'?'❌ Effect removed':'✨ '+effect+' effect applied');
-}
-function setEffectIntensity(value){state.effectIntensity=Number(value);$('effectIntensityValue').textContent=value;persist();renderFrame()}
-function updateEffectRange(){state.effectStart=Number($('effectStart').value);state.effectEnd=Math.max(state.effectStart,Number($('effectEnd').value));syncTimelineUI(state.duration);persist();renderFrame()}
-function syncEffectUI(){
-  const ids=['brightnessValue','contrastValue','saturationValue','grayValue','blurValue'];
-  const vals=[state.brightness,state.contrast,state.saturate,state.grayscale,state.blur];
-  ids.forEach((id,i)=>{if($(id))$(id).textContent=vals[i]});
-  if($('effectIntensityValue'))$('effectIntensityValue').textContent=state.effectIntensity;
-  if($('activeEffectLabel'))$('activeEffectLabel').textContent='Effect: '+state.effect;
-}
-
-function rotateBy(value){state.rotation=(state.rotation+value+360)%360;persist();renderFrame();toast('🔄 Rotation: '+state.rotation+'°')}
-function flipVideo(){state.flipX*=-1;persist();renderFrame();toast('↔️ Flip applied')}
-function toggleVignette(){state.effect=state.effect==='cinematic'?'none':'cinematic';persist();renderFrame();toast('🌑 Vignette style updated')}
-function toggleScanlines(){state.effect=state.effect==='vintage'?'none':'vintage';persist();renderFrame();toast('📺 Scanlines style updated')}
-function shakeVideo(){
-  if(!video){toast('আগে media নির্বাচন করুন।');return}
-  const base=video.style.transform;
-  video.animate([{transform:base},{transform:base+' translateX(-10px)'},{transform:base+' translateX(10px)'},{transform:base}],{duration:450,iterations:3});
-  toast('📳 Shake Effect');
-}
-function pulseVideo(){
-  if(!video){toast('আগে media নির্বাচন করুন।');return}
-  const base=video.style.transform;
-  video.animate([{transform:base},{transform:base+' scale(1.08)'},{transform:base}],{duration:700,iterations:2});
-  toast('🔍 Pulse Zoom');
-}
-
-/* ==================================================
-   ADVANCED COLOR / SPEED / BEAT CONTROLS
-================================================== */
-function applyColorGrade(name){
-  const grades={
-    normal:{brightness:100,contrast:100,saturate:100,grayscale:0,blur:0},
-    cinematic:{brightness:96,contrast:118,saturate:92,grayscale:0,blur:0},
-    hdr:{brightness:104,contrast:125,saturate:125,grayscale:0,blur:0},
-    tealorange:{brightness:100,contrast:115,saturate:118,grayscale:0,blur:0},
-    golden:{brightness:106,contrast:108,saturate:115,grayscale:0,blur:0},
-    moody:{brightness:88,contrast:125,saturate:82,grayscale:4,blur:0},
-    sunset:{brightness:103,contrast:112,saturate:128,grayscale:0,blur:0},
-    forest:{brightness:98,contrast:108,saturate:120,grayscale:0,blur:0},
-    ocean:{brightness:101,contrast:110,saturate:112,grayscale:0,blur:0},
-    pink:{brightness:104,contrast:106,saturate:120,grayscale:0,blur:0},
-    noir:{brightness:95,contrast:130,saturate:0,grayscale:100,blur:0},
-    vintage:{brightness:101,contrast:105,saturate:78,grayscale:12,blur:.2}
-  };
-  const g=grades[name]||grades.normal;
-  Object.assign(state,g,{colorGrade:name});
-  persist(); syncEffectUI(); renderFrame();
-  toast('🎨 '+name+' color grading applied');
-}
-function setPlaybackRate(rate){
-  state.playbackRate=Number(rate)||1;
-  if(video) video.playbackRate=state.playbackRate;
-  persist();
-  toast(state.playbackRate<1?'🐌 Slow motion '+state.playbackRate+'×':'▶️ Speed '+state.playbackRate+'×');
-}
-function setBeatSync(mode){
-  state.beatSync=mode!=='none';
-  state.beatAnimation=mode==='none'?'pulse':mode;
-  persist();
-  toast(mode==='none'?'🥁 Beat sync off':'🥁 Beat sync: '+mode);
-}
-function setMusicFade(type){
-  state.musicFade=type;
-  persist();
-  toast(type==='in'?'↗️ Music Fade In selected':'↘️ Music Fade Out selected');
-}
-function resetTransform(){
-  state.zoom=100;state.rotation=0;state.flipX=1;
-  if($('zoomRange'))$('zoomRange').value=100;
-  if($('zoomValue'))$('zoomValue').textContent='100';
-  persist();renderFrame();toast('♻️ Transform reset');
-}
-
-/* ==================================================
-   ANIMATION
-================================================== */
-function setAnimation(name,button){
-  state.animation=name;
-  document.querySelectorAll('.animationGrid button').forEach(b=>b.classList.remove('active'));
-  button?.classList.add('active');
-  persist();
-  renderFrameAnimationClass();
-  toast(name==='none'?'⏹️ Animation Off':'🎞️ '+name+' selected');
-}
-function renderFrameAnimationClass(){
-  if(!video) return;
-  video.style.animation='none';
-  if(state.mediaType!=='video'||state.animation==='none'||video.paused) return;
-  const names={zoomIn:'pixoraZoomIn',zoomOut:'pixoraZoomOut',left:'pixoraSlideLeft',right:'pixoraSlideRight',bounce:'pixoraBounce',shake:'pixoraShake',pulse:'pixoraPulse',float:'pixoraFloat'};
-  const name=names[state.animation]; if(name) video.style.animation=name+' 2.5s ease-in-out infinite';
-}
-function startAnimation(){renderFrameAnimationClass()}
-function stopAnimation(){if(video)video.style.animation='none'}
-
-/* ==================================================
-   TRIM / ASPECT
-================================================== */
-function changeAspect(value){state.aspect=value;persist();$('previewBox').style.aspectRatio=value==='auto'?'':value;renderFrame();toast('📐 Aspect ratio updated')}
-function setTrimStart(value){state.trimStart=Math.min(Number(value),state.trimEnd||Number(value));$('trimStart').value=state.trimStart;$('startValue').textContent=formatTime(state.trimStart);if(video&&state.mediaType==='video')video.currentTime=state.trimStart;persist()}
-function setTrimEnd(value){state.trimEnd=Math.max(Number(value),state.trimStart);$('trimEnd').value=state.trimEnd;$('endValue').textContent=formatTime(state.trimEnd);persist()}
-function previewTrim(){if(!video||state.mediaType!=='video'){toast('Video নির্বাচন করুন।');return}video.currentTime=state.trimStart;video.play().catch(()=>{});toast('✂️ Trim Preview: '+formatTime(state.trimStart)+' → '+formatTime(state.trimEnd))}
-
-/* ==================================================
-   AUDIO
-================================================== */
-function loadAudio(event){
-  const file=event.target.files?.[0]; if(!file)return;
-  if(audioElement){audioElement.pause();audioElement.src='';audioElement=null;}
-  if(state.audioUrl) URL.revokeObjectURL(state.audioUrl);
-  state.audioUrl=URL.createObjectURL(file); state.audioName=file.name;
-  audioElement=new Audio(state.audioUrl); audioElement.preload='auto'; audioElement.loop=false;
-  audioElement.volume=state.musicVolume/100;
-  $('audioName').textContent='🎵 '+file.name;
-  persist(); toast('🎵 Audio selected');
-}
-function changeVolume(value){if(video&&state.mediaType==='video')video.volume=Number(value)/100}
-function changeMusicVolume(value){state.musicVolume=Number(value);if($('musicVolumeValue'))$('musicVolumeValue').textContent=value;if(audioElement)audioElement.volume=state.musicVolume/100;persist()}
-function syncAudioToVideo(shouldPlay){
-  if(!audioElement||!video||state.mediaType!=='video')return;
+async function loadUserNotices(){
+  const box=$('userNotices'); if(!box||!supabaseClient)return;
   try{
-    const t=Number(video.currentTime)||0;
-    if(Math.abs((audioElement.currentTime||0)-t)>0.25) audioElement.currentTime=t;
-    audioElement.volume=state.musicVolume/100;
-    if(shouldPlay) audioElement.play().catch(()=>{}); else audioElement.pause();
-  }catch(e){}
+    const {data,error}=await supabaseClient.from('notices').select('*').eq('is_active',true).order('is_pinned',{ascending:false}).order('created_at',{ascending:false});
+    if(error)throw error; renderUserNotices(Array.isArray(data)?data:[]);
+  }catch(e){box.innerHTML=`<div class=\"empty\">${escapeHTML(e.message||'Notifications load failed')}</div>`;}
 }
-function removeAudio(){
-  if(audioElement){audioElement.pause();audioElement.src='';audioElement=null;}
-  if(state.audioUrl){try{URL.revokeObjectURL(state.audioUrl)}catch(e){}}
-  state.audioUrl=''; state.audioName='';
-  if($('audioFile'))$('audioFile').value='';
-  if($('audioName'))$('audioName').textContent='কোনো external audio যোগ করা হয়নি।';
-  persist(); toast('🎵 Audio removed');
+function renderUserNotices(list){
+  const box=$('userNotices'); if(!box)return;
+  if(!list.length){box.innerHTML='<div class=\"empty\">কোনো নতুন notification নেই।</div>';return;}
+  box.innerHTML=list.slice(0,20).map(n=>`<div class=\"history\"><b>${escapeHTML(n.title||'Pixora Notice')}</b><div class=\"notice\">${escapeHTML(n.message||'')}</div><small>${escapeHTML(n.created_at||'')}</small></div>`).join('');
 }
 
-/* ==================================================
-   OVERLAY
-================================================== */
-function loadOverlay(event){
-  const file=event.target.files?.[0]; if(!file)return;
-  if(state.overlayUrl)try{URL.revokeObjectURL(state.overlayUrl)}catch(e){}
-  state.overlayUrl=URL.createObjectURL(file);
-  state.overlaySize=40; state.overlayOpacity=100;
-  renderOverlay(); persist(); toast('🖼️ Overlay added');
-}
-function renderOverlay(){
-  const layer=$('overlayLayer'); if(!layer)return;
-  layer.innerHTML='';
-  if(!state.overlayUrl)return;
-  const img=document.createElement('img'); img.id='overlayImage'; img.src=state.overlayUrl; overlayImage=img;
-  Object.assign(img.style,{position:'absolute',left:'50%',top:'50%',transform:'translate(-50%,-50%)',width:state.overlaySize+'%',maxWidth:'80%',maxHeight:'80%',objectFit:'contain',opacity:String(state.overlayOpacity/100)});
-  layer.appendChild(img);
-}
-function changeOverlaySize(value){state.overlaySize=Number(value);if($('overlayImage'))$('overlayImage').style.width=value+'%';persist()}
-function changeOverlayOpacity(value){state.overlayOpacity=Number(value);if($('overlayImage'))$('overlayImage').style.opacity=Number(value)/100;persist()}
-function clearOverlay(){if(state.overlayUrl)try{URL.revokeObjectURL(state.overlayUrl)}catch(e){}state.overlayUrl='';overlayImage=null;if($('overlayLayer'))$('overlayLayer').innerHTML='';persist();toast('Overlay removed')}
-
-/* ==================================================
-   TEXT / CAPTION / STICKER
-================================================== */
-function addTextLayer(){
-  const text=$('textInput').value.trim(); if(!text){toast('Text লিখুন।');return;}
-  state.text=text; state.textSize=Number($('textSize').value)||36; state.textColor=$('textColor').value||'#fff'; state.textWeight=Number($('textWeight').value)||800; state.textPosition=$('textPosition').value||'center';
-  persist();renderLayers();toast('🔤 Text added');
-}
-function clearTextLayer(){state.text='';persist();renderLayers();toast('Text cleared')}
-function addCaptionLayer(){state.caption=$('captionInput').value.trim();persist();renderLayers();toast(state.caption?'💬 Caption added':'Caption cleared')}
-function clearCaptionLayer(){state.caption='';persist();renderLayers()}
-function addSticker(sticker){state.sticker=sticker;persist();renderLayers();toast('😀 Sticker added')}
-function clearSticker(){state.sticker='';persist();renderLayers()}
-function renderLayers(){
-  const t=$('textLayer'), c=$('captionLayer'), s=$('stickerLayer');
-  if(t){t.textContent=state.text;t.style.fontSize=state.textSize+'px';t.style.color=state.textColor;t.style.fontWeight=state.textWeight;t.style.top=state.textPosition==='top'?'15%':state.textPosition==='bottom'?'82%':'50%'}
-  if(c)c.textContent=state.caption;
-  if(s)s.textContent=state.sticker;
-  renderOverlay();
-}
-
-/* ==================================================
-   BEATS
-================================================== */
-function addBeat(){
-  if(!state.mediaType){toast('আগে Media যোগ করুন');return;}
-  const t=state.mediaType==='video' ? Number(video.currentTime||0) : Number($('seekBar').value||0);
-  if(!state.beats.some(b=>Math.abs(b-t)<0.15)){state.beats.push(t);state.beats.sort((a,b)=>a-b)}
-  renderBeatMarkers();updateBeatInfo();persist();toast('🥁 Beat marker যোগ হয়েছে');
-}
-function addBeatAtPlayhead(){addBeat()}
-function autoDetectBeats(){
-  if(!state.mediaType){toast('আগে Media যোগ করুন');return}
-  state.beats=[]; const start=state.trimStart,end=state.trimEnd||state.duration,length=end-start;
-  if(length<=0){toast('Media duration পাওয়া যায়নি');return}
-  const count=Math.min(20,Math.max(4,Math.floor(length/1.2)));
-  for(let i=1;i<count;i++)state.beats.push(start+(length/count)*i);
-  renderBeatMarkers();updateBeatInfo();persist();toast('🥁 Beat markers তৈরি হয়েছে');
-}
-function detectBeats(){autoDetectBeats()}
-function clearBeats(){state.beats=[];lastBeatPulse=-1;renderBeatMarkers();updateBeatInfo();persist();toast('Beat markers clear হয়েছে')}
-function updateBeatInfo(){const el=$('beatInfo');if(el)el.textContent='Beat: '+state.beats.length;}
-function renderBeatMarkers(){
-  const container=$('beatMarkers');
-  if(container){container.innerHTML='';const duration=state.duration||1;state.beats.forEach(time=>{const marker=document.createElement('div');marker.className='beatMarker';marker.style.left=(time/duration*100)+'%';const dot=document.createElement('div');dot.className='beatDot';marker.appendChild(dot);container.appendChild(marker)})}
-  const list=$('beatList');if(list)list.innerHTML=state.beats.map(t=>`<button class="chip" onclick="seekMedia(${Number(t)})">🥁 ${formatTime(t)}</button>`).join('');
-}
-function checkBeatPulse(time){
-  const beat=state.beats.find(b=>Math.abs(b-time)<0.08);
-  if(beat!==undefined && Math.abs(beat-lastBeatPulse)>0.2){
-    lastBeatPulse=beat;
-    if(!state.beatSync) return;
-    const target=video||$('previewBox');
-    if(!target) return;
-    const mode=state.beatAnimation||'pulse';
-    target.classList.remove('beatPulseFlash','beatPulseZoom','beatPulseShake');
-    void target.offsetWidth;
-    target.classList.add(mode==='flash'?'beatPulseFlash':mode==='zoomIn'?'beatPulseZoom':mode==='shake'?'beatPulseShake':'beatPulseFlash');
-    setTimeout(()=>target.classList.remove('beatPulseFlash','beatPulseZoom','beatPulseShake'),220);
-  }
-}
-
-/* ==================================================
-   TEMPLATES
-================================================== */
-function applyTemplate(template){
-  showPage('editor');
-  const presets={
-    trending:{effect:'vivid',animation:'zoomIn',sticker:'🔥'},
-    love:{effect:'warm',animation:'float',sticker:'❤️'},
-    birthday:{effect:'vivid',animation:'bounce',sticker:'🎉'},
-    cinematic:{effect:'cinematic',animation:'zoomIn',sticker:'✨'}
-  };
-  const p=presets[template]; if(!p)return;
-  setEffect(p.effect);state.animation=p.animation;state.sticker=p.sticker;persist();renderLayers();toast('🎞️ Template applied');
-}
-
-/* ==================================================
-   PROJECTS
-================================================== */
-function saveProject(){
-  let name=$('projectName')?.value.trim();
-  if(!name)name='Pixora Project '+new Date().toLocaleString('bn-BD');
-  const project={id:Date.now(),name,createdAt:new Date().toLocaleString('bn-BD'),settings:{...JSON.parse(JSON.stringify(state)),mediaUrl:'',audioUrl:'',overlayUrl:''}};
-  state.projects.unshift(project);if(state.projects.length>30)state.projects.pop();persist();renderRecentProjects();toast('💾 Project saved successfully');
-}
-function openSavedProjects(){showProjects()}
-function showProjects(){
-  const list=$('projectList');if(!list)return;
-  if(!state.projects.length){list.innerHTML='<div class="empty">কোনো Saved Project নেই</div>'}
-  else list.innerHTML=state.projects.map(p=>`<div class="history"><div><b>${escapeHTML(p.name)}</b><div class="notice">${escapeHTML(p.createdAt||'')}</div></div><button class="small" onclick="loadProject(${p.id})">Open</button><button class="small danger" onclick="deleteProject(${p.id})">Delete</button></div>`).join('');
-  $('projectModal')?.classList.add('show');
-}
-function closeSavedProjects(){$('projectModal')?.classList.remove('show')}
-function closeProjects(){closeSavedProjects()}
-function loadProject(id){
-  const project=state.projects.find(p=>p.id===id);if(!project)return;
-  const s=project.settings||project;
-  const keep={mediaUrl:state.mediaUrl,mediaType:state.mediaType,duration:state.duration,audioUrl:state.audioUrl,audioName:state.audioName,overlayUrl:state.overlayUrl};
-  state=normalizeState({...state,...s,...keep});
-  resetUIFromState();renderFrame();renderBeatMarkers();closeSavedProjects();persist();toast('📂 Project settings loaded');
-}
-function deleteProject(id){state.projects=state.projects.filter(p=>p.id!==id);persist();showProjects();renderRecentProjects();toast('Project deleted')}
-function renderRecentProjects(){
-  const container=$('recentProjects');if(!container)return;
-  if(!state.projects.length){container.innerHTML='<div class="empty">এখনও কোনো Project Save করা হয়নি</div>';return}
-  container.innerHTML=state.projects.slice(0,5).map(p=>`<div class="projectItem history"><div><b>${escapeHTML(p.name)}</b><div class="notice">${escapeHTML(p.createdAt||'')}</div></div><button class="small" onclick="showProjects()">Open</button></div>`).join('');
-}
-function resetUIFromState(){
-  if(video) video.playbackRate=Number(state.playbackRate)||1;
-  if($('textInput'))$('textInput').value=state.text||'';
-  if($('captionInput'))$('captionInput').value=state.caption||'';
-  if($('profileName'))$('profileName').value=state.profile?.name||'';
-  if($('profilePhone'))$('profilePhone').value=state.profile?.phone||'';
-  if($('textSize'))$('textSize').value=state.textSize||36;
-  if($('textColor'))$('textColor').value=state.textColor||'#ffffff';
-  if($('textWeight'))$('textWeight').value=state.textWeight||800;
-  if($('textPosition'))$('textPosition').value=state.textPosition||'center';
-  if($('zoomValue'))$('zoomValue').textContent=state.zoom||100;
-  if($('effectIntensity'))$('effectIntensity').value=state.effectIntensity||100;
-  if($('effectIntensityValue'))$('effectIntensityValue').textContent=state.effectIntensity||100;
-  if($('musicVolume'))$('musicVolume').value=state.musicVolume||60;
-  if($('musicVolumeValue'))$('musicVolumeValue').textContent=state.musicVolume||60;
-  syncEffectUI();renderLayers();renderBeatMarkers();updateBeatInfo();
-}
-
-/* ==================================================
-   EXPORT
-================================================== */
-async function exportVideo(){
-  if(!state.mediaType){toast('আগে Video অথবা Photo যোগ করুন');return}
-  if(state.mediaType==='image'){
-    const c=document.createElement('canvas');const size=getCanvasSize();c.width=size.width;c.height=size.height;const x=c.getContext('2d');
-    const sw=video.naturalWidth||video.width,sh=video.naturalHeight||video.height;
-    if(!sw||!sh){toast('Image export failed');return}
-    x.save();x.filter=getFilterCSS();x.globalAlpha=state.opacity/100;x.translate(c.width/2,c.height/2);x.rotate(state.rotation*Math.PI/180);x.scale(state.flipX*state.zoom/100,state.zoom/100);const fit=Math.max(c.width/sw,c.height/sh);x.drawImage(video,-sw*fit/2,-sh*fit/2,sw*fit,sh*fit);x.restore();
-    if(state.text){x.font=`${state.textWeight} ${state.textSize}px Arial`;x.fillStyle=state.textColor;x.textAlign='center';x.fillText(state.text,c.width/2,state.textPosition==='top'?60:state.textPosition==='bottom'?c.height-60:c.height/2)}
-    const a=document.createElement('a');a.href=c.toDataURL('image/png');a.download='pixora-image.png';a.click();toast('📥 Image exported');return;
-  }
-  if(!window.MediaRecorder){toast('এই Browser-এ Video export support সীমিত');return}
-  const vw=video.videoWidth||720,vh=video.videoHeight||1280;const c=document.createElement('canvas');c.width=Math.min(vw,1280);c.height=Math.round(c.width*vh/vw);const x=c.getContext('2d');const stream=c.captureStream(30);
-  let audioContext=null;
+async function refreshPixoraBalance(){
+  if(!supabaseClient)return;
   try{
-    audioContext=new AudioContext();
-    const source=audioContext.createMediaElementSource(video);const dest=audioContext.createMediaStreamDestination();source.connect(dest);source.connect(audioContext.destination);dest.stream.getAudioTracks().forEach(t=>stream.addTrack(t));
-  }catch(e){}
-  const mime=MediaRecorder.isTypeSupported('video/webm;codecs=vp9')?'video/webm;codecs=vp9':MediaRecorder.isTypeSupported('video/webm')?'video/webm':'';
-  if(!mime){toast('Recording format supported নয়।');return}
-  const recorder=new MediaRecorder(stream,{mimeType:mime});const chunks=[];recorder.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)};
-  recorder.onstop=()=>{const blob=new Blob(chunks,{type:mime});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='pixora-export.webm';a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);if(audioContext)audioContext.close().catch(()=>{});toast('📥 Video export complete')};
-  const oldTime=video.currentTime;const end=state.trimEnd||video.duration;video.currentTime=state.trimStart||0;recorder.start(250);await video.play().catch(()=>{});toast('🎬 Recording export...');
-  const draw=()=>{
-    if(video.paused||video.ended||video.currentTime>=end){video.pause();if(recorder.state!=='inactive')recorder.stop();video.currentTime=oldTime;return}
-    x.save();x.clearRect(0,0,c.width,c.height);x.filter=getFilterCSS();x.globalAlpha=state.opacity/100;x.translate(c.width/2,c.height/2);x.rotate(state.rotation*Math.PI/180);x.scale(state.flipX*state.zoom/100,state.zoom/100);x.drawImage(video,-c.width/2,-c.height/2,c.width,c.height);x.restore();
-    if(state.text){x.font=`${state.textWeight} ${state.textSize}px Arial`;x.fillStyle=state.textColor;x.textAlign='center';x.fillText(state.text,c.width/2,state.textPosition==='top'?80:state.textPosition==='bottom'?c.height-80:c.height/2)}
-    if(state.caption){x.font='700 24px Arial';x.fillStyle='#fff';x.textAlign='center';x.fillText(state.caption,c.width/2,c.height-50)}
-    if(state.sticker){x.font='70px Arial';x.textAlign='center';x.fillText(state.sticker,c.width/2,c.height/2)}
-    requestAnimationFrame(draw);
-  };
-  draw();
+    const {data:{user}}=await supabaseClient.auth.getUser();
+    if(!user)return;
+    const [uR,wR,dR,wdR,tR,nR,sR]=await Promise.all([
+      supabaseClient.from('users').select('id,balance,name,phone').eq('auth_id',user.id).maybeSingle(),
+      supabaseClient.from('wallets').select('balance,total_earned,total_withdrawn').eq('user_id',user.id).maybeSingle(),
+      supabaseClient.from('deposits').select('*').eq('user_id',user.id).order('created_at',{ascending:false}),
+      supabaseClient.from('withdrawals').select('*').eq('user_id',user.id).order('created_at',{ascending:false}),
+      supabaseClient.from('tasks').select('*').eq('status','published').order('created_at',{ascending:false}),
+      supabaseClient.from('notices').select('*').eq('is_active',true).order('is_pinned',{ascending:false}).order('created_at',{ascending:false}),
+      supabaseClient.from('task_submissions').select('*').eq('user_id',user.id).order('submitted_at',{ascending:false})
+    ]);
+    if(uR.data){state.balance=Number(uR.data.balance||0);state.profile={...state.profile,name:uR.data.name||state.profile?.name||'',phone:uR.data.phone||state.profile?.phone||''};}
+    if(wR.data){state.totalIncome=Number(wR.data.total_earned||0);state.totalWithdraw=Number(wR.data.total_withdrawn||0);}
+    if(Array.isArray(dR.data))state.deposits=dR.data.map(d=>({...d,transactionId:d.transaction_id,date:d.created_at}));
+    if(Array.isArray(wdR.data))state.withdrawals=wdR.data.map(w=>({...w,number:w.account,date:w.created_at}));
+    if(Array.isArray(tR.data))state.tasks=tR.data.map(t=>({...t,reward:Number(t.reward||0),createdAt:t.created_at}));
+    if(Array.isArray(nR.data))renderUserNotices(nR.data);
+    if(Array.isArray(sR.data))state.taskSubmissions=sR.data;
+    state.walletHistory=[
+      ...state.deposits.map(d=>({id:'deposit-'+d.id,type:'deposit',title:`💳 Deposit — ${String(d.status||'pending')}`,amount:Number(d.amount)||0,status:String(d.status||'pending'),date:d.date||d.created_at||'',detail:d.transaction_id||''})),
+      ...state.withdrawals.map(w=>({id:'withdraw-'+w.id,type:'withdrawal',title:`💸 Withdrawal — ${String(w.status||'pending')}`,amount:Number(w.amount)||0,status:String(w.status||'pending'),date:w.date||w.created_at||'',detail:w.account||''})),
+      ...(state.taskSubmissions||[]).map(x=>{const t=(state.tasks||[]).find(q=>String(q.id)===String(x.task_id));return {id:'task-'+x.id,type:'task',title:`🎯 Task — ${String(x.status||'pending')}`,amount:String(x.status||'').toLowerCase()==='approved'?Number(t?.reward||x.reward||0):0,status:String(x.status||'pending'),date:x.submitted_at||x.created_at||'',detail:x.admin_note||x.proof_note||''}})
+    ].sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
+    persist();renderTasks();renderIncome();
+  }catch(e){console.warn('Balance refresh:',e.message||e)}
 }
 
-/* ==================================================
-   TASKS / ORDERS / WALLET / ADMIN — SUPABASE LINKED
-================================================== */
-function publishTask(){ toast('Task শুধু Admin প্রকাশ করতে পারবেন।'); }
-async function addTask(){ toast('Task শুধু Admin প্রকাশ করতে পারবেন।'); }
-function deleteTask(id){ toast('Task User delete করতে পারবেন না।'); }
-
-function taskStatusLabel(status){
-  const s=String(status||'pending').toLowerCase();
-  return s==='published'?'🟢 Published':s==='paused'?'🟡 Paused':s==='closed'?'🔴 Closed':s==='approved'?'🟢 Approved':s==='revision'?'🔄 Revision':s==='rejected'?'🔴 Rejected':'🟡 Pending';
-}
-
-function submissionStatusLabel(status){
-  const s=String(status||'pending').toLowerCase();
-  if(s==='approved')return '🟢 Approved — Reward যোগ হয়েছে';
-  if(s==='rejected')return '🔴 Rejected — আবার Submit করতে পারবেন';
-  if(s==='revision')return '🔄 Revision — আবার Submit করুন';
-  return '🟡 Pending — Admin review করছে';
-}
-
-function renderTasks(){
-  const list=$('publicTasks');
-  if($('taskCount'))$('taskCount').textContent=state.tasks.length;
-  if($('workBalance'))$('workBalance').textContent='৳ '+money(state.balance);
-  if(!list)return;
-  if(!state.tasks.length){list.innerHTML='<div class="empty">এখনও কোনো কাজ প্রকাশ করা হয়নি</div>';return;}
-  list.innerHTML=state.tasks.map(task=>{
-    const sub=(state.taskSubmissions||[]).filter(x=>String(x.task_id)===String(task.id)).sort((a,b)=>new Date(b.submitted_at||b.created_at||0)-new Date(a.submitted_at||a.created_at||0))[0];
-    const subStatus=String(sub?.status||'').toLowerCase();
-    const closed=['paused','closed'].includes(String(task.status||'').toLowerCase());
-    let action='';
-    if(subStatus==='approved') action='<div class="success">'+submissionStatusLabel(subStatus)+'</div>';
-    else if(subStatus==='pending') action='<div class="warning">'+submissionStatusLabel(subStatus)+'</div>';
-    else if(subStatus==='rejected'||subStatus==='revision') action=!closed?`<div class="warning">${submissionStatusLabel(subStatus)}</div><button class="small" onclick="completeTask('${escapeHTML(task.id)}')">📤 আবার Submit করুন</button>`:`<div class="muted">${submissionStatusLabel(subStatus)}</div>`;
-    else action=!closed?`<button class="small" onclick="completeTask('${escapeHTML(task.id)}')">📤 কাজ শেষ করে Submit করুন</button>`:'<div class="muted">এই কাজটি এখন নেওয়া যাচ্ছে না।</div>';
-    return `<div class="task"><div class="taskTop"><div><b>${escapeHTML(task.title)}</b><p class="notice">${escapeHTML(task.description||'কাজের বিস্তারিত নেই')}</p></div><span class="tagPill">৳ ${Number(task.reward)||0}</span></div><div class="notice">Status: ${taskStatusLabel(task.status)}</div>${action}</div>`;
-  }).join('');
-}
-
-async function completeTask(id){
-  if(!supabaseClient){toast('Supabase connection নেই।');return;}
-  const task=state.tasks.find(t=>String(t.id)===String(id));
-  if(!task){toast('Task পাওয়া যায়নি');return;}
-  const {data:{user}}=await supabaseClient.auth.getUser();
-  if(!user){showAuth();return;}
-  const latest=(state.taskSubmissions||[]).filter(x=>String(x.task_id)===String(task.id)).sort((a,b)=>new Date(b.submitted_at||b.created_at||0)-new Date(a.submitted_at||a.created_at||0))[0];
-  const latestStatus=String(latest?.status||'').toLowerCase();
-  if(latest && !['rejected','revision'].includes(latestStatus)){toast('এই Task-এর submission এখনো processed হয়নি।');return;}
-  const proofNote=prompt('কাজের Proof / Screenshot-এর link বা সংক্ষিপ্ত তথ্য দিন:','');
-  if(proofNote===null)return;
-  const payload={task_id:task.id,user_id:user.id,status:'pending',proof_note:proofNote.trim()};
-  const {data,error}=await supabaseClient.from('task_submissions').insert(payload).select('*').single();
-  if(error){toast(error.message||'Task submit failed');return;}
-  state.taskSubmissions=state.taskSubmissions||[];state.taskSubmissions.push(data||payload);
-  persist();renderTasks();toast('✅ কাজ Admin verification-এর জন্য পাঠানো হয়েছে');
-}
-
-async function submitOrder(){
-  if(!supabaseClient){toast('Supabase connection নেই।');return;}
-  const {data:{user}}=await supabaseClient.auth.getUser();
-  if(!user){showAuth();return;}
-  const name=$('customerName')?.value.trim()||state.profile.name||'';
-  const phone=$('customerPhone')?.value.trim()||state.profile.phone||'';
-  const type=$('serviceSelect')?.value.trim();
-  const details=$('details')?.value.trim();
-  const transaction=$('trx')?.value.trim();
-  if(!name||!phone||!type||!details||!transaction){toast('সব তথ্য পূরণ করুন।');return;}
-  const {data,error}=await supabaseClient.from('orders').insert({user_id:user.id,order_type:type,details,transaction_id:transaction,status:'pending',amount:0}).select('*').single();
-  if(error){toast(error.message||'Order submit failed');return;}
-  state.orders.unshift({...data,service:data.order_type,transactionId:data.transaction_id,date:data.created_at});
-  persist();
-  if($('trx'))$('trx').value='';
-  if($('orderMessage'))$('orderMessage').textContent='✅ অর্ডার সফলভাবে পাঠানো হয়েছে। Admin status পরিবর্তন করলে এখানে দেখা যাবে।';
-  renderOrders();toast('📦 Order সফলভাবে পাঠানো হয়েছে');
-}
-
-function renderOrders(){
-  const list=$('ordersList');if(!list)return;
-  if(!state.orders.length){list.innerHTML='<div class="empty">এখনও কোনো Order নেই</div>';return;}
-  list.innerHTML=state.orders.map(o=>`<div class="orderCard"><div class="taskTop"><div><b>${escapeHTML(o.service||o.order_type||o.type||'Order')}</b><div class="notice">Transaction ID: ${escapeHTML(o.transactionId||o.transaction_id||'')}</div><div class="notice">৳ ${Number(o.amount||0).toFixed(2)} • ${escapeHTML(o.date||o.created_at||'')}</div></div><span class="orderStatus">${escapeHTML(String(o.status||'pending'))}</span></div><div class="notice">${escapeHTML(o.details||'')}</div></div>`).join('');
-}
-function updateOrderStatus(id,status){ toast('Order status শুধু Admin control করবেন।'); }
-function completeOrder(id){ toast('Order status শুধু Admin control করবেন।'); }
-function deleteOrder(id){ toast('Order User delete করতে পারবেন না।'); }
-
-async function submitDeposit(){
-  if(!supabaseClient){toast('Supabase connection নেই।');return;}
-  const {data:{user}}=await supabaseClient.auth.getUser();if(!user){showAuth();return;}
-  const amount=Number($('depositAmount')?.value),transactionId=$('depositTrx')?.value.trim();
-  if(!Number.isFinite(amount)||amount<=0||!transactionId){toast('Deposit Amount এবং Transaction ID দিন।');return;}
-  const {data,error}=await supabaseClient.from('deposits').insert({user_id:user.id,amount,transaction_id:transactionId,method:'bKash Personal',status:'pending'}).select('*').single();
-  if(error){toast(error.message||'Deposit request failed');return;}
-  state.deposits.unshift(data||{user_id:user.id,amount,transaction_id:transactionId,method:'bKash Personal',status:'pending'});persist();
-  if($('depositAmount'))$('depositAmount').value='';if($('depositTrx'))$('depositTrx').value='';
-  if($('depositMessage'))$('depositMessage').textContent='✅ Deposit Request পাঠানো হয়েছে। Admin Approve করলে Wallet-এ টাকা যোগ হবে।';
-  toast('💳 Deposit Request পাঠানো হয়েছে');
-}
-function approveDeposit(id){toast('Deposit শুধু Admin approve করবেন।');}
-function rejectDeposit(id){toast('Deposit শুধু Admin control করবেন।');}
-
-function renderIncome(){
-  if($('incomeBalance'))$('incomeBalance').textContent='৳ '+money(state.balance);
-  if($('homeBalance'))$('homeBalance').textContent=money(state.balance);
-  if($('workBalance'))$('workBalance').textContent='৳ '+money(state.balance);
-  if($('balanceAmount'))$('balanceAmount').textContent=money(state.balance);
-  if($('totalEarn'))$('totalEarn').textContent=money(state.totalIncome);
-  if($('totalIncome'))$('totalIncome').textContent='৳ '+money(state.totalIncome);
-  if($('totalWithdraw'))$('totalWithdraw').textContent=money(state.totalWithdraw);
-  const list=$('history')||$('walletHistory');if(!list)return;
-  if(!state.walletHistory.length){list.innerHTML='<div class="empty">Wallet History নেই</div>';return;}
-  list.innerHTML=state.walletHistory.map(i=>`<div class="history"><div class="taskTop"><div><b>${escapeHTML(i.title||i.type||'Wallet Activity')}</b><div class="notice">${escapeHTML(i.date||'')}</div></div><span class="${Number(i.amount)>=0?'success':'warning'}">${Number(i.amount)>=0?'+':'-'}৳${Math.abs(Number(i.amount)||0).toFixed(2)}</span></div></div>`).join('');
-}
-function addWalletIncome(){toast('Wallet income শুধু Admin control করবেন।');}
-function adminAddWallet(){addWalletIncome();}
-function requestWithdrawal(){requestWithdraw();}
-async function requestWithdraw(){
-  if(!supabaseClient){toast('Supabase connection নেই।');return;}
-  const {data:{user}}=await supabaseClient.auth.getUser();if(!user){showAuth();return;}
-  const method=$('withdrawMethod')?.value,number=$('withdrawNumber')?.value.trim(),amount=Number($('withdrawAmount')?.value),name=$('withdrawName')?.value.trim()||state.profile.name||'User';
-  if(!number||!Number.isFinite(amount)||amount<=0){toast('সঠিক Number এবং Amount দিন');return}
-  if(amount>state.balance){toast('Wallet-এ পর্যাপ্ত Balance নেই');return}
-  const {data,error}=await supabaseClient.from('withdrawals').insert({user_id:user.id,method,account:number,amount,status:'pending'}).select('*').single();
-  if(error){toast(error.message||'Withdrawal request failed');return;}
-  state.withdrawals.unshift(data||{user_id:user.id,method,account:number,amount,status:'pending'});persist();
-  if($('withdrawNumber'))$('withdrawNumber').value='';if($('withdrawAmount'))$('withdrawAmount').value='';
-  if($('withdrawMessage'))$('withdrawMessage').textContent='✅ Withdrawal Request পাঠানো হয়েছে। Admin review করবে।';
-  toast('💸 Withdrawal request পাঠানো হয়েছে');
-}
 function approveWithdrawal(id){toast('Withdrawal শুধু Admin approve করবেন।');}
 function rejectWithdrawal(id){toast('Withdrawal শুধু Admin control করবেন।');}
 function adminResetWallet(){toast('Wallet reset শুধু Admin control করবেন।');}
@@ -968,12 +349,13 @@ async function loadUserMessages(){
   const box=$('userMessageList');if(!box||!supabaseClient)return;
   const {data:{user}}=await supabaseClient.auth.getUser();if(!user)return;
   box.innerHTML='<div class="loading">Loading messages...</div>';
-  const {data,error}=await supabaseClient.from('messages').select('*').eq('user_id',user.id).order('created_at',{ascending:false});
+  const {data,error}=await supabaseClient.from('messages').select('*').or(`user_id.eq.${user.id},sender_id.eq.${user.id},receiver_id.eq.${user.id}`).order('created_at',{ascending:false});
   if(error){box.innerHTML=`<div class="empty">${escapeHTML(error.message||'Messages load failed')}</div>`;return;}
   state.messages=Array.isArray(data)?data:[];persist();
   if(!state.messages.length){box.innerHTML='<div class="empty">কোনো message নেই।</div>';return;}
-  box.innerHTML=state.messages.map(m=>`<div class="history"><b>${escapeHTML(m.message||m.content||m.text||'Message')}</b><div class="notice">Status: ${escapeHTML(String(m.status||'pending'))}</div>${m.admin_reply?`<div class="detail"><small>Admin Reply</small>${escapeHTML(m.admin_reply)}</div>`:''}<small>${escapeHTML(m.created_at||'')}</small></div>`).join('');
+  box.innerHTML=state.messages.map(m=>`<div class="history"><b>${escapeHTML(m.message||m.content||'Message')}</b><div class="notice">Status: ${escapeHTML(String(m.status||'pending'))}</div>${m.admin_reply||m.reply?`<div class="adminBox"><small>Admin Reply</small><div>${escapeHTML(m.admin_reply||m.reply||'')}</div></div>`:''}<small>${escapeHTML(m.created_at||'')}</small></div>`).join('');
 }
+
 function saveMessageUserId(){ toast('Login করা User ID স্বয়ংক্রিয়ভাবে ব্যবহার হচ্ছে।');loadUserMessages(); }
 async function sendUserMessage(){
   if(!supabaseClient){toast('Supabase connection নেই।');return;}
@@ -990,7 +372,7 @@ function renderUserMessages(){loadUserMessages();}
 ================================================== */
 async function saveProfile(){
   state.profile={name:$('profileName')?.value.trim()||state.profile?.name||'',phone:$('profilePhone')?.value.trim()||state.profile?.phone||''};persist();
-  try{const {data:{user}}=await supabaseClient.auth.getUser();if(user)await supabaseClient.from('users').update({name:state.profile.name,phone:state.profile.phone}).eq('id',user.id);toast('👤 Profile saved');}catch(e){toast('Profile save failed');}
+  try{const {data:{user}}=await supabaseClient.auth.getUser();if(user)await supabaseClient.from('users').update({name:state.profile.name,phone:state.profile.phone}).eq('auth_id',user.id);toast('👤 Profile saved');}catch(e){toast('Profile save failed');}
 }
 
 /* ==================================================
@@ -1009,13 +391,13 @@ document.addEventListener('DOMContentLoaded',async()=>{
   if(supabaseClient){
     const {data:{session}}=await supabaseClient.auth.getSession();
     if(session?.user){try{await ensureUserRow(session.user);await syncUserData();openApp();}catch(e){showAuth();setAuthMsg(e.message||'Account sync failed');}}else showAuth();
-    supabaseClient.auth.onAuthStateChange((event,session)=>{if(session?.user){setTimeout(()=>syncUserData(),0);openApp();}else{clearInterval(window.__pixoraUserSyncPoll);showAuth();}});
-    clearInterval(window.__pixoraUserSyncPoll);
-    window.__pixoraUserSyncPoll=setInterval(async()=>{try{const {data:{session}}=await supabaseClient.auth.getSession();if(session?.user)await syncUserData();}catch(e){}},5000);
+    supabaseClient.auth.onAuthStateChange((event,session)=>{if(session?.user){setTimeout(()=>syncUserData(),0);openApp();}else showAuth();});
+    startPixoraFinalLiveSync();
   }else{showAuth();setAuthMsg('Supabase configuration পাওয়া যায়নি।');}
 
   renderRecentProjects();
   renderTasks();
+  loadUserNotices();
   renderOrders();
   renderIncome();
   
@@ -1024,6 +406,9 @@ document.addEventListener('DOMContentLoaded',async()=>{
   if($('projectModal'))$('projectModal').addEventListener('click',e=>{if(e.target===$('projectModal'))closeSavedProjects()});
   if($('musicVolume'))$('musicVolume').addEventListener('input',e=>changeMusicVolume(e.target.value));
   window.addEventListener('resize',()=>renderFrame());
+  window.addEventListener('focus',()=>refreshPixoraBalance());
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')refreshPixoraBalance()});
+  setInterval(()=>{if(document.visibilityState==='visible' && state.user)refreshPixoraBalance()},8000);
 });
 
 window.addEventListener('beforeunload',()=>{
@@ -1032,76 +417,167 @@ window.addEventListener('beforeunload',()=>{
   if(state.audioUrl)try{URL.revokeObjectURL(state.audioUrl)}catch(e){}
 });
 
-function getPixoraShareUrl(){
-  const url=String(location.href||'').split('#')[0];
-  return url || 'https://pixora.app/';
-}
-
-async function requestShareReward(){
-  if(!supabaseClient){toast('Supabase connection নেই।');return false;}
+async function pixoraLoadTaskSubmissions(){
+  if(!supabaseClient) return;
   const {data:{user}}=await supabaseClient.auth.getUser();
-  if(!user){showAuth();return false;}
-  const marker='[PIXORA_SHARE_REWARD_5]';
+  if(!user) return;
+  const {data,error}=await supabaseClient.from('task_submissions').select('*').eq('user_id',user.id);
+  if(!error){state.taskSubmissions=Array.isArray(data)?data:[];renderTasks();}
+}
+
+/* PIXORA FINAL LIVE SYNC — keeps Admin→User data independent */
+async function pixoraFinalLiveSync(){
+  if(!supabaseClient) return;
   try{
-    const {data:existing,error:findErr}=await supabaseClient.from('messages').select('id,status').eq('user_id',user.id).eq('message',marker).maybeSingle();
-    if(findErr) throw findErr;
-    if(existing){
-      const el=document.getElementById('shareStatus');
-      if(el) el.textContent = String(existing.status||'pending').toLowerCase()==='approved' ? '✅ Share reward already approved.' : '⏳ Share reward request already pending Admin approval.';
-      toast(String(existing.status||'').toLowerCase()==='approved'?'Share reward already approved':'Share reward already requested');
-      return true;
+    const {data:{user}}=await supabaseClient.auth.getUser();
+    if(!user) return;
+
+    const results=await Promise.allSettled([
+      supabaseClient.from('notices').select('*').eq('is_active',true).order('is_pinned',{ascending:false}).order('created_at',{ascending:false}),
+      supabaseClient.from('tasks').select('*').eq('status','published').order('created_at',{ascending:false}),
+      supabaseClient.from('wallets').select('balance,total_earned,total_withdrawn').eq('user_id',user.id).maybeSingle(),
+      supabaseClient.from('users').select('balance,name,phone').eq('auth_id',user.id).maybeSingle(),
+      supabaseClient.from('deposits').select('*').eq('user_id',user.id).order('created_at',{ascending:false}),
+      supabaseClient.from('withdrawals').select('*').eq('user_id',user.id).order('created_at',{ascending:false})
+    ]);
+
+    const notices=results[0].status==='fulfilled'?results[0].value:null;
+    const tasks=results[1].status==='fulfilled'?results[1].value:null;
+    const profile=results[2].status==='fulfilled'?results[2].value:null;
+    const userProfile=results[3].status==='fulfilled'?results[3].value:null;
+    const deposits=results[4].status==='fulfilled'?results[4].value:null;
+    const withdrawals=results[5].status==='fulfilled'?results[5].value:null;
+
+    if(notices && !notices.error && Array.isArray(notices.data)) renderUserNotices(notices.data);
+    if(tasks && !tasks.error && Array.isArray(tasks.data)){
+      state.tasks=tasks.data.map(t=>({...t,reward:Number(t.reward||0),createdAt:t.created_at}));
+      renderTasks();
     }
-    const {error}=await supabaseClient.from('messages').insert({user_id:user.id,message:marker,status:'pending'});
-    if(error) throw error;
-    const el=document.getElementById('shareStatus');
-    if(el) el.textContent='✅ Share recorded. ৳5 reward is pending Admin approval.';
-    toast('📤 Share recorded — ৳5 pending Admin approval');
-    await loadUserMessages();
-    return true;
-  }catch(e){
-    console.error('Share reward:',e);
-    toast('Share reward request করা যায়নি।');
-    return false;
-  }
-}
-
-async function sharePixoraWhatsApp(){
-  const url=getPixoraShareUrl();
-  const text='✨ Pixora Editor + Income — '+url;
-  const shareUrl='https://wa.me/?text='+encodeURIComponent(text);
-  const opened=window.open(shareUrl,'_blank','noopener,noreferrer');
-  if(!opened) location.href=shareUrl;
-  await requestShareReward();
-}
-
-async function sharePixoraTelegram(){
-  const url=getPixoraShareUrl();
-  const shareUrl='https://t.me/share/url?url='+encodeURIComponent(url)+'&text='+encodeURIComponent('✨ Pixora Editor + Income');
-  const opened=window.open(shareUrl,'_blank','noopener,noreferrer');
-  if(!opened) location.href=shareUrl;
-  await requestShareReward();
-}
-
-async function copyPixoraLink(){
-  const url=getPixoraShareUrl();
-  let copied=false;
-  try{
-    if(navigator.clipboard && window.isSecureContext){
-      await navigator.clipboard.writeText(url); copied=true;
+    if(profile && !profile.error && profile.data){
+      state.balance=Number(profile.data.balance||0);
+      state.totalIncome=Number(profile.data.total_earned||state.totalIncome||0);
+      state.totalWithdraw=Number(profile.data.total_withdrawn||state.totalWithdraw||0);
     }
-  }catch(e){}
-  if(!copied){
+    if(userProfile && !userProfile.error && userProfile.data){
+      if(!profile || profile.error || !profile.data) state.balance=Number(userProfile.data.balance||0);
+      state.profile={...state.profile,name:userProfile.data.name||state.profile.name||'',phone:userProfile.data.phone||state.profile.phone||''};
+      persist();
+      renderIncome();
+    }
+    if(deposits && !deposits.error && Array.isArray(deposits.data)) state.deposits=deposits.data.map(d=>({...d,transactionId:d.transaction_id,date:d.created_at}));
+    if(withdrawals && !withdrawals.error && Array.isArray(withdrawals.data)) state.withdrawals=withdrawals.data.map(w=>({...w,number:w.account,date:w.created_at}));
+    state.walletHistory=[
+      ...state.deposits.map(d=>({id:'deposit-'+d.id,type:'deposit',title:`Deposit — ${String(d.status||'pending')}`,amount:String(d.status||'').toLowerCase()==='approved'?Number(d.amount)||0:0,status:String(d.status||'pending'),date:d.date||d.created_at||''})),
+      ...state.withdrawals.map(w=>({id:'withdraw-'+w.id,type:'withdrawal',title:`Withdrawal — ${String(w.status||'pending')}`,amount:Number(w.amount)||0,status:String(w.status||'pending'),date:w.date||w.created_at||''}))
+    ].sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
+    persist();
+    renderIncome();
+  }catch(e){ console.warn('Pixora final live sync:',e); }
+}
+
+function startPixoraFinalLiveSync(){
+  if(window.__pixoraFinalSyncStarted) return;
+  window.__pixoraFinalSyncStarted=true;
+  const run=()=>{if(document.visibilityState!=='hidden') pixoraFinalLiveSync();};
+  setTimeout(async()=>{await pixoraLoadTaskSubmissions();run();},500);
+  setInterval(async()=>{await pixoraForceRefresh();await pixoraLoadTaskSubmissions();run();},3000);
+  window.addEventListener('focus',run);
+  document.addEventListener('visibilitychange',run);
+}
+
+async function sharePixora(){
+  if(!supabaseClient){toast('Supabase connection নেই।');return;}
+  const {data:{user}}=await supabaseClient.auth.getUser();
+  if(!user){showAuth();return;}
+
+  // Avoid navigator.share() because some Android WebViews can crash with "Aw, Snap!".
+  // Use a normal web-safe share chooser instead.
+  const url=location.href;
+  const text='Pixora Editor & Earning App';
+  const old=document.getElementById('pixoraShareChooser');
+  if(old) old.remove();
+
+  const box=document.createElement('div');
+  box.id='pixoraShareChooser';
+  box.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:99999;display:flex;align-items:center;justify-content:center;padding:18px';
+  box.innerHTML=`<div style="width:min(420px,100%);background:#111827;color:#fff;border:1px solid #334155;border-radius:18px;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,.45)">
+    <h3 style="margin:0 0 8px">📤 Share Pixora</h3>
+    <p style="color:#cbd5e1;margin:0 0 16px">একটি অপশন দিয়ে Pixora শেয়ার করুন।</p>
+    <div style="display:grid;gap:10px">
+      <button id="pixShareWA" class="primary">📱 WhatsApp</button>
+      <button id="pixShareTG" class="primary">✈️ Telegram</button>
+      <button id="pixShareCopy" class="primary">🔗 Copy Link</button>
+      <button id="pixShareClose" style="background:#374151;color:#fff;border:0;padding:12px;border-radius:10px">বন্ধ করুন</button>
+    </div>
+  </div>`;
+  document.body.appendChild(box);
+
+  const recordReward=async()=>{
+    const marker='[PIXORA_SHARE_REWARD_5]';
+    const {data:existing,error:checkError}=await supabaseClient.from('messages').select('id,status').eq('user_id',user.id).eq('message',marker).maybeSingle();
+    if(checkError) throw checkError;
+    if(!existing){
+      const {error}=await supabaseClient.from('messages').insert({user_id:user.id,message:marker,status:'pending'});
+      if(error) throw error;
+      const el=document.getElementById('shareStatus');if(el)el.textContent='✅ Share recorded. ৳5 reward is pending Admin approval.';
+      toast('📤 Share recorded — ৳5 pending Admin approval');
+      await loadUserMessages();
+    }else toast('এই User-এর Share reward request আগে দেওয়া হয়েছে।');
+  };
+
+  document.getElementById('pixShareWA').onclick=async()=>{
+    window.open('https://wa.me/?text='+encodeURIComponent(text+'\n'+url),'_blank','noopener,noreferrer');
+    try{await recordReward();}catch(e){toast(e.message||'Share request save হয়নি');}
+    box.remove();
+  };
+  document.getElementById('pixShareTG').onclick=async()=>{
+    window.open('https://t.me/share/url?url='+encodeURIComponent(url)+'&text='+encodeURIComponent(text),'_blank','noopener,noreferrer');
+    try{await recordReward();}catch(e){toast(e.message||'Share request save হয়নি');}
+    box.remove();
+  };
+  document.getElementById('pixShareCopy').onclick=async()=>{
     try{
-      const ta=document.createElement('textarea');
-      ta.value=url;ta.setAttribute('readonly','');
-      ta.style.position='fixed';ta.style.opacity='0';
-      document.body.appendChild(ta);ta.focus();ta.select();
-      copied=document.execCommand('copy');ta.remove();
-    }catch(e){copied=false;}
-  }
-  if(copied){toast('🔗 Pixora link copied');await requestShareReward();}
-  else toast('Link copy করা যায়নি।');
+      const ta=document.createElement('textarea');ta.value=url;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();document.execCommand('copy');ta.remove();
+      toast('🔗 Pixora link copied');
+    }catch(e){toast('Link copy করা যায়নি।');}
+    try{await recordReward();}catch(e){toast(e.message||'Share request save হয়নি');}
+    box.remove();
+  };
+  document.getElementById('pixShareClose').onclick=()=>box.remove();
+  box.addEventListener('click',e=>{if(e.target===box)box.remove();});
 }
+// PIXORA FUNCTIONAL REPAIR
+function showPage(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));const el=$(id);if(el)el.classList.add('active');document.querySelectorAll('.bottomNav button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');if(id==='wallet'||id==='works')refreshPixoraBalance();if(id==='messages')loadUserMessages();if(id==='home')loadUserNotices();}
+function renderTasks(){const boxes=[$('homeTasks'),$('publicTasks')].filter(Boolean);boxes.forEach(box=>{if(!state.tasks.length){box.innerHTML='<div class="empty">এখন কোনো Published Task নেই।</div>';return;}box.innerHTML=state.tasks.map(t=>{const sub=(state.taskSubmissions||[]).find(s=>String(s.task_id)===String(t.id));return `<div class="task"><div class="taskTop"><div><div class="taskTitle">${escapeHTML(t.title||'Task')}</div><div class="notice">${escapeHTML(t.description||'')}</div></div><span class="tagPill">৳${Number(t.reward||0).toFixed(2)}</span></div><div class="notice" style="margin-top:8px">Status: ${escapeHTML(t.status||'published')}</div>${sub?`<div class="adminBox">আপনার submission: <b>${escapeHTML(sub.status||'pending')}</b>${sub.admin_note?`<div class="notice">${escapeHTML(sub.admin_note)}</div>`:''}</div>`:`<button class="small" onclick="submitTask('${t.id}')">📤 কাজ Submit করুন</button>`}</div>`}).join('')})}
+function renderIncome(){const b=Number(state.balance||0).toLocaleString('en-BD',{minimumFractionDigits:2,maximumFractionDigits:2});['homeBalance','workBalance','balanceAmount'].forEach(id=>{if($(id))$(id).textContent=b});if($('totalEarn'))$('totalEarn').textContent=Number(state.totalIncome||0).toLocaleString('en-BD',{minimumFractionDigits:2,maximumFractionDigits:2});if($('totalWithdraw'))$('totalWithdraw').textContent=Number(state.totalWithdraw||0).toLocaleString('en-BD',{minimumFractionDigits:2,maximumFractionDigits:2});if($('profileName'))$('profileName').value=state.profile?.name||'';if($('profilePhone'))$('profilePhone').value=state.profile?.phone||'';if($('history')){$('history').innerHTML=state.walletHistory?.length?state.walletHistory.map(h=>`<div class="history"><b>${escapeHTML(h.title)}</b>${Number(h.amount||0)>0?`<div>৳${Number(h.amount||0).toFixed(2)}</div>`:''}<small>Status: ${escapeHTML(h.status||'pending')}</small>${h.detail?`<div class="notice">${escapeHTML(h.detail)}</div>`:''}<small>${escapeHTML(h.date||'')}</small></div>`).join(''):'<div class="empty">Wallet history নেই।</div>'}}
+async function pixoraForceRefresh(){await refreshPixoraBalance();await loadUserNotices();await loadUserMessages();}
+function renderRecentProjects(){const box=$('recentProjects');if(!box)return;box.innerHTML=state.projects?.length?state.projects.slice(-8).reverse().map(p=>`<div class="history"><b>${escapeHTML(p.name||'Project')}</b><small>${escapeHTML(p.date||'')}</small></div>`).join(''):'<div class="empty">কোনো saved project নেই।</div>'}
+async function submitDeposit(){if(!supabaseClient)return toast('Supabase connection নেই।');const {data:{user}}=await supabaseClient.auth.getUser();if(!user)return showAuth();const amount=Number($('depositAmount')?.value),trx=$('depositTrx')?.value.trim();if(!Number.isFinite(amount)||amount<=0||!trx)return toast('Deposit amount ও Transaction ID দিন।');const {error}=await supabaseClient.from('deposits').insert({user_id:user.id,amount,method:'bKash',transaction_id:trx,status:'pending'});if(error)return toast(error.message);$('depositAmount').value='';$('depositTrx').value='';$('depositMessage').textContent='✅ Deposit request পাঠানো হয়েছে। Admin Confirm করলে টাকা যোগ হবে।';toast('Deposit request sent');await refreshPixoraBalance();}
+async function requestWithdraw(){if(!supabaseClient)return toast('Supabase connection নেই।');const {data:{user}}=await supabaseClient.auth.getUser();if(!user)return showAuth();const amount=Number($('withdrawAmount')?.value),method=$('withdrawMethod')?.value||'bKash',account=$('withdrawNumber')?.value.trim();if(!Number.isFinite(amount)||amount<=0||!account)return toast('Withdrawal তথ্য পূরণ করুন।');if(amount>Number(state.balance||0))return toast('Insufficient balance');const {error}=await supabaseClient.from('withdrawals').insert({user_id:user.id,amount,method,account,status:'pending'});if(error)return toast(error.message);$('withdrawAmount').value='';$('withdrawNumber').value='';$('withdrawMessage').textContent='✅ Withdrawal request পাঠানো হয়েছে।';toast('Withdrawal request sent');await refreshPixoraBalance();}
+function chooseService(v){if($('serviceSelect'))$('serviceSelect').value=v;showPage('order')}
+async function submitOrder(){if(!supabaseClient)return toast('Supabase connection নেই।');const {data:{user}}=await supabaseClient.auth.getUser();if(!user)return showAuth();const name=$('customerName')?.value.trim(),phone=$('customerPhone')?.value.trim(),service=$('serviceSelect')?.value,details=$('details')?.value.trim(),trx=$('trx')?.value.trim();if(!name||!phone||!details||!trx)return toast('Order-এর সব তথ্য পূরণ করুন।');const price=service?.includes('৭০')?70:40;const {error}=await supabaseClient.from('orders').insert({user_id:(await ensureUserRow(user))?.id,order_type:service,amount:price,status:'pending',transaction_id:trx});if(error)return toast(error.message);$('orderMessage').textContent='✅ Order পাঠানো হয়েছে।';toast('Order submitted');showPage('order');await refreshPixoraBalance();}
+let pendingTaskId=null;
+function submitTask(taskId){pendingTaskId=taskId;if(!$('taskSubmitModal'))return toast('Submit form পাওয়া যায়নি।');$('taskProofNote').value='';$('taskProofFile').value='';$('taskProofPreview').textContent='কোনো Screenshot নির্বাচন করা হয়নি।';$('taskSubmitModal').classList.add('show')}
+function closeTaskSubmit(){pendingTaskId=null;$('taskSubmitModal')?.classList.remove('show')}
+$('taskProofFile')?.addEventListener('change',function(){const f=this.files?.[0];const box=$('taskProofPreview');if(!f){box.textContent='কোনো Screenshot নির্বাচন করা হয়নি।';return}if(!f.type.startsWith('image/')){this.value='';box.textContent='শুধু image screenshot দিন।';return}const r=new FileReader();r.onload=()=>{box.innerHTML=`<img src="${r.result}" style="max-width:100%;max-height:220px;border-radius:12px" alt="Screenshot preview">`};r.readAsDataURL(f)});
+function compressProofImage(file){return new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>{const img=new Image();img.onload=()=>{const max=1280,scale=Math.min(1,max/img.width,max/img.height),c=document.createElement('canvas');c.width=Math.max(1,Math.round(img.width*scale));c.height=Math.max(1,Math.round(img.height*scale));const x=c.getContext('2d');x.drawImage(img,0,0,c.width,c.height);resolve(c.toDataURL('image/jpeg',.78))};img.onerror=reject;img.src=r.result};r.onerror=reject;r.readAsDataURL(file)})}
+async function confirmTaskSubmit(){const taskId=pendingTaskId;if(!taskId)return;const note=$('taskProofNote').value.trim();const file=$('taskProofFile').files?.[0];if(!note&&!file)return toast('কাজের বিস্তারিত অথবা Screenshot দিন।');if(file&&file.size>8*1024*1024)return toast('Screenshot 8MB-এর মধ্যে দিন।');if(!supabaseClient)return toast('Supabase connection নেই।');const {data:{user}}=await supabaseClient.auth.getUser();if(!user)return showAuth();let proofUrl=null;try{if(file)proofUrl=await compressProofImage(file)}catch(e){return toast('Screenshot প্রস্তুত করা যায়নি।')}const {data,error}=await supabaseClient.from('task_submissions').insert({task_id:taskId,user_id:user.id,proof_note:note||'Screenshot দেওয়া হয়েছে।',proof_url:proofUrl,status:'pending'}).select('*').single();if(error)return toast(error.message);state.taskSubmissions=state.taskSubmissions||[];state.taskSubmissions.unshift(data);persist();closeTaskSubmit();renderTasks();toast('✅ Task submission পাঠানো হয়েছে। Admin review করবে।')}
+function triggerVideo(){const f=$('mediaFile');if(f){f.accept='video/*';f.click()}}function triggerPhoto(){const f=$('mediaFile');if(f){f.accept='image/*';f.click()}}function openPhotoEditor(){showPage('editor');triggerPhoto()}
+function loadMedia(e){const file=e.target.files?.[0];if(!file)return;if(state.mediaUrl)try{URL.revokeObjectURL(state.mediaUrl)}catch(_){}state.mediaType=file.type.startsWith('video')?'video':'image';state.mediaUrl=URL.createObjectURL(file);state.mediaName=file.name;const box=$('previewBox');if(!box)return;box.innerHTML=state.mediaType==='video'?'<video id="previewVideo" controls playsinline></video>':'<img id="previewImage" alt="Preview">';video=$('previewVideo')||null;if(video){video.src=state.mediaUrl;video.playbackRate=state.playbackRate||1;video.onloadedmetadata=()=>{state.duration=video.duration||0;['trimStart','trimEnd','effectStart','effectEnd'].forEach(id=>{if($(id)){$(id).max=state.duration;}});renderFrame()};}else{$('previewImage').src=state.mediaUrl;renderFrame()} }
+function renderFrame(){const el=video||$('previewImage');if(!el)return;el.style.filter=`brightness(${state.brightness||100}%) contrast(${state.contrast||100}%) saturate(${state.saturate||100}%) grayscale(${state.grayscale||0}%) blur(${state.blur||0}px)`;el.style.opacity=(state.opacity||100)/100;el.style.transform=`scale(${(state.zoom||100)/100}) rotate(${state.rotation||0}deg) scaleX(${state.flipX||1})`}
+function changeFilter(k,v,out){state[k]=Number(v);if($(out))$(out).textContent=v;renderFrame();persist()}function changeBlur(v){state.blur=Number(v);if($('blurValue'))$('blurValue').textContent=v;renderFrame();persist()}function changeOpacity(v){state.opacity=Number(v);if($('opacityValue'))$('opacityValue').textContent=v;renderFrame();persist()}function changeZoom(v){state.zoom=Number(v);if($('zoomValue'))$('zoomValue').textContent=v;renderFrame();persist()}function rotateBy(v){state.rotation=(Number(state.rotation||0)+Number(v))%360;renderFrame();persist()}function flipVideo(){state.flipX=Number(state.flipX||1)*-1;renderFrame();persist()}function resetTransform(){state.zoom=100;state.rotation=0;state.flipX=1;renderFrame();persist()}function resetEditor(){state=cloneDefault();persist();location.reload()}function resetUIFromState(){renderIncome();renderTasks();renderRecentProjects()}
+function setEffect(e){state.effect=e;const el=$('activeEffectLabel');if(el)el.textContent='Effect: '+e;persist();renderFrame()}function setEffectIntensity(v){state.effectIntensity=Number(v);if($('effectIntensityValue'))$('effectIntensityValue').textContent=v;persist()}function updateEffectRange(){state.effectStart=Number($('effectStart')?.value||0);state.effectEnd=Number($('effectEnd')?.value||state.duration||0);if($('effectStartValue'))$('effectStartValue').textContent=formatTime(state.effectStart);if($('effectEndValue'))$('effectEndValue').textContent=formatTime(state.effectEnd);persist()}function setTrimStart(v){state.trimStart=Number(v);if($('startValue'))$('startValue').textContent=formatTime(v);persist()}function setTrimEnd(v){state.trimEnd=Number(v);if($('endValue'))$('endValue').textContent=formatTime(v);persist()}function previewTrim(){if(video){video.currentTime=Number(state.trimStart||0);toast('Trim preview ready')}}function changeAspect(v){state.aspect=v;const box=$('previewBox');if(box&&v!=='auto')box.style.aspectRatio=v;persist()}
+function applyColorGrade(g){state.colorGrade=g;const maps={normal:'none',cinematic:'contrast(1.12) saturate(1.08)',hdr:'contrast(1.2) saturate(1.2)',golden:'sepia(.18) saturate(1.25)',moody:'brightness(.9) contrast(1.18)',sunset:'sepia(.22) saturate(1.3)',forest:'saturate(1.2)',ocean:'saturate(1.18)',pink:'saturate(1.15)',noir:'grayscale(1) contrast(1.2)',vintage:'sepia(.3) contrast(1.05)',tealorange:'saturate(1.3)'};const el=video||$('previewImage');if(el)el.style.filter=maps[g]||'none';persist()}
+function setAnimation(a){state.animation=a;const el=video||$('previewImage');if(el){el.style.animation='none';void el.offsetWidth;el.style.animation=a==='zoomIn'?'pixoraZoomIn .8s ease':a==='zoomOut'?'pixoraZoomOut .8s ease':a==='left'?'pixoraSlideLeft .8s ease':a==='right'?'pixoraSlideRight .8s ease':a==='bounce'?'pixoraBounce .8s ease':a==='shake'?'pixoraShake .5s ease':a==='pulse'?'pixoraPulse .8s ease':a==='float'?'pixoraFloat 1.4s ease':'none'}persist()}
+function setPlaybackRate(v){state.playbackRate=Number(v);if(video)video.playbackRate=state.playbackRate;persist();toast('Playback rate '+v+'×')}
+function setBeatSync(a){state.beatSync=a!=='none';state.beatAnimation=a;persist()}function addBeat(){state.beats=state.beats||[];state.beats.push(video?video.currentTime:0);persist();renderBeatMarkers()}function addBeatAtPlayhead(){addBeat()}function detectBeats(){state.beats=[];const d=Number(state.duration||0);for(let x=.5;x<d;x+=1)state.beats.push(x);persist();renderBeatMarkers();toast('Beat markers তৈরি হয়েছে')}function clearBeats(){state.beats=[];persist();renderBeatMarkers()}function renderBeatMarkers(){const b=$('beatList');if(b)b.innerHTML=(state.beats||[]).map(x=>`<span class="chip">${formatTime(x)}</span>`).join('')}function updateBeatInfo(){}
+function loadAudio(e){const f=e.target.files?.[0];if(!f)return;if(state.audioUrl)try{URL.revokeObjectURL(state.audioUrl)}catch(_){}state.audioUrl=URL.createObjectURL(f);state.audioName=f.name;if($('audioName'))$('audioName').textContent=f.name;persist()}function changeVolume(v){if(video)video.volume=Number(v)/100;if($('volumeRange'))$('volumeRange').value=v}function changeMusicVolume(v){state.musicVolume=Number(v);persist()}function setMusicFade(v){toast('Music fade '+v+' set');persist()}function removeAudio(){state.audioUrl='';state.audioName='';if($('audioName'))$('audioName').textContent='কোনো external audio যোগ করা হয়নি।';persist()}
+function loadOverlay(e){const f=e.target.files?.[0];if(!f)return;if(state.overlayUrl)try{URL.revokeObjectURL(state.overlayUrl)}catch(_){}state.overlayUrl=URL.createObjectURL(f);state.overlayImage=state.overlayUrl;persist();toast('Overlay added') }function changeOverlaySize(v){state.overlaySize=Number(v);persist()}function changeOverlayOpacity(v){state.overlayOpacity=Number(v);persist()}function clearOverlay(){state.overlayUrl='';persist()}
+function addTextLayer(){state.text=$('textInput')?.value||'';state.textSize=Number($('textSize')?.value||36);state.textColor=$('textColor')?.value||'#fff';state.textPosition=$('textPosition')?.value||'center';const box=$('previewBox');let layer=$('textLayer');if(!layer){layer=document.createElement('div');layer.id='textLayer';layer.className='textLayer';box.appendChild(layer)}layer.textContent=state.text;layer.style.fontSize=state.textSize+'px';layer.style.color=state.textColor;layer.style.top=state.textPosition==='top'?'15%':state.textPosition==='bottom'?'80%':'50%';persist()}function clearTextLayer(){state.text='';$('textLayer')?.remove();persist()}function addCaptionLayer(){state.caption=$('captionInput')?.value||'';const box=$('previewBox');let layer=$('captionLayer');if(!layer){layer=document.createElement('div');layer.id='captionLayer';layer.className='captionLayer';box.appendChild(layer)}layer.textContent=state.caption;persist()}function clearCaptionLayer(){state.caption='';$('captionLayer')?.remove();persist()}function addSticker(s){state.sticker=s;const box=$('previewBox');let layer=$('stickerLayer');if(!layer){layer=document.createElement('div');layer.id='stickerLayer';layer.className='stickerLayer';box.appendChild(layer)}layer.textContent=s;persist()}function clearSticker(){state.sticker='';$('stickerLayer')?.remove();persist()}
+function openTool(id,btn){document.querySelectorAll('.toolPanel').forEach(x=>x.classList.remove('active'));if($(id))$(id).classList.add('active');document.querySelectorAll('.toolButton').forEach(x=>x.classList.remove('active'));if(btn)btn.classList.add('active')}
+function saveProject(){const name=$('projectName')?.value.trim()||'Pixora Project';state.projects=state.projects||[];state.projects.push({name,date:new Date().toISOString(),state:JSON.parse(JSON.stringify({...state,mediaUrl:'',audioUrl:'',overlayUrl:''}))});persist();renderRecentProjects();toast('💾 Project saved')}
+function showProjects(){const box=$('projectList');if(!box)return;box.innerHTML=state.projects?.length?state.projects.slice().reverse().map((p,i)=>`<div class="history"><b>${escapeHTML(p.name)}</b><small>${escapeHTML(p.date||'')}</small><button class="small" onclick="loadProject(${state.projects.length-1-i})">Open</button></div>`).join(''):'<div class="empty">কোনো project নেই।</div>';$('projectModal')?.classList.add('show')}function closeProjects(){$('projectModal')?.classList.remove('show')}function closeSavedProjects(){closeProjects()}function loadProject(i){const p=state.projects?.[i];if(p?.state){state=normalizeState({...p.state,projects:state.projects});persist();location.reload()}}
+async function exportVideo(){if(!video){return toast('আগে Video নির্বাচন করুন।')}if(!window.MediaRecorder)return toast('এই browser-এ export supported নয়।');try{const stream=video.captureStream();const rec=new MediaRecorder(stream,{mimeType:'video/webm'});const chunks=[];rec.ondataavailable=e=>e.data.size&&chunks.push(e.data);rec.onstop=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(chunks,{type:'video/webm'}));a.download='pixora-export.webm';a.click()};rec.start();video.play();setTimeout(()=>{rec.stop();video.pause()},Math.min(10000,(video.duration-video.currentTime)*1000||5000));toast('Export তৈরি হচ্ছে...')}catch(e){toast(e.message||'Export failed')}}
 
 </script>
 </body></html>

@@ -228,6 +228,45 @@ header{
   outline:none;
 }
 
+/* TRANSACTION REDESIGN */
+.tx-filters{display:flex;gap:8px;overflow:auto;margin:0 0 14px;padding-bottom:2px}
+.tx-filter{border:1px solid #ffffff10;background:#0b1122;color:#9da8c2;padding:9px 14px;border-radius:999px;font-size:11px;white-space:nowrap;cursor:pointer}
+.tx-filter.active{background:#7c5cff;color:#fff;border-color:#7c5cff}
+.tx-grid{display:grid;gap:10px}
+.tx-card{background:linear-gradient(145deg,#151d34,#0d1325);border:1px solid #ffffff0b;border-radius:17px;padding:14px}
+.tx-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.tx-id{font-size:10px;color:#78839d;margin-bottom:4px}
+.tx-user{font-size:14px;font-weight:800}
+.tx-meta{font-size:10px;color:#8e99b2;margin-top:3px}
+.tx-amount{font-size:20px;font-weight:900;white-space:nowrap}
+.tx-info{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
+.tx-info-box{background:#090e1d;border-radius:11px;padding:9px}
+.tx-info-box small{display:block;color:#6f7a95;font-size:9px;margin-bottom:3px}
+.tx-info-box b{font-size:11px;word-break:break-word}
+.tx-actions{display:flex;gap:7px}
+.tx-actions .btn{flex:1;padding:10px}
+.tx-type{display:inline-block;margin-top:6px;padding:4px 8px;border-radius:999px;background:#7c5cff18;color:#b5aaff;font-size:9px;font-weight:800}
+.tx-card .badge{font-weight:800}
+@media(max-width:600px){.panel-head{align-items:stretch;flex-direction:column}.search{max-width:100%;width:100%}.tx-info{grid-template-columns:1fr}.tx-amount{font-size:18px}}
+
+/* PUBLIC WORK / TASKS */
+.task-tools{display:grid;grid-template-columns:1.3fr 2fr .8fr auto;gap:8px;margin-bottom:14px}
+.task-tools input,.task-tools textarea{width:100%;padding:11px 12px;border-radius:11px;background:#090e1d;color:#fff;border:1px solid #ffffff10;outline:none}
+.task-tools textarea{min-height:44px;resize:vertical}
+.task-list{display:grid;gap:10px}
+.task-card{background:linear-gradient(145deg,#151d34,#0d1325);border:1px solid #ffffff0b;border-radius:17px;padding:14px}
+.task-card-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.task-title{font-size:14px;font-weight:900}
+.task-desc{font-size:11px;color:#9aa5bf;margin-top:5px;white-space:pre-wrap}
+.task-reward{font-size:16px;font-weight:900;white-space:nowrap}
+.task-submissions{margin-top:12px;overflow:auto}
+.submission-card{background:#090e1d;border:1px solid #ffffff0a;border-radius:12px;padding:10px;margin-top:8px}
+.submission-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.submission-actions .btn{flex:1;min-width:90px}
+.fullBtn{width:100%;padding:11px!important}
+.notice{background:#0d1426;border:1px solid #ffffff0b;color:#9aa5bf;padding:10px 12px;border-radius:12px;font-size:11px;margin-bottom:12px}
+@media(max-width:700px){.task-tools{grid-template-columns:1fr}.task-card-top{flex-direction:column}.task-reward{font-size:15px}}
+
 .table-wrap{overflow:auto}
 
 table{
@@ -276,7 +315,7 @@ td small{
   color:#ff7184;
 }
 
-.active{background:#20d9a11a;color:#20d9a1}.paused{background:#f5a6231a;color:#f5b74f}.processing{
+.processing{
   background:#7c5cff1a;
   color:#a999ff;
 }
@@ -418,19 +457,6 @@ td small{
   .stat{padding:13px}
   .stat b{font-size:20px}
 }
-
-/* ===== PIXORA CONTROL CENTER ENHANCEMENTS ===== */
-.admin-hero{margin:18px 0;padding:20px;border:1px solid #ffffff12;border-radius:22px;background:linear-gradient(135deg,#111a31,#0b1020);display:flex;justify-content:space-between;gap:16px;align-items:center}
-.admin-hero h2{font-size:22px;margin-bottom:5px}.admin-hero p{color:#8994b2;font-size:12px;line-height:1.5}.hero-badge{padding:9px 12px;border-radius:999px;background:#162442;color:#9fc0ff;font-size:11px;font-weight:800;white-space:nowrap}
-.quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:0 0 18px}
-.quick-btn{margin-top:8px;width:100%;padding:8px 9px;border-radius:9px;background:#7c5cff;color:#fff;font-size:11px;font-weight:700}.quick{padding:15px;border:1px solid #ffffff0d;border-radius:18px;background:#11172a}.quick small{display:block;color:#7f8aa6;margin-bottom:5px}.quick b{font-size:18px}.quick span{display:block;color:#5fca9a;font-size:11px;margin-top:5px}
-.control-row{display:flex;gap:7px;flex-wrap:wrap}.mini{padding:8px 10px;border-radius:10px;background:#20283d;color:#fff;font-size:11px;font-weight:800}.mini.approve{background:#123a2a}.mini.cancel{background:#451c28}.mini.process{background:#21365d}.mini.complete{background:#17402f}
-.status-switch{display:flex;gap:5px;flex-wrap:wrap}.status-switch button{padding:7px 9px;border-radius:9px;background:#182039;color:#8994b2;font-size:10px;font-weight:800}.status-switch button.on{background:#eaf0ff;color:#0b1020}
-.user-control{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.user-control .full{grid-column:1/-1}.control-box{padding:12px;border:1px solid #ffffff0d;border-radius:14px;background:#0b1020}.control-box label{display:block;color:#7f8aa6;font-size:10px;margin-bottom:5px}.control-box input,.control-box select{width:100%;padding:10px;border-radius:10px;border:1px solid #ffffff12;background:#121a2d;color:#fff;outline:none}
-.notice{padding:11px 13px;border-radius:13px;background:#171f34;color:#9ca8c4;font-size:11px;line-height:1.5;margin-bottom:12px}.danger-note{background:#311721;color:#ffb4c2}
-@media(max-width:700px){.quick-grid{grid-template-columns:1fr 1fr}.admin-hero{align-items:flex-start;flex-direction:column}.user-control{grid-template-columns:1fr}.user-control .full{grid-column:auto}}
-
-.filterBar{display:flex;gap:8px;overflow-x:auto;padding:2px 0 12px;margin-top:2px;scrollbar-width:none}.filterBar::-webkit-scrollbar{display:none}.filterBtn{flex:0 0 auto;border:1px solid #ffffff12;background:#151c30;color:#aab4cc;padding:9px 14px;border-radius:999px;font-size:11px;font-weight:800}.filterBtn.active{background:#7c5cff;color:#fff}.filterBtn.pending.active{background:#b7791f}.filterBtn.approved.active{background:#168c6b}.filterBtn.rejected.active{background:#9b3043}.messageActions{display:flex;gap:6px;flex-wrap:wrap}.messageActions button{padding:7px 10px;border-radius:9px;color:#fff;font-size:10px;background:#20283d}.messageActions .active{background:#7c5cff}.assignBox{background:#0b1122;padding:14px;border-radius:14px;margin-top:10px}.assignGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.assignGrid textarea{grid-column:1/-1;min-height:85px}.fullBtn{width:100%;padding:12px;border-radius:11px;margin-top:8px}@media(max-width:600px){.assignGrid{grid-template-columns:1fr}.assignGrid textarea{grid-column:auto}}
 </style>
 </head>
 
@@ -514,20 +540,6 @@ td small{
 
 </header>
 
-<div class="admin-hero">
-  <div>
-    <h2>👑 Pixora Master Control</h2>
-    <p>Users, wallet, deposits, withdrawals এবং orders এক জায়গা থেকে পরিচালনা করুন।<br>গুরুত্বপূর্ণ পরিবর্তন শুধু Admin session থেকেই করা যাবে।</p>
-  </div>
-  <div class="hero-badge">🔐 ADMIN ONLY</div>
-</div>
-
-<div class="quick-grid">
-  <div class="quick"><small>Pending Deposits</small><b id="pendingDepositCount">0</b><span>Approval needed</span><button class="quick-btn" onclick="openAdminTab('transactions')">View Deposits</button></div>
-  <div class="quick"><small>Pending Withdrawals</small><b id="pendingWithdrawCount">0</b><span>Review needed</span><button class="quick-btn" onclick="openAdminTab('transactions')">View Withdrawals</button></div>
-  <div class="quick"><small>Pending Orders</small><b id="pendingOrderCount">0</b><span>Action needed</span><button class="quick-btn" onclick="openAdminTab('orders')">View Orders</button></div>
-  <div class="quick"><small>Total Order Value</small><b>৳<span id="orderValueTotal">0.00</span></b><span>All loaded orders</span><button class="quick-btn" onclick="openAdminTab('orders')">View Orders</button></div>
-</div>
 
 <!-- STATS -->
 <section class="stats">
@@ -580,9 +592,19 @@ td small{
     📦 Orders
   </button>
 
-  <button class="tab" onclick="showTab('tasks',this)">📋 Tasks</button>
-  <button class="tab" onclick="showTab('settings',this)">⚙️ Settings</button>
-  <button class="tab" onclick="showTab('messages',this)">💬 Messages</button>
+  <button
+    class="tab"
+    onclick="showTab('tasks',this)">
+    📋 Work
+  </button>
+
+  <button
+    class="tab"
+    onclick="showTab('messages',this)">
+    💬 Messages
+  </button>
+
+  <button class="tab" onclick="showTab('notices',this)">📢 Notifications</button>
 
 </div>
 
@@ -619,16 +641,16 @@ td small{
     <input
       id="transactionSearch"
       class="search"
-      placeholder="Search..."
+      placeholder="Search ID, user, payment..."
       oninput="renderTransactions()">
 
   </div>
 
-  <div class="filterBar" id="transactionFilters">
-    <button class="filterBtn active" onclick="setTransactionFilter('all',this)">All</button>
-    <button class="filterBtn pending" onclick="setTransactionFilter('pending',this)">Pending</button>
-    <button class="filterBtn approved" onclick="setTransactionFilter('approved',this)">Approved</button>
-    <button class="filterBtn rejected" onclick="setTransactionFilter('rejected',this)">Rejected</button>
+  <div class="tx-filters" id="txFilters">
+    <button class="tx-filter active" data-filter="all" onclick="setTxFilter('all')">All</button>
+    <button class="tx-filter" data-filter="pending" onclick="setTxFilter('pending')">Pending</button>
+    <button class="tx-filter" data-filter="approved" onclick="setTxFilter('approved')">Approved</button>
+    <button class="tx-filter" data-filter="rejected" onclick="setTxFilter('rejected')">Rejected</button>
   </div>
 
   <div id="transactionContent">
@@ -659,54 +681,50 @@ td small{
 
 </section>
 
-<!-- TASKS / PUBLIC APP WORK -->
-<section id="tasks" class="panel">
-  <div class="panel-head"><h2>📋 Public App Work</h2></div>
-  <div class="notice">এখানে <b>User ID লাগবে না</b>। তুমি কাজ প্রকাশ করবে। সব User তাদের App-এর Work section-এ কাজটি দেখতে পাবে। যার ভালো লাগবে সে নিজের মতো কাজ করবে এবং কাজ শেষে Screenshot/Proof দিয়ে Submit করবে।</div>
-
-  <div class="assignBox">
-    <h3 style="margin-bottom:10px">📤 নতুন কাজ প্রকাশ করুন</h3>
-    <div class="assignGrid">
-      <input id="assignTitle" placeholder="কাজের নাম">
-      <input id="assignReward" type="number" min="0" step="0.01" placeholder="Reward (৳)">
-      <textarea id="assignDescription" placeholder="কাজের বিস্তারিত / কী করতে হবে"></textarea>
-    </div>
-    <button class="btn approve fullBtn" onclick="publishPublicTask()">📤 সব User-এর App-এ Publish করুন</button>
-  </div>
-
-  <div id="assignedTaskContent" style="margin-top:12px"><div class="loading">Loading public works...</div></div>
-
-  <div class="assignBox" style="margin-top:14px">
-    <h3 style="margin-bottom:10px">📸 User Work Submissions</h3>
-    <div class="notice">User কাজ শেষে Screenshot/Proof submit করলে এখানে <b>Pending</b> থাকবে। তুমি <b>Approve / Reject / Revision</b> করতে পারবে।</div>
-    <div class="filterBar" id="submissionFilters">
-      <button class="filterBtn active" onclick="setSubmissionFilter('all',this)">All</button>
-      <button class="filterBtn pending" onclick="setSubmissionFilter('pending',this)">Pending</button>
-      <button class="filterBtn approved" onclick="setSubmissionFilter('approved',this)">Approved</button>
-      <button class="filterBtn rejected" onclick="setSubmissionFilter('rejected',this)">Rejected</button>
-    </div>
-    <div id="taskSubmissionContent"><div class="loading">Loading submissions...</div></div>
-  </div>
-</section>
-
 <!-- MESSAGES -->
 <section id="messages" class="panel">
-  <div class="panel-head"><h2>💬 User Messages</h2><input id="messageSearch" class="search" placeholder="User ID / message search..." oninput="renderMessages()"></div>
-  <div class="notice" style="margin-bottom:12px">User message আসার পর status <b>Pending</b> থাকবে। তুমি <b>Confirm</b> করলে User-এর account-এ <b>Approved</b> দেখাবে।</div>
+  <div class="panel-head">
+    <h2>💬 User Messages</h2>
+    <input id="messageSearch" class="search" placeholder="Search message / User ID..." oninput="renderMessages()">
+  </div>
   <div id="messageContent"><div class="loading">Loading messages...</div></div>
 </section>
 
-<section id="settings" class="panel">
-  <div class="panel-head"><h2>⚙️ Pixora Settings</h2></div>
-  <div class="control-box">
-    <label>bKash Personal Deposit Number</label>
-    <input id="bkashNumber" value="01988891195">
-    <button class="mini approve" style="margin-top:8px" onclick="saveLocalSetting()">Save Setting</button>
+
+<!-- NOTICES -->
+<section id="notices" class="panel">
+  <div class="panel-head"><h2>📢 User Notifications</h2><button class="btn view" onclick="loadNotices()">🔄 Refresh</button></div>
+  <div class="notice">এখান থেকে সব User-এর App-এ notification পাঠাতে পারবে।</div>
+  <div class="task-tools">
+    <input id="noticeTitle" placeholder="Notification title">
+    <textarea id="noticeMessage" placeholder="User-দের জন্য message লিখুন"></textarea>
+    <select id="noticeType"><option value="info">Info</option><option value="success">Success</option><option value="warning">Warning</option></select>
+    <button class="btn approve" onclick="publishNotice()">📢 Send</button>
   </div>
-  <div class="control-box" style="margin-top:10px">
-    <label>Paid Photo Service Price</label><input id="photoPrice" type="number" value="40">
-    <label style="margin-top:8px">Paid Video Service Price</label><input id="videoPrice" type="number" value="120">
-    <button class="mini approve" style="margin-top:8px" onclick="saveLocalSetting()">Save Pricing</button>
+  <div id="noticeContent"><div class="loading">Loading notifications...</div></div>
+</section>
+
+<!-- TASKS / PUBLIC APP WORK -->
+<section id="tasks" class="panel">
+  <div class="panel-head">
+    <h2>📋 Public App Work</h2>
+    <button class="btn view" onclick="loadTasks()">🔄 Refresh</button>
+  </div>
+
+  <div class="notice">Admin এখানে কাজ Publish করবে। কোনো User ID দিয়ে assign করতে হবে না। সব User-এর App-এ প্রকাশিত কাজ দেখা যাবে। User কাজ শেষ করে submission দিলে নিচে Pending/Approved/Rejected/Revision status control করা যাবে।</div>
+
+  <div class="task-tools">
+    <input id="taskTitle" placeholder="কাজের নাম">
+    <textarea id="taskDescription" placeholder="কাজের বিস্তারিত / কী করতে হবে"></textarea>
+    <input id="taskReward" type="number" min="0" step="0.01" placeholder="Reward (৳)">
+    <button class="btn approve" onclick="publishTask()">📤 Publish</button>
+  </div>
+
+  <div id="taskContent"><div class="loading">Loading public works...</div></div>
+
+  <div class="task-submissions">
+    <h3 style="font-size:15px;margin-bottom:8px">📸 User Work Submissions</h3>
+    <div id="taskSubmissionContent"><div class="loading">Loading submissions...</div></div>
   </div>
 </section>
 
@@ -775,8 +793,9 @@ let deposits=[];
 let withdrawals=[];
 let transactions=[];
 let orders=[];
-let messages=[];
-let assignedTasks=[];
+let tasks=[];
+let taskSubmissions=[];
+let adminMessages=[];
 
 
 /* =========================
@@ -997,8 +1016,6 @@ async function logoutAdmin(){
   withdrawals=[];
   transactions=[];
   orders=[];
-  messages=[];
-  assignedTasks=[];
 
   showLogin();
 }
@@ -1055,7 +1072,9 @@ async function loadAll(){
       loadWithdrawals(),
       loadOrders(),
       loadMessages(),
-      loadAssignedTasks()
+      loadTasks(),
+      loadTaskSubmissions(),
+      loadNotices()
     ]);
 
     buildTransactions();
@@ -1071,14 +1090,6 @@ async function loadAll(){
 /* =========================
    USERS
 ========================= */
-
-function refreshQuickStats(){
-  document.getElementById("pendingDepositCount").textContent=deposits.filter(x=>String(x.status||"").toLowerCase()==="pending").length;
-  document.getElementById("pendingWithdrawCount").textContent=withdrawals.filter(x=>String(x.status||"").toLowerCase()==="pending").length;
-  document.getElementById("pendingOrderCount").textContent=orders.filter(x=>String(x.status||"").toLowerCase()==="pending").length;
-  const total=orders.reduce((s,o)=>s+Number(o.amount||0),0);
-  document.getElementById("orderValueTotal").textContent=money(total);
-}
 
 async function loadUsers(){
 
@@ -1118,7 +1129,6 @@ async function loadUsers(){
 
 
     renderUsers();
-    refreshQuickStats();
 
 
   }catch(error){
@@ -1177,7 +1187,7 @@ function renderUsers(){
   <table>
   <thead>
   <tr>
-    <th>User ID</th>
+    <th>ID</th>
     <th>User</th>
     <th>Phone</th>
     <th>Balance</th>
@@ -1213,7 +1223,7 @@ function renderUsers(){
         <button
           class="btn view"
           onclick="showUser('${escAttr(user.id)}')">
-          Control
+          View
         </button>
       </td>
 
@@ -1238,356 +1248,132 @@ function renderUsers(){
 ========================= */
 
 async function loadDeposits(){
-
   try{
-
-    const {
-      data,
-      error
-    } =
-      await supabaseClient
-        .from("deposits")
-        .select(`
-          *,
-          users(
-            name,
-            email,
-            phone
-          )
-        `)
-        .order(
-          "created_at",
-          {ascending:false}
-        );
-
-
+    const {data,error}=await supabaseClient
+      .from("deposits")
+      .select("*")
+      .order("created_at",{ascending:false});
     if(error)throw error;
-
-
-    deposits=
-      Array.isArray(data)
-        ?data
-        :[];
-
-
+    deposits=Array.isArray(data)?data:[];
   }catch(error){
-
     console.error("Deposits:",error);
-
     deposits=[];
-
+    const box=document.getElementById("depositContent");
+    if(box) box.innerHTML=`<div class="empty">Deposit load failed.<br><small>${esc(error.message||"deposits error")}</small></div>`;
   }
-
-
-  document.getElementById("depositCount")
-    .textContent=deposits.length;
+  document.getElementById("depositCount").textContent=deposits.length;
 }
-
 
 /* =========================
    WITHDRAWALS
 ========================= */
-
 async function loadWithdrawals(){
-
   try{
-
-    const {
-      data,
-      error
-    } =
-      await supabaseClient
-        .from("withdrawals")
-        .select(`
-          *,
-          users(
-            name,
-            email,
-            phone
-          )
-        `)
-        .order(
-          "created_at",
-          {ascending:false}
-        );
-
-
+    const {data,error}=await supabaseClient
+      .from("withdrawals")
+      .select("*")
+      .order("created_at",{ascending:false});
     if(error)throw error;
-
-
-    withdrawals=
-      Array.isArray(data)
-        ?data
-        :[];
-
-
+    withdrawals=Array.isArray(data)?data:[];
   }catch(error){
-
     console.error("Withdrawals:",error);
-
     withdrawals=[];
-
   }
-
-
-  document.getElementById("withdrawCount")
-    .textContent=withdrawals.length;
+  document.getElementById("withdrawCount").textContent=withdrawals.length;
 }
 
-
-let transactionFilter='all';
-let submissionFilter='all';
-
-function normalizeStatus(value){
-  const v=String(value??'').trim().toLowerCase();
-  if(v==='approved'||v==='approve')return 'approved';
-  if(v==='rejected'||v==='reject')return 'rejected';
-  if(v==='cancelled'||v==='canceled'||v==='cancel')return 'cancelled';
-  if(v==='completed'||v==='complete')return 'completed';
-  if(v==='processing')return 'processing';
-  return 'pending';
-}
-function setTransactionFilter(filter,button){
-  transactionFilter=filter;
-  document.querySelectorAll('#transactionFilters .filterBtn').forEach(b=>b.classList.remove('active'));
-  if(button)button.classList.add('active');
-  renderTransactions();
-}
-function setSubmissionFilter(filter,button){
-  submissionFilter=filter;
-  document.querySelectorAll('#submissionFilters .filterBtn').forEach(b=>b.classList.remove('active'));
-  if(button)button.classList.add('active');
-  if(window.__taskSubmissionCache)renderTaskSubmissions(window.__taskSubmissionCache);
-}
 
 /* =========================
    TRANSACTIONS
 ========================= */
 
 function buildTransactions(){
-
+  const userMap=new Map(users.map(u=>[String(u.id),u]));
   transactions=[];
 
-
   deposits.forEach(d=>{
-
+    const u=userMap.get(String(d.user_id))||{};
     transactions.push({
-
-      id:d.id,
-
-      user_id:d.user_id,
-
-      name:d.users?.name,
-
-      email:d.users?.email,
-
-      phone:d.users?.phone,
-
-      type:"deposit",
-
-      amount:d.amount,
-
-      payment_method:
-        d.method,
-
-      transaction_id:
-        d.transaction_id,
-
-      status:d.status,
-
+      id:d.id,user_id:d.user_id,
+      name:d.name||u.name,email:d.email||u.email,phone:d.phone||u.phone,
+      type:"deposit",amount:d.amount,
+      payment_method:d.method||d.payment_method,
+      transaction_id:d.transaction_id||d.txid,
+      status:String(d.status||"pending").toLowerCase(),
       created_at:d.created_at
-
     });
-
   });
-
 
   withdrawals.forEach(w=>{
-
+    const u=userMap.get(String(w.user_id))||{};
     transactions.push({
-
-      id:w.id,
-
-      user_id:w.user_id,
-
-      name:w.users?.name,
-
-      email:w.users?.email,
-
-      phone:w.users?.phone,
-
-      type:"withdrawal",
-
-      amount:w.amount,
-
-      payment_method:
-        w.method,
-
-      account:w.account,
-
-      transaction_id:
-        w.transaction_id,
-
-      status:w.status,
-
+      id:w.id,user_id:w.user_id,
+      name:w.name||u.name,email:w.email||u.email,phone:w.phone||u.phone,
+      type:"withdrawal",amount:w.amount,
+      payment_method:w.method||w.payment_method,
+      account:w.account||w.number||w.phone_number,
+      transaction_id:w.transaction_id||w.txid,
+      status:String(w.status||"pending").toLowerCase(),
       created_at:w.created_at
-
     });
-
   });
 
-
-  transactions.sort(
-    (a,b)=>
-      new Date(b.created_at||0) -
-      new Date(a.created_at||0)
-  );
-
-
+  transactions.sort((a,b)=>new Date(b.created_at||0)-new Date(a.created_at||0));
   renderTransactions();
 }
 
 
 function renderTransactions(){
 
-  const box =
-    document.getElementById("transactionContent");
+  const box=document.getElementById("transactionContent");
+  const search=(document.getElementById("transactionSearch")?.value||"").toLowerCase().trim();
+  const activeFilter=window.txFilter||"all";
 
+  const list=transactions.filter(t=>{
+    const status=String(t.status||"pending").toLowerCase();
+    const text=`${t.id||""} ${t.name||""} ${t.phone||""} ${t.type||""} ${status} ${t.transaction_id||""} ${t.account||""} ${t.payment_method||""}`.toLowerCase();
+    return text.includes(search) && (activeFilter==="all" || status===activeFilter);
+  });
 
-  const search =
-    document.getElementById("transactionSearch")
-      .value.toLowerCase().trim();
-
-
-  const list =
-    transactions.filter(t=>{
-
-      const st=normalizeStatus(t.status);
-      if(transactionFilter!=='all' && st!==transactionFilter)return false;
-
-      const text=`
-        ${t.id||""}
-        ${t.name||""}
-        ${t.phone||""}
-        ${t.type||""}
-        ${t.status||""}
-        ${t.transaction_id||""}
-        ${t.account||""}
-      `.toLowerCase();
-
-      return text.includes(search);
-    });
-
+  document.querySelectorAll(".tx-filter").forEach(btn=>{
+    btn.classList.toggle("active",btn.dataset.filter===activeFilter);
+  });
 
   if(!list.length){
-
-    box.innerHTML=
-      '<div class="empty">No transactions found.</div>';
-
+    box.innerHTML='<div class="empty">এই filter-এ কোনো transaction নেই।</div>';
     return;
   }
 
-
-  let html=`
-  <div class="table-wrap">
-  <table>
-  <thead>
-  <tr>
-    <th>ID</th>
-    <th>User</th>
-    <th>Type</th>
-    <th>Amount</th>
-    <th>Payment</th>
-    <th>Status</th>
-    <th>Action</th>
-  </tr>
-  </thead>
-  <tbody>
-  `;
-
-
-  list.forEach(t=>{
-
-    const id=
-      Number(t.id);
-
-
-    let actions=`
-      <button
-        class="btn view"
-        onclick="showTransaction(
-          ${id},
-          '${escAttr(t.type)}'
-        )">
-        View
-      </button>
-    `;
-
-
-    const st=normalizeStatus(t.status);
-    if(st==='pending'){
-      actions+=t.type==="deposit"?`<button class="btn approve" onclick="updateDeposit(${id},'approved')">Approve</button><button class="btn reject" onclick="updateDeposit(${id},'rejected')">Reject</button>`:`<button class="btn approve" onclick="updateWithdrawal(${id},'approved')">Approve</button><button class="btn reject" onclick="updateWithdrawal(${id},'rejected')">Reject</button>`;
+  box.innerHTML=`<div class="tx-grid">${list.map(t=>{
+    const id=Number(t.id);
+    const status=String(t.status||"pending").toLowerCase();
+    const type=t.type==="deposit"?"Deposit":"Withdrawal";
+    const statusText=status.charAt(0).toUpperCase()+status.slice(1);
+    const account=t.transaction_id||t.account||"-";
+    let actions=`<button class="btn view" onclick="showTransaction(${id},'${escAttr(t.type)}')">View Details</button>`;
+    if(status==="pending"){
+      actions+=t.type==="deposit"
+        ?`<button class="btn approve" onclick="updateDeposit(${id},'approved')">✓ Approve</button><button class="btn reject" onclick="updateDeposit(${id},'rejected')">✕ Reject</button>`
+        :`<button class="btn approve" onclick="updateWithdrawal(${id},'approved')">✓ Approve</button><button class="btn reject" onclick="updateWithdrawal(${id},'rejected')">✕ Reject</button>`;
     }
+    return `<article class="tx-card">
+      <div class="tx-top">
+        <div><div class="tx-id">#${esc(t.id)}</div><div class="tx-user">${esc(t.name||"Unknown")}</div><div class="tx-meta">${esc(t.phone||t.email||"")}</div><span class="tx-type">${type}</span></div>
+        <div style="text-align:right"><span class="badge ${statusClass(status)}">${statusText}</span><div class="tx-amount">৳${money(t.amount)}</div></div>
+      </div>
+      <div class="tx-info">
+        <div class="tx-info-box"><small>Payment</small><b>${esc(t.payment_method||"-")}</b></div>
+        <div class="tx-info-box"><small>Transaction / Account</small><b>${esc(account)}</b></div>
+      </div>
+      <div class="tx-meta" style="margin-bottom:10px">${dateText(t.created_at)}</div>
+      <div class="tx-actions">${actions}</div>
+    </article>`;
+  }).join("")}</div>`;
+}
 
-
-    html+=`
-    <tr>
-
-      <td>#${esc(t.id)}</td>
-
-      <td>
-        <b>${esc(t.name||"Unknown")}</b>
-        <small>${esc(t.phone||"")}</small>
-      </td>
-
-      <td>
-        ${
-          t.type==="deposit"
-            ?"Deposit"
-            :"Withdrawal"
-        }
-      </td>
-
-      <td>
-        <b>৳${money(t.amount)}</b>
-      </td>
-
-      <td>
-        ${esc(t.payment_method||"-")}
-        <small>
-          ${esc(
-            t.transaction_id ||
-            t.account ||
-            "-"
-          )}
-        </small>
-      </td>
-
-      <td>
-        <span class="badge ${statusClass(normalizeStatus(t.status))}">
-          ${esc(normalizeStatus(t.status))}
-        </span>
-      </td>
-
-      <td>
-        <div class="actions">
-          ${actions}
-        </div>
-      </td>
-
-    </tr>
-    `;
-  });
-
-
-  html+=`
-  </tbody>
-  </table>
-  </div>
-  `;
-
-
-  box.innerHTML=html;
+function setTxFilter(filter){
+  window.txFilter=filter;
+  renderTransactions();
 }
 
 
@@ -1597,47 +1383,30 @@ function renderTransactions(){
 
 async function updateDeposit(id,status){
   if(!['approved','rejected'].includes(status))return;
+  if(!confirm(`এই deposit ${status==='approved'?'approve':'reject'} করবেন?`))return;
   try{
-    const {data:item,error:fetchError}=await supabaseClient.from('deposits').select('id,user_id,amount,status').eq('id',id).single();
-    if(fetchError)throw fetchError;
-    const old=normalizeStatus(item.status);
-    if(old!=='pending')throw new Error('এই deposit আগে থেকেই processed');
-    if(status==='approved'){
-      const {data:user,error:uerr}=await supabaseClient.from('users').select('balance').eq('id',item.user_id).single();
-      if(uerr)throw uerr;
-      const newBalance=Number(user?.balance||0)+Number(item.amount||0);
-      const {error:bErr}=await supabaseClient.from('users').update({balance:newBalance}).eq('id',item.user_id);
-      if(bErr)throw bErr;
-    }
-    const {error}=await supabaseClient.from('deposits').update({status}).eq('id',id);
-    if(error)throw error;
-    showToast(status==='approved'?'Deposit approved + balance added ✅':'Deposit rejected ❌');
+    const row=deposits.find(x=>String(x.id)===String(id));
+    if(!row)throw new Error('Deposit পাওয়া যায়নি');
+    if(String(row.status||'pending').toLowerCase()!=='pending')throw new Error('এই deposit আগে থেকেই processed');
+    const r=await supabaseClient.rpc('pixora_admin_process_deposit',{p_deposit_id:Number(id),p_status:status});
+    if(r.error)throw r.error;
+    showToast(status==='approved'?'Deposit approved — User wallet updated ✅':'Deposit rejected');
     await loadTransactionsOnly(); await loadUsers();
-  }catch(error){showToast(error.message||'Deposit update failed');}
+  }catch(e){console.error(e);showToast(e.message||'Deposit update failed')}
 }
-
-/* =========================
-   UPDATE WITHDRAWAL
-========================= */
 
 async function updateWithdrawal(id,status){
   if(!['approved','rejected'].includes(status))return;
+  if(!confirm(`এই withdrawal ${status==='approved'?'approve':'reject'} করবেন?`))return;
   try{
-    const {data:item,error:fetchError}=await supabaseClient.from('withdrawals').select('id,user_id,amount,status').eq('id',id).single();
-    if(fetchError)throw fetchError;
-    const old=normalizeStatus(item.status);
-    if(old!=='pending')throw new Error('এই withdrawal আগে থেকেই processed');
-    if(status==='rejected'){
-      const {data:user,error:uerr}=await supabaseClient.from('users').select('balance').eq('id',item.user_id).single();
-      if(uerr)throw uerr;
-      const {error:bErr}=await supabaseClient.from('users').update({balance:Number(user?.balance||0)+Number(item.amount||0)}).eq('id',item.user_id);
-      if(bErr)throw bErr;
-    }
-    const {error}=await supabaseClient.from('withdrawals').update({status}).eq('id',id);
-    if(error)throw error;
-    showToast(status==='approved'?'Withdrawal approved ✅':'Withdrawal rejected — টাকা ফেরত দেওয়া হয়েছে ❌');
+    const row=withdrawals.find(x=>String(x.id)===String(id));
+    if(!row)throw new Error('Withdrawal পাওয়া যায়নি');
+    if(String(row.status||'pending').toLowerCase()!=='pending')throw new Error('এই withdrawal আগে থেকেই processed');
+    const r=await supabaseClient.rpc('pixora_admin_process_withdrawal',{p_withdrawal_id:Number(id),p_status:status});
+    if(r.error)throw r.error;
+    showToast(status==='approved'?'Withdrawal approved — User wallet deducted ✅':'Withdrawal rejected');
     await loadTransactionsOnly(); await loadUsers();
-  }catch(error){showToast(error.message||'Withdrawal update failed');}
+  }catch(e){console.error(e);showToast(e.message||'Withdrawal update failed')}
 }
 
 async function loadTransactionsOnly(){
@@ -1699,7 +1468,6 @@ async function loadOrders(){
 
 
     renderOrders();
-    refreshQuickStats();
 
 
   }catch(error){
@@ -1803,11 +1571,19 @@ function renderOrders(){
 
       <td>
 
-        <div class="status-switch">
-          <button class="${String(o.status||"pending").toLowerCase()==="pending"?"on":""}" onclick="changeOrderStatus(${Number(o.id)},'pending')">🟡 Pending</button>
-          <button class="${String(o.status||"").toLowerCase()==="approved"?"on":""}" onclick="changeOrderStatus(${Number(o.id)},'approved')">🟢 Approved</button>
-          <button class="${String(o.status||"").toLowerCase()==="cancelled"?"on":""}" onclick="changeOrderStatus(${Number(o.id)},'cancelled')">🔴 Cancelled</button>
-        </div>
+        <select
+          class="select"
+          onchange="changeOrderStatus(
+            ${Number(o.id)},
+            this.value
+          )">
+
+          ${option("pending",o.status)}
+          ${option("processing",o.status)}
+          ${option("completed",o.status)}
+          ${option("cancelled",o.status)}
+
+        </select>
 
       </td>
 
@@ -1878,168 +1654,170 @@ async function changeOrderStatus(id,status){
 /* =========================
    USER MESSAGES
 ========================= */
+
 async function loadMessages(){
   const box=document.getElementById("messageContent");
-  if(box) box.innerHTML='<div class="loading">Loading messages...</div>';
-  try{
-    const {data,error}=await supabaseClient.from("messages").select("*, users(name,email,phone)").order("created_at",{ascending:false});
-    if(error)throw error;
-    messages=Array.isArray(data)?data:[];
-    renderMessages();
-  }catch(error){
-    messages=[];
-    if(box)box.innerHTML=`<div class="empty">${esc(error.message||"Messages table পাওয়া যায়নি")}</div>`;
-  }
-}
-function renderMessages(){
-  const box=document.getElementById("messageContent");if(!box)return;
-  const q=(document.getElementById("messageSearch")?.value||"").toLowerCase().trim();
-  const list=messages.filter(m=>`${m.id||""} ${m.user_id||""} ${m.message||m.content||m.text||""} ${m.admin_reply||""} ${m.status||""} ${m.users?.name||""} ${m.users?.phone||""}`.toLowerCase().includes(q));
-  if(!list.length){box.innerHTML='<div class="empty">কোনো User Message পাওয়া যায়নি।</div>';return;}
-  box.innerHTML=`<div class="table-wrap"><table><thead><tr><th>User</th><th>Message</th><th>Status</th><th>Admin Reply</th><th>Control</th></tr></thead><tbody>${list.map(m=>{
-    const st=String(m.status||'pending').toLowerCase();
-    return `<tr>
-      <td><b>${esc(m.users?.name||'User')}</b><small>User ID: ${esc(m.user_id||'-')}</small></td>
-      <td>${esc(m.message||m.content||m.text||'-')}<small>${dateText(m.created_at)}</small></td>
-      <td><span class="badge ${statusClass(st)}">${esc(st)}</span></td>
-      <td>${m.admin_reply?`<div class="detail" style="margin:0;padding:9px"><small>Reply</small>${esc(m.admin_reply)}</div>`:'<span style="color:#7f8aa6">No reply</span>'}</td>
-      <td><div class="messageActions">
-        <button class="${st==='pending'?'active':''}" onclick="updateMessageStatus(${Number(m.id)},'pending')">🟡 Pending</button>
-        <button class="${st==='approved'?'active':''}" onclick="updateMessageStatus(${Number(m.id)},'approved')">🟢 Approved</button>
-        <button class="${st==='cancelled'?'active':''}" onclick="updateMessageStatus(${Number(m.id)},'cancelled')">🔴 Cancel</button>
-        <button onclick="openMessageReply(${Number(m.id)})">↩️ Reply</button>
-      </div></td>
-    </tr>`;
-  }).join('')}</tbody></table></div>`;
-}
-function openMessageReply(id){
-  const m=messages.find(x=>String(x.id)===String(id));
-  if(!m)return;
-  document.getElementById("detailTitle").textContent=`Reply to ${m.users?.name||'User'}`;
-  document.getElementById("detailBody").innerHTML=`
-    <div class="detail"><small>User ID</small><b>${esc(m.user_id||'-')}</b></div>
-    <div class="detail"><small>User Message</small><div>${esc(m.message||m.content||m.text||'-')}</div></div>
-    <div class="control-box">
-      <label>Admin Reply</label>
-      <textarea id="adminReplyText" style="width:100%;min-height:120px;padding:10px;border-radius:10px;border:1px solid #ffffff12;background:#121a2d;color:#fff;outline:none" placeholder="User-কে আপনার reply লিখুন...">${esc(m.admin_reply||'')}</textarea>
-      <div class="control-row" style="margin-top:9px">
-        <button class="mini approve" onclick="sendAdminReply(${Number(m.id)})">📤 Reply Send</button>
-        <button class="mini process" onclick="updateMessageStatus(${Number(m.id)},'pending');closeDetails()">🟡 Pending</button>
-        <button class="mini cancel" onclick="updateMessageStatus(${Number(m.id)},'cancelled');closeDetails()">🔴 Cancel</button>
-        <button class="mini complete" onclick="updateMessageStatus(${Number(m.id)},'approved');closeDetails()">🟢 Approved</button>
-      </div>
-    </div>`;
-  openDetails();
-}
-async function sendAdminReply(id){
-  const text=(document.getElementById("adminReplyText")?.value||"").trim();
-  if(!text){showToast("Reply লিখুন।");return;}
-  try{
-    const {error}=await supabaseClient.from("messages").update({
-      admin_reply:text,
-      status:"approved"
-    }).eq("id",id);
-    if(error)throw error;
-    showToast("User-কে Reply পাঠানো হয়েছে ✅");
-    closeDetails();
-    await loadMessages();
-  }catch(error){showToast(error.message||"Reply send failed");}
-}
-async function updateMessageStatus(id,status){
-  try{
-    const {data:msg,error:msgErr}=await supabaseClient.from("messages").select("*").eq("id",id).single();
-    if(msgErr)throw msgErr;
-    const isShare=String(msg.message||'')==='[PIXORA_SHARE_REWARD_5]';
-    const wasApproved=String(msg.status||'').toLowerCase()==='approved';
-    if(status==='approved' && isShare && !wasApproved){
-      const {data:user,error:userErr}=await supabaseClient.from("users").select("balance").eq("id",msg.user_id).single();
-      if(userErr)throw userErr;
-      const {error:balErr}=await supabaseClient.from("users").update({balance:Number(user.balance||0)+5}).eq("id",msg.user_id);
-      if(balErr)throw balErr;
-    }
-    const {error}=await supabaseClient.from("messages").update({status}).eq("id",id);
-    if(error)throw error;
-    showToast(status==='approved'?(isShare&&!wasApproved?'Share approved — ৳5 added to User wallet ✅':'User-কে Approved দেখানো হয়েছে ✅'):status==='cancelled'?'Message Cancelled':'Pending করা হয়েছে');
-    await loadMessages();
-    await loadUsers();
-  }catch(error){showToast(error.message||'Message status update failed');}
-}
-
-/* =========================
-   PUBLIC APP WORK + SUBMISSIONS
-========================= */
-async function loadPublicTasks(){
-  const box=document.getElementById("assignedTaskContent");
   if(!box)return;
-  box.innerHTML='<div class="loading">Loading public works...</div>';
+  box.innerHTML='<div class="loading">Loading messages...</div>';
   try{
     const {data,error}=await supabaseClient
-      .from("tasks")
+      .from("messages")
       .select("*")
       .order("created_at",{ascending:false});
     if(error)throw error;
-    assignedTasks=Array.isArray(data)?data:[];
-    renderPublicTasks();
+    adminMessages=Array.isArray(data)?data:[];
+    renderMessages();
   }catch(error){
-    assignedTasks=[];
-    box.innerHTML=`<div class="empty">Work load failed.<br><small>${esc(error.message||"tasks table error")}</small></div>`;
+    console.error("Messages:",error);
+    box.innerHTML=`<div class="empty">Message load failed.<br><small>${esc(error.message||"messages error")}</small></div>`;
   }
 }
 
-function renderPublicTasks(){
-  const box=document.getElementById("assignedTaskContent");
+function renderMessages(){
+  const box=document.getElementById("messageContent");
   if(!box)return;
-  if(!assignedTasks.length){
-    box.innerHTML='<div class="empty">এখনও কোনো Public Work প্রকাশ করা হয়নি।</div>';
-    return;
-  }
-  box.innerHTML=`<div class="table-wrap"><table><thead><tr><th>Work</th><th>Reward</th><th>Status</th><th>Control</th></tr></thead><tbody>${assignedTasks.map(t=>{
-    const st=String(t.status||'published').toLowerCase();
-    return `<tr>
-      <td><b>${esc(t.title||'Work')}</b><small>${esc(t.description||'')}</small></td>
-      <td><b>৳${money(t.reward||0)}</b></td>
-      <td><span class="badge ${statusClass(st)}">${esc(st)}</span></td>
-      <td><select class="select" onchange="changeTaskStatus('${escAttr(t.id)}',this.value)">
-        ${option('draft',st)}${option('published',st)}${option('paused',st)}${option('closed',st)}
-      </select></td>
-    </tr>`;
-  }).join('')}</tbody></table></div>`;
+  const q=(document.getElementById("messageSearch")?.value||"").toLowerCase().trim();
+  const list=adminMessages.filter(m=>{
+    const hay=`${m.user_id||""} ${m.sender_id||""} ${m.message||""} ${m.content||""} ${m.status||""} ${m.admin_reply||""}`.toLowerCase();
+    return !q||hay.includes(q);
+  });
+  if(!list.length){box.innerHTML='<div class="empty">কোনো User message নেই।</div>';return;}
+  box.innerHTML=list.map(m=>{
+    const st=String(m.status||"pending").toLowerCase();
+    const text=m.message||m.content||"";
+    return `<article class="task-card" style="margin-bottom:10px">
+      <div class="task-card-top">
+        <div><div class="task-title">User: ${esc(m.user_id||m.sender_id||"-")}</div>
+        <div class="task-desc" style="margin-top:8px">${esc(text)}</div>
+        ${m.admin_reply?`<div class="task-desc" style="margin-top:8px"><b>Admin Reply:</b> ${esc(m.admin_reply)}</div>`:""}
+        <div class="tx-meta" style="margin-top:7px">${esc(m.created_at||"")}</div></div>
+        <span class="badge ${statusClass(st)}">${esc(st)}</span>
+      </div>
+      <div class="submission-actions" style="margin-top:10px">
+        <button class="btn" style="background:#9b6b16" onclick="updateMessageStatus('${escAttr(m.id)}','pending')">🟡 Pending</button>
+        <button class="btn approve" onclick="replyToMessage('${escAttr(m.id)}')">📤 Reply</button>
+        <button class="btn approve" onclick="updateMessageStatus('${escAttr(m.id)}','approved')">🟢 Approved</button>
+        <button class="btn reject" onclick="updateMessageStatus('${escAttr(m.id)}','cancelled')">🔴 Cancel</button>
+      </div>
+    </article>`;
+  }).join('');
 }
 
-async function publishPublicTask(){
-  const title=document.getElementById("assignTitle")?.value.trim();
-  const description=document.getElementById("assignDescription")?.value.trim();
-  const reward=Number(document.getElementById("assignReward")?.value||0);
-  if(!title){showToast('কাজের নাম দিন।');return;}
-  if(!description){showToast('কাজের বিস্তারিত দিন।');return;}
-  if(!Number.isFinite(reward)||reward<0){showToast('সঠিক Reward দিন।');return;}
+async function replyToMessage(id){
+  const row=adminMessages.find(x=>String(x.id)===String(id));
+  if(!row)return;
+  const text=prompt('User-কে reply লিখুন:',row.admin_reply||"");
+  if(text===null)return;
+  const reply=text.trim();
+  if(!reply){showToast('Reply লিখুন।');return;}
+  try{
+    const {error}=await supabaseClient.from("messages").update({admin_reply:reply,status:"approved",updated_at:new Date().toISOString()}).eq("id",id);
+    if(error)throw error;
+    showToast("User-কে Reply পাঠানো হয়েছে ✅");
+    await loadMessages();
+  }catch(error){showToast(error.message||"Reply send failed");}
+}
+
+async function updateMessageStatus(id,status){
+  if(!['pending','approved','cancelled'].includes(status))return;
+  try{
+    const {error}=await supabaseClient.from("messages").update({status,updated_at:new Date().toISOString()}).eq("id",id);
+    if(error)throw error;
+    showToast("Message status updated ✅");
+    await loadMessages();
+  }catch(error){showToast(error.message||"Message status update failed");}
+}
+
+/* =========================
+   PUBLIC WORK / TASKS
+========================= */
+async function publishNotice(){
+  const title=document.getElementById('noticeTitle')?.value.trim();
+  const message=document.getElementById('noticeMessage')?.value.trim();
+  const type=document.getElementById('noticeType')?.value||'info';
+  if(!title||!message){showToast('Title এবং message দিন।');return;}
+  try{
+    const {error}=await supabaseClient.from('notices').insert({title,message,type,is_active:true,is_pinned:false});
+    if(error)throw error;
+    document.getElementById('noticeTitle').value='';document.getElementById('noticeMessage').value='';
+    showToast('Notification সব User-এর App-এ পাঠানো হয়েছে ✅'); await loadNotices();
+  }catch(e){console.error(e);showToast(e.message||'Notification send failed');}
+}
+async function loadNotices(){
+  const box=document.getElementById('noticeContent');if(!box)return;
+  try{const {data,error}=await supabaseClient.from('notices').select('*').order('created_at',{ascending:false});if(error)throw error;
+    const list=Array.isArray(data)?data:[];
+    box.innerHTML=list.length?list.map(n=>`<div class=\"task-card\"><div class=\"task-card-top\"><div><div class=\"task-title\">${esc(n.title||'Notification')}</div><div class=\"task-desc\">${esc(n.message||'')}</div></div><span class=\"badge\">${n.is_active?'Active':'Off'}</span></div><div class=\"actions\" style=\"margin-top:8px\"><button class=\"btn reject\" onclick=\"toggleNotice(${n.id},${!n.is_active})\">${n.is_active?'Disable':'Enable'}</button></div></div>`).join(''):'<div class=\"empty\">কোনো notification নেই।</div>';
+  }catch(e){box.innerHTML=`<div class=\"empty\">Notification load failed.<br><small>${esc(e.message||'notices error')}</small></div>`;}
+}
+async function toggleNotice(id,active){try{const {error}=await supabaseClient.from('notices').update({is_active:active,updated_at:new Date().toISOString()}).eq('id',id);if(error)throw error;await loadNotices();showToast(active?'Notification enabled':'Notification disabled');}catch(e){showToast(e.message||'Update failed');}}
+
+async function publishTask(){
+  const title=document.getElementById("taskTitle")?.value.trim();
+  const description=document.getElementById("taskDescription")?.value.trim();
+  const reward=Number(document.getElementById("taskReward")?.value||0);
+  if(!title){showToast("কাজের নাম দিন।");return;}
+  if(!description){showToast("কাজের বিস্তারিত দিন।");return;}
+  if(!Number.isFinite(reward)||reward<0){showToast("সঠিক Reward দিন।");return;}
   try{
     const {data:{user}}=await supabaseClient.auth.getUser();
     const {error}=await supabaseClient.from("tasks").insert({
-      title,
-      description,
-      reward,
-      status:'published',
-      created_by:user?.id||null
+      title,description,reward,status:"published",created_by:user?.id||null
     });
     if(error)throw error;
-    document.getElementById('assignTitle').value='';
-    document.getElementById('assignDescription').value='';
-    document.getElementById('assignReward').value='';
-    showToast('সব User-এর App-এ কাজ Publish হয়েছে ✅');
-    await loadPublicTasks();
+    document.getElementById("taskTitle").value="";
+    document.getElementById("taskDescription").value="";
+    document.getElementById("taskReward").value="";
+    showToast("কাজ সব User-এর App-এ Publish হয়েছে ✅");
+    await loadTasks();
   }catch(error){
-    showToast(error.message||'Work publish failed');
+    console.error(error);
+    showToast(error.message||"Work publish failed");
   }
+}
+
+async function loadTasks(){
+  const box=document.getElementById("taskContent");
+  if(!box)return;
+  box.innerHTML='<div class="loading">Loading public works...</div>';
+  try{
+    const {data,error}=await supabaseClient.from("tasks").select("*").order("created_at",{ascending:false});
+    if(error)throw error;
+    tasks=Array.isArray(data)?data:[];
+    renderTasks();
+  }catch(error){
+    console.error("Tasks:",error);
+    box.innerHTML=`<div class="empty">Work load failed.<br><small>${esc(error.message||"tasks error")}</small></div>`;
+  }
+}
+
+function renderTasks(){
+  const box=document.getElementById("taskContent");
+  if(!box)return;
+  if(!tasks.length){box.innerHTML='<div class="empty">কোনো public work নেই।</div>';return;}
+  box.innerHTML='<div class="task-list">'+tasks.map(t=>{
+    const st=String(t.status||"published").toLowerCase();
+    return `<article class="task-card">
+      <div class="task-card-top">
+        <div><div class="task-title">${esc(t.title||"Work")}</div><div class="task-desc">${esc(t.description||"")}</div></div>
+        <div style="text-align:right"><span class="badge ${statusClass(st)}">${esc(st)}</span><div class="task-reward">৳${money(t.reward)}</div></div>
+      </div>
+      <div class="actions" style="margin-top:10px">
+        <select class="select" onchange="changeTaskStatus('${escAttr(t.id)}',this.value)">
+          ${option("draft",st)}${option("published",st)}${option("paused",st)}${option("closed",st)}
+        </select>
+      </div>
+    </article>`;
+  }).join('')+'</div>';
 }
 
 async function changeTaskStatus(id,status){
   try{
     const {error}=await supabaseClient.from("tasks").update({status}).eq("id",id);
     if(error)throw error;
-    showToast('Work status updated ✅');
-    await loadPublicTasks();
-  }catch(error){showToast(error.message||'Task status update failed');}
+    showToast("Work status updated ✅");
+    await loadTasks();
+  }catch(error){showToast(error.message||"Task status update failed");}
 }
 
 async function loadTaskSubmissions(){
@@ -2047,123 +1825,127 @@ async function loadTaskSubmissions(){
   if(!box)return;
   box.innerHTML='<div class="loading">Loading submissions...</div>';
   try{
-    const {data,error}=await supabaseClient
-      .from("task_submissions")
-      .select("*, tasks(title,reward)")
-      .order("submitted_at",{ascending:false});
+    const {data,error}=await supabaseClient.from("task_submissions").select("*, tasks(title,reward)").order("submitted_at",{ascending:false});
     if(error)throw error;
-    const list=Array.isArray(data)?data:[];
-    window.__taskSubmissionCache=list;
-    renderTaskSubmissions(list);
+    taskSubmissions=Array.isArray(data)?data:[];
+    renderTaskSubmissions();
   }catch(error){
-    box.innerHTML=`<div class="empty">Submission load failed.<br><small>${esc(error.message||'task_submissions error')}</small></div>`;
+    console.error("Task submissions:",error);
+    box.innerHTML=`<div class="empty">Submission load failed.<br><small>${esc(error.message||"task_submissions error")}</small></div>`;
   }
 }
 
-function renderTaskSubmissions(list){
+function renderTaskSubmissions(){
   const box=document.getElementById("taskSubmissionContent");
   if(!box)return;
-  const filtered=list.filter(s=>submissionFilter==='all'||normalizeStatus(s.status)===submissionFilter);
-  if(!filtered.length){box.innerHTML='<div class="empty">এই filter-এ কোনো User submission নেই।</div>';return;}
-  box.innerHTML=`<div class="table-wrap"><table><thead><tr><th>User</th><th>Work</th><th>Proof</th><th>Status</th><th>Control</th></tr></thead><tbody>${filtered.map(s=>{
-    const st=normalizeStatus(s.status);
-    const rawSt=String(s.status||'pending').toLowerCase();
+  if(!taskSubmissions.length){box.innerHTML='<div class="empty">কোনো User submission নেই।</div>';return;}
+  box.innerHTML=taskSubmissions.map(s=>{
+    const st=String(s.status||"pending").toLowerCase();
     const proof=s.proof_url?`<a href="${escAttr(s.proof_url)}" target="_blank" rel="noopener" style="color:#9fc0ff">📸 View Proof</a>`:'-';
-    return `<tr>
-      <td><b>User</b><small>${esc(s.user_id||'-')}</small></td>
-      <td><b>${esc(s.tasks?.title||'Work')}</b><small>Reward: ৳${money(s.tasks?.reward||0)}</small></td>
-      <td>${proof}<small>${esc(s.proof_note||'')}</small></td>
-      <td><span class="badge ${statusClass(st)}">${esc(st)}</span></td>
-      <td><div class="messageActions">
-        <button class="${st==='pending'?'active':''}" onclick="changeSubmissionStatus('${escAttr(s.id)}','pending')">🟡 Pending</button>
-        <button class="${st==='approved'?'active':''}" onclick="changeSubmissionStatus('${escAttr(s.id)}','approved')">🟢 Approve</button>
-        <button class="${rawSt==='revision'?'active':''}" onclick="changeSubmissionStatus('${escAttr(s.id)}','revision')">🔄 Revision</button>
-        <button class="${st==='rejected'?'active':''}" onclick="changeSubmissionStatus('${escAttr(s.id)}','rejected')">🔴 Reject</button>
-      </div></td>
-    </tr>`;
-  }).join('')}</tbody></table></div>`;
+    return `<div class="submission-card">
+      <div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start">
+        <div><b>${esc(s.tasks?.title||"Work")}</b><div class="tx-meta">User: ${esc(s.user_id||"-")}</div><div class="tx-meta">Reward: ৳${money(s.tasks?.reward||0)}</div></div>
+        <span class="badge ${statusClass(st)}">${esc(st)}</span>
+      </div>
+      <div style="margin-top:7px;font-size:11px">${proof}</div>
+      ${s.proof_note?`<div class="tx-meta" style="margin-top:5px">${esc(s.proof_note)}</div>`:''}
+      <div class="submission-actions">
+        <button class="btn" style="background:#9b6b16" onclick="changeSubmissionStatus('${escAttr(s.id)}','pending')">🟡 Pending</button>
+        <button class="btn approve" onclick="changeSubmissionStatus('${escAttr(s.id)}','approved')">🟢 Approve</button>
+        <button class="btn" style="background:#5c4ca8" onclick="changeSubmissionStatus('${escAttr(s.id)}','revision')">🔄 Revision</button>
+        <button class="btn reject" onclick="changeSubmissionStatus('${escAttr(s.id)}','rejected')">🔴 Reject</button>
+      </div>
+    </div>`;
+  }).join('');
 }
 
 async function changeSubmissionStatus(id,status){
+  if(!['pending','approved','rejected','revision'].includes(status))return;
+  const row=taskSubmissions.find(x=>String(x.id)===String(id));
+  if(!row)return;
+  const current=String(row.status||'pending').toLowerCase();
+  if(current==='approved' && status!=='approved'){
+    showToast('Approved submission আবার Pending/Reject করা যাবে না');
+    return;
+  }
+  if(!confirm(`Submission status ${status} করবেন?`))return;
   try{
-    const {data:s,error:sErr}=await supabaseClient.from('task_submissions').select('id,user_id,task_id,status,tasks(title,reward)').eq('id',id).single();if(sErr)throw sErr;
-    const old=String(s.status||'pending').toLowerCase(), next=String(status).toLowerCase();
-    if(old===next)return;
-    if(next==='approved' && old!=='approved'){
-      const reward=Number(s.tasks?.reward||0);
-      if(reward>0){
-        const {data:user,error:uErr}=await supabaseClient.from('users').select('balance,total_income').eq('id',s.user_id).single();if(uErr)throw uErr;
-        const patch={balance:Number(user.balance||0)+reward};
-        if('total_income' in (user||{}))patch.total_income=Number(user.total_income||0)+reward;
-        const {error:bErr}=await supabaseClient.from('users').update(patch).eq('id',s.user_id);if(bErr)throw bErr;
-      }
+    const patch={status};
+    if(status==='approved'||status==='rejected'){
+      const {data:{user}}=await supabaseClient.auth.getUser();
+      patch.reviewed_at=new Date().toISOString();
+      patch.reviewed_by=user?.id||null;
+    }else{
+      patch.reviewed_at=null;
+      patch.reviewed_by=null;
     }
-    const patch={status:next};if(next==='approved'||next==='rejected'){patch.reviewed_at=new Date().toISOString();const {data:{user}}=await supabaseClient.auth.getUser();patch.reviewed_by=user?.id||null;}else{patch.reviewed_at=null;patch.reviewed_by=null;}
-    const {error}=await supabaseClient.from('task_submissions').update(patch).eq('id',id);if(error)throw error;
-    showToast(next==='approved'?'Submission approved + earning added ✅':`Submission ${next} ✅`);
+    if(status==='approved' && current!=='approved'){
+      const r=await supabaseClient.rpc('pixora_admin_process_submission',{p_submission_id:id,p_status:'approved'});
+      if(r.error)throw r.error;
+    }else{
+      const {error}=await supabaseClient.from('task_submissions').update(patch).eq('id',id).eq('status',current);
+      if(error)throw error;
+    }
+    showToast(status==='approved'?'Submission approved — reward Wallet-এ যোগ হয়েছে ✅':`Submission ${status} হয়েছে`);
     await loadTaskSubmissions(); await loadUsers();
-  }catch(error){showToast(error.message||'Task submission update failed');}
+  }catch(error){console.error(error);showToast(error.message||'Submission status update failed')}
 }
+
+
 
 /* =========================
    USER DETAILS
 ========================= */
 
 function showUser(id){
-  const user=users.find(x=>String(x.id)===String(id));
+
+  const user =
+    users.find(
+      x=>String(x.id)===String(id)
+    );
+
+
   if(!user)return;
-  document.getElementById("detailTitle").textContent=`User Control • ${user.name||user.id}`;
-  document.getElementById("detailBody").innerHTML=`
-    <div class="detail"><small>User ID</small><b>${esc(user.id)}</b></div>
-    <div class="detail"><small>Name</small><b>${esc(user.name||"-")}</b></div>
-    <div class="detail"><small>Email</small><b>${esc(user.email||"-")}</b></div>
-    <div class="detail"><small>Phone</small><b>${esc(user.phone||"-")}</b></div>
-    <div class="detail"><small>Current Wallet Balance</small><b>৳${money(user.balance)}</b></div>
-    <div class="user-control">
-      <div class="control-box"><label>Set exact balance</label><input id="editBalance" type="number" min="0" step="0.01" value="${Number(user.balance||0)}"></div>
-      <div class="control-box"><label>Balance adjustment</label><input id="balanceDelta" type="number" step="0.01" placeholder="+100 / -50"></div>
-      <div class="control-box full"><label>Admin action</label><div class="control-row"><button class="mini approve" onclick="setUserBalance('${escAttr(user.id)}')">💰 Set Balance</button><button class="mini process" onclick="adjustUserBalance('${escAttr(user.id)}')">➕➖ Adjust Balance</button></div></div>
+
+
+  document.getElementById("detailTitle")
+    .textContent=
+      `User #${user.id}`;
+
+
+  document.getElementById("detailBody")
+    .innerHTML=`
+
+    <div class="detail">
+      <small>Name</small>
+      <b>${esc(user.name||"-")}</b>
     </div>
-    <div class="notice" style="margin-top:12px">🔒 User ID is the database identifier and is displayed here exactly as stored. Changing a primary-key ID directly can break related orders/transactions, so this panel does not silently rewrite it.</div>
+
+    <div class="detail">
+      <small>Email</small>
+      <b>${esc(user.email||"-")}</b>
+    </div>
+
+    <div class="detail">
+      <small>Phone</small>
+      <b>${esc(user.phone||"-")}</b>
+    </div>
+
+    <div class="detail">
+      <small>Balance</small>
+      <b>৳${money(user.balance)}</b>
+    </div>
+
+    <div class="detail">
+      <small>Created</small>
+      <b>${dateText(user.created_at)}</b>
+    </div>
   `;
+
+
   openDetails();
 }
 
-async function setUserBalance(id){
-  const input=document.getElementById("editBalance");
-  const amount=Number(input?.value);
-  if(!Number.isFinite(amount)||amount<0){showToast("Valid balance দিন");return;}
-  try{
-    const {error}=await supabaseClient.from("users").update({balance:amount}).eq("id",id);
-    if(error)throw error;
-    showToast("Wallet balance updated ✅");
-    closeDetails(); await loadUsers();
-  }catch(e){showToast(e.message||"Balance update failed");}
-}
-
-async function adjustUserBalance(id){
-  const input=document.getElementById("balanceDelta");
-  const delta=Number(input?.value);
-  const user=users.find(x=>String(x.id)===String(id));
-  if(!user||!Number.isFinite(delta)){showToast("Valid adjustment দিন");return;}
-  const next=Number(user.balance||0)+delta;
-  if(next<0){showToast("Balance 0-এর নিচে হতে পারবে না");return;}
-  try{
-    const {error}=await supabaseClient.from("users").update({balance:next}).eq("id",id);
-    if(error)throw error;
-    showToast("Wallet adjusted ✅");
-    closeDetails(); await loadUsers();
-  }catch(e){showToast(e.message||"Balance update failed");}
-}
-
-function saveLocalSetting(){
-  localStorage.setItem("pixora_admin_settings",JSON.stringify({
-    bkash:document.getElementById("bkashNumber")?.value||"01988891195",
-    photoPrice:Number(document.getElementById("photoPrice")?.value||40),
-    videoPrice:Number(document.getElementById("videoPrice")?.value||120)
-  }));
-  showToast("Settings saved on this device ✅");
-}
 
 /* =========================
    TRANSACTION DETAILS
@@ -2404,17 +2186,6 @@ document.getElementById("detailModal")
    TABS
 ========================= */
 
-function openAdminTab(id){
-  const panel=document.getElementById(id);
-  if(!panel) return;
-  const button=document.querySelector('.tab[onclick*=\"\''+id+'\'\"]');
-  document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
-  panel.classList.add('active');
-  if(button) button.classList.add('active');
-  panel.scrollIntoView({behavior:'smooth',block:'start'});
-}
-
 function showTab(id,button){
 
   document.querySelectorAll(".panel")
@@ -2464,7 +2235,13 @@ function statusClass(status){
     "completed",
     "rejected",
     "cancelled",
-    "processing"
+    "processing",
+    "revision",
+    "published",
+    "paused",
+    "draft",
+    "open",
+    "closed"
   ];
 
 
@@ -2657,22 +2434,28 @@ supabaseClient.auth.onAuthStateChange(
 );
 
 
+window.txFilter="all";
+
 /* =========================
    START
 ========================= */
 
-(function loadLocalSettings(){
-  try{
-    const x=JSON.parse(localStorage.getItem("pixora_admin_settings")||"null");
-    if(x){
-      if(document.getElementById("bkashNumber"))document.getElementById("bkashNumber").value=x.bkash||"01988891195";
-      if(document.getElementById("photoPrice"))document.getElementById("photoPrice").value=x.photoPrice??40;
-      if(document.getElementById("videoPrice"))document.getElementById("videoPrice").value=x.videoPrice??120;
-    }
-  }catch(e){console.warn(e)}
-})();
 checkSession();
 
+</script>
+
+
+<script>
+(function(){
+  document.addEventListener('click',function(e){
+    const b=e.target.closest('button');
+    if(!b)return;
+    const t=(b.innerText||'').toLowerCase();
+    if(t.includes('approve')||t.includes('publish')||t.includes('send')){
+      setTimeout(()=>location.reload(),1200);
+    }
+  });
+})();
 </script>
 
 </body>

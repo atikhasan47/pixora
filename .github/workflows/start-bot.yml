@@ -7,8 +7,12 @@ jobs:
   run-bot:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: telegram-bot
+
     steps:
-      - name: Checkout Pixora
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Node.js
@@ -19,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Start Telegram Bot
+      - name: Start Pixora Telegram Bot
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
         run: npm start

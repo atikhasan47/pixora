@@ -7,7 +7,7 @@ const http = require("http");
 // ================================
 
 const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
-const PORT = process.env.PORT || 10000;
+const PORT = Number(process.env.PORT) || 10000;
 const RENDER_URL = process.env.RENDER_EXTERNAL_URL;
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
@@ -37,12 +37,15 @@ const bot = new TelegramBot(TOKEN, {
 
 let openai = null;
 
-if (OPENAI_API_KEY) {
+if (OPENAI_API_KEY && OPENAI_API_KEY.trim()) {
   openai = new OpenAI({
-    apiKey: OPENAI_API_KEY
+    apiKey: OPENAI_API_KEY.trim(),
+    timeout: 60000,
+    maxRetries: 2
   });
 
   console.log("OpenAI AI integration enabled.");
+  console.log(`OpenAI model configured: ${OPENAI_MODEL}`);
 } else {
   console.log("OpenAI API key not found. AI mode disabled.");
 }
@@ -121,15 +124,19 @@ bot.onText(/^\/start$/, async (msg) => {
   aiMode.delete(chatId);
   userHistory.delete(chatId);
 
-  await bot.sendMessage(
-    chatId,
-    `👋 Welcome to Pixora!
+  try {
+    await bot.sendMessage(
+      chatId,
+      `👋 Welcome to Pixora!
 
 🎨 Create and edit your content with Pixora.
 
 Choose an option below:`,
-    mainMenu()
-  );
+      mainMenu()
+    );
+  } catch (error) {
+    console.error("Telegram /start error:", error?.message || error);
+  }
 });
 
 // ================================
@@ -142,225 +149,225 @@ bot.on("callback_query", async (query) => {
 
   try {
     await bot.answerCallbackQuery(query.id);
-  } catch (e) {
-    console.error("Callback answer error:", e.message);
+  } catch (error) {
+    console.error("Callback answer error:", error?.message || error);
   }
 
-  // ================================
-  // Pixora Editor
-  // ================================
+  try {
+    // ================================
+    // Editor
+    // ================================
 
-  if (data === "editor") {
-    await bot.sendMessage(
-      chatId,
-      `🎨 Pixora Editor
-
-Open the Pixora Editor below:`,
-      {
-        reply_markup: {
-          inline_keyboard: [
-            [
-              {
-                text: "🎨 Open Pixora Editor",
-                url: "https://atikhasan47.github.io/pixora/"
-              }
-            ],
-            [
-              {
-                text: "⬅️ Back to Menu",
-                callback_data: "back"
-              }
-            ]
-          ]
-        }
-      }
-    );
-
-    return;
-  }
-
-  // ================================
-  // AI Assistant
-  // ================================
-
-  if (data === "ai") {
-    if (!openai) {
+    if (data === "editor") {
       await bot.sendMessage(
         chatId,
-        "🤖 AI Assistant is currently unavailable."
+        `🎨 Pixora Editor
+
+Open the Pixora Editor below:`,
+        {
+          reply_markup: {
+            inline_keyboard: [
+              [
+                {
+                  text: "🎨 Open Pixora Editor",
+                  url: "https://atikhasan47.github.io/pixora/"
+                }
+              ],
+              [
+                {
+                  text: "⬅️ Back to Menu",
+                  callback_data: "back"
+                }
+              ]
+            ]
+          }
+        }
       );
+
       return;
     }
 
-    aiMode.add(chatId);
+    // ================================
+    // AI Assistant
+    // ================================
 
-    userHistory.set(chatId, []);
+    if (data === "ai") {
+      if (!openai) {
+        await bot.sendMessage(
+          chatId,
+          "🤖 AI Assistant is currently unavailable.\n\nPlease check the OpenAI API configuration."
+        );
+        return;
+      }
 
-    await bot.sendMessage(
-      chatId,
-      `🤖 AI Assistant activated!
+      aiMode.add(chatId);
+      userHistory.set(chatId, []);
+
+      await bot.sendMessage(
+        chatId,
+        `🤖 AI Assistant activated!
 
 Send me a message and I'll try to help you.
 
 To leave AI mode, send /start.`
-    );
+      );
 
-    return;
-  }
+      return;
+    }
 
-  // ================================
-  // Earning
-  // ================================
+    // ================================
+    // Earning
+    // ================================
 
-  if (data === "earning") {
-    await bot.sendMessage(
-      chatId,
-      `💰 Earning
+    if (data === "earning") {
+      await bot.sendMessage(
+        chatId,
+        `💰 Earning
 
 Your earning system will be available here.
 
 More earning features can be connected later.`,
-      {
-        reply_markup: {
-          inline_keyboard: [
-            [
-              {
-                text: "⬅️ Back to Menu",
-                callback_data: "back"
-              }
+        {
+          reply_markup: {
+            inline_keyboard: [
+              [
+                {
+                  text: "⬅️ Back to Menu",
+                  callback_data: "back"
+                }
+              ]
             ]
-          ]
+          }
         }
-      }
-    );
+      );
 
-    return;
-  }
+      return;
+    }
 
-  // ================================
-  // Account
-  // ================================
+    // ================================
+    // Account
+    // ================================
 
-  if (data === "account") {
-    await bot.sendMessage(
-      chatId,
-      `👤 Account
+    if (data === "account") {
+      await bot.sendMessage(
+        chatId,
+        `👤 Account
 
 Your Pixora account information will appear here.`,
-      {
-        reply_markup: {
-          inline_keyboard: [
-            [
-              {
-                text: "⬅️ Back to Menu",
-                callback_data: "back"
-              }
+        {
+          reply_markup: {
+            inline_keyboard: [
+              [
+                {
+                  text: "⬅️ Back to Menu",
+                  callback_data: "back"
+                }
+              ]
             ]
-          ]
+          }
         }
-      }
-    );
+      );
 
-    return;
-  }
+      return;
+    }
 
-  // ================================
-  // Community
-  // ================================
+    // ================================
+    // Community
+    // ================================
 
-  if (data === "community") {
-    await bot.sendMessage(
-      chatId,
-      `👥 Pixora Community
+    if (data === "community") {
+      await bot.sendMessage(
+        chatId,
+        `👥 Pixora Community
 
 Join the Pixora community and stay connected.`,
-      {
-        reply_markup: {
-          inline_keyboard: [
-            [
-              {
-                text: "⬅️ Back to Menu",
-                callback_data: "back"
-              }
+        {
+          reply_markup: {
+            inline_keyboard: [
+              [
+                {
+                  text: "⬅️ Back to Menu",
+                  callback_data: "back"
+                }
+              ]
             ]
-          ]
+          }
         }
-      }
-    );
+      );
 
-    return;
-  }
+      return;
+    }
 
-  // ================================
-  // YouTube
-  // ================================
+    // ================================
+    // YouTube
+    // ================================
 
-  if (data === "youtube") {
-    await bot.sendMessage(
-      chatId,
-      "▶️ Pixora YouTube",
-      {
-        reply_markup: {
-          inline_keyboard: [
-            [
-              {
-                text: "▶️ Open YouTube",
-                url: "https://www.youtube.com/"
-              }
-            ],
-            [
-              {
-                text: "⬅️ Back to Menu",
-                callback_data: "back"
-              }
+    if (data === "youtube") {
+      await bot.sendMessage(
+        chatId,
+        "▶️ Pixora YouTube",
+        {
+          reply_markup: {
+            inline_keyboard: [
+              [
+                {
+                  text: "▶️ Open YouTube",
+                  url: "https://www.youtube.com/"
+                }
+              ],
+              [
+                {
+                  text: "⬅️ Back to Menu",
+                  callback_data: "back"
+                }
+              ]
             ]
-          ]
+          }
         }
-      }
-    );
+      );
 
-    return;
-  }
+      return;
+    }
 
-  // ================================
-  // Facebook
-  // ================================
+    // ================================
+    // Facebook
+    // ================================
 
-  if (data === "facebook") {
-    await bot.sendMessage(
-      chatId,
-      "📘 Pixora Facebook",
-      {
-        reply_markup: {
-          inline_keyboard: [
-            [
-              {
-                text: "📘 Open Facebook",
-                url: "https://www.facebook.com/"
-              }
-            ],
-            [
-              {
-                text: "⬅️ Back to Menu",
-                callback_data: "back"
-              }
+    if (data === "facebook") {
+      await bot.sendMessage(
+        chatId,
+        "📘 Pixora Facebook",
+        {
+          reply_markup: {
+            inline_keyboard: [
+              [
+                {
+                  text: "📘 Open Facebook",
+                  url: "https://www.facebook.com/"
+                }
+              ],
+              [
+                {
+                  text: "⬅️ Back to Menu",
+                  callback_data: "back"
+                }
+              ]
             ]
-          ]
+          }
         }
-      }
-    );
+      );
 
-    return;
-  }
+      return;
+    }
 
-  // ================================
-  // Help
-  // ================================
+    // ================================
+    // Help
+    // ================================
 
-  if (data === "help") {
-    await bot.sendMessage(
-      chatId,
-      `❓ Pixora Help
+    if (data === "help") {
+      await bot.sendMessage(
+        chatId,
+        `❓ Pixora Help
 
 🎨 Pixora Editor — edit photos and videos
 🤖 AI Assistant — chat with AI
@@ -368,35 +375,45 @@ Join the Pixora community and stay connected.`,
 👤 Account — account information
 
 Use /start to return to the main menu.`,
-      {
-        reply_markup: {
-          inline_keyboard: [
-            [
-              {
-                text: "⬅️ Back to Menu",
-                callback_data: "back"
-              }
+        {
+          reply_markup: {
+            inline_keyboard: [
+              [
+                {
+                  text: "⬅️ Back to Menu",
+                  callback_data: "back"
+                }
+              ]
             ]
-          ]
+          }
         }
-      }
+      );
+
+      return;
+    }
+
+    // ================================
+    // Back
+    // ================================
+
+    if (data === "back") {
+      aiMode.delete(chatId);
+      userHistory.delete(chatId);
+
+      await bot.sendMessage(
+        chatId,
+        "🏠 Pixora Main Menu",
+        mainMenu()
+      );
+
+      return;
+    }
+
+  } catch (error) {
+    console.error(
+      "Callback processing error:",
+      error?.message || error
     );
-
-    return;
-  }
-
-  // ================================
-  // Back
-  // ================================
-
-  if (data === "back") {
-    await bot.sendMessage(
-      chatId,
-      "🏠 Pixora Main Menu",
-      mainMenu()
-    );
-
-    return;
   }
 });
 
@@ -433,7 +450,12 @@ bot.on("message", async (msg) => {
       content: msg.text
     });
 
+    // Keep the request reasonably small.
     const recentHistory = history.slice(-20);
+
+    console.log(
+      `AI request received | chat=${chatId} | model=${OPENAI_MODEL}`
+    );
 
     const response = await openai.responses.create({
       model: OPENAI_MODEL,
@@ -441,27 +463,80 @@ bot.on("message", async (msg) => {
     });
 
     const answer =
-      response.output_text ||
-      "Sorry, I couldn't generate a response.";
+      typeof response.output_text === "string"
+        ? response.output_text.trim()
+        : "";
+
+    if (!answer) {
+      console.error(
+        "OpenAI returned no output text.",
+        JSON.stringify(response, null, 2)
+      );
+
+      await bot.sendMessage(
+        chatId,
+        "⚠️ AI returned an empty response. Please try again."
+      );
+
+      return;
+    }
 
     history.push({
       role: "assistant",
       content: answer
     });
 
-    userHistory.set(chatId, history.slice(-20));
+    userHistory.set(
+      chatId,
+      history.slice(-20)
+    );
 
-    await bot.sendMessage(chatId, answer);
-
-  } catch (error) {
-    console.error(
-      "OpenAI error:",
-      error?.message || error
+    console.log(
+      `AI response successful | chat=${chatId} | request_id=${response._request_id || "n/a"}`
     );
 
     await bot.sendMessage(
       chatId,
-      "⚠️ AI response failed. Please try again."
+      answer
+    );
+
+  } catch (error) {
+
+    console.error("================================");
+    console.error("OPENAI REQUEST FAILED");
+    console.error("================================");
+
+    console.error("Name:", error?.name || "unknown");
+    console.error("Message:", error?.message || "unknown");
+    console.error("Status:", error?.status || "unknown");
+    console.error("Code:", error?.code || "unknown");
+    console.error("Type:", error?.type || "unknown");
+    console.error("Request ID:", error?.requestID || error?._request_id || "unknown");
+
+    if (error?.error) {
+      console.error(
+        "API Error:",
+        JSON.stringify(error.error)
+      );
+    }
+
+    if (error?.response?.data) {
+      console.error(
+        "Response Data:",
+        JSON.stringify(error.response.data)
+      );
+    }
+
+    console.error(
+      "Full error:",
+      error
+    );
+
+    console.error("================================");
+
+    await bot.sendMessage(
+      chatId,
+      "⚠️ AI response failed.\n\nPlease try again in a moment."
     );
   }
 });
@@ -475,7 +550,7 @@ const server = http.createServer((req, res) => {
   // Health check
   if (req.method === "GET" && req.url === "/") {
     res.writeHead(200, {
-      "Content-Type": "text/plain"
+      "Content-Type": "text/plain; charset=utf-8"
     });
 
     res.end("Pixora Telegram Bot is running.");
@@ -502,7 +577,7 @@ const server = http.createServer((req, res) => {
         await bot.processUpdate(update);
 
         res.writeHead(200, {
-          "Content-Type": "text/plain"
+          "Content-Type": "text/plain; charset=utf-8"
         });
 
         res.end("OK");
@@ -515,7 +590,7 @@ const server = http.createServer((req, res) => {
         );
 
         res.writeHead(400, {
-          "Content-Type": "text/plain"
+          "Content-Type": "text/plain; charset=utf-8"
         });
 
         res.end("Bad Request");
@@ -526,7 +601,7 @@ const server = http.createServer((req, res) => {
   }
 
   res.writeHead(404, {
-    "Content-Type": "text/plain"
+    "Content-Type": "text/plain; charset=utf-8"
   });
 
   res.end("Not Found");
@@ -546,28 +621,24 @@ async function setupTelegramWebhook() {
 
   try {
 
-    // Check Telegram bot token
     const me = await bot.getMe();
 
     console.log(
       `Telegram bot authenticated: @${me.username || me.first_name}`
     );
 
-    // Remove old webhook
     await bot.deleteWebHook();
 
     console.log(
       "Previous Telegram webhook removed."
     );
 
-    // Set new webhook
     await bot.setWebHook(webhookUrl);
 
     console.log(
       `Telegram webhook set successfully: ${webhookUrl}`
     );
 
-    // Verify webhook
     const webhookInfo = await bot.getWebHookInfo();
 
     console.log(
@@ -575,11 +646,9 @@ async function setupTelegramWebhook() {
     );
 
     if (webhookInfo.last_error_message) {
-
       console.error(
         `Telegram webhook last error: ${webhookInfo.last_error_message}`
       );
-
     }
 
   } catch (error) {
@@ -594,12 +663,10 @@ async function setupTelegramWebhook() {
     );
 
     if (error?.response?.body) {
-
       console.error(
         "Telegram API response:",
         JSON.stringify(error.response.body)
       );
-
     }
 
     console.error(

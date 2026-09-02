@@ -54,8 +54,8 @@ bot.onText(/^\/start$/, async (msg) => {
     await bot.sendMessage(
       msg.chat.id,
       "🎨 Welcome to Pixora!\n\n" +
-      "Your creative world starts here. ✨\n\n" +
-      "Choose an option below:",
+        "Your creative world starts here. ✨\n\n" +
+        "Choose an option below:",
       getMainMenu()
     );
   } catch (error) {
@@ -71,9 +71,9 @@ bot.onText(/^\/help$/, async (msg) => {
     await bot.sendMessage(
       msg.chat.id,
       "ℹ️ Pixora Bot Help\n\n" +
-      "/start - Open Pixora menu\n" +
-      "/help - Show help\n\n" +
-      "Use the buttons below to explore Pixora.",
+        "/start - Open Pixora menu\n" +
+        "/help - Show help\n\n" +
+        "Use the buttons below to explore Pixora.",
       getMainMenu()
     );
   } catch (error) {
@@ -96,15 +96,24 @@ bot.on("callback_query", async (query) => {
       case "editor":
         await bot.editMessageText(
           "🎨 Pixora Editor\n\n" +
-          "Create and edit your images with Pixora.\n\n" +
-          "🚀 Editor features will be connected here soon.",
+            "✨ Create and edit amazing photos and videos with Pixora.\n\n" +
+            "🚀 Click the button below to open Pixora:",
           {
             chat_id: chatId,
             message_id: messageId,
             reply_markup: {
               inline_keyboard: [
                 [
-                  { text: "⬅️ Back", callback_data: "home" }
+                  {
+                    text: "🎨 Open Pixora Editor",
+                    url: "https://atikhasan47.github.io/pixora/"
+                  }
+                ],
+                [
+                  {
+                    text: "⬅️ Back to Menu",
+                    callback_data: "home"
+                  }
                 ]
               ]
             }
@@ -115,15 +124,18 @@ bot.on("callback_query", async (query) => {
       case "earning":
         await bot.editMessageText(
           "💰 Pixora Earning\n\n" +
-          "Your earning features will appear here.\n\n" +
-          "🚀 Earning system will be connected soon.",
+            "Your earning features will appear here.\n\n" +
+            "🚀 Earning system will be connected soon.",
           {
             chat_id: chatId,
             message_id: messageId,
             reply_markup: {
               inline_keyboard: [
                 [
-                  { text: "⬅️ Back", callback_data: "home" }
+                  {
+                    text: "⬅️ Back to Menu",
+                    callback_data: "home"
+                  }
                 ]
               ]
             }
@@ -134,16 +146,19 @@ bot.on("callback_query", async (query) => {
       case "account":
         await bot.editMessageText(
           "👤 My Account\n\n" +
-          `Telegram ID: ${query.from.id}\n` +
-          `Name: ${query.from.first_name || "User"}\n\n` +
-          "More Pixora account information will be added here.",
+            `Telegram ID: ${query.from.id}\n` +
+            `Name: ${query.from.first_name || "User"}\n\n` +
+            "More Pixora account information will be added here.",
           {
             chat_id: chatId,
             message_id: messageId,
             reply_markup: {
               inline_keyboard: [
                 [
-                  { text: "⬅️ Back", callback_data: "home" }
+                  {
+                    text: "⬅️ Back to Menu",
+                    callback_data: "home"
+                  }
                 ]
               ]
             }
@@ -154,14 +169,17 @@ bot.on("callback_query", async (query) => {
       case "community":
         await bot.editMessageText(
           "📢 Pixora Community\n\n" +
-          "Pixora community links will be connected here.",
+            "Pixora community links will be connected here.",
           {
             chat_id: chatId,
             message_id: messageId,
             reply_markup: {
               inline_keyboard: [
                 [
-                  { text: "⬅️ Back", callback_data: "home" }
+                  {
+                    text: "⬅️ Back to Menu",
+                    callback_data: "home"
+                  }
                 ]
               ]
             }
@@ -172,14 +190,17 @@ bot.on("callback_query", async (query) => {
       case "youtube":
         await bot.editMessageText(
           "▶️ Pixora YouTube\n\n" +
-          "Our YouTube channel will be connected here.",
+            "Our YouTube channel will be connected here.",
           {
             chat_id: chatId,
             message_id: messageId,
             reply_markup: {
               inline_keyboard: [
                 [
-                  { text: "⬅️ Back", callback_data: "home" }
+                  {
+                    text: "⬅️ Back to Menu",
+                    callback_data: "home"
+                  }
                 ]
               ]
             }
@@ -190,14 +211,17 @@ bot.on("callback_query", async (query) => {
       case "facebook":
         await bot.editMessageText(
           "📘 Pixora Facebook\n\n" +
-          "Our Facebook page will be connected here.",
+            "Our Facebook page will be connected here.",
           {
             chat_id: chatId,
             message_id: messageId,
             reply_markup: {
               inline_keyboard: [
                 [
-                  { text: "⬅️ Back", callback_data: "home" }
+                  {
+                    text: "⬅️ Back to Menu",
+                    callback_data: "home"
+                  }
                 ]
               ]
             }
@@ -208,19 +232,22 @@ bot.on("callback_query", async (query) => {
       case "help":
         await bot.editMessageText(
           "ℹ️ Pixora Bot Help\n\n" +
-          "🎨 Pixora Editor - Image editing features\n" +
-          "💰 Earning - Earning features\n" +
-          "👤 My Account - Your Pixora account\n" +
-          "📢 Community - Pixora community\n" +
-          "▶️ YouTube - Pixora YouTube\n" +
-          "📘 Facebook - Pixora Facebook",
+            "🎨 Pixora Editor - Create and edit photos and videos\n" +
+            "💰 Earning - Pixora earning features\n" +
+            "👤 My Account - Your Telegram account information\n" +
+            "📢 Community - Pixora community\n" +
+            "▶️ YouTube - Pixora YouTube channel\n" +
+            "📘 Facebook - Pixora Facebook page",
           {
             chat_id: chatId,
             message_id: messageId,
             reply_markup: {
               inline_keyboard: [
                 [
-                  { text: "⬅️ Back", callback_data: "home" }
+                  {
+                    text: "⬅️ Back to Menu",
+                    callback_data: "home"
+                  }
                 ]
               ]
             }
@@ -231,7 +258,8 @@ bot.on("callback_query", async (query) => {
       case "home":
         await bot.editMessageText(
           "🎨 Welcome to Pixora!\n\n" +
-          "Choose an option below:",
+            "Your creative world starts here. ✨\n\n" +
+            "Choose an option below:",
           {
             chat_id: chatId,
             message_id: messageId,
@@ -258,7 +286,7 @@ bot.on("message", async (msg) => {
     await bot.sendMessage(
       msg.chat.id,
       "🤖 Pixora Bot is online.\n\n" +
-      "Please choose an option from the Pixora menu.",
+        "Please choose an option from the Pixora menu.",
       getMainMenu()
     );
   } catch (error) {
@@ -328,6 +356,7 @@ server.listen(PORT, async () => {
 
   try {
     await bot.setWebHook(webhookUrl);
+
     console.log(
       `Telegram webhook set successfully: ${webhookUrl}`
     );

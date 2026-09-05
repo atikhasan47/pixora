@@ -1,0 +1,1392 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080b16">
+<meta name="description" content="Pixora Creative Platform — Video & Photo Editor + Income">
+<title>Pixora Editor + Income</title>
+
+<style>
+:root{
+--bg:#080b16;
+--panel:#12192b;
+--panel2:#1b2540;
+--purple:#7c5cff;
+--blue:#00b9ff;
+--text:#fff;
+--muted:#aeb6cf;
+--green:#62e6b5;
+--red:#ff6678;
+--yellow:#ffd166;
+--border:#ffffff12
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+
+body{
+margin:0;
+background:
+radial-gradient(circle at 10% 0%,#18235a55,transparent 35%),
+radial-gradient(circle at 90% 20%,#006c9850,transparent 35%),
+linear-gradient(180deg,#080b16,#10182d);
+color:var(--text);
+font-family:Arial,"Noto Sans Bengali",sans-serif;
+min-height:100vh
+}
+
+button,input,select,textarea{font:inherit}
+
+button{
+cursor:pointer;
+-webkit-tap-highlight-color:transparent
+}
+
+button:active{transform:scale(.97)}
+
+.app{
+max-width:900px;
+margin:auto;
+min-height:100vh;
+padding-bottom:90px
+}
+
+.header{
+padding:18px;
+background:linear-gradient(135deg,#6948e8,#00aeea);
+border-radius:0 0 26px 26px;
+box-shadow:0 12px 40px #0005;
+animation:headerIn .7s ease
+}
+
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:12px
+}
+
+.logo{
+font-size:23px;
+font-weight:bold
+}
+
+.tag{
+font-size:12px;
+margin-top:5px
+}
+
+.badge{
+background:#ffffff25;
+padding:9px 11px;
+border-radius:14px;
+font-size:12px;
+white-space:nowrap;
+backdrop-filter:blur(8px)
+}
+
+main{padding:12px}
+
+.page{display:none}
+
+.page.active{
+display:block;
+animation:pageIn .35s ease
+}
+
+.panel,.hero,.service,.balance{
+background:var(--panel);
+border:1px solid var(--border);
+border-radius:20px;
+padding:16px;
+margin-bottom:13px;
+box-shadow:0 10px 35px #00018
+}
+
+.hero{
+background:linear-gradient(135deg,#151e38,#162c49);
+position:relative;
+overflow:hidden
+}
+
+.hero:after{
+content:"";
+position:absolute;
+width:150px;
+height:150px;
+border-radius:50%;
+background:#7c5cff22;
+right:-50px;
+top:-50px;
+animation:float 4s ease-in-out infinite
+}
+
+h1,h2,h3,p{margin-top:0}
+
+.muted,.notice{
+color:var(--muted);
+line-height:1.55
+}
+
+.notice{font-size:12px}
+
+.primary,.small{
+border:0;
+border-radius:13px;
+padding:13px;
+color:#fff;
+transition:.2s
+}
+
+.primary{
+width:100%;
+background:linear-gradient(135deg,var(--purple),var(--blue));
+font-weight:bold;
+box-shadow:0 8px 25px #006eff25
+}
+
+.primary:hover{
+filter:brightness(1.1);
+transform:translateY(-2px)
+}
+
+.small{
+width:100%;
+background:#263354;
+margin-top:7px
+}
+
+.small:hover{background:#304166}
+
+.danger{background:#482330}
+
+.success{color:var(--green)}
+.warning{color:var(--yellow)}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px
+}
+
+.service{
+margin:0;
+transition:.25s
+}
+
+.service:hover{
+transform:translateY(-3px);
+border-color:#7c5cff55
+}
+
+.icon{font-size:30px}
+
+.price{
+color:var(--green);
+font-size:18px;
+font-weight:bold;
+margin:7px 0
+}
+
+.ad{
+border:2px dashed #53617f;
+padding:18px;
+border-radius:16px;
+text-align:center;
+color:var(--muted);
+margin-bottom:13px;
+animation:pulseSoft 3s infinite
+}
+
+.pixoraAd{
+min-height:100px;
+display:flex;
+align-items:center;
+justify-content:center;
+margin-bottom:13px;
+border-radius:16px;
+overflow:hidden;
+background:rgba(255,255,255,.025)
+}
+
+.adFallback{
+width:100%;
+min-height:90px;
+display:grid;
+place-items:center;
+align-content:center;
+gap:5px;
+border:2px dashed #53617f;
+border-radius:16px;
+padding:16px;
+color:var(--muted);
+font-size:12px;
+text-align:center
+}
+
+input,select,textarea{
+width:100%;
+background:#0b1122;
+border:1px solid #36415f;
+color:#fff;
+padding:12px;
+border-radius:12px;
+margin:6px 0;
+outline:none
+}
+
+input:focus,select:focus,textarea:focus{
+border-color:var(--blue);
+box-shadow:0 0 0 3px #00b9ff12
+}
+
+textarea{
+min-height:95px;
+resize:vertical
+}
+
+.bottomNav{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+z-index:1000;
+background:#0b1020f7;
+backdrop-filter:blur(14px);
+border-top:1px solid #ffffff18;
+display:flex;
+justify-content:center;
+overflow:auto
+}
+
+.bottomNav button{
+background:none;
+border:0;
+color:#aeb6cf;
+padding:10px 12px;
+font-size:11px;
+min-width:65px;
+white-space:nowrap
+}
+
+.bottomNav button.active{
+color:#7ee7ff;
+text-shadow:0 0 12px #00b9ff88
+}
+
+/* Editor */
+
+.editorHeader{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+margin-bottom:10px
+}
+
+.editorPreview{
+width:100%;
+height:430px;
+max-height:62vh;
+background:#000;
+border-radius:18px;
+display:flex;
+align-items:center;
+justify-content:center;
+overflow:hidden;
+position:relative;
+box-shadow:0 15px 45px #0008
+}
+
+.editorPreview video,
+.editorPreview img{
+max-width:100%;
+max-height:100%;
+object-fit:contain;
+transition:filter .25s ease,transform .25s ease;
+transform-origin:center center
+}
+
+.emptyPreview{
+color:#8992aa;
+text-align:center;
+padding:25px
+}
+
+.previewOverlay{
+position:absolute;
+inset:0;
+pointer-events:none;
+overflow:hidden
+}
+
+.effectOverlay{
+position:absolute;
+inset:-20%;
+opacity:0;
+pointer-events:none;
+transition:.3s;
+mix-blend-mode:screen
+}
+
+.effectOverlay.active{
+opacity:.16;
+background:
+radial-gradient(circle at 20% 20%,#fff,transparent 20%),
+radial-gradient(circle at 80% 80%,#00b9ff,transparent 25%);
+animation:overlayMove 4s linear infinite
+}
+
+.vignette{
+position:absolute;
+inset:0;
+pointer-events:none;
+background:radial-gradient(circle,transparent 45%,#0008 100%);
+opacity:0;
+transition:.3s
+}
+
+.vignette.active{opacity:.55}
+
+.scanlines{
+position:absolute;
+inset:0;
+pointer-events:none;
+opacity:0;
+background:repeating-linear-gradient(
+0deg,
+transparent 0,
+transparent 3px,
+#fff08 4px
+)
+}
+
+.scanlines.active{opacity:.08}
+
+.textLayer{
+position:absolute;
+left:50%;
+top:50%;
+transform:translate(-50%,-50%);
+font-weight:800;
+text-align:center;
+text-shadow:0 3px 10px #000;
+white-space:pre-wrap;
+max-width:90%;
+pointer-events:none;
+line-height:1.15
+}
+
+.captionLayer{
+position:absolute;
+left:8%;
+right:8%;
+bottom:10%;
+text-align:center;
+font-size:20px;
+font-weight:700;
+text-shadow:0 2px 8px #000;
+pointer-events:none
+}
+
+.stickerLayer{
+position:absolute;
+left:50%;
+top:40%;
+transform:translate(-50%,-50%);
+font-size:70px;
+pointer-events:none;
+filter:drop-shadow(0 4px 8px #0008)
+}
+
+.uploadBox{
+border:2px dashed #536184;
+border-radius:16px;
+padding:15px;
+margin-bottom:12px;
+text-align:center;
+transition:.25s
+}
+
+.uploadBox:hover{
+border-color:var(--blue);
+background:#00b9ff06
+}
+
+.mediaActions{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:8px;
+margin-top:8px
+}
+
+.timeline{
+background:#0b1122;
+border-radius:15px;
+padding:13px;
+margin-top:12px
+}
+
+.timeRow{
+display:flex;
+justify-content:space-between;
+color:var(--muted);
+font-size:12px
+}
+
+.timeline input[type=range]{margin:8px 0}
+
+.playControls{
+display:flex;
+gap:8px;
+justify-content:center
+}
+
+.playControls button{
+border:0;
+background:#253252;
+color:#fff;
+padding:10px 15px;
+border-radius:12px;
+font-size:16px
+}
+
+.editorTools{
+background:#10172af5;
+border:1px solid #ffffff12;
+border-radius:19px;
+padding:10px;
+margin-top:12px
+}
+
+.toolbar{
+display:flex;
+gap:9px;
+overflow-x:auto;
+padding-bottom:4px
+}
+
+.toolButton{
+min-width:68px;
+border:0;
+background:#202b48;
+color:#fff;
+border-radius:14px;
+padding:10px 7px;
+font-size:11px
+}
+
+.toolButton span{
+display:block;
+font-size:21px;
+margin-bottom:4px
+}
+
+.toolButton.active{
+background:linear-gradient(135deg,#7c5cff,#00b9ff)
+}
+
+.toolPanel{
+display:none;
+background:#151e35;
+border-radius:16px;
+padding:13px;
+margin-top:10px
+}
+
+.toolPanel.active{
+display:block;
+animation:panelIn .25s ease
+}
+
+.toolGrid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px
+}
+
+.control{
+background:#0b1122;
+padding:11px;
+border-radius:13px
+}
+
+.control label{
+font-size:12px;
+color:#d8def0;
+display:block;
+margin-bottom:5px
+}
+
+.rangeValue{
+color:#7ee7ff;
+float:right
+}
+
+.effectButtons{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:8px
+}
+
+.effectButtons button,
+.animationGrid button,
+.chip{
+border:0;
+background:#263354;
+color:white;
+padding:11px 5px;
+border-radius:11px;
+font-size:12px;
+transition:.2s
+}
+
+.effectButtons button:hover,
+.animationGrid button:hover{
+background:#344466;
+transform:translateY(-2px)
+}
+
+.trimBox{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px
+}
+
+.animationGrid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:8px
+}
+
+.animationGrid button.active,
+.chip.active{
+background:linear-gradient(135deg,#7c5cff,#00b9ff)
+}
+
+.animationInfo{
+padding:10px;
+background:#0b1122;
+border-radius:12px;
+margin-top:10px;
+color:var(--muted);
+font-size:12px
+}
+
+.assetList{
+display:flex;
+gap:8px;
+overflow:auto;
+padding:4px 0
+}
+
+.asset{
+min-width:85px;
+height:70px;
+background:#202b48;
+border-radius:10px;
+display:flex;
+align-items:center;
+justify-content:center;
+overflow:hidden;
+border:2px solid transparent
+}
+
+.asset.selected{border-color:var(--blue)}
+
+.asset img,
+.asset video{
+width:100%;
+height:100%;
+object-fit:cover
+}
+
+.miniRow{
+display:flex;
+gap:7px;
+overflow:auto
+}
+
+.miniRow .chip{white-space:nowrap}
+
+.template{
+display:flex;
+gap:10px;
+overflow:auto
+}
+
+.temp{
+min-width:145px;
+background:#202b48;
+padding:18px;
+border-radius:15px;
+text-align:center;
+transition:.25s
+}
+
+.temp:hover{
+transform:translateY(-4px) scale(1.02)
+}
+  }
+
+  return !!(supabaseClient?.auth);
+}
+
+function getSupabaseAuth(){
+  return supabaseClient?.auth || null;
+}
+function setAuthMsg(msg,ok=false){const el=$('authMsg');if(el){el.textContent=msg;el.style.color=ok?'#20d9a1':'#ff9cad'}}
+function openApp(){ $('authGate').style.display='none'; $('pixoraApp').style.display='block'; }
+function showAuth(){ $('authGate').style.display='grid'; $('pixoraApp').style.display='none'; }
+
+async function ensureUserRow(user){
+  if(!supabaseClient||!user)return null;
+  const {data:existing,error:findError}=await supabaseClient
+    .from('users').select('id,auth_id').eq('auth_id',user.id).maybeSingle();
+  if(findError) throw findError;
+  if(existing) return existing;
+  const name=$('authName')?.value.trim()||user.user_metadata?.name||user.email?.split('@')[0]||'User';
+  const phone=$('authPhone')?.value.trim()||user.user_metadata?.phone||'';
+  const {data,error}=await supabaseClient.from('users').insert({
+    auth_id:user.id,name,email:user.email,phone,balance:0
+  }).select('id,auth_id').single();
+  if(error){
+    if(String(error.message||'').toLowerCase().includes('duplicate')){
+      const {data:again}=await supabaseClient.from('users').select('id,auth_id').eq('auth_id',user.id).maybeSingle();
+      return again||null;
+    }
+    throw error;
+  }
+  return data;
+}
+
+async function pixoraLogin(){
+  if(!supabaseClient?.auth){setAuthMsg('Supabase Auth connection তৈরি হয়নি। পেজটি Refresh করুন।');return;}
+  const email=$('authEmail')?.value.trim(),password=$('authPassword')?.value||'';
+  if(!email||!password){setAuthMsg('Email ও Password দিন।');return}
+  try{const {data,error}=await getSupabaseAuth().signInWithPassword({email,password});if(error)throw error;await ensureUserRow(data.user);await syncUserData();openApp();setAuthMsg('Login সফল হয়েছে।',true);}catch(e){setAuthMsg(e.message||'Login failed');}
+}
+async function pixoraSignup(){
+  if(!supabaseClient?.auth){setAuthMsg('Supabase Auth connection তৈরি হয়নি। পেজটি Refresh করুন।');return;}
+  const email=$('authEmail')?.value.trim(),password=$('authPassword')?.value||'',name=$('authName')?.value.trim(),phone=$('authPhone')?.value.trim();
+  if(!email||!password){setAuthMsg('Email ও Password দিন।');return}
+  if(password.length<6){setAuthMsg('Password কমপক্ষে 6 অক্ষরের দিন।');return}
+  try{const {data,error}=await getSupabaseAuth().signUp({email,password,options:{data:{name:name||'',phone:phone||''}}});if(error)throw error;if(data.session){await ensureUserRow(data.user);await syncUserData();openApp();setAuthMsg('Signup সফল হয়েছে।',true);}else setAuthMsg('Signup হয়েছে। Email confirmation লাগতে পারে।');}catch(e){setAuthMsg(e.message||'Signup failed');}
+}
+async function pixoraLogout(){if(supabaseClient)await getSupabaseAuth().signOut();showAuth();}
+
+async function syncUserData(){
+  if(!supabaseClient)return;
+  const {data:{user}}=await getSupabaseAuth().getUser();if(!user)return;
+  state.user=user; const uidEl=$('profileUserId'); if(uidEl)uidEl.value=user.id;
+  try{
+    const {data:u,error:uError}=await supabaseClient.from('users').select('*').eq('auth_id',user.id).maybeSingle();
+    if(uError) throw uError;
+    const legacyUserId=u?.id;
+    const [tR,oR,dR,wR,mR,sR,nR]=await Promise.all([
+      supabaseClient.from('tasks').select('*').eq('status','published').order('created_at',{ascending:false}),
+      legacyUserId!=null ? supabaseClient.from('orders').select('*').eq('user_id',legacyUserId).order('created_at',{ascending:false}) : Promise.resolve({data:[],error:null}),
+      supabaseClient.from('deposits').select('*').eq('user_id',user.id).order('created_at',{ascending:false}),
+      supabaseClient.from('withdrawals').select('*').eq('user_id',user.id).order('created_at',{ascending:false}),
+      supabaseClient.from('messages').select('*').or(`user_id.eq.${user.id},sender_id.eq.${user.id}`).order('created_at',{ascending:false}),
+      supabaseClient.from('task_submissions').select('*').eq('user_id',user.id).order('submitted_at',{ascending:false}),
+      supabaseClient.from('notices').select('*').eq('is_active',true).order('is_pinned',{ascending:false}).order('created_at',{ascending:false})
+    ]);
+    const uR={data:u};
+    if(uR.data){state.balance=Number(uR.data.balance||0);state.profile={...state.profile,name:uR.data.name||state.profile.name||'',phone:uR.data.phone||state.profile.phone||''};}
+    if(Array.isArray(tR.data))state.tasks=tR.data.map(t=>({...t,reward:Number(t.reward||0),createdAt:t.created_at}));
+    if(Array.isArray(oR.data))state.orders=oR.data.map(o=>({...o,service:o.order_type||o.service||o.type,transactionId:o.transaction_id,date:o.created_at}));
+    if(Array.isArray(dR.data))state.deposits=dR.data.map(d=>({...d,transactionId:d.transaction_id,date:d.created_at}));
+    if(Array.isArray(wR.data))state.withdrawals=wR.data.map(w=>({...w,number:w.account,date:w.created_at}));
+    if(Array.isArray(tR.data)){state.tasks=tR.data.map(t=>({...t,reward:Number(t.reward||0),createdAt:t.created_at}));renderTasks();}
+    if(Array.isArray(nR.data))renderUserNotices(nR.data);
+    // Keep the displayed wallet balance tied to the same canonical legacy balance
+    // used by Admin deposit/withdrawal processing.
+    state.walletHistory=[
+      ...state.deposits.map(d=>({id:'deposit-'+d.id,type:'deposit',title:`Deposit — ${String(d.status||'pending')}`,amount:Number(d.status||'').toLowerCase()==='approved'?Number(d.amount)||0:0,status:String(d.status||'pending'),date:d.date||d.created_at||''})),
+      ...state.withdrawals.map(w=>({id:'withdraw-'+w.id,type:'withdrawal',title:`Withdrawal — ${String(w.status||'pending')}`,amount:Number(w.amount)||0,status:String(w.status||'pending'),date:w.date||w.created_at||''}))
+    ].sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
+    if(Array.isArray(mR.data))state.messages=mR.data;
+    if(Array.isArray(sR.data))state.taskSubmissions=sR.data;
+    if(Array.isArray(nR.data)) renderUserNotices(nR.data);
+    persist();renderTasks();renderOrders();renderIncome();renderUserMessages();
+  }catch(e){console.warn('User sync:',e.message||e)}
+}
+
+async function loadUserNotices(){
+  const box=$('userNotices'); if(!box||!supabaseClient)return;
+  try{
+    const {data,error}=await supabaseClient.from('notices').select('*').eq('is_active',true).order('is_pinned',{ascending:false}).order('created_at',{ascending:false});
+    if(error)throw error; renderUserNotices(Array.isArray(data)?data:[]);
+  }catch(e){box.innerHTML=`<div class="empty">${escapeHTML(e.message||'Notifications load failed')}</div>`;}
+}
+function renderUserNotices(list){
+  const box=$('userNotices'); if(!box)return;
+  if(!list.length){box.innerHTML='<div class="empty">কোনো নতুন notification নেই।</div>';return;}
+  box.innerHTML=list.slice(0,20).map(n=>`<div class="history"><b>${escapeHTML(n.title||'Pixora Notice')}</b><div class="notice">${escapeHTML(n.message||'')}</div><small>${escapeHTML(n.created_at||'')}</small></div>`).join('');
+}
+
+async function refreshPixoraBalance(){
+  if(!supabaseClient)return;
+  try{
+    const {data:{user}}=await getSupabaseAuth().getUser();
+    if(!user)return;
+    const {data,error}=await supabaseClient.from('users').select('balance').eq('auth_id',user.id).maybeSingle();
+    if(error)throw error;
+    if(data){
+      state.balance=Number(data.balance||0);
+      persist();
+      renderIncome();
+    }
+    // Always refresh deposit/withdrawal status so Admin approval appears without logout.
+    const [dR,wR,tR,nR]=await Promise.all([
+      supabaseClient.from('deposits').select('*').eq('user_id',user.id).order('created_at',{ascending:false}),
+      supabaseClient.from('withdrawals').select('*').eq('user_id',user.id).order('created_at',{ascending:false}),
+      supabaseClient.from('tasks').select('*').eq('status','published').order('created_at',{ascending:false}),
+      supabaseClient.from('notices').select('*').eq('is_active',true).order('is_pinned',{ascending:false}).order('created_at',{ascending:false})
+    ]);
+    if(Array.isArray(dR.data))state.deposits=dR.data.map(d=>({...d,transactionId:d.transaction_id,date:d.created_at}));
+    if(Array.isArray(wR.data))state.withdrawals=wR.data.map(w=>({...w,number:w.account,date:w.created_at}));
+    state.walletHistory=[
+      ...state.deposits.map(d=>({id:'deposit-'+d.id,type:'deposit',title:`Deposit — ${String(d.status||'pending')}`,amount:Number(d.status||'').toLowerCase()==='approved'?Number(d.amount)||0:0,status:String(d.status||'pending'),date:d.date||d.created_at||''})),
+      ...state.withdrawals.map(w=>({id:'withdraw-'+w.id,type:'withdrawal',title:`Withdrawal — ${String(w.status||'pending')}`,amount:Number(w.amount)||0,status:String(w.status||'pending'),date:w.date||w.created_at||''}))
+    ].sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
+    persist();
+    renderIncome();
+  }catch(e){console.warn('Balance refresh:',e.message||e)}
+}
+
+async function supabaseRequest(table, options={}){
+  if(!supabaseClient) throw new Error('Supabase is not configured.');
+  let url = supabaseClient.url + '/rest/v1/' + table;
+  if(options.query) url += '?' + options.query;
+  const response = await fetch(url, {
+    method: options.method || 'GET',
+    headers: {
+      apikey: supabaseClient.key,
+      Authorization: 'Bearer ' + supabaseClient.key,
+      'Content-Type': 'application/json',
+      Prefer: options.prefer || 'return=representation'
+    },
+    body: options.body ? JSON.stringify(options.body) : undefined
+  });
+  if(!response.ok) throw new Error(await response.text());
+  const text = await response.text();
+  return text ? JSON.parse(text) : null;
+}
+
+/* ==================================================
+   NAVIGATION
+================================================== */
+function showPage(id, button){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const page = $(id);
+  if(page) page.classList.add('active');
+
+  document.querySelectorAll('.bottomNav button').forEach(b=>b.classList.remove('active'));
+  if(button) button.classList.add('active');
+  else{
+    const map={home:0,editor:1,works:2,order:3,wallet:4,admin:5,contact:6};
+    const bs=document.querySelectorAll('.bottomNav button');
+    if(map[id] != null && bs[map[id]]) bs[map[id]].classList.add('active');
+  }
+
+  if(id==='wallet') renderIncome();
+  if(id==='deposit') 
+  if(id==='works') renderTasks();
+  if(id==='order') renderOrders();
+  if(id==='admin') 
+  if(id==='home') renderRecentProjects();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function chooseService(service){
+  const select = $('serviceSelect');
+  if(!select) return;
+  let option = [...select.options].find(o=>o.value===service || o.text===service);
+  if(!option){
+    option=document.createElement('option');
+    option.value=service; option.textContent=service;
+    select.appendChild(option);
+  }
+  select.value = service;
+  showPage('order');
+}
+
+/* ==================================================
+   MEDIA
+================================================== */
+function triggerVideo(){ const input=$('mediaFile'); if(input){input.accept='video/*';input.click();} }
+function triggerPhoto(){ const input=$('mediaFile'); if(input){input.accept='image/*';input.click();} }
+function openPhotoEditor(){ showPage('editor'); setTimeout(triggerPhoto,250); }
+
+function buildPreview(){
+  $('previewBox').innerHTML = `
+    ${state.mediaType==='video' ? '<video id="pixoraMedia" playsinline></video>' : '<img id="pixoraMedia" alt="Pixora preview">'}
+    <div class="previewOverlay">
+      <div id="effectOverlay" class="effectOverlay"></div>
+      <div id="vignette" class="vignette"></div>
+      <div id="scanlines" class="scanlines"></div>
+      <div id="overlayLayer"></div>
+      <div id="textLayer" class="textLayer"></div>
+      <div id="captionLayer" class="captionLayer"></div>
+      <div id="stickerLayer" class="stickerLayer"></div>
+    </div>`;
+  video = $('pixoraMedia');
+  if(video) video.src = state.mediaUrl;
+}
+
+function loadMedia(event){
+  const file = event.target.files?.[0];
+  if(!file) return;
+  if(!file.type.startsWith('video/') && !file.type.startsWith('image/')){
+    toast('Video অথবা Image নির্বাচন করুন।'); return;
+  }
+  if(state.mediaUrl) URL.revokeObjectURL(state.mediaUrl);
+  state.mediaUrl = URL.createObjectURL(file);
+  state.mediaName = file.name;
+  state.mediaType = file.type.startsWith('video/') ? 'video' : 'image';
+  buildPreview();
+
+  const ready = ()=>{
+    const duration = state.mediaType==='video' ? Number(video.duration)||0 : 5;
+    state.duration = duration;
+    if(state.trimEnd===0 || state.trimEnd>duration) state.trimEnd=duration;
+    state.effectEnd = duration;
+    state.animationEnd = duration;
+    if(video) video.playbackRate=Number(state.playbackRate)||1;
+    syncTimelineUI(duration);
+    applyEffectVisual();
+    startRenderLoop();
+  };
+
+  if(state.mediaType==='video'){
+    video.onloadedmetadata = ready;
+    video.ontimeupdate = ()=>{
+      const t=video.currentTime||0;
+      $('currentTime').textContent=formatTime(t);
+      $('seekBar').value=t;
+      updateTimelinePro();
+      checkBeatPulse(t);
+      applyEffectVisual();
+      syncAudioToVideo(false);
+      if(state.trimEnd>state.trimStart && t>=state.trimEnd){
+        video.currentTime=state.trimStart; video.pause();
+      }
+    };
+    video.onplay=()=>{
+      $('playButton').textContent='⏸️';
+      startAnimation();
+      syncAudioToVideo(true);
+      startRenderLoop();
+    };
+    video.onpause=()=>{
+      $('playButton').textContent='▶️';
+      stopAnimation();
+      syncAudioToVideo(false);
+    };
+  }else{
+    video.onload = ready;
+  }
+  persist();
+  toast('🎬 Media loaded successfully');
+}
+
+function syncTimelineUI(duration){
+  const d=Number(duration)||0;
+  $('durationTime').textContent=formatTime(d);
+  $('seekBar').max=d; $('seekBar').value=state.mediaType==='video' ? (video?.currentTime||0) : 0;
+  $('trimStart').max=d; $('trimEnd').max=d;
+  $('trimStart').value=Math.min(state.trimStart,d);
+  $('trimEnd').value=Math.min(state.trimEnd||d,d);
+  $('startValue').textContent=formatTime(state.trimStart);
+  $('endValue').textContent=formatTime(state.trimEnd||d);
+  if($('effectStart')){$('effectStart').max=d;$('effectStart').value=Math.min(state.effectStart,d);}
+  if($('effectEnd')){$('effectEnd').max=d;$('effectEnd').value=Math.min(state.effectEnd||d,d);}
+  if($('effectStartValue'))$('effectStartValue').textContent=formatTime(state.effectStart);
+  if($('effectEndValue'))$('effectEndValue').textContent=formatTime(state.effectEnd||d);
+  updateTimelinePro();
+}
+
+function playPause(){
+  if(!video || state.mediaType!=='video'){toast('আগে একটি video নির্বাচন করুন।');return;}
+  if(video.paused){
+    if(state.trimEnd && video.currentTime>=state.trimEnd) video.currentTime=state.trimStart;
+    video.play().catch(()=>toast('Browser play অনুমতি দেয়নি।'));
+  }else video.pause();
+}
+function backward(){if(video&&state.mediaType==='video')video.currentTime=Math.max(state.trimStart||0,video.currentTime-5)}
+function forward(){if(video&&state.mediaType==='video')video.currentTime=Math.min(state.trimEnd||video.duration,video.currentTime+5)}
+function seekMedia(value){if(video&&state.mediaType==='video')video.currentTime=Number(value)}
+
+/* ==================================================
+   TOOLS / RENDER
+================================================== */
+function openTool(id,button){
+  document.querySelectorAll('.toolPanel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.toolButton').forEach(b=>b.classList.remove('active'));
+  button?.classList.add('active');
+
+  // Effects are always available in the horizontal quick-effect row
+  // under the preview, so opening Effects never pushes the video away.
+  if(id==='effects'){
+    document.querySelector('.quickEffects')?.scrollIntoView({behavior:'smooth',block:'nearest'});
+    return;
+  }
+
+  $(id)?.classList.add('active');
+}
+
+function getFilterCSS(){
+  return `brightness(${state.brightness}%) contrast(${state.contrast}%) saturate(${state.saturate}%) grayscale(${state.grayscale}%) blur(${state.blur}px)`;
+}
+
+function getCanvasSize(){
+  const box=$('previewBox');
+  let width=Math.max(1,box?.clientWidth||720), height=Math.max(1,box?.clientHeight||405);
+  if(state.aspect!=='auto'){
+    const [w,h]=state.aspect.split('/').map(Number); const ratio=w/h;
+    if(width/height>ratio) width=height*ratio; else height=width/ratio;
+  }
+  return {width:Math.floor(width),height:Math.floor(height)};
+}
+
+function renderFrame(){
+  if(!video) return;
+  const active = state.effect==='none' || state.mediaType!=='video' ||
+    ((video.currentTime||0)>=state.effectStart && (video.currentTime||0)<=state.effectEnd);
+  const k = active ? state.effectIntensity/100 : 0;
+  const b=100+(state.brightness-100)*k;
+  const c=100+(state.contrast-100)*k;
+  const s=100+(state.saturate-100)*k;
+  const g=state.grayscale*k;
+  const bl=state.blur*k;
+  video.style.filter=`brightness(${b}%) contrast(${c}%) saturate(${s}%) grayscale(${g}%) blur(${bl}px)`;
+  video.style.opacity=state.opacity/100;
+  video.style.transform=`translate(${state.panX||0}%,${state.panY||0}%) rotate(${state.rotation}deg) scaleX(${state.flipX}) scale(${state.zoom/100})`;
+  applyEffectVisual();
+}
+
+function startRenderLoop(){
+  if(animationFrame) return;
+  const loop=()=>{
+    renderFrame();
+    if(state.mediaType==='video' && video && video.paused){animationFrame=null;return;}
+    animationFrame=requestAnimationFrame(loop);
+  };
+  animationFrame=requestAnimationFrame(loop);
+}
+function stopRenderLoop(){if(animationFrame){cancelAnimationFrame(animationFrame);animationFrame=null;}}
+
+function applyEffectVisual(){
+  renderLayers();
+  document.querySelectorAll('.quickEffect').forEach(btn=>{
+    btn.classList.toggle('active',btn.dataset.effect===state.effect);
+  });
+  const overlay=$('effectOverlay');
+  if(overlay) overlay.classList.toggle('active',state.effect!=='none');
+  const vignette=$('vignette'); if(vignette) vignette.classList.toggle('active',state.effect==='cinematic'||state.effect==='vintage');
+  const scan=$('scanlines'); if(scan) scan.classList.toggle('active',state.effect==='vintage');
+  renderFrameAnimationClass();
+}
+
+function changeFilter(name,value,valueId){
+  state[name]=Number(value);
+  if($(valueId))$(valueId).textContent=value;
+  persist(); renderFrame();
+}
+function changeBlur(value){state.blur=Number(value);$('blurValue').textContent=value;persist();renderFrame()}
+function changeOpacity(value){state.opacity=Number(value);$('opacityValue').textContent=value;persist();renderFrame()}
+function changeZoom(value){pushUndo();state.zoom=Number(value);$('zoomValue').textContent=value;persist();renderFrame();updateTimelinePro()}
+function changePanX(value){pushUndo();state.panX=Number(value);$('panXValue').textContent=value;persist();renderFrame()}
+function changePanY(value){pushUndo();state.panY=Number(value);$('panYValue').textContent=value;persist();renderFrame()}
+
+function setEffect(effect){
+  const presets={
+    none:[100,100,100,0,0], normal:[100,100,100,0,0], cinematic:[92,130,115,0,0],
+    vivid:[108,125,160,0,0], bw:[100,120,100,100,0], warm:[108,110,135,0,0],
+    cool:[96,115,110,0,0], vintage:[100,115,85,15,0], retro:[105,118,90,8,0], dream:[110,105,120,0,2],
+    teal:[98,125,120,0,0], glow:[110,105,125,0,1], flash:[125,135,145,0,0],
+    shake:[100,115,110,0,0], pulse:[105,120,125,0,0], party:[115,130,155,0,0]
+  };
+  state.effect=effect;
+  const p=presets[effect]||presets.none;
+  [state.brightness,state.contrast,state.saturate,state.grayscale,state.blur]=p;
+  state.effectStart=0; state.effectEnd=state.duration||state.effectEnd||0;
+  syncEffectUI(); persist(); renderFrame();
+  toast(effect==='none'?'❌ Effect removed':'✨ '+effect+' effect applied');
+}
+function setEffectIntensity(value){state.effectIntensity=Number(value);$('effectIntensityValue').text
+Content=value;persist();renderFrame()}
+function updateEffectRange(){state.effectStart=Number($('effectStart').value);state.effectEnd=Math.max(state.effectStart,Number($('effectEnd').value));syncTimelineUI(state.duration);persist();renderFrame()}
+function syncEffectUI(){
+  const ids=['brightnessValue','contrastValue','saturationValue','grayValue','blurValue'];
+  const vals=[state.brightness,state.contrast,state.saturate,state.grayscale,state.blur];
+  ids.forEach((id,i)=>{if($(id))$(id).textContent=vals[i]});
+  if($('effectIntensityValue'))$('effectIntensityValue').textContent=state.effectIntensity;
+  if($('activeEffectLabel'))$('activeEffectLabel').textContent='Effect: '+state.effect;
+}
+
+function rotateBy(value){pushUndo();state.rotation=(state.rotation+value+360)%360;persist();renderFrame();toast('🔄 Rotation: '+state.rotation+'°')}
+function flipVideo(){pushUndo();state.flipX*=-1;persist();renderFrame();toast('↔️ Flip applied')}
+function toggleVignette(){state.effect=state.effect==='cinematic'?'none':'cinematic';persist();renderFrame();toast('🌑 Vignette style updated')}
+function toggleScanlines(){state.effect=state.effect==='vintage'?'none':'vintage';persist();renderFrame();toast('📺 Scanlines style updated')}
+function shakeVideo(){
+  if(!video){toast('আগে media নির্বাচন করুন।');return}
+  const base=video.style.transform;
+  video.animate([{transform:base},{transform:base+' translateX(-10px)'},{transform:base+' translateX(10px)'},{transform:base}],{duration:450,iterations:3});
+  toast('📳 Shake Effect');
+}
+function pulseVideo(){
+  if(!video){toast('আগে media নির্বাচন করুন।');return}
+  const base=video.style.transform;
+  video.animate([{transform:base},{transform:base+' scale(1.08)'},{transform:base}],{duration:700,iterations:2});
+  toast('🔍 Pulse Zoom');
+}
+
+/* ==================================================
+   ADVANCED COLOR / SPEED / BEAT CONTROLS
+================================================== */
+function applyColorGrade(name){
+  const grades={
+    normal:{brightness:100,contrast:100,saturate:100,grayscale:0,blur:0},
+    cinematic:{brightness:96,contrast:118,saturate:92,grayscale:0,blur:0},
+    hdr:{brightness:104,contrast:125,saturate:125,grayscale:0,blur:0},
+    tealorange:{brightness:100,contrast:115,saturate:118,grayscale:0,blur:0},
+    golden:{brightness:106,contrast:108,saturate:115,grayscale:0,blur:0},
+    moody:{brightness:88,contrast:125,saturate:82,grayscale:4,blur:0},
+    sunset:{brightness:103,contrast:112,saturate:128,grayscale:0,blur:0},
+    forest:{brightness:98,contrast:108,saturate:120,grayscale:0,blur:0},
+    ocean:{brightness:101,contrast:110,saturate:112,grayscale:0,blur:0},
+    pink:{brightness:104,contrast:106,saturate:120,grayscale:0,blur:0},
+    noir:{brightness:95,contrast:130,saturate:0,grayscale:100,blur:0},
+    vintage:{brightness:101,contrast:105,saturate:78,grayscale:12,blur:.2}
+  };
+  const g=grades[name]||grades.normal;
+  Object.assign(state,g,{colorGrade:name});
+  persist(); syncEffectUI(); renderFrame();
+  toast('🎨 '+name+' color grading applied');
+}
+function setPlaybackRate(rate){
+  state.playbackRate=Number(rate)||1;
+  if(video) video.playbackRate=state.playbackRate;
+  persist();
+  toast(state.playbackRate<1?'🐌 Slow motion '+state.playbackRate+'×':'▶️ Speed '+state.playbackRate+'×');
+}
+function setBeatSync(mode){
+  state.beatSync=mode!=='none';
+  state.beatAnimation=mode==='none'?'pulse':mode;
+  persist();
+  toast(mode==='none'?'🥁 Beat sync off':'🥁 Beat sync: '+mode);
+}
+function setMusicFade(type){
+  state.musicFade=type;
+  persist();
+  toast(type==='in'?'↗️ Music Fade In selected':'↘️ Music Fade Out selected');
+}
+function resetTransform(){
+  pushUndo();state.zoom=100;state.rotation=0;state.flipX=1;state.panX=0;state.panY=0;
+  if($('zoomRange'))$('zoomRange').value=100;
+  if($('zoomValue'))$('zoomValue').textContent='100';if($('zoomRange'))$('zoomRange').value=100;if($('panXRange'))$('panXRange').value=0;if($('panYRange'))$('panYRange').value=0;if($('panXValue'))$('panXValue').textContent='0';if($('panYValue'))$('panYValue').textContent='0';
+  persist();renderFrame();toast('♻️ Transform reset');
+}
+
+/* ==================================================
+   ANIMATION
+================================================== */
+function setAnimation(name,button){
+  state.animation=name;
+  document.querySelectorAll('.animationGrid button').forEach(b=>b.classList.remove('active'));
+  button?.classList.add('active');
+  persist();
+  renderFrameAnimationClass();
+  toast(name==='none'?'⏹️ Animation Off':'🎞️ '+name+' selected');
+}
+function renderFrameAnimationClass(){
+  if(!video) return;
+  video.style.animation='none';
+  if(state.mediaType!=='video'||state.animation==='none'||video.paused) return;
+  const names={zoomIn:'pixoraZoomIn',zoomOut:'pixoraZoomOut',left:'pixoraSlideLeft',right:'pixoraSlideRight',bounce:'pixoraBounce',shake:'pixoraShake',pulse:'pixoraPulse',float:'pixoraFloat'};
+  const name=names[state.animation]; if(name) video.style.animation=name+' 2.5s ease-in-out infinite';
+}
+function startAnimation(){renderFrameAnimationClass()}
+function stopAnimation(){if(video)video.style.animation='none'}
+
+/* ==================================================
+   TRIM / ASPECT
+================================================== */
+function changeAspect(value){state.aspect=value;persist();$('previewBox').style.aspectRatio=value==='auto'?'':value;renderFrame();toast('📐 Aspect ratio updated')}
+function setTrimStart(value){pushUndo();state.trimStart=Math.min(Number(value),state.trimEnd||Number(value));$('trimStart').value=state.trimStart;$('startValue').textContent=formatTime(state.trimStart);if(video&&state.mediaType==='video')video.currentTime=state.trimStart;persist()}
+function setTrimEnd(value){pushUndo();state.trimEnd=Math.max(Number(value),state.trimStart);$('trimEnd').value=state.trimEnd;$('endValue').textContent=formatTime(state.trimEnd);persist()}
+function previewTrim(){if(!video||state.mediaType!=='video'){toast('Video নির্বাচন করুন।');return}video.currentTime=state.trimStart;video.play().catch(()=>{});toast('✂️ Trim Preview: '+formatTime(state.trimStart)+' → '+formatTime(state.trimEnd))}
+
+/* ==================================================
+   PRO TIMELINE / KEYFRAMES
+================================================== */
+function currentPlayhead(){return video&&state.mediaType==='video'?Number(video.currentTime||0):Number($('seekBar')?.value||0)}
+function cutLeft(){if(!state.mediaType){toast('Media নির্বাচন করুন।');return}const t=currentPlayhead();if(t<=state.trimStart){toast('Playhead trim start-এর পরে রাখুন।');return}pushUndo();state.trimStart=Math.min(t,state.trimEnd||state.duration);persist();syncTimelineUI(state.duration);renderFrame();toast('✂️ Left side cut করা হয়েছে')}
+function cutRight(){if(!state.mediaType){toast('Media নির্বাচন করুন।');return}const t=currentPlayhead();if(t>=state.trimEnd){toast('Playhead trim end-এর আগে রাখুন।');return}pushUndo();state.trimEnd=Math.max(t,state.trimStart);persist();syncTimelineUI(state.duration);renderFrame();toast('✂️ Right side cut করা হয়েছে')}
+function splitAtPlayhead(){if(!state.mediaType){toast('Media নির্বাচন করুন।');return}const t=currentPlayhead();if(t<=state.trimStart+0.05||t>=state.trimEnd-0.05){toast('Split করার জন্য playhead মাঝখানে রাখুন।');return}pushUndo();state.keyframes=Array.isArray(state.keyframes)?state.keyframes:[];state.keyframes.push({time:t,type:'split'});state.keyframes.sort((a,b)=>a.time-b.time);persist();updateTimelinePro();toast('🔪 Split marker যোগ হয়েছে')}
+function addKeyframe(){if(!state.mediaType){toast('Media নির্বাচন করুন।');return}pushUndo();state.keyframes=Array.isArray(state.keyframes)?state.keyframes:[];const t=currentPlayhead();state.keyframes.push({time:t,type:'transform',zoom:state.zoom,panX:state.panX||0,panY:state.panY||0,rotation:state.rotation});state.keyframes.sort((a,b)=>a.time-b.time);persist();updateTimelinePro();toast('◆ Keyframe saved at '+formatTime(t))}
+function clearKeyframes(){if(!state.keyframes?.length){toast('Keyframe নেই');return}pushUndo();state.keyframes=[];persist();updateTimelinePro();toast('Keyframes cleared')}
+function updateTimelinePro(){const d=Number(state.duration)||1,t=currentPlayhead();const ph=$('timelinePlayhead');if(ph)ph.style.left=Math.max(0,Math.min(100,t/d))+'%';const clip=$('clipBlock');if(clip){const a=(state.trimStart||0)/d,b=(state.trimEnd||d)/d;clip.style.left=(a*100)+'%';clip.style.width=Math.max(1,(b-a)*100)+'%'}const kc=$('keyframeCount');if(kc)kc.textContent=(state.keyframes||[]).length;const bm=$('timelineBeatMarkers');if(bm)bm.innerHTML=(state.beats||[]).map(x=>`<span class="beatMarkerPro" style="left:${Number(x)/d*100}%"></span>`).join('')}
+
+/* ==================================================
+   AUDIO
+================================================== */
+function loadAudio(event){
+  const file=event.target.files?.[0]; if(!file)return;
+  if(audioElement){audioElement.pause();audioElement.src='';audioElement=null;}
+  if(state.audioUrl) URL.revokeObjectURL(state.audioUrl);
+  state.audioUrl=URL.createObjectURL(file); state.audioName=file.name;
+  audioElement=new Audio(state.audioUrl); audioElement.preload='auto'; audioElement.loop=false;
+  audioElement.volume=state.musicVolume/100;
+  $('audioName').textContent='🎵 '+file.name;
+  persist(); toast('🎵 Audio selected');
+}
+function changeVolume(value){if(video&&state.mediaType==='video')video.volume=Number(value)/100}
+function changeMusicVolume(value){state.musicVolume=Number(value);if($('musicVolumeValue'))$('musicVolumeValue').textContent=value;if(audioElement)audioElement.volume=state.musicVolume/100;persist()}
+function syncAudioToVideo(shouldPlay){
+  if(!audioElement||!video||state.mediaType!=='
+<!-- চতুর্থ অংশ — 1201–1439 -->
+
+if($('depositAmount'))$('depositAmount').value='';if($('depositTrx'))$('depositTrx').value='';
+if($('depositMessage'))$('depositMessage').textContent='✅ Deposit Request পাঠানো হয়েছে। Admin Approve করলে Wallet-এ টাকা যোগ হবে।';
+toast('💳 Deposit Request পাঠানো হয়েছে');
+}
+function approveDeposit(id){toast('Deposit শুধু Admin approve করবেন।');}
+function rejectDeposit(id){toast('Deposit শুধু Admin control করবেন।');}
+
+function renderIncome(){
+  if($('incomeBalance'))$('incomeBalance').textContent='৳ '+money(state.balance);
+  if($('homeBalance'))$('homeBalance').textContent=money(state.balance);
+  if($('workBalance'))$('workBalance').textContent='৳ '+money(state.balance);
+  if($('balanceAmount'))$('balanceAmount').textContent=money(state.balance);
+  if($('totalEarn'))$('totalEarn').textContent=money(state.totalIncome);
+  if($('totalIncome'))$('totalIncome').textContent='৳ '+money(state.totalIncome);
+  if($('totalWithdraw'))$('totalWithdraw').textContent=money(state.totalWithdraw);
+  const list=$('history')||$('walletHistory');if(!list)return;
+  const items=[...(state.walletHistory||[])];
+  if(!items.length){list.innerHTML='<div class="empty">Wallet History নেই</div>';return;}
+  list.innerHTML=items.map(i=>{
+    const st=String(i.status||'').toLowerCase();
+    const isPending=st==='pending', isRejected=['rejected','cancelled'].includes(st);
+    const sign=(i.type==='withdrawal'&&st==='approved')?'-':(Number(i.amount)>0?'+':'');
+    const displayAmount=Number(i.amount)||0;
+    return `<div class="history"><div class="taskTop"><div><b>${escapeHTML(i.title||i.type||'Wallet Activity')}</b><div class="notice">${escapeHTML(i.date||'')}</div></div><span class="${isRejected?'warning':isPending?'warning':displayAmount>=0?'success':'warning'}">${sign}৳${Math.abs(displayAmount).toFixed(2)}</span></div>${st?`<div class="notice" style="margin-top:6px">Status: <b>${escapeHTML(st)}</b></div>`:''}</div>`;
+  }).join('');
+}
+function addWalletIncome(){toast('Wallet income শুধু Admin control করবেন.');}
+function adminAddWallet(){addWalletIncome();}
+function requestWithdrawal(){requestWithdraw();}
+async function requestWithdraw(){
+  if(!supabaseClient){toast('Supabase connection নেই।');return;}
+  const {data:{user}}=await getSupabaseAuth().getUser();if(!user){showAuth();return;}
+  const method=$('withdrawMethod')?.value,number=$('withdrawNumber')?.value.trim(),amount=Number($('withdrawAmount')?.value),name=$('withdrawName')?.value.trim()||state.profile.name||'User';
+  if(!number||!Number.isFinite(amount)||amount<=0){toast('সঠিক Number এবং Amount দিন');return}
+  if(amount>state.balance){toast('Wallet-এ পর্যাপ্ত Balance নেই');return}
+  const {data,error}=await supabaseClient.from('withdrawals').insert({user_id:user.id,method,account:number,amount,status:'pending'}).select('*').single();
+  if(error){toast(error.message||'Withdrawal request failed');return;}
+  state.withdrawals.unshift(data||{user_id:user.id,method,account:number,amount,status:'pending'});persist();
+  if($('withdrawNumber'))$('withdrawNumber').value='';if($('withdrawAmount'))$('withdrawAmount').value='';
+  if($('withdrawMessage'))$('withdrawMessage').textContent='✅ Withdrawal Request পাঠানো হয়েছে। Admin review করবে.';
+  toast('💸 Withdrawal request পাঠানো হয়েছে');
+}
+function approveWithdrawal(id){toast('Withdrawal শুধু Admin approve করবেন।');}
+function rejectWithdrawal(id){toast('Withdrawal শুধু Admin control করবেন।');}
+function adminResetWallet(){toast('Wallet reset শুধু Admin control করবেন.');}
+function resetWallet(){toast('Wallet reset শুধু Admin control করবেন.');}
+function renderAdmin(){ /* User app-এ Admin controls নেই */ }
+function approveTask(id){toast('Task approval শুধু Admin করবেন.');}
+
+/* ===================== MESSAGES ===================== */
+async function loadUserMessages(){
+  const box=$('userMessageList');if(!box||!supabaseClient)return;
+  const {data:{user}}=await getSupabaseAuth().getUser();if(!user)return;
+  box.innerHTML='<div class="loading">Loading messages...</div>';
+  const {data,error}=await supabaseClient.from('messages').select('*').eq('user_id',user.id).order('created_at',{ascending:false});
+  if(error){box.innerHTML=`<div class="empty">${escapeHTML(error.message||'Messages load failed')}</div>`;return;}
+  state.messages=Array.isArray(data)?data:[];persist();
+  if(!state.messages.length){box.innerHTML='<div class="empty">কোনো message নেই।</div>';return;}
+  box.innerHTML=state.messages.map(m=>`<div class="history"><b>${escapeHTML(m.message||m.content||m.text||'Message')}</b><div class="notice">Status: ${escapeHTML(String(m.status||'pending'))}</div>${m.admin_reply?`<div class="detail"><small>Admin Reply</small>${escapeHTML(m.admin_reply)}</div>`:''}<small>${escapeHTML(m.created_at||'')}</small></div>`).join('');
+}
+function saveMessageUserId(){ toast('Login করা User ID স্বয়ংক্রিয়ভাবে ব্যবহার হচ্ছে।');loadUserMessages(); }
+async function sendUserMessage(){
+  if(!supabaseClient){toast('Supabase connection নেই।');return;}
+  const {data:{user}}=await getSupabaseAuth().getUser();if(!user){showAuth();return;}
+  const text=$('userMessageText')?.value.trim();if(!text){toast('Message লিখুন।');return;}
+  const {data,error}=await supabaseClient.from('messages').insert({user_id:user.id,message:text,status:'pending'}).select('*').single();
+  if(error){toast(error.message||'Message send failed');return;}
+  $('userMessageText').value='';state.messages=state.messages||[];state.messages.unshift(data);persist();renderUserMessages();toast('📤 Admin-কে Message পাঠানো হয়েছে');
+}
+function renderUserMessages(){loadUserMessages();}
+
+/* ==================================================
+   PROFILE
+================================================== */
+async function saveProfile(){
+  state.profile={name:$('profileName')?.value.trim()||state.profile?.name||'',phone:$('profilePhone')?.value.trim()||state.profile?.phone||''};persist();
+  try{const {data:{user}}=await getSupabaseAuth().getUser();if(user)await supabaseClient.from('users').update({name:state.profile.name,phone:state.profile.phone}).eq('auth_id',user.id);toast('👤 Profile saved');}catch(e){toast('Profile save failed');}
+}
+
+/* ==================================================
+   COMPATIBILITY ALIASES
+================================================== */
+function addBeatAtPlayheadCompat(){addBeat()}
+function updateAnimRange(){return}
+function updateEditorStatus(message){if($('editorStatus'))$('editorStatus').textContent=message}
+
+/* ==================================================
+   INIT
+================================================== */
+document.addEventListener('DOMContentLoaded',async()=>{
+  loadPixoraAdsense();
+  renderPixoraAds();
+  const supabaseReady=await initSupabase();
+  resetUIFromState();
+  if(supabaseReady && supabaseClient?.auth){
+    const {data:{session}}=await getSupabaseAuth().getSession();
+    if(session?.user){try{await ensureUserRow(session.user);await syncUserData();openApp();}catch(e){showAuth();setAuthMsg(e.message||'Account sync failed');}}else showAuth();
+    getSupabaseAuth().onAuthStateChange((event,session)=>{if(session?.user){setTimeout(()=>syncUserData(),0);openApp();}else showAuth();});
+    startPixoraFinalLiveSync();
+  }else{showAuth();setAuthMsg('Supabase SDK লোড হয়নি। Internet connection/check করুন.');}
+
+  renderRecentProjects();
+  renderTasks();
+  loadUserNotices();
+  renderOrders();
+  renderIncome();
+  renderBeatMarkers();
+  updateBeatInfo();
+
+  if($('projectModal'))$('projectModal').addEventListener('click',e=>{if(e.target===$('projectModal'))closeSavedProjects()});
+  if($('musicVolume'))$('musicVolume').addEventListener('input',e=>changeMusicVolume(e.target.value));
+  window.addEventListener('resize',()=>renderFrame());
+  window.addEventListener('focus',()=>refreshPixoraBalance());
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')refreshPixoraBalance()});
+  setInterval(()=>{if(document.visibilityState==='visible' && state.user)refreshPixoraBalance()},8000);
+});
+
+window.addEventListener('beforeunload',()=>{
+  if(state.mediaUrl)try{URL.revokeObjectURL(state.mediaUrl)}catch(e){}
+  if(state.overlayUrl)try{URL.revokeObjectURL(state.overlayUrl)}catch(e){}
+  if(state.audioUrl)try{URL.revokeObjectURL(state.audioUrl)}catch(e){}
+});
+
+/* PIXORA FINAL LIVE SYNC — keeps Admin→User data independent */
+async function pixoraFinalLiveSync(){
+  if(!supabaseClient) return;
+  try{
+    const {data:{user}}=await getSupabaseAuth().getUser();
+    if(!user) return;
+
+    const results=await Promise.allSettled([
+      supabaseClient.from('notices').select('*').eq('is_active',true).order('is_pinned',{ascending:false}).order('created_at',{ascending:false}),
+      supabaseClient.from('tasks').select('*').eq('status','published').order('created_at',{ascending:false}),
+      supabaseClient.from('users').select('balance,name,phone').eq('auth_id',user.id).maybeSingle(),
+      supabaseClient.from('deposits').select('*').eq('user_id',user.id).order('created_at',{ascending:false}),
+      supabaseClient.from('withdrawals').select('*').eq('user_id',user.id).order('created_at',{ascending:false})
+    ]);
+
+    const notices=results[0].status==='fulfilled'?results[0].value:null;
+    const tasks=results[1].status==='fulfilled'?results[1].value:null;
+    const profile=results[2].status==='fulfilled'?results[2].value:null;
+    const deposits=results[3].status==='fulfilled'?results[3].value:null;
+    const withdrawals=results[4].status==='fulfilled'?results[4].value:null;
+
+    if(notices && !notices.error && Array.isArray(notices.data)) renderUserNotices(notices.data);
+    if(tasks && !tasks.error && Array.isArray(tasks.data)){
+      state.tasks=tasks.data.map(t=>({...t,reward:Number(t.reward||0),createdAt:t.created_at}));
+      renderTasks();
+    }
+    if(profile && !profile.error && profile.data){
+      state.balance=Number(profile.data.balance||0);
+      state.profile={...state.profile,name:profile.data.name||state.profile.name||'',phone:profile.data.phone||state.profile.phone||''};
+      persist();
+      renderIncome();
+    }
+    if(deposits && !deposits.error && Array.isArray(deposits.data)) state.deposits=deposits.data.map(d=>({...d,transactionId:d.transaction_id,date:d.created_at}));
+    if(withdrawals && !withdrawals.error && Array.isArray(withdrawals.data)) state.withdrawals=withdrawals.data.map(w=>({...w,number:w.account,date:w.created_at}));
+    state.walletHistory=[
+      ...state.deposits.map(d=>({id:'deposit-'+d.id,type:'deposit',title:`Deposit — ${String(d.status||'pending')}`,amount:String(d.status||'').toLowerCase()==='approved'?Number(d.amount)||0:0,status:String(d.status||'pending'),date:d.date||d.created_at||''})),
+      ...state.withdrawals.map(w=>({id:'withdraw-'+w.id,type:'withdrawal',title:`Withdrawal — ${String(w.status||'pending')}`,amount:Number(w.amount)||0,status:String(w.status||'pending'),date:w.date||w.created_at||''}))
+    ].sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
+    persist();
+    renderIncome();
+  }catch(e){ console.warn('Pixora final live sync:',e); }
+}
+
+function startPixoraFinalLiveSync(){
+  if(window.__pixoraFinalSyncStarted) return;
+  window.__pixoraFinalSyncStarted=true;
+  const run=()=>{if(document.visibilityState!=='hidden') pixoraFinalLiveSync();};
+  setTimeout(run,500);
+  setInterval(run,5000);
+  window.addEventListener('focus',run);
+  document.addEventListener('visibilitychange',run);
+}
+
+async function sharePixora(){
+  if(!supabaseClient){toast('Supabase connection নেই।');return;}
+  const {data:{user}}=await getSupabaseAuth().getUser();
+  if(!user){showAuth();return;}
+
+  // Avoid navigator.share() because some Android WebViews can crash with "Aw, Snap!".
+  // Use a normal web-safe share chooser instead.
+  const url=location.href;
+  const text='Pixora Editor & Earning App';
+  const old=document.getElementById('pixoraShareChooser');
+  if(old) old.remove();
+
+  const box=document.createElement('div');
+  box.id='pixoraShareChooser';
+  box.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:99999;display:flex;align-items:center;justify-content:center;padding:18px';
+  box.innerHTML=`<div style="width:min(420px,100%);background:#111827;color:#fff;border:1px solid #334155;border-radius:18px;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,.45)">
+    <h3 style="margin:0 0 8px">📤 Share Pixora</h3>
+    <p style="color:#cbd5e1;margin:0 0 16px">একটি অপশন দিয়ে Pixora শেয়ার করুন।</p>
+    <div style="display:grid;gap:10px">
+      <button id="pixShareWA" class="primary">📱 WhatsApp</button>
+      <button id="pixShareTG" class="primary">✈️ Telegram</button>
+      <button id="pixShareCopy" class="primary">🔗 Copy Link</button>
+      <button id="pixShareClose" style="background:#374151;color:#fff;border:0;padding:12px;border-radius:10px">বন্ধ করুন</button>
+    </div>
+  </div>`;
+  document.body.appendChild(box);
+
+  const recordReward=async()=>{
+    const marker='[PIXORA_SHARE_REWARD_5]';
+    const {data:existing,error:checkError}=await supabaseClient.from('messages').select('id,status').eq('user_id',user.id).eq('message',marker).maybeSingle();
+    if(checkError) throw checkError;
+    if(!existing){
+      const {error}=await supabaseClient.from('messages').insert({user_id:user.id,message:marker,status:'pending'});
+      if(error) throw error;
+      const el=document.getElementById('shareStatus');if(el)el.textContent='✅ Share recorded. ৳5 reward is pending Admin approval.';
+      toast('📤 Share recorded — ৳5 pending Admin approval');
+      await loadUserMessages();
+    }else toast('এই User-এর Share reward request আগে দেওয়া হয়েছে।');
+  };
+
+  document.getElementById('pixShareWA').onclick=async()=>{
+    window.open('https://wa.me/?text='+encodeURIComponent(text+'\n'+url),'_blank','noopener,noreferrer');
+    try{await recordReward();}catch(e){toast(e.message||'Share request save হয়নি');}
+    box.remove();
+  };
+  document.getElementById('pixShareTG').onclick=async()=>{
+    window.open('https://t.me/share/url?url='+encodeURIComponent(url)+'&text='+encodeURIComponent(text),'_blank','noopener,noreferrer');
+    try{await recordReward();}catch(e){toast(e.message||'Share request save হয়নি');}
+    box.remove();
+  };
+  document.getElementById('pixShareCopy').onclick=async()=>{
+    try{
+      const ta=document.createElement('textarea');ta.value=url;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();document.execCommand('copy');ta.remove();
+      toast('🔗 Pixora link copied');
+    }catch(e){toast('Link copy করা যায়নি।');}
+    try{await recordReward();}catch(e){toast(e.message||'Share request save হয়নি');}
+    box.remove();
+  };
+  document.getElementById('pixShareClose').onclick=()=>box.remove();
+  box.addEventListener('click',e=>{if(e.target===box)box.remove();});
+}
+</script>
+</body></html>

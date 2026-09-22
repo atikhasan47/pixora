@@ -1,0 +1,1697 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Atik Daily Earning - User Panel</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;700;900&family=Poppins:wght@400;600;800&family=Oswald:wght@400;700&family=Anton&family=Orbitron:wght@400;900&family=Bungee&family=Righteous&family=Playfair+Display:wght@700;900&family=Cinzel:wght@700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-family:'Poppins','Segoe UI',sans-serif;}
+
+/* LIVE ANIMATION */
+.village-bg{position:fixed;inset:0;z-index:-1;overflow:hidden;}
+.sky-night{position:absolute;top:0;width:100%;height:100%;background:linear-gradient(180deg,#0a0f1e 0%,#0f172a 30%,#1a2332 60%,#1e3a2e 100%);}
+.stars{position:absolute;top:0;width:100%;height:60%;}
+.star{position:absolute;background:#fff;border-radius:50%;animation:twinkle 3s ease-in-out infinite;}
+@keyframes twinkle{0%,100%{opacity:.3;transform:scale(1);}50%{opacity:1;transform:scale(1.4);}}
+.moon{position:absolute;top:60px;right:90px;width:80px;height:80px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#FFF9C4,#FFE082,#B0BEC5);box-shadow:0 0 60px #FFE082,0 0 120px rgba(255,224,130,.5);animation:moonGlow 5s ease-in-out infinite;}
+@keyframes moonGlow{0%,100%{box-shadow:0 0 60px #FFE082,0 0 120px rgba(255,224,130,.5);}50%{box-shadow:0 0 80px #FFF9C4,0 0 160px rgba(255,224,130,.7);}}
+.ground{position:absolute;bottom:0;width:100%;height:35%;background:linear-gradient(180deg,#1e3a2e 0%,#0f2419 50%,#081210 100%);}
+.grass-layer{position:absolute;bottom:0;width:100%;height:25px;background:repeating-linear-gradient(90deg,transparent 0,transparent 3px,#2E7D32 3px,#2E7D32 5px,transparent 5px,transparent 8px);opacity:.6;}
+.tree{position:absolute;bottom:12%;transform-origin:bottom center;animation:treeSway 4s ease-in-out infinite;}
+.trunk{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:14px;height:80px;background:linear-gradient(90deg,#3E2723,#1a0f0a);border-radius:5px;}
+.leaves{position:absolute;bottom:70px;left:50%;transform:translateX(-50%);width:110px;height:110px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#4CAF50,#2E7D32 50%,#0d3a1f);box-shadow:inset -12px -12px 30px rgba(0,0,0,.5),0 0 40px rgba(76,175,80,.4);}
+@keyframes treeSway{0%,100%{transform:rotate(0);}50%{transform:rotate(2deg);}}
+.tree1{left:4%;}.tree2{left:18%;bottom:15%;transform:scale(1.3);animation-delay:.5s;}
+.tree3{right:5%;bottom:10%;transform:scale(.9);animation-delay:1s;}.tree4{right:25%;bottom:17%;transform:scale(1.4);animation-delay:1.5s;}
+.rain-container{position:absolute;inset:0;overflow:hidden;pointer-events:none;}
+.raindrop{position:absolute;top:-20px;width:2px;height:20px;background:linear-gradient(180deg,transparent,rgba(174,194,224,.7));animation:rainFall linear infinite;}
+@keyframes rainFall{0%{transform:translateY(-20px);}100%{transform:translateY(105vh);}}
+.leaf{position:absolute;top:-20px;width:14px;height:14px;border-radius:0 100% 0 100%;opacity:.9;animation:leafFall linear infinite;}
+@keyframes leafFall{0%{transform:translateY(-50px) rotate(0) translateX(0);opacity:0;}10%{opacity:.9;}50%{transform:translateY(50vh) rotate(360deg) translateX(50px);}100%{transform:translateY(105vh) rotate(720deg) translateX(120px);opacity:0;}}
+.wind{position:absolute;height:1.5px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.7),transparent);border-radius:2px;animation:windBlow linear infinite;}
+@keyframes windBlow{to{transform:translateX(120vw);}}
+.firefly{position:absolute;width:4px;height:4px;background:#FFEB3B;border-radius:50%;box-shadow:0 0 10px #FFEB3B,0 0 20px #FFC107;animation:fireflyFloat linear infinite;opacity:.8;}
+@keyframes fireflyFloat{0%{transform:translate(0,0);opacity:0;}20%{opacity:1;}80%{opacity:1;}100%{transform:translate(100px,-200px);opacity:0;}}
+
+/* SPLASH WELCOME */
+.splash{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(135deg,#0a0f1e,#1b263b,#415a77);transition:opacity 1s ease;}
+.splash.hide{opacity:0;pointer-events:none;}
+.splash-logo{width:130px;height:130px;border-radius:50%;object-fit:cover;border:4px solid #FFD700;box-shadow:0 0 60px #FFD700,0 0 120px rgba(255,215,0,.5);animation:logoBounceIn 1s ease,logoPulse 2.5s 1s ease-in-out infinite;}
+@keyframes logoBounceIn{0%{transform:scale(0) rotate(-180deg);opacity:0;}60%{transform:scale(1.15) rotate(10deg);}100%{transform:scale(1) rotate(0);opacity:1;}}
+@keyframes logoPulse{0%,100%{box-shadow:0 0 60px #FFD700,0 0 120px rgba(255,215,0,.5);}50%{box-shadow:0 0 90px #FFF59D,0 0 180px rgba(255,215,0,.9);}}
+.splash-title{margin-top:25px;font-size:34px;font-weight:900;letter-spacing:4px;text-align:center;background:linear-gradient(90deg,#FFD700 0%,#FF9800 25%,#FFF59D 50%,#FF9800 75%,#FFD700 100%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmerText 3s linear infinite,titleFadeIn 1s ease .3s both;font-family:'Montserrat',sans-serif;}
+@keyframes shimmerText{0%{background-position:-200% center;}100%{background-position:200% center;}}
+@keyframes titleFadeIn{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+.splash-brand{margin-top:10px;font-size:14px;letter-spacing:3px;color:#00E676;font-weight:800;animation:titleFadeIn 1s ease .6s both;}
+.splash-features{margin-top:32px;display:flex;flex-direction:column;gap:12px;animation:titleFadeIn 1s ease .9s both;}
+.splash-feature{display:flex;align-items:center;gap:10px;padding:10px 24px;background:rgba(255,255,255,.06);border:1px solid rgba(255,215,0,.3);border-radius:12px;font-size:14px;font-weight:600;color:#e0e0e0;backdrop-filter:blur(10px);}
+.splash-feature .sIcon{font-size:22px;}
+.splash-loader{margin-top:30px;display:flex;gap:8px;animation:titleFadeIn 1s ease 1.2s both;}
+.splash-loader span{width:10px;height:10px;background:#FFD700;border-radius:50%;animation:dotPulse 1.4s infinite ease-in-out both;box-shadow:0 0 12px #FFD700;}
+.splash-loader span:nth-child(1){animation-delay:0s;}
+.splash-loader span:nth-child(2){animation-delay:.2s;}
+.splash-loader span:nth-child(3){animation-delay:.4s;}
+@keyframes dotPulse{0%,80%,100%{transform:scale(.5);opacity:.5;}40%{transform:scale(1.2);opacity:1;}}
+.splash-tip{margin-top:20px;font-size:12px;color:#8fa8c4;text-align:center;padding:0 20px;animation:titleFadeIn 1s ease 1.5s both;}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;justify-content:center;align-items:center;z-index:1000;padding:15px;overflow-y:auto;backdrop-filter:blur(10px);}
+.modal-overlay.active{display:flex;animation:modalFadeIn .6s ease;}
+@keyframes modalFadeIn{from{opacity:0;}to{opacity:1;}}
+.login-box{background:linear-gradient(135deg,rgba(13,27,42,.98),rgba(27,38,59,.98));backdrop-filter:blur(20px);padding:38px 32px;border-radius:22px;width:100%;max-width:430px;border:3px solid #FFD700;box-shadow:0 0 80px rgba(255,215,0,.6);margin:auto;animation:loginSlideIn .7s cubic-bezier(.68,-.55,.27,1.55);}
+@keyframes loginSlideIn{from{opacity:0;transform:translateY(60px) scale(.9);}to{opacity:1;transform:translateY(0) scale(1);}}
+.login-logo-top{width:80px;height:80px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 15px;border:3px solid #FFD700;box-shadow:0 0 30px #FFD700;animation:logoPulse 2.5s infinite;}
+.login-box h2{color:#FFD700;text-align:center;margin-bottom:22px;font-size:22px;font-family:'Montserrat',sans-serif;}
+.login-box input,.login-box select{width:100%;padding:14px;margin-bottom:14px;background:rgba(255,255,255,.08);border:2px solid rgba(255,215,0,.5);border-radius:12px;color:#fff;font-size:14px;font-family:inherit;}
+.login-box input:focus,.login-box select:focus{border-color:#00E676;outline:none;}
+.eye-icon{position:absolute;right:15px;top:14px;cursor:pointer;color:#FFD700;font-size:16px;}
+.auth-tabs{display:flex;gap:8px;margin-bottom:22px;background:rgba(255,255,255,.05);padding:6px;border-radius:14px;}
+.auth-tab{flex:1;padding:11px;background:transparent;border:none;color:#8fa8c4;font-size:14px;font-weight:bold;border-radius:10px;cursor:pointer;font-family:inherit;}
+.auth-tab.active{background:linear-gradient(90deg,#FFD700,#FF9800);color:#000;}
+.auth-btn{width:100%;padding:15px;background:linear-gradient(90deg,#00C853,#00E676);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:bold;cursor:pointer;margin-top:5px;font-family:inherit;}
+.auth-error{color:#FF1744;font-size:13px;font-weight:bold;text-align:center;padding:9px;margin-bottom:10px;background:rgba(255,23,68,.15);border-radius:10px;display:none;}
+.auth-error.show{display:block;}
+.auth-hint{color:#8fa8c4;font-size:12px;text-align:center;margin-top:15px;}
+.auth-hint a{color:#FFD700;cursor:pointer;text-decoration:underline;}
+
+/* LAYOUT */
+.app-layout{display:flex;min-height:100vh;position:relative;z-index:1;}
+.sidebar{width:250px;background:linear-gradient(180deg,rgba(13,27,42,.97),rgba(27,38,59,.97));backdrop-filter:blur(20px);border-right:2px solid rgba(255,215,0,.2);padding:20px 0;position:sticky;top:0;height:100vh;overflow-y:auto;transition:.3s;z-index:100;}
+.sidebar-logo{display:flex;align-items:center;gap:12px;padding:0 20px 20px;border-bottom:1px solid rgba(255,215,0,.2);margin-bottom:15px;}
+.sidebar-logo img{height:50px;width:50px;border-radius:50%;box-shadow:0 0 20px #FFD700;border:2px solid #FFD700;object-fit:cover;}
+.sidebar-logo .brand{color:#FFD700;font-size:13px;font-weight:bold;line-height:1.3;font-family:'Montserrat',sans-serif;}
+.user-card{display:flex;align-items:center;gap:12px;padding:15px 20px;background:rgba(255,215,0,.08);margin:0 12px 15px;border-radius:15px;border:1px solid rgba(255,215,0,.25);}
+.user-card .avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#FFD700,#FF9800);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:bold;color:#000;border:3px solid #fff;}
+.user-card .info{flex:1;overflow:hidden;}
+.user-card .info .name{font-size:14px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.user-card .info .status{font-size:11px;color:#FF9800;cursor:pointer;}
+.menu-section{margin-bottom:12px;padding:0 12px;}
+.menu-label{font-size:10px;color:#6b7d94;letter-spacing:2px;padding:8px 12px;text-transform:uppercase;font-weight:700;}
+.menu-item{display:flex;align-items:center;gap:12px;padding:12px 15px;color:#b0bec5;cursor:pointer;border-radius:12px;transition:.3s;font-size:13px;font-weight:600;margin-bottom:3px;}
+.menu-item:hover{background:rgba(255,215,0,.1);color:#FFD700;transform:translateX(4px);}
+.menu-item.active{background:linear-gradient(90deg,rgba(255,215,0,.2),transparent);color:#FFD700;box-shadow:inset 4px 0 0 #FFD700;}
+.menu-item .icon{font-size:18px;width:24px;text-align:center;}
+.menu-sub{padding-left:14px;}
+
+.main{flex:1;padding:25px;overflow-x:hidden;max-width:100%;}
+.topbar h2{font-size:22px;color:#FFD700;font-weight:800;font-family:'Montserrat',sans-serif;}
+.topbar h2 span{color:#fff;font-weight:400;font-size:13px;display:block;margin-top:4px;font-family:'Poppins',sans-serif;}
+
+.btn{padding:12px 22px;border:none;border-radius:12px;cursor:pointer;font-weight:700;font-size:13px;transition:.3s;text-decoration:none;display:inline-flex;align-items:center;gap:6px;font-family:inherit;}
+.btn-gold{background:linear-gradient(90deg,#FFD700,#FF9800);color:#000;}
+.btn-green{background:linear-gradient(90deg,#00C853,#00E676);color:#fff;}
+.btn-red{background:linear-gradient(90deg,#D32F2F,#FF1744);color:#fff;}
+.btn-primary{background:linear-gradient(90deg,#00C853,#00E676);color:#fff;}
+
+.top-header-bar{background:linear-gradient(90deg,rgba(13,27,42,.9),rgba(27,38,59,.9));backdrop-filter:blur(15px);border:2px solid rgba(255,215,0,.3);border-radius:16px;padding:12px 20px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+.thb-greeting{color:#8fa8c4;font-size:13px;}
+.thb-greeting strong{color:#FFD700;}
+.thb-right{display:flex;gap:8px;align-items:center;}
+.thb-btn{background:rgba(255,255,255,.08);border:1px solid rgba(255,215,0,.4);color:#FFD700;padding:8px 14px;border-radius:20px;cursor:pointer;font-weight:700;font-size:12px;position:relative;font-family:inherit;}
+.thb-logout{background:linear-gradient(90deg,#D32F2F,#FF1744);color:#fff;border-color:#FF1744;}
+.notif-badge{position:absolute;top:-6px;right:-6px;background:#FF1744;color:#fff;font-size:10px;padding:2px 6px;border-radius:10px;font-weight:900;}
+
+.ad-space{background:linear-gradient(135deg,rgba(27,38,59,.9),rgba(13,27,42,.9));border:2px dashed #FFD700;border-radius:16px;padding:15px 20px;margin:18px 0;text-align:center;min-height:80px;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;}
+.ad-space::before{content:'📢 AD';position:absolute;top:6px;left:10px;font-size:9px;color:#8fa8c4;letter-spacing:2px;font-weight:700;}
+.ad-space-inline{min-height:60px;padding:10px;margin:12px 0;}
+.ad-space-content{color:#FFD700;font-weight:800;font-size:13px;}
+.ad-space-content small{color:#8fa8c4;display:block;margin-top:5px;font-weight:400;font-size:10px;}
+
+.profile-logo-section{display:flex;justify-content:center;margin-bottom:20px;padding:15px;}
+.profile-logo-box{width:320px;height:320px;border-radius:50px;background:linear-gradient(135deg,#E3F2FD,#BBDEFB,#90CAF9);border:4px solid #0D47A1;position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;overflow:hidden;flex-shrink:0;box-shadow:0 0 60px rgba(255,179,0,.3);}
+.profile-logo-box::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:conic-gradient(from 0deg,transparent,rgba(255,255,255,.6),transparent 30%);animation:rotate-slow 10s linear infinite;pointer-events:none;}
+.profile-logo-box>*{position:relative;z-index:2;}
+@keyframes rotate-slow{to{transform:rotate(360deg);}}
+.logo-bubble{position:absolute;bottom:-30px;width:9px;height:9px;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.95),rgba(100,181,246,.5));box-shadow:0 0 10px rgba(100,181,246,.7);animation:float-bubble 6s linear infinite;}
+@keyframes float-bubble{0%{transform:translateY(0) scale(1);opacity:.6;}100%{transform:translateY(-500px) scale(1.4);opacity:0;}}
+.logo-photo-wrap{width:110px;height:110px;border-radius:50%;overflow:hidden;border:4px solid #0D47A1;box-shadow:0 6px 20px rgba(13,71,161,.5),0 0 0 5px rgba(255,255,255,.7);margin-bottom:6px;position:relative;background:#E3F2FD;}
+.logo-photo-wrap img{width:100%;height:100%;object-fit:cover;object-position:center 25%;}
+.logo-photo-wrap .bolt{position:absolute;bottom:-5px;right:-5px;background:linear-gradient(135deg,#FFD700,#FF9800);width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;border:3px solid #fff;}
+.logo-title-1{font-size:26px;font-weight:900;letter-spacing:3px;background:linear-gradient(90deg,#0D47A1 0%,#1976D2 25%,#FFD700 50%,#1976D2 75%,#0D47A1 100%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmerText 4s linear infinite;}
+.logo-title-2{color:#1565C0;font-size:14px;font-weight:900;letter-spacing:3px;text-shadow:1.5px 1.5px 0 #fff;margin-top:1px;}
+.logo-brand{margin-top:6px;background:linear-gradient(90deg,#E65100,#F57C00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:9px;font-weight:900;letter-spacing:2.5px;}
+.logo-tag{margin-top:4px;color:#1B5E20;font-size:8px;font-weight:900;letter-spacing:1.5px;}
+.logo-corner{position:absolute;width:9px;height:9px;border-radius:50%;background:#0D47A1;}
+
+.profile-banner-section{display:flex;justify-content:center;margin-bottom:22px;padding:15px;overflow-x:auto;}
+.profile-banner-box{width:800px;height:440px;border-radius:22px;background:linear-gradient(135deg,#E3F2FD 0%,#BBDEFB 40%,#90CAF9 70%,#64B5F6 100%);border:5px solid #0D47A1;position:relative;overflow:hidden;display:flex;flex-direction:column;flex-shrink:0;box-shadow:0 0 60px rgba(255,179,0,.3);}
+.profile-banner-box::before{content:'';position:absolute;top:-100px;right:-100px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.7),transparent 70%);z-index:1;}
+.profile-banner-box::after{content:'';position:absolute;bottom:-100px;left:-100px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(255,179,0,.3),transparent 70%);z-index:1;}
+.banner-badge{position:absolute;top:14px;right:20px;background:linear-gradient(90deg,#E65100,#F57C00);color:#fff;padding:6px 18px;border-radius:16px;font-weight:900;font-size:12px;z-index:5;}
+.banner-content{display:grid;grid-template-columns:180px 1fr 200px;gap:20px;padding:25px 25px 15px 25px;flex:1;align-items:center;position:relative;z-index:2;}
+.banner-photo-wrap2{width:160px;height:200px;border-radius:18px;overflow:hidden;border:5px solid #0D47A1;box-shadow:0 10px 25px rgba(13,71,161,.5);position:relative;background:#E3F2FD;}
+.banner-photo-wrap2 img{width:100%;height:100%;object-fit:cover;object-position:center 20%;}
+.banner-photo-wrap2 .bolt{position:absolute;bottom:-8px;right:-8px;background:linear-gradient(135deg,#FFD700,#FF9800);width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;border:3px solid #fff;}
+.banner-title{color:#0D47A1;font-size:24px;font-weight:900;line-height:1.15;text-shadow:2px 2px 0 #fff;}
+.banner-title-ai{background:linear-gradient(90deg,#E65100 0%,#FF9800 25%,#FFD700 50%,#FF9800 75%,#E65100 100%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900;animation:shimmerText 3s linear infinite;}
+.banner-brand{margin-top:5px;color:#1B5E20;font-size:11px;font-weight:900;letter-spacing:3.5px;}
+.banner-divider{width:100%;height:2px;background:linear-gradient(90deg,#0D47A1,transparent);margin:8px 0 10px;}
+.banner-services-title{color:#0D47A1;font-size:12px;font-weight:900;margin-bottom:8px;}
+.banner-services{display:flex;flex-direction:column;gap:6px;}
+.banner-service{font-size:12px;font-weight:800;padding:6px 10px;border-radius:8px;background:rgba(255,255,255,.85);border-left:4px solid;}
+.banner-service.gold{color:#E65100;border-color:#E65100;}
+.banner-service.green{color:#1B5E20;border-color:#1B5E20;}
+.banner-service.blue{color:#0D47A1;border-color:#0D47A1;}
+.banner-service.purple{color:#6A1B9A;border-color:#6A1B9A;}
+.banner-platform-col{display:flex;flex-direction:column;align-items:center;}
+.banner-platforms-title{color:#0D47A1;font-size:12px;font-weight:900;margin-bottom:12px;text-align:center;}
+.banner-platforms{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;justify-items:center;}
+.platform-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;background:rgba(255,255,255,.95);border:2px solid rgba(13,71,161,.25);box-shadow:0 4px 12px rgba(0,0,0,.12);}
+.platform-yt{color:#FF0000;}.platform-tt{color:#000;}.platform-ig{color:#E1306C;}.platform-tg{color:#0088CC;}.platform-fb{color:#1877F2;}
+.banner-footer-bar{background:linear-gradient(90deg,#0D47A1,#1976D2);color:#fff;padding:10px 25px;display:flex;justify-content:space-between;align-items:center;font-size:11px;font-weight:800;}
+
+.welcome-card{background:linear-gradient(135deg,rgba(27,38,59,.95) 0%,rgba(65,90,119,.95) 50%,rgba(13,27,42,.95) 100%);backdrop-filter:blur(15px);border:2px solid #FFD700;border-radius:20px;padding:30px;margin-bottom:22px;box-shadow:0 0 50px rgba(255,215,0,.3);}
+.welcome-content{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;}
+.welcome-text .hello{color:#FFD700;font-size:13px;letter-spacing:2px;font-weight:600;text-transform:uppercase;}
+.welcome-text .username{font-size:30px;font-weight:900;color:#fff;margin:8px 0;text-shadow:0 0 20px rgba(255,215,0,.5);font-family:'Montserrat',sans-serif;}
+.welcome-text .verified{display:inline-flex;align-items:center;gap:8px;background:rgba(255,152,0,.2);color:#FF9800;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;border:1px solid #FF9800;}
+.welcome-text .verified.verified-yes{background:rgba(0,230,118,.2);color:#00E676;border-color:#00E676;}
+.welcome-actions{display:flex;gap:12px;flex-wrap:wrap;}
+
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:22px;}
+.stat-card{background:linear-gradient(135deg,rgba(255,255,255,.06),rgba(255,255,255,.02));backdrop-filter:blur(10px);border:1px solid rgba(255,215,0,.25);border-radius:18px;padding:22px;transition:.4s;}
+.stat-card:hover{transform:translateY(-5px);box-shadow:0 15px 40px rgba(255,215,0,.3);}
+.stat-card.clickable{cursor:pointer;}
+.stat-card .icon{font-size:32px;margin-bottom:10px;display:block;}
+.stat-card h4{font-size:11px;color:#8fa8c4;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;}
+.stat-card .val{font-size:22px;font-weight:900;color:#FFD700;font-family:'Courier New',monospace;}
+.stat-card.green .val{color:#00E676;}.stat-card.orange .val{color:#FF9800;}
+.stat-card.cyan .val{color:#00E5FF;}.stat-card.pink .val{color:#FF4081;}
+
+.section{margin-bottom:25px;}
+.section-title{color:#FFD700;font-size:17px;font-weight:800;margin-bottom:15px;display:flex;align-items:center;gap:10px;padding-bottom:10px;border-bottom:2px solid rgba(255,215,0,.25);font-family:'Montserrat',sans-serif;}
+.section-title .count{background:rgba(255,215,0,.2);color:#FFD700;font-size:11px;padding:3px 10px;border-radius:15px;font-weight:700;margin-left:auto;}
+
+.service-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;}
+.svc-big{background:linear-gradient(135deg,rgba(27,38,59,.95),rgba(13,27,42,.95));backdrop-filter:blur(10px);border:2px solid rgba(255,215,0,.4);border-radius:20px;padding:28px 22px;text-align:center;cursor:pointer;transition:.4s;}
+.svc-big:hover{transform:translateY(-8px) scale(1.02);border-color:#FFD700;box-shadow:0 20px 50px rgba(255,215,0,.5);}
+.svc-big .svc-icon{font-size:55px;display:block;margin-bottom:14px;}
+.svc-big h3{color:#FFD700;font-size:20px;font-weight:900;margin-bottom:8px;font-family:'Montserrat',sans-serif;}
+.svc-big p{color:#8fa8c4;font-size:13px;margin-bottom:18px;}
+.svc-big .svc-btn{background:linear-gradient(90deg,#FFD700,#FF9800);color:#000;padding:12px 30px;border-radius:12px;font-weight:800;font-size:14px;display:inline-block;}
+
+.countdown-banner{background:linear-gradient(135deg,rgba(13,27,42,.95),rgba(27,38,59,.95),rgba(65,90,119,.95));backdrop-filter:blur(15px);border:3px solid #FFD700;border-radius:22px;padding:30px 20px;text-align:center;box-shadow:0 0 60px rgba(255,215,0,.4);}
+.countdown-banner h2{color:#FFD700;font-size:20px;font-weight:900;margin-bottom:20px;font-family:'Montserrat',sans-serif;}
+.countdown-box{display:flex;justify-content:center;align-items:center;gap:6px;flex-wrap:wrap;}
+.cd-item{background:linear-gradient(135deg,rgba(255,215,0,.2),rgba(255,152,0,.15));border:2px solid rgba(255,215,0,.5);border-radius:14px;padding:14px 18px;min-width:70px;}
+.cd-num{font-size:30px;font-weight:900;color:#FFD700;font-family:'Courier New',monospace;}
+.cd-lbl{font-size:10px;color:#8fa8c4;font-weight:700;text-transform:uppercase;margin-top:6px;}
+.cd-sep{font-size:28px;font-weight:900;color:#FFD700;}
+
+.community-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;}
+.comm-card{display:flex;align-items:center;gap:14px;padding:18px;border-radius:16px;cursor:pointer;transition:.3s;text-decoration:none;color:#fff;}
+.comm-card:hover{transform:translateY(-5px) scale(1.02);box-shadow:0 15px 40px rgba(0,0,0,.5);}
+.comm-card .ico{font-size:32px;}
+.comm-card .info h4{font-size:14px;font-weight:800;margin-bottom:3px;}
+.comm-card .info p{font-size:11px;color:rgba(255,255,255,.8);}
+.comm-yt{background:linear-gradient(135deg,#FF0000,#C62828);}
+.comm-fb{background:linear-gradient(135deg,#1877F2,#0D47A1);}
+.comm-tt{background:linear-gradient(135deg,#000,#25F4EE,#FE2C55);}
+.comm-tg{background:linear-gradient(135deg,#0088CC,#005f8a);}
+.comm-tgg{background:linear-gradient(135deg,#0088CC,#004d73);}
+
+.panel{display:none;}
+.panel.active{display:block;animation:fadeIn .4s;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(15px);}to{opacity:1;transform:translateY(0);}}
+
+.form-group{margin-bottom:15px;}
+.form-group label{display:block;margin-bottom:6px;color:#FFD700;font-weight:600;font-size:13px;}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:13px;background:rgba(255,255,255,.05);border:2px solid rgba(255,215,0,.3);border-radius:12px;color:#fff;font-size:14px;font-family:inherit;}
+.form-group input:focus,.form-group textarea:focus{border-color:#00E676;outline:none;}
+
+.ads-hero{background:linear-gradient(135deg,rgba(13,27,42,.95),rgba(27,38,59,.95));backdrop-filter:blur(15px);border:3px solid #00E676;border-radius:22px;padding:30px;box-shadow:0 0 60px rgba(0,230,118,.4);margin-bottom:22px;text-align:center;}
+.ads-hero .ads-icon{font-size:65px;margin-bottom:10px;}
+.ads-hero h2{color:#00E676;font-size:24px;font-weight:900;margin-bottom:8px;font-family:'Montserrat',sans-serif;}
+.ads-hero p{color:#8fa8c4;font-size:13px;margin-bottom:16px;}
+.ads-hero .reward-big{font-size:46px;color:#FFD700;font-weight:900;font-family:'Courier New',monospace;}
+
+.ads-stats-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:22px;}
+.asb-item{background:linear-gradient(135deg,rgba(27,38,59,.95),rgba(13,27,42,.95));border:2px solid rgba(255,215,0,.3);border-radius:16px;padding:16px;display:flex;align-items:center;gap:14px;}
+.asb-icon{font-size:28px;}
+.asb-info{flex:1;}
+.asb-label{font-size:10px;color:#8fa8c4;text-transform:uppercase;font-weight:700;margin-bottom:4px;}
+.asb-value{font-size:18px;color:#FFD700;font-weight:900;font-family:'Courier New',monospace;}
+
+.ad-display-box{background:linear-gradient(135deg,#0a0f1e,#1b263b);border:3px solid #FFD700;border-radius:18px;padding:40px 25px;text-align:center;margin-bottom:20px;min-height:250px;display:flex;flex-direction:column;justify-content:center;align-items:center;}
+.ad-display-box .adb-icon{font-size:70px;margin-bottom:15px;}
+.ad-display-box .adb-title{color:#FFD700;font-size:20px;font-weight:900;margin-bottom:10px;}
+.ad-display-box .adb-sub{color:#8fa8c4;font-size:13px;}
+
+.ad-big-timer{background:linear-gradient(135deg,#0d1b2a,#1b263b);border:3px solid #FF1744;border-radius:22px;padding:35px;text-align:center;box-shadow:0 0 60px rgba(255,23,68,.5);margin-bottom:20px;}
+.ad-big-timer .abt-label{color:#FF1744;font-size:13px;font-weight:800;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;}
+.ad-big-timer .abt-value{font-size:70px;font-weight:900;color:#fff;font-family:'Courier New',monospace;text-shadow:0 0 40px #FF1744;line-height:1;}
+.ad-big-timer .abt-hint{color:#8fa8c4;font-size:12px;margin-top:12px;}
+
+.ad-workflow-card{background:linear-gradient(135deg,rgba(13,27,42,.95),rgba(27,38,59,.95));backdrop-filter:blur(15px);border:3px solid #FFD700;border-radius:22px;padding:25px;box-shadow:0 0 60px rgba(255,215,0,.4);}
+.awc-header{display:flex;justify-content:space-between;align-items:center;padding-bottom:18px;border-bottom:2px solid rgba(255,215,0,.3);margin-bottom:20px;flex-wrap:wrap;gap:12px;}
+.awc-brand{display:flex;align-items:center;gap:14px;}
+.awc-brand img{height:55px;width:55px;border-radius:50%;border:2px solid #FFD700;object-fit:cover;}
+.awc-title{color:#FFD700;font-size:14px;font-weight:900;}
+.awc-brand-sub{color:#8fa8c4;font-size:11px;margin-top:4px;}
+.awc-step{padding:20px 5px;}
+.awc-step-title{color:#FFD700;font-size:16px;font-weight:800;margin-bottom:10px;}
+.awc-action-btn{display:block;width:100%;max-width:400px;margin:0 auto;padding:16px 24px;border:none;border-radius:14px;font-size:16px;font-weight:800;cursor:pointer;transition:.3s;text-align:center;font-family:inherit;}
+.awc-claim{background:linear-gradient(90deg,#00C853,#00E676);color:#fff;max-width:180px;margin:0;}
+.awc-math-box{background:rgba(0,0,0,.35);border:2px dashed #FFD700;border-radius:18px;padding:25px;text-align:center;}
+.math-question{font-size:36px;font-weight:900;color:#FFD700;font-family:'Courier New',monospace;margin-bottom:20px;letter-spacing:3px;}
+.math-input-wrap{display:flex;gap:10px;max-width:400px;margin:0 auto;flex-wrap:wrap;justify-content:center;}
+.math-input{flex:1;min-width:130px;padding:14px 18px;background:rgba(255,255,255,.08);border:2px solid rgba(255,215,0,.5);border-radius:12px;color:#fff;font-size:20px;font-weight:900;text-align:center;font-family:'Courier New',monospace;outline:none;}
+.math-feedback{margin-top:15px;font-size:14px;font-weight:700;min-height:24px;}
+.math-feedback.error{color:#FF1744;}
+
+.math-hero{background:linear-gradient(135deg,rgba(13,27,42,.95),rgba(27,38,59,.95));backdrop-filter:blur(15px);border:3px solid #00E5FF;border-radius:22px;padding:35px 25px;box-shadow:0 0 60px rgba(0,229,255,.4);margin-bottom:22px;text-align:center;}
+.math-hero .mh-icon{font-size:65px;margin-bottom:10px;}
+.math-hero h2{color:#00E5FF;font-size:24px;font-weight:900;margin-bottom:8px;}
+.math-hero .reward-big{font-size:46px;color:#FFD700;font-weight:900;font-family:'Courier New',monospace;}
+.math-card{background:linear-gradient(135deg,rgba(13,27,42,.95),rgba(27,38,59,.95));border:3px solid #FFD700;border-radius:22px;padding:30px;text-align:center;}
+.math-card .mc-q{font-size:42px;font-weight:900;color:#FFD700;font-family:'Courier New',monospace;margin:25px 0;letter-spacing:4px;}
+.math-card .mc-input{display:flex;gap:10px;max-width:420px;margin:0 auto;flex-wrap:wrap;justify-content:center;}
+.math-card input{flex:1;min-width:150px;padding:18px 20px;background:rgba(255,255,255,.08);border:2px solid rgba(255,215,0,.5);border-radius:14px;color:#fff;font-size:22px;font-weight:900;text-align:center;font-family:'Courier New',monospace;outline:none;}
+.math-card button{background:linear-gradient(90deg,#00C853,#00E676);color:#fff;padding:18px 32px;border:none;border-radius:14px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;}
+.math-stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-top:22px;}
+.math-stat{background:linear-gradient(135deg,rgba(27,38,59,.9),rgba(13,27,42,.9));border:2px solid rgba(255,215,0,.3);border-radius:16px;padding:18px;text-align:center;}
+.math-stat .ms-icon{font-size:30px;margin-bottom:8px;display:block;}
+.math-stat .ms-label{font-size:10px;color:#8fa8c4;text-transform:uppercase;font-weight:700;margin-bottom:6px;}
+.math-stat .ms-value{font-size:20px;color:#FFD700;font-weight:900;font-family:'Courier New',monospace;}
+
+.job-hero{background:linear-gradient(135deg,rgba(13,27,42,.95),rgba(27,38,59,.95));backdrop-filter:blur(15px);border:3px solid #FF9800;border-radius:22px;padding:30px;box-shadow:0 0 60px rgba(255,152,0,.4);margin-bottom:22px;text-align:center;}
+.job-hero .jh-icon{font-size:65px;margin-bottom:10px;}
+.job-hero h2{color:#FF9800;font-size:24px;font-weight:900;margin-bottom:8px;}
+.job-hero p{color:#8fa8c4;font-size:13px;margin-bottom:16px;}
+.job-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;}
+.job-card{background:linear-gradient(135deg,rgba(27,38,59,.95),rgba(13,27,42,.95));border:2px solid rgba(255,152,0,.4);border-radius:18px;padding:20px;text-align:center;transition:.3s;}
+.job-card:hover{transform:translateY(-5px);border-color:#FF9800;box-shadow:0 15px 40px rgba(255,152,0,.4);}
+.job-card .jc-icon{font-size:38px;margin-bottom:10px;display:block;}
+.job-card h4{color:#FF9800;font-size:15px;font-weight:800;margin-bottom:6px;}
+.job-card p{color:#8fa8c4;font-size:12px;margin-bottom:12px;}
+.job-card .jc-pay{color:#00E676;font-size:14px;font-weight:900;margin-bottom:12px;font-family:'Courier New',monospace;}
+
+.proof-upload{border:3px dashed #00E676;border-radius:16px;padding:25px;text-align:center;background:rgba(0,230,118,.05);cursor:pointer;margin-bottom:15px;}
+.proof-upload:hover{background:rgba(0,230,118,.1);}
+.proof-upload .pu-icon{font-size:44px;margin-bottom:8px;display:block;}
+.proof-upload img{max-width:100%;max-height:180px;border-radius:12px;margin-top:12px;}
+
+.social-tabs{display:flex;gap:8px;margin-bottom:20px;background:rgba(255,255,255,.05);padding:6px;border-radius:14px;flex-wrap:wrap;}
+.social-tab{flex:1;min-width:100px;padding:12px 16px;background:transparent;border:none;color:#8fa8c4;font-size:13px;font-weight:700;border-radius:10px;cursor:pointer;transition:.3s;font-family:inherit;}
+.social-tab.active{background:linear-gradient(90deg,#FFD700,#FF9800);color:#000;}
+
+.service-list{display:grid;gap:12px;}
+.service-item{background:linear-gradient(135deg,rgba(27,38,59,.95),rgba(13,27,42,.95));border:2px solid rgba(255,215,0,.3);border-radius:14px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;transition:.3s;gap:12px;flex-wrap:wrap;}
+.service-item:hover{border-color:#FFD700;transform:translateX(5px);}
+.service-item .s-name{color:#fff;font-size:13px;font-weight:700;flex:1;min-width:180px;}
+.service-item .s-price{color:#FFD700;font-size:17px;font-weight:900;font-family:'Courier New',monospace;}
+.service-item .s-price small{color:#8fa8c4;font-size:10px;display:block;font-weight:400;text-align:right;}
+.service-item .s-btn{background:linear-gradient(90deg,#00C853,#00E676);color:#fff;padding:10px 22px;border:none;border-radius:10px;font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;}
+
+.wallet-card{background:linear-gradient(135deg,rgba(13,27,42,.95),rgba(27,38,59,.95));border:3px solid #00E676;border-radius:22px;padding:30px;box-shadow:0 0 50px rgba(0,230,118,.3);margin-bottom:22px;}
+.wallet-card h3{color:#aaa;font-size:12px;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;}
+.wallet-card .amt{font-size:40px;font-weight:900;color:#00E676;font-family:'Courier New',monospace;margin-bottom:20px;}
+.wallet-card .actions{display:flex;gap:12px;flex-wrap:wrap;}
+
+.history-table{width:100%;border-collapse:collapse;background:rgba(255,255,255,.03);border-radius:14px;overflow:hidden;}
+.history-table th{background:rgba(255,215,0,.12);color:#FFD700;padding:12px;text-align:left;font-size:11px;text-transform:uppercase;}
+.history-table td{padding:12px;font-size:12px;color:#ddd;border-bottom:1px solid rgba(255,255,255,.05);}
+.history-empty{text-align:center;color:#6b7d94;padding:30px;font-size:13px;}
+
+.premium-card{background:linear-gradient(135deg,#FFD700,#FF9800);color:#000;border-radius:22px;padding:35px;text-align:center;box-shadow:0 0 60px rgba(255,215,0,.6);max-width:600px;margin:0 auto;}
+.premium-card h2{font-size:26px;font-weight:900;margin-bottom:10px;}
+.premium-card ul{text-align:left;display:inline-block;margin:15px 0;font-size:15px;line-height:2.2;list-style:none;}
+
+.support-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:25px;}
+.support-card{background:linear-gradient(135deg,rgba(27,38,59,.95),rgba(13,27,42,.95));border:2px solid rgba(255,215,0,.3);border-radius:18px;padding:25px;text-align:center;transition:.3s;text-decoration:none;color:#fff;}
+.support-card:hover{transform:translateY(-5px);box-shadow:0 20px 45px rgba(255,215,0,.4);border-color:#FFD700;}
+.support-card .icon{font-size:44px;margin-bottom:12px;display:block;}
+.support-card h4{color:#FFD700;font-size:17px;font-weight:800;margin-bottom:8px;}
+.support-card p{color:#8fa8c4;font-size:12px;margin-bottom:12px;}
+.support-card .contact{background:rgba(255,215,0,.1);color:#FFD700;padding:8px 16px;border-radius:20px;font-size:12px;font-weight:700;display:inline-block;}
+
+/* AI ASSISTANT */
+.ai-tabs{display:flex;gap:8px;margin-bottom:20px;background:rgba(255,255,255,.05);padding:6px;border-radius:14px;}
+.ai-tab{flex:1;padding:12px;background:transparent;border:none;color:#8fa8c4;font-size:13px;font-weight:700;border-radius:10px;cursor:pointer;font-family:inherit;transition:.3s;}
+.ai-tab.active{background:linear-gradient(90deg,#FFD700,#FF9800);color:#000;}
+.ai-panel{display:none;}
+.ai-panel.active{display:block;}
+
+.chat-box{background:rgba(255,255,255,.03);border:2px solid rgba(255,215,0,.3);border-radius:18px;padding:18px;max-width:100%;}
+.chat-messages{max-height:400px;overflow-y:auto;margin-bottom:14px;display:flex;flex-direction:column;gap:10px;}
+.chat-msg{padding:10px 14px;border-radius:12px;font-size:13px;line-height:1.5;max-width:85%;word-wrap:break-word;}
+.chat-msg.user{background:linear-gradient(135deg,#0D47A1,#1976D2);color:#fff;align-self:flex-end;border-bottom-right-radius:4px;}
+.chat-msg.admin{background:rgba(255,215,0,.15);color:#FFD700;align-self:flex-start;border-bottom-left-radius:4px;border:1px solid rgba(255,215,0,.3);}
+.chat-msg .chat-time{font-size:10px;opacity:.6;margin-top:4px;display:block;}
+.chat-input-row{display:flex;gap:8px;}
+.chat-input-row input{flex:1;padding:12px;background:rgba(255,255,255,.08);border:2px solid rgba(255,215,0,.3);border-radius:12px;color:#fff;font-size:14px;font-family:inherit;outline:none;}
+.chat-input-row input:focus{border-color:#00E676;}
+.chat-input-row button{background:linear-gradient(90deg,#00C853,#00E676);color:#fff;border:none;padding:12px 22px;border-radius:12px;font-weight:800;cursor:pointer;font-family:inherit;font-size:13px;}
+
+/* PHOTO EDITOR */
+.photo-upload-area{border:3px dashed #FF9800;border-radius:18px;padding:40px 25px;text-align:center;background:rgba(255,152,0,.05);cursor:pointer;transition:.3s;}
+.photo-upload-area:hover{background:rgba(255,152,0,.1);border-color:#00E676;}
+.photo-preview-wrap{position:relative;background:#000;border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center;min-height:280px;max-height:500px;margin-top:15px;}
+.photo-preview-wrap img{max-width:100%;max-height:480px;display:block;border-radius:10px;will-change:filter;}
+.grade-presets{display:flex;gap:8px;overflow-x:auto;padding:8px 4px;margin-top:12px;}
+.grade-presets::-webkit-scrollbar{height:6px;}
+.grade-presets::-webkit-scrollbar-thumb{background:#FFD700;border-radius:10px;}
+.grade-chip{flex-shrink:0;background:rgba(255,255,255,.08);border:2px solid rgba(255,215,0,.3);color:#b0bec5;padding:10px 14px;border-radius:12px;font-size:11px;cursor:pointer;min-width:85px;text-align:center;font-weight:700;transition:.2s;}
+.grade-chip:hover{background:rgba(255,215,0,.2);color:#FFD700;}
+.grade-chip.selected{background:linear-gradient(135deg,#FFD700,#FF9800);color:#000;border-color:#FFD700;}
+
+/* SPINNER */
+.spinner{width:40px;height:40px;border:4px solid rgba(255,215,0,.3);border-top-color:#FFD700;border-radius:50%;margin:0 auto;animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);background:linear-gradient(90deg,#00C853,#00E676);color:#fff;padding:16px 32px;border-radius:12px;font-weight:bold;box-shadow:0 15px 40px rgba(0,0,0,.5);transition:.4s;z-index:2000;opacity:0;}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
+
+.mobile-toggle{display:none;position:fixed;top:15px;left:15px;z-index:999;background:linear-gradient(135deg,#FFD700,#FF9800);color:#000;border:none;width:45px;height:45px;border-radius:12px;font-size:20px;cursor:pointer;box-shadow:0 5px 20px rgba(0,0,0,.5);}
+
+@media(max-width:900px){
+  .mobile-toggle{display:block;}
+  .sidebar{position:fixed;left:-280px;top:0;z-index:998;}
+  .sidebar.open{left:0;}
+  .main{padding:15px;padding-top:70px;}
+  .welcome-text .username{font-size:22px;}
+  .service-cards{grid-template-columns:1fr;}
+}
+@media(max-width:850px){.profile-banner-box{transform:scale(.85);transform-origin:top center;}}
+@media(max-width:740px){.profile-banner-box{transform:scale(.75);transform-origin:top center;}.profile-banner-section{margin-bottom:-50px;}}
+@media(max-width:640px){.profile-banner-box{transform:scale(.65);transform-origin:top center;}.profile-banner-section{margin-bottom:-80px;}}
+@media(max-width:600px){
+  .stats-grid{grid-template-columns:1fr 1fr;}
+  .community-grid{grid-template-columns:1fr;}
+  .topbar h2{font-size:18px;}
+  .cd-num{font-size:22px;}
+  .cd-item{min-width:55px;padding:10px;}
+  .social-tab{font-size:11px;padding:8px 10px;min-width:70px;}
+  .splash-title{font-size:24px;}
+  .splash-logo{width:100px;height:100px;}
+}
+@media(max-width:540px){.profile-banner-box{transform:scale(.55);transform-origin:top center;}.profile-banner-section{margin-bottom:-110px;}}
+@media(max-width:440px){.profile-banner-box{transform:scale(.45);transform-origin:top center;}.profile-banner-section{margin-bottom:-140px;}}
+@media(max-width:380px){
+  .profile-banner-box{transform:scale(.4);transform-origin:top center;}
+  .profile-banner-section{margin-bottom:-160px;}
+  .profile-logo-box{transform:scale(.85);transform-origin:top center;}
+  .profile-logo-section{margin-bottom:-30px;}
+}
+</style>
+</head>
+<body>
+
+<div class="village-bg" id="villageBg">
+  <div class="sky-night"></div>
+  <div class="stars" id="stars"></div>
+  <div class="moon"></div>
+  <div class="rain-container" id="rainContainer"></div>
+  <div class="ground"></div>
+  <div class="grass-layer"></div>
+  <div class="tree tree1"><div class="leaves"></div><div class="trunk"></div></div>
+  <div class="tree tree2"><div class="leaves"></div><div class="trunk"></div></div>
+  <div class="tree tree3"><div class="leaves"></div><div class="trunk"></div></div>
+  <div class="tree tree4"><div class="leaves"></div><div class="trunk"></div></div>
+  <div id="windContainer"></div>
+  <div id="leafContainer"></div>
+  <div id="fireflyContainer"></div>
+</div>
+
+<div class="splash" id="splash">
+  <img src="https://i.ibb.co.com/bgMN2Yv8/IMG-20260429-WA0011.jpg" class="splash-logo" alt="Logo">
+  <div class="splash-title">AI ATIK DAILY EARNING</div>
+  <div class="splash-brand">★ BRAND: ATIK FREELANCER ★</div>
+  <div class="splash-features">
+    <div class="splash-feature"><span class="sIcon">💰</span> Ads দেখে ইনকাম ৳0.10</div>
+    <div class="splash-feature"><span class="sIcon">📅</span> Daily Job — ৳0.20</div>
+    <div class="splash-feature"><span class="sIcon">🧮</span> Math Earn — ৳0.04</div>
+    <div class="splash-feature"><span class="sIcon">🎙️</span> AI Voice Generator</div>
+    <div class="splash-feature"><span class="sIcon">🤖</span> AI Chat Assistant</div>
+  </div>
+  <div class="splash-loader"><span></span><span></span><span></span></div>
+  <div class="splash-tip">⏳ লোড হচ্ছে... একটু অপেক্ষা করুন</div>
+</div>
+
+<button class="mobile-toggle" onclick="toggleSidebar()">☰</button>
+
+<div class="modal-overlay" id="authModal">
+  <div class="login-box">
+    <img src="https://i.ibb.co.com/bgMN2Yv8/IMG-20260429-WA0011.jpg" class="login-logo-top" alt="Logo">
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tabLogin" onclick="switchAuth('login')">🔑 Login</button>
+      <button class="auth-tab" id="tabSignup" onclick="switchAuth('signup')">🆕 Sign Up</button>
+    </div>
+    <div id="loginForm">
+      <h2>🔐 Login</h2>
+      <input type="email" id="loginEmail" placeholder="📧 Email">
+      <div style="position:relative;">
+        <input type="password" id="loginPass" placeholder="🔑 Password">
+        <span onclick="togglePass('loginPass','eye1')" class="eye-icon" id="eye1">👁️</span>
+      </div>
+      <div class="auth-error" id="loginError"></div>
+      <button class="auth-btn" onclick="doLogin()">🚀 Login</button>
+      <p class="auth-hint">নতুন? <a onclick="switchAuth('signup')">একাউন্ট খুলুন</a></p>
+    </div>
+    <div id="signupForm" style="display:none;">
+      <h2>🆕 Create Account</h2>
+      <input type="text" id="signupName" placeholder="👤 Full Name">
+      <input type="email" id="signupEmail" placeholder="📧 Email">
+      <input type="text" id="signupUser" placeholder="🆔 Username">
+      <div style="position:relative;">
+        <input type="password" id="signupPass" placeholder="🔑 Password (min 4)">
+        <span onclick="togglePass('signupPass','eye2')" class="eye-icon" id="eye2">👁️</span>
+      </div>
+      <div style="position:relative;">
+        <input type="password" id="signupPass2" placeholder="✅ Confirm Password">
+        <span onclick="togglePass('signupPass2','eye3')" class="eye-icon" id="eye3">👁️</span>
+      </div>
+      <div class="auth-error" id="signupError"></div>
+      <button class="auth-btn" onclick="doSignup()">✨ Create Account</button>
+      <p class="auth-hint">আগে থেকেই আছে? <a onclick="switchAuth('login')">লগইন করুন</a></p>
+    </div>
+  </div>
+</div>
+
+<div class="app-layout" id="appLayout" style="display:none;">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <img src="https://i.ibb.co.com/bgMN2Yv8/IMG-20260429-WA0011.jpg" alt="Logo">
+      <div class="brand">ATIK DAILY<br>EARNING</div>
+    </div>
+    <div class="user-card">
+      <div class="avatar" id="sideAvatar">A</div>
+      <div class="info">
+        <div class="name" id="sideName">Atik Hasan</div>
+        <div class="status" onclick="verifyAccount()" id="sideStatus">Unverified</div>
+      </div>
+    </div>
+
+    <div class="menu-section">
+      <div class="menu-label">Main</div>
+      <div class="menu-item active" data-panel="dashboard"><span class="icon">📊</span> Dashboard</div>
+    </div>
+    <div class="menu-section">
+      <div class="menu-label">💰 My Wallet</div>
+      <div class="menu-sub">
+        <div class="menu-item" data-panel="wallet-history"><span class="icon">📜</span> Wallet & History</div>
+        <div class="menu-item" data-panel="add-funds"><span class="icon">💵</span> Add Money</div>
+        <div class="menu-item" data-panel="withdraw-money"><span class="icon">🏧</span> Withdraw</div>
+        <div class="menu-item" data-panel="premium"><span class="icon">👑</span> Get Premium</div>
+      </div>
+    </div>
+    <div class="menu-section">
+      <div class="menu-label">🎯 Earning</div>
+      <div class="menu-sub">
+        <div class="menu-item" data-panel="job"><span class="icon">📅</span> Daily Job</div>
+        <div class="menu-item" data-panel="watch-ads"><span class="icon">📺</span> Watch Ads</div>
+        <div class="menu-item" data-panel="math"><span class="icon">🧮</span> Math Earn</div>
+        <div class="menu-item" data-panel="social"><span class="icon">🛒</span> Social Promote</div>
+        <div class="menu-item" data-panel="ai"><span class="icon">🤖</span> AI Assistant</div>
+      </div>
+    </div>
+    <div class="menu-section">
+      <div class="menu-label">🤝 Affiliate</div>
+      <div class="menu-sub">
+        <div class="menu-item" data-panel="refer-earn"><span class="icon">🎁</span> Refer & Earn</div>
+        <div class="menu-item" data-panel="leaderboard"><span class="icon">🏆</span> Leadership</div>
+      </div>
+    </div>
+    <div class="menu-section">
+      <div class="menu-label">📞 Help</div>
+      <div class="menu-sub">
+        <div class="menu-item" data-panel="support"><span class="icon">💬</span> Support</div>
+        <div class="menu-item" data-panel="chat"><span class="icon">📨</span> Chat with Admin</div>
+      </div>
+    </div>
+    <div class="menu-section" style="padding-top:15px;border-top:1px solid rgba(255,215,0,.2);margin-top:15px;">
+      <div class="menu-item" onclick="doLogout()"><span class="icon">🚪</span> Sign Out</div>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <div class="panel active" id="dashboard">
+      <div class="top-header-bar">
+        <div class="thb-greeting">👋 স্বাগতম, <strong id="thbName">Atik Hasan</strong></div>
+        <div class="thb-right">
+          <button class="thb-btn" onclick="toggleNotifications()">🔔 <span class="notif-badge" id="notifBadge">0</span></button>
+          <button class="thb-btn thb-logout" onclick="doLogout()">🚪 Logout</button>
+        </div>
+      </div>
+
+      <div class="ad-space ad-space-inline"><div class="ad-space-content">📢 Sponsor Ad<small>728x90</small></div></div>
+
+      <div class="profile-logo-section">
+        <div class="profile-logo-box">
+          <div class="logo-bubble" style="left:15%;animation-delay:0s;"></div>
+          <div class="logo-bubble" style="left:35%;animation-delay:1.2s;"></div>
+          <div class="logo-bubble" style="left:55%;animation-delay:2.4s;"></div>
+          <div class="logo-corner" style="top:18px;left:18px;"></div>
+          <div class="logo-corner" style="top:18px;right:18px;"></div>
+          <div class="logo-corner" style="bottom:18px;left:18px;"></div>
+          <div class="logo-corner" style="bottom:18px;right:18px;"></div>
+          <div class="logo-photo-wrap">
+            <img src="https://i.ibb.co.com/bgMN2Yv8/IMG-20260429-WA0011.jpg" alt="Profile">
+            <div class="bolt">⚡</div>
+          </div>
+          <div class="logo-title-1">ATIK</div>
+          <div class="logo-title-2">DAILY EARNING</div>
+          <div class="logo-brand">★ BRAND: ATIK FREELANCER ★</div>
+          <div class="logo-tag">🌟 PREMIUM PLATFORM 🌟</div>
+        </div>
+      </div>
+
+      <div class="profile-banner-section">
+        <div class="profile-banner-box">
+          <div class="banner-badge">⭐ PREMIUM ⭐</div>
+          <div class="banner-content">
+            <div class="banner-photo-wrap2">
+              <img src="https://i.ibb.co.com/bgMN2Yv8/IMG-20260429-WA0011.jpg" alt="Profile">
+              <div class="bolt">⚡</div>
+            </div>
+            <div>
+              <div class="banner-title">AI ATIK <span class="banner-title-ai">DAILY EARNING</span></div>
+              <div class="banner-brand">★ BRAND: ATIK FREELANCER ★</div>
+              <div class="banner-divider"></div>
+              <div class="banner-services-title">🎯 আমাদের সার্ভিসসমূহ</div>
+              <div class="banner-services">
+                <div class="banner-service gold">💰 Ads Income — ৳0.10</div>
+                <div class="banner-service green">📅 Daily Job — ৳0.20</div>
+                <div class="banner-service blue">🧮 Math Earn — ৳0.04</div>
+                <div class="banner-service purple">🛒 Social Web Promote</div>
+              </div>
+            </div>
+            <div class="banner-platform-col">
+              <div class="banner-platforms-title">🌐 প্রমোট করি</div>
+              <div class="banner-platforms">
+                <div class="platform-icon platform-yt">▶</div>
+                <div class="platform-icon platform-tt">♪</div>
+                <div class="platform-icon platform-ig">◉</div>
+                <div class="platform-icon platform-tg">✈</div>
+                <div class="platform-icon platform-fb">f</div>
+              </div>
+            </div>
+          </div>
+          <div class="banner-footer-bar">
+            <span>🎯 Min Deposit ৳100 | Min Withdraw ৳110</span>
+            <span>🌐 t.me/aiatikdailyearning</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="welcome-card">
+        <div class="welcome-content">
+          <div class="welcome-text">
+            <div class="hello">WELCOME BACK,</div>
+            <div class="username" id="welcomeName">Atik Hasan</div>
+            <div class="verified" id="verifyBadge">⚠️ অ্যাকাউন্ট ভেরিফাইড নয়! <span style="cursor:pointer;text-decoration:underline;margin-left:5px;" onclick="verifyAccount()">Verify</span></div>
+          </div>
+          <div class="welcome-actions">
+            <button class="btn btn-gold" onclick="goPanel('add-funds')">➕ Add Money</button>
+            <button class="btn btn-green" onclick="goPanel('withdraw-money')">💸 Withdraw</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card green clickable" onclick="goPanel('wallet-history')"><span class="icon">💰</span><h4>Main Balance</h4><div class="val">৳ <span id="mainBalance">0.00</span></div></div>
+        <div class="stat-card orange clickable"><span class="icon">📅</span><h4>Today's Income</h4><div class="val">৳ <span id="todayIncome">0.00</span></div></div>
+        <div class="stat-card cyan clickable"><span class="icon">📈</span><h4>Total Earned</h4><div class="val">৳ <span id="totalEarned">0.00</span></div></div>
+        <div class="stat-card pink clickable" onclick="goPanel('watch-ads')"><span class="icon">📺</span><h4>Total Ads</h4><div class="val"><span id="adsWatched">0</span></div></div>
+      </div>
+
+      <div class="ad-space"><div class="ad-space-content">📢 Sponsored<small>320x100</small></div></div>
+
+      <div class="section">
+        <div class="section-title">🎯 Earning Services <span class="count">5 Options</span></div>
+        <div class="service-cards">
+          <div class="svc-big" onclick="goPanel('job')" style="border-color:#FF9800;">
+            <span class="svc-icon">📅</span>
+            <h3 style="color:#FF9800;">Daily Job</h3>
+            <p>কাজ করে প্রুফ দিন, Approve পেলে টাকা</p>
+            <div class="svc-btn" style="background:linear-gradient(90deg,#FF9800,#FFD700);">Start Job →</div>
+          </div>
+          <div class="svc-big" onclick="goPanel('watch-ads')" style="border-color:#00E676;">
+            <span class="svc-icon">📺</span>
+            <h3 style="color:#00E676;">Watch Ads</h3>
+            <p>Ads দেখুন, প্রতি অ্যাডে ৳0.10</p>
+            <div class="svc-btn" style="background:linear-gradient(90deg,#00C853,#00E676);color:#fff;">Watch Now →</div>
+          </div>
+          <div class="svc-big" onclick="goPanel('math')" style="border-color:#00E5FF;">
+            <span class="svc-icon">🧮</span>
+            <h3 style="color:#00E5FF;">Math Earn</h3>
+            <p>অংক সমাধান করুন, ৳0.04 আয়</p>
+            <div class="svc-btn" style="background:linear-gradient(90deg,#00E5FF,#0288D1);color:#fff;">Solve Math →</div>
+          </div>
+          <div class="svc-big" onclick="goPanel('social')" style="border-color:#E1306C;">
+            <span class="svc-icon">🛒</span>
+            <h3 style="color:#E1306C;">Social Promote</h3>
+            <p>Social Media Promote করে ইনকাম</p>
+            <div class="svc-btn" style="background:linear-gradient(90deg,#E1306C,#833AB4);color:#fff;">Promote →</div>
+          </div>
+          <div class="svc-big" onclick="goPanel('ai')" style="border-color:#00E5FF;">
+            <span class="svc-icon">🤖</span>
+            <h3 style="color:#00E5FF;">AI Assistant</h3>
+            <p>AI Chat + Voice + Photo Edit</p>
+            <div class="svc-btn" style="background:linear-gradient(90deg,#00E5FF,#0288D1);color:#fff;">Open AI →</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="countdown-banner">
+          <h2>⏰ আমরা আপনাদের সাথে আছি</h2>
+          <div class="countdown-box">
+            <div class="cd-item"><div class="cd-num" id="cdDays">144</div><div class="cd-lbl">দিন</div></div>
+            <div class="cd-sep">:</div>
+            <div class="cd-item"><div class="cd-num" id="cdHours">09</div><div class="cd-lbl">ঘণ্টা</div></div>
+            <div class="cd-sep">:</div>
+            <div class="cd-item"><div class="cd-num" id="cdMins">59</div><div class="cd-lbl">মিনিট</div></div>
+            <div class="cd-sep">:</div>
+            <div class="cd-item"><div class="cd-num" id="cdSecs">00</div><div class="cd-lbl">সেকেন্ড</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">🌍 আমাদের কমিউনিটি <span class="count">5 Links</span></div>
+        <div class="community-grid">
+          <a class="comm-card comm-yt" href="https://youtube.com/@aiatikfreelanch" target="_blank" rel="noopener noreferrer"><div class="ico">▶️</div><div class="info"><h4>YouTube</h4><p>@aiatikfreelanch</p></div></a>
+          <a class="comm-card comm-fb" href="https://www.facebook.com/profile.php?id=61592860621046" target="_blank" rel="noopener noreferrer"><div class="ico">📘</div><div class="info"><h4>Facebook</h4><p>Atik Freelancer</p></div></a>
+          <a class="comm-card comm-tt" href="https://www.tiktok.com/@atikhasan60057" target="_blank" rel="noopener noreferrer"><div class="ico">🎵</div><div class="info"><h4>TikTok</h4><p>@atikhasan60057</p></div></a>
+          <a class="comm-card comm-tg" href="https://t.me/atikbreand420" target="_blank" rel="noopener noreferrer"><div class="ico">✈️</div><div class="info"><h4>Telegram Channel</h4><p>@atikbreand420</p></div></a>
+          <a class="comm-card comm-tgg" href="https://t.me/aiatikdailyearning" target="_blank" rel="noopener noreferrer"><div class="ico">👥</div><div class="info"><h4>Telegram Group</h4><p>@aiatikdailyearning</p></div></a>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">🏆 লিডারবোর্ড (Top 5) <span class="count">1,408</span></div>
+        <div id="leaderBoardDash"></div>
+      </div>
+    </div>
+
+    <div class="panel" id="watch-ads">
+      <div class="topbar"><h2>📺 Watch Ads & Earn <span>Ads দেখুন, Math Solve করুন, ৳0.10</span></h2></div>
+      <div class="ad-space ad-space-inline"><div class="ad-space-content">📢 Sponsor Ad<small>728x90</small></div></div>
+      <div class="ads-hero">
+        <div class="ads-icon">📺</div>
+        <h2>প্রতি অ্যাডে পাবেন</h2>
+        <p>Ads ৳0.06 + Math ৳0.04 = মোট ৳0.10</p>
+        <div class="reward-big">৳ 0.10</div>
+      </div>
+      <div class="ads-stats-bar">
+        <div class="asb-item"><div class="asb-icon">🎯</div><div class="asb-info"><div class="asb-label">আজকের লিমিট</div><div class="asb-value"><span id="todayLimit">50</span> টি</div></div></div>
+        <div class="asb-item"><div class="asb-icon">✅</div><div class="asb-info"><div class="asb-label">সম্পন্ন</div><div class="asb-value"><span id="completedToday">0</span> টি</div></div></div>
+        <div class="asb-item"><div class="asb-icon">💰</div><div class="asb-info"><div class="asb-label">আজকের আয়</div><div class="asb-value">৳ <span id="todayAdEarn">0.00</span></div></div></div>
+        <div class="asb-item"><div class="asb-icon">⏱️</div><div class="asb-info"><div class="asb-label">টাইমার</div><div class="asb-value">8s</div></div></div>
+      </div>
+      <div class="ad-display-box" id="adDisplayBox">
+        <div class="adb-icon">🎬</div>
+        <div class="adb-title">Ad Play করুন</div>
+        <div class="adb-sub">নিচের বাটনে ক্লিক করলে ৮ সেকেন্ডের Ads শুরু হবে</div>
+      </div>
+      <div class="ad-big-timer" id="adBigTimer" style="display:none;">
+        <div class="abt-label">⏱️ ADS চলছে</div>
+        <div class="abt-value" id="adsBigTimerValue">8</div>
+        <div class="abt-hint">অপেক্ষা করুন...</div>
+      </div>
+      <button class="awc-action-btn awc-claim" style="max-width:100%;margin-bottom:20px;" onclick="startAdFlow()" id="startAdBtn">▶ Ads দেখা শুরু করুন</button>
+      <div class="ad-workflow-card" style="display:none;" id="adMathCard">
+        <div class="awc-header">
+          <div class="awc-brand">
+            <img src="https://i.ibb.co.com/bgMN2Yv8/IMG-20260429-WA0011.jpg" alt="Logo">
+            <div>
+              <div class="awc-title">𝘼𝙞 𝘼𝙩𝙞𝙠 𝘿𝙖𝙞𝙡𝙮 𝙀𝙖𝙧𝙣𝙞𝙣𝙜</div>
+              <div class="awc-brand-sub">Ads সম্পন্ন — এখন Math</div>
+            </div>
+          </div>
+        </div>
+        <div class="awc-step">
+          <div class="awc-step-title">🧮 Math সমাধান করুন</div>
+          <div class="awc-math-box">
+            <div class="math-question" id="mathQuestion">-- + -- = ?</div>
+            <div class="math-input-wrap">
+              <input type="number" id="mathAnswer" placeholder="উত্তর" class="math-input">
+              <button class="awc-action-btn awc-claim" onclick="submitMath()">✅ ক্লেইম</button>
+            </div>
+            <div class="math-feedback" id="mathFeedback"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" id="math">
+      <div class="topbar"><h2>🧮 Math Earn <span>অংক সমাধান করুন</span></h2></div>
+      <div class="math-hero">
+        <div class="mh-icon">🧮</div>
+        <h2>প্রতি সঠিক উত্তরে</h2>
+        <p>Math Earn</p>
+        <div class="reward-big">৳ 0.04</div>
+      </div>
+      <div class="math-stats-grid">
+        <div class="math-stat"><span class="ms-icon">✅</span><div class="ms-label">সঠিক</div><div class="ms-value" id="mathCorrect">0</div></div>
+        <div class="math-stat"><span class="ms-icon">❌</span><div class="ms-label">ভুল</div><div class="ms-value" id="mathWrong">0</div></div>
+        <div class="math-stat"><span class="ms-icon">💰</span><div class="ms-label">আয়</div><div class="ms-value">৳ <span id="mathEarnTotal">0.00</span></div></div>
+      </div>
+      <div class="math-card" style="margin-top:22px;">
+        <div style="color:#8fa8c4;font-size:13px;font-weight:600;">সমাধান করুন</div>
+        <div class="mc-q" id="mathPageQuestion">-- + -- = ?</div>
+        <div class="mc-input">
+          <input type="number" id="mathPageAnswer" placeholder="উত্তর">
+          <button onclick="submitMathPage()">✅ ক্লেইম</button>
+        </div>
+        <div class="math-feedback" id="mathPageFeedback" style="margin-top:15px;"></div>
+      </div>
+    </div>
+
+    <div class="panel" id="job">
+      <div class="topbar"><h2>📅 Daily Job <span>কাজ করে প্রুফ দিন</span></h2></div>
+      <div class="job-hero">
+        <div class="jh-icon">📅</div>
+        <h2>Daily Job</h2>
+        <p>কাজ করুন → Screenshot প্রুফ দিন → Admin Approve করলে ৳0.20</p>
+        <div style="display:inline-block;background:linear-gradient(90deg,#FF9800,#FFD700);color:#000;padding:12px 28px;border-radius:12px;font-weight:900;font-size:15px;">প্রতি জবে ৳ 0.20</div>
+      </div>
+      <div class="job-grid">
+        <div class="job-card"><span class="jc-icon">▶️</span><h4>YouTube Subscribe</h4><p>Atik Freelancer চ্যানেল Subscribe করুন</p><div class="jc-pay">৳ 0.20</div><a href="https://youtube.com/@aiatikfreelanch" target="_blank" rel="noopener noreferrer" class="btn btn-gold" style="width:100%;justify-content:center;margin-bottom:8px;">Open YouTube</a><button class="btn btn-green" style="width:100%;justify-content:center;" onclick="openJobProof('YouTube Subscribe',0.20)">📸 Submit Proof</button></div>
+        <div class="job-card"><span class="jc-icon">📘</span><h4>Facebook Like</h4><p>Atik Freelancer Page Like করুন</p><div class="jc-pay">৳ 0.20</div><a href="https://www.facebook.com/profile.php?id=61592860621046" target="_blank" rel="noopener noreferrer" class="btn btn-gold" style="width:100%;justify-content:center;margin-bottom:8px;">Open Facebook</a><button class="btn btn-green" style="width:100%;justify-content:center;" onclick="openJobProof('Facebook Like',0.20)">📸 Submit Proof</button></div>
+        <div class="job-card"><span class="jc-icon">🎵</span><h4>TikTok Follow</h4><p>TikTok Follow করুন</p><div class="jc-pay">৳ 0.20</div><a href="https://www.tiktok.com/@atikhasan60057" target="_blank" rel="noopener noreferrer" class="btn btn-gold" style="width:100%;justify-content:center;margin-bottom:8px;">Open TikTok</a><button class="btn btn-green" style="width:100%;justify-content:center;" onclick="openJobProof('TikTok Follow',0.20)">📸 Submit Proof</button></div>
+        <div class="job-card"><span class="jc-icon">✈️</span><h4>Telegram Join</h4><p>Telegram Group এ Join করুন</p><div class="jc-pay">৳ 0.20</div><a href="https://t.me/aiatikdailyearning" target="_blank" rel="noopener noreferrer" class="btn btn-gold" style="width:100%;justify-content:center;margin-bottom:8px;">Open Telegram</a><button class="btn btn-green" style="width:100%;justify-content:center;" onclick="openJobProof('Telegram Join',0.20)">📸 Submit Proof</button></div>
+      </div>
+      <div id="jobProofPanel" style="display:none;margin-top:22px;background:linear-gradient(135deg,rgba(13,27,42,.98),rgba(27,38,59,.98));border:3px solid #00E676;border-radius:22px;padding:25px;">
+        <h3 style="color:#00E676;font-size:18px;margin-bottom:12px;">📸 কাজের প্রুফ দিন</h3>
+        <p style="color:#8fa8c4;font-size:13px;margin-bottom:18px;">Work: <strong id="proofJobName" style="color:#FFD700;">-</strong> | Reward: <strong id="proofJobReward" style="color:#00E676;">৳0.20</strong></p>
+        <div class="form-group"><label>📝 Bio / বিবরণ</label><textarea id="proofBio" rows="3" placeholder="আপনার কাজের বিবরণ লিখুন..."></textarea></div>
+        <label style="color:#FFD700;font-weight:600;font-size:13px;display:block;margin-bottom:8px;">📸 Screenshot (২টি)</label>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:15px;">
+          <div class="proof-upload" onclick="document.getElementById('proofImg1').click()"><span class="pu-icon">📷</span><div style="font-size:12px;color:#8fa8c4;font-weight:600;">Screenshot 1</div><img id="proofImg1Preview" style="display:none;"><input type="file" id="proofImg1" accept="image/*" style="display:none" onchange="previewProof(1,event)"></div>
+          <div class="proof-upload" onclick="document.getElementById('proofImg2').click()"><span class="pu-icon">📷</span><div style="font-size:12px;color:#8fa8c4;font-weight:600;">Screenshot 2</div><img id="proofImg2Preview" style="display:none;"><input type="file" id="proofImg2" accept="image/*" style="display:none" onchange="previewProof(2,event)"></div>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button class="btn btn-green" style="flex:1;" onclick="submitJobProof()">✅ Submit to Admin</button>
+          <button class="btn btn-red" onclick="closeJobProof()">❌ Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" id="social">
+      <div class="topbar"><h2>🛒 Social Media Promote <span>সব Platform এর Service</span></h2></div>
+      <div class="social-tabs">
+        <button class="social-tab active" onclick="switchSocial('facebook',this)">📘 Facebook</button>
+        <button class="social-tab" onclick="switchSocial('youtube',this)">▶️ YouTube</button>
+        <button class="social-tab" onclick="switchSocial('tiktok',this)">🎵 TikTok</button>
+        <button class="social-tab" onclick="switchSocial('instagram',this)">📸 Instagram</button>
+        <button class="social-tab" onclick="switchSocial('telegram',this)">✈️ Telegram</button>
+      </div>
+      <div class="service-list" id="serviceList"></div>
+    </div>
+
+    <div class="panel" id="ai">
+      <div class="topbar"><h2>🤖 AI Assistant <span>Chat + Voice + Photo Edit</span></h2></div>
+      <div class="ad-space ad-space-inline"><div class="ad-space-content">📢 Sponsor Ad</div></div>
+
+      <div class="ai-tabs">
+        <button class="ai-tab active" onclick="switchAI('chat',this)">💬 Chat</button>
+        <button class="ai-tab" onclick="switchAI('voice',this)">🎙️ Voice</button>
+        <button class="ai-tab" onclick="switchAI('photo',this)">🖼️ Photo Edit</button>
+      </div>
+
+      <div class="ai-panel active" id="ai-chat">
+        <div class="chat-box">
+          <div class="chat-messages" id="aiChatMessages">
+            <div class="chat-msg admin">👋 আসসালামু আলাইকুম! আমি আপনার AI Assistant। Ads, Withdraw, Daily Job, AI Voice — যেকোনো বিষয়ে জিজ্ঞেস করুন।<span class="chat-time">এখনই</span></div>
+          </div>
+          <div class="chat-input-row">
+            <input type="text" id="aiChatInput" placeholder="বাংলায় লিখুন..." onkeypress="if(event.key==='Enter')sendAIChat()">
+            <button onclick="sendAIChat()">📤</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="ai-panel" id="ai-voice">
+        <div class="form-group">
+          <label>✍️ যা লিখবেন, AI পড়ে শোনাবে (সর্বোচ্চ ২০০ অক্ষর)</label>
+          <textarea id="voiceText" rows="4" placeholder="এখানে বাংলায় লিখুন..." maxlength="200"></textarea>
+          <div style="text-align:right;font-size:11px;color:#8fa8c4;margin-top:4px;"><span id="voiceCount">0</span>/200</div>
+        </div>
+        <div class="form-group">
+          <label>🎙️ ভয়েস সিলেক্ট করুন</label>
+          <select id="voiceSelect">
+            <option value="alloy">Alloy</option>
+            <option value="echo">Echo</option>
+            <option value="fable">Fable</option>
+            <option value="onyx">Onyx</option>
+            <option value="nova" selected>Nova</option>
+            <option value="shimmer">Shimmer</option>
+            <option value="coral">Coral</option>
+            <option value="verse">Verse</option>
+            <option value="ballad">Ballad</option>
+            <option value="ash">Ash</option>
+            <option value="sage">Sage</option>
+          </select>
+        </div>
+        <button class="btn btn-green" style="width:100%;" onclick="generateVoice()">🎙️ Voice Generate করুন</button>
+        <div id="voiceResult" style="margin-top:15px;"></div>
+      </div>
+
+      <div class="ai-panel" id="ai-photo">
+        <div class="photo-upload-area" onclick="document.getElementById('aiPhotoInput').click()">
+          <div style="font-size:50px;">🖼️</div>
+          <p style="margin-top:10px;color:#FFD700;font-weight:bold;">ছবি Upload করুন</p>
+          <p style="font-size:11px;color:#8fa8c4;">JPG, PNG</p>
+          <input type="file" id="aiPhotoInput" accept="image/*" style="display:none" onchange="handleAIPhoto(event)">
+        </div>
+        <div id="aiPhotoPreviewWrap" style="display:none;margin-top:15px;">
+          <div class="photo-preview-wrap"><img id="aiPhotoPreview" src=""></div>
+        </div>
+        <div style="margin-top:15px;">
+          <label style="color:#FFD700;font-weight:700;font-size:13px;display:block;margin-bottom:8px;">🎨 Color Grading Presets</label>
+          <div class="grade-presets" id="gradePresets"></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr;gap:10px;margin-top:15px;">
+          <div><label style="font-size:12px;color:#FFD700;">☀️ Brightness: <span id="pBrightness">100</span>%</label><input type="range" min="50" max="150" value="100" id="pBrightnessSlider" oninput="photoAdjust()"></div>
+          <div><label style="font-size:12px;color:#FFD700;">🌗 Contrast: <span id="pContrast">100</span>%</label><input type="range" min="50" max="150" value="100" id="pContrastSlider" oninput="photoAdjust()"></div>
+          <div><label style="font-size:12px;color:#FFD700;">🎨 Saturation: <span id="pSaturate">100</span>%</label><input type="range" min="0" max="200" value="100" id="pSaturateSlider" oninput="photoAdjust()"></div>
+          <div><label style="font-size:12px;color:#FFD700;">🌈 Hue: <span id="pHue">0</span>°</label><input type="range" min="0" max="360" value="0" id="pHueSlider" oninput="photoAdjust()"></div>
+          <div><label style="font-size:12px;color:#FFD700;">🌫️ Blur: <span id="pBlur">0</span>px</label><input type="range" min="0" max="10" value="0" id="pBlurSlider" step="0.5" oninput="photoAdjust()"></div>
+          <div><label style="font-size:12px;color:#FFD700;">⚫ Grayscale: <span id="pGrayscale">0</span>%</label><input type="range" min="0" max="100" value="0" id="pGrayscaleSlider" oninput="photoAdjust()"></div>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:15px;">
+          <button class="btn btn-green" style="flex:1;justify-content:center;" onclick="downloadPhoto()">💾 Download</button>
+          <button class="btn btn-red" onclick="resetPhoto()">↺ Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" id="wallet-history">
+      <div class="topbar"><h2>📜 Wallet & History</h2></div>
+      <div class="wallet-card">
+        <h3>Available Balance</h3>
+        <div class="amt">৳ <span id="walletBalance">0.00</span></div>
+        <div class="actions">
+          <button class="btn btn-gold" onclick="goPanel('add-funds')">➕ Add Money</button>
+          <button class="btn btn-green" onclick="goPanel('withdraw-money')">💸 Withdraw</button>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-title">📜 Transaction History</div>
+        <table class="history-table"><thead><tr><th>Date</th><th>Type</th><th>Amount</th><th>Status</th></tr></thead><tbody id="txnTable"><tr><td colspan="4" class="history-empty">কোনো লেনদেন নেই</td></tr></tbody></table>
+      </div>
+    </div>
+
+    <div class="panel" id="add-funds">
+      <div class="topbar"><h2>💵 Add Money</h2></div>
+      <div style="background:linear-gradient(135deg,#E8F5E9,#C8E6C9);padding:25px;border-radius:18px;color:#1B5E20;max-width:600px;">
+        <h3 style="margin-bottom:15px;">📱 Payment Info</h3>
+        <p style="font-size:15px;margin-bottom:12px;">Send Money to:</p>
+        <div style="background:#fff;padding:14px;border-radius:12px;margin-bottom:18px;text-align:center;">
+          <div style="font-size:12px;color:#666;margin-bottom:4px;">Bkash / Nagad</div>
+          <div style="font-size:24px;font-weight:900;color:#B71C1C;">01988891195</div>
+        </div>
+        <div class="form-group"><label style="color:#1B5E20;">Amount (Min ৳100)</label><input type="number" id="depositAmt" placeholder="100" style="background:#fff;color:#000;"></div>
+        <div class="form-group"><label style="color:#1B5E20;">Sender Number</label><input type="text" id="depositSender" placeholder="01XXXXXXXXX" style="background:#fff;color:#000;"></div>
+        <div class="form-group"><label style="color:#1B5E20;">Transaction ID</label><input type="text" id="depositTxn" placeholder="TrxID" style="background:#fff;color:#000;"></div>
+        <button class="btn btn-primary" style="width:100%;" onclick="doDeposit()">💵 Submit</button>
+      </div>
+    </div>
+
+    <div class="panel" id="withdraw-money">
+      <div class="topbar"><h2>🏧 Withdraw</h2></div>
+      <div style="background:linear-gradient(135deg,#FFEBEE,#FFCDD2);padding:25px;border-radius:18px;color:#B71C1C;max-width:600px;">
+        <h3 style="margin-bottom:15px;">💸 Withdraw Info</h3>
+        <p style="font-size:14px;margin-bottom:20px;">Minimum: ৳110 | Fee: ৳10</p>
+        <div class="form-group"><label style="color:#B71C1C;">Amount</label><input type="number" id="withdrawAmt" placeholder="110" style="background:#fff;color:#000;"></div>
+        <div class="form-group"><label style="color:#B71C1C;">Your Bkash/Nagad</label><input type="text" id="withdrawAcc" placeholder="01XXXXXXXXX" style="background:#fff;color:#000;"></div>
+        <button class="btn btn-red" style="width:100%;" onclick="doWithdraw()">🏧 Submit</button>
+      </div>
+    </div>
+
+    <div class="panel" id="premium">
+      <div class="topbar"><h2>👑 Get Premium</h2></div>
+      <div class="premium-card">
+        <div style="font-size:60px;margin-bottom:10px;">👑</div>
+        <h2>PREMIUM</h2>
+        <p style="font-size:15px;margin-bottom:15px;">ডাবল ইনকাম, ডাবল কাজ</p>
+        <div style="font-size:48px;font-weight:900;margin:15px 0;">৳ 90 <span style="font-size:18px;">/ মাস</span></div>
+        <ul>
+          <li>✅ আনলিমিটেড Ads</li>
+          <li>✅ প্রতি Ads ৳0.12 (ডাবল)</li>
+          <li>✅ Math Earn ৳0.08 (ডাবল)</li>
+          <li>✅ Daily Job আনলিমিটেড</li>
+          <li>✅ দ্রুত Withdraw</li>
+        </ul>
+        <br>
+        <button class="btn" style="background:#000;color:#FFD700;padding:16px 40px;font-size:16px;border-radius:12px;" onclick="buyPremium()">🚀 Upgrade ৳90</button>
+      </div>
+    </div>
+
+    <div class="panel" id="refer-earn">
+      <div class="topbar"><h2>🎁 Refer & Earn</h2></div>
+      <div style="background:linear-gradient(135deg,rgba(27,38,59,.95),rgba(13,27,42,.95));border:2px dashed #FFD700;border-radius:18px;padding:25px;text-align:center;">
+        <h3 style="color:#FFD700;margin-bottom:10px;">আপনার রেফারেল কোড</h3>
+        <div style="font-size:22px;font-weight:900;color:#FFD700;font-family:'Courier New',monospace;letter-spacing:3px;margin:15px 0;padding:15px;background:rgba(255,215,0,.1);border-radius:12px;" id="refCode">LOADING...</div>
+        <div style="color:#00E5FF;font-size:12px;word-break:break-all;margin-bottom:15px;" id="refLink"></div>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+          <button class="btn btn-gold" onclick="copyRef()">📋 Copy</button>
+          <button class="btn btn-green" onclick="shareRef()">📤 Share</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" id="leaderboard">
+      <div class="topbar"><h2>🏆 Leadership Club <span>1,408 Members</span></h2></div>
+      <div id="leaderBoard"></div>
+    </div>
+
+    <div class="panel" id="support">
+      <div class="topbar"><h2>💬 Support</h2></div>
+      <div class="support-grid">
+        <a class="support-card" href="https://t.me/atikbreand420" target="_blank" rel="noopener noreferrer"><span class="icon">✈️</span><h4>Telegram Channel</h4><p>২৪/৭ সাপোর্ট</p><div class="contact">@atikbreand420</div></a>
+        <a class="support-card" href="https://t.me/AtikHasanPixoraBot" target="_blank" rel="noopener noreferrer"><span class="icon">🤖</span><h4>Telegram Bot</h4><p>অটো সাপোর্ট</p><div class="contact">@AtikHasanPixoraBot</div></a>
+        <a class="support-card" href="https://t.me/aiatikdailyearning" target="_blank" rel="noopener noreferrer"><span class="icon">👥</span><h4>Telegram Group</h4><p>Join Group</p><div class="contact">@aiatikdailyearning</div></a>
+        <a class="support-card" href="https://www.facebook.com/profile.php?id=61592860621046" target="_blank" rel="noopener noreferrer"><span class="icon">📘</span><h4>Facebook</h4><p>Messenger</p><div class="contact">Atik Freelancer</div></a>
+      </div>
+    </div>
+
+    <div class="panel" id="chat">
+      <div class="topbar"><h2>📨 Chat with Admin</h2></div>
+      <div class="chat-box">
+        <div class="chat-messages" id="chatMessages">
+          <div class="chat-msg admin">👋 স্বাগতম! যেকোনো সমস্যায় আমাদের লিখুন।<span class="chat-time">এখনই</span></div>
+        </div>
+        <div class="chat-input-row">
+          <input type="text" id="chatInput" placeholder="আপনার মেসেজ লিখুন..." onkeypress="if(event.key==='Enter')sendChat()">
+          <button onclick="sendChat()">📤 Send</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<div class="modal-overlay" id="orderModal">
+  <div class="login-box" style="max-width:500px;">
+    <h2>🛒 Order Service</h2>
+    <div style="background:rgba(255,215,0,.1);border:2px solid rgba(255,215,0,.3);border-radius:12px;padding:16px;margin-bottom:18px;">
+      <div style="color:#8fa8c4;font-size:11px;text-transform:uppercase;margin-bottom:6px;">Service</div>
+      <div style="color:#fff;font-size:15px;font-weight:700;" id="orderServiceName">-</div>
+      <div style="color:#FFD700;font-size:22px;font-weight:900;margin-top:8px;font-family:'Courier New',monospace;">৳ <span id="orderServicePrice">0</span></div>
+    </div>
+    <div class="form-group"><label>📝 Service Link</label><input type="text" id="orderLink" placeholder="https://..."></div>
+    <div class="form-group">
+      <label>💳 Payment Method</label>
+      <select id="orderPaymentMethod" onchange="togglePaymentMethod()">
+        <option value="wallet">💰 Wallet Balance থেকে</option>
+        <option value="bkash">📱 Bkash / Nagad (01988891195)</option>
+      </select>
+    </div>
+    <div id="walletPaymentBox" style="background:rgba(0,230,118,.08);border:2px solid rgba(0,230,118,.3);border-radius:12px;padding:14px;margin-bottom:15px;">
+      <div style="color:#8fa8c4;font-size:12px;">আপনার Balance</div>
+      <div style="color:#00E676;font-size:22px;font-weight:900;font-family:'Courier New',monospace;">৳ <span id="orderWalletBalance">0</span></div>
+    </div>
+    <div id="bkashPaymentBox" style="display:none;background:rgba(255,152,0,.08);border:2px solid rgba(255,152,0,.3);border-radius:12px;padding:14px;margin-bottom:15px;">
+      <div style="color:#FFD700;font-size:14px;font-weight:800;margin-bottom:10px;">📱 Send to: 01988891195</div>
+      <div class="form-group"><label>📝 TrxID</label><input type="text" id="orderTxn" placeholder="TrxID"></div>
+      <div class="proof-upload" onclick="document.getElementById('orderProof').click()" style="padding:18px;">
+        <span class="pu-icon" style="font-size:32px;">📷</span>
+        <img id="orderProofPreview" style="display:none;max-height:120px;">
+        <input type="file" id="orderProof" accept="image/*" style="display:none" onchange="previewOrderProof(event)">
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <button class="btn btn-green" style="flex:1;justify-content:center;" onclick="submitOrder()">✅ Submit</button>
+      <button class="btn btn-red" onclick="closeOrderModal()">❌ Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================= LIVE ANIMATION ================= */
+(function(){
+  const starsC=document.getElementById('stars');
+  for(let i=0;i<80;i++){const s=document.createElement('div');s.className='star';s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';s.style.width=s.style.height=(1+Math.random()*2)+'px';s.style.animationDelay=Math.random()*3+'s';s.style.animationDuration=(2+Math.random()*3)+'s';starsC.appendChild(s);}
+  const rainC=document.getElementById('rainContainer');
+  for(let i=0;i<100;i++){const r=document.createElement('div');r.className='raindrop';r.style.left=Math.random()*100+'%';r.style.animationDuration=(0.4+Math.random()*0.5)+'s';r.style.animationDelay=Math.random()*3+'s';r.style.height=(15+Math.random()*20)+'px';r.style.opacity=0.4+Math.random()*0.5;rainC.appendChild(r);}
+  const windC=document.getElementById('windContainer');
+  for(let i=0;i<12;i++){const w=document.createElement('div');w.className='wind';w.style.top=(10+Math.random()*70)+'%';w.style.width=(80+Math.random()*120)+'px';w.style.left='-200px';w.style.animationDuration=(5+Math.random()*6)+'s';w.style.animationDelay=Math.random()*6+'s';windC.appendChild(w);}
+  const leafC=document.getElementById('leafContainer');
+  for(let i=0;i<35;i++){const l=document.createElement('div');l.className='leaf';l.style.left=Math.random()*100+'%';l.style.animationDuration=(6+Math.random()*6)+'s';l.style.animationDelay=Math.random()*8+'s';l.style.background=['#8BC34A','#33691E','#FF9800','#FDD835','#4CAF50','#E91E63'][Math.floor(Math.random()*6)];l.style.width=l.style.height=(10+Math.random()*10)+'px';leafC.appendChild(l);}
+  const fireflyC=document.getElementById('fireflyContainer');
+  for(let i=0;i<15;i++){const f=document.createElement('div');f.className='firefly';f.style.left=(Math.random()*100)+'%';f.style.bottom=(5+Math.random()*30)+'%';f.style.animationDuration=(6+Math.random()*8)+'s';f.style.animationDelay=Math.random()*6+'s';fireflyC.appendChild(f);}
+})();
+
+/* ================= SPLASH TIMING ================= */
+setTimeout(()=>{
+  document.getElementById('splash').classList.add('hide');
+  setTimeout(()=>{
+    document.getElementById('splash').style.display='none';
+    document.getElementById('authModal').classList.add('active');
+  }, 1000);
+}, 4500);
+
+/* ================= STORAGE ================= */
+function getUsers(){return JSON.parse(localStorage.getItem('atik_users')||'{}');}
+function saveUsers(u){localStorage.setItem('atik_users',JSON.stringify(u));}
+function getCurrentEmail(){return localStorage.getItem('atik_logged_in');}
+function getCurrentUser(){const e=getCurrentEmail();return e?getUsers()[e]:null;}
+function saveCurrentUser(u){const us=getUsers();us[u.email]=u;saveUsers(us);}
+
+(function(){
+  const u=getUsers();
+  if(!u['user@demo.com']){
+    u['user@demo.com']={
+      name:'Atik Hasan',username:'atikhasan',email:'user@demo.com',password:'1234',
+      balance:100,totalEarned:0,adsWatched:0,
+      referralCode:'ATIK'+Math.floor(1000+Math.random()*9000),
+      status:'active',verified:false,
+      deposits:[],withdraws:[],adLog:[],jobProofs:[],referrals:[],chat:[],orders:[],
+      mathCorrect:0,mathWrong:0,mathEarn:0
+    };
+    saveUsers(u);
+  }
+  if(!localStorage.getItem('atik_notifications')){
+    localStorage.setItem('atik_notifications',JSON.stringify([
+      {date:new Date().toISOString(),icon:'🎉',title:'স্বাগতম Atik Daily Earning এ!',read:false},
+      {date:new Date().toISOString(),icon:'💰',title:'Ads দেখে ৳0.10 আয় করুন!',read:false},
+      {date:new Date().toISOString(),icon:'👥',title:'Telegram Group এ Join করুন',read:false}
+    ]));
+  }
+})();
+
+function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');}
+
+/* ================= AUTH ================= */
+function switchAuth(type){
+  document.getElementById('loginError').classList.remove('show');
+  document.getElementById('signupError').classList.remove('show');
+  if(type==='login'){document.getElementById('loginForm').style.display='block';document.getElementById('signupForm').style.display='none';document.getElementById('tabLogin').classList.add('active');document.getElementById('tabSignup').classList.remove('active');}
+  else{document.getElementById('loginForm').style.display='none';document.getElementById('signupForm').style.display='block';document.getElementById('tabSignup').classList.add('active');document.getElementById('tabLogin').classList.remove('active');}
+}
+function togglePass(id,i){const p=document.getElementById(id),ic=document.getElementById(i);if(p.type==='password'){p.type='text';ic.textContent='🙈';}else{p.type='password';ic.textContent='👁️';}}
+function showErr(id,m){const b=document.getElementById(id);b.textContent=m;b.classList.add('show');}
+
+function doSignup(){
+  const name=document.getElementById('signupName').value.trim();
+  const email=document.getElementById('signupEmail').value.trim().toLowerCase();
+  const username=document.getElementById('signupUser').value.trim().toLowerCase();
+  const pass=document.getElementById('signupPass').value;
+  const pass2=document.getElementById('signupPass2').value;
+  document.getElementById('signupError').classList.remove('show');
+  if(!name||!email||!username||!pass||!pass2) return showErr('signupError','⚠️ সব ঘর পূরণ করুন!');
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showErr('signupError','⚠️ সঠিক Email দিন!');
+  if(username.length<3) return showErr('signupError','⚠️ Username কমপক্ষে ৩ অক্ষর!');
+  if(pass.length<4) return showErr('signupError','⚠️ Password কমপক্ষে ৪ অক্ষর!');
+  if(pass!==pass2) return showErr('signupError','⚠️ Password মিলছে না!');
+  const users=getUsers();
+  if(users[email]) return showErr('signupError','❌ এই Email আগে থেকে আছে!');
+  if(Object.values(users).find(u=>u.username===username)) return showErr('signupError','❌ এই Username আগে থেকে আছে!');
+  users[email]={name,username,email,password:pass,balance:0,totalEarned:0,adsWatched:0,referralCode:username.substring(0,4).toUpperCase()+Math.floor(1000+Math.random()*9000),status:'active',verified:false,deposits:[],withdraws:[],adLog:[],jobProofs:[],referrals:[],chat:[],orders:[],mathCorrect:0,mathWrong:0,mathEarn:0};
+  saveUsers(users);
+  showToast('✅ একাউন্ট তৈরি!');
+  setTimeout(()=>{switchAuth('login');document.getElementById('loginEmail').value=email;document.getElementById('loginPass').value='';},1200);
+}
+function doLogin(){
+  const email=document.getElementById('loginEmail').value.trim().toLowerCase();
+  const pass=document.getElementById('loginPass').value;
+  document.getElementById('loginError').classList.remove('show');
+  if(!email||!pass) return showErr('loginError','⚠️ দুটো ঘর পূরণ করুন!');
+  const users=getUsers();
+  const user=users[email];
+  if(!user) return showErr('loginError','❌ এই Email দিয়ে একাউন্ট নেই!');
+  if(user.password!==pass){document.getElementById('loginPass').value='';return showErr('loginError','❌ Password ভুল!');}
+  if(user.status==='banned') return showErr('loginError','🚫 একাউন্ট ব্যান!');
+  localStorage.setItem('atik_logged_in',email);
+  showToast('✅ স্বাগতম '+user.name);
+  setTimeout(initUI,400);
+}
+function doLogout(){if(confirm('লগআউট করবেন?')){localStorage.removeItem('atik_logged_in');location.reload();}}
+
+function initUI(){
+  const user=getCurrentUser();
+  const modal=document.getElementById('authModal');
+  const app=document.getElementById('appLayout');
+  if(user){
+    modal.classList.remove('active');modal.style.display='none';app.style.display='flex';
+    document.getElementById('sideAvatar').textContent=(user.name||'A')[0].toUpperCase();
+    document.getElementById('sideName').textContent=user.name;
+    document.getElementById('thbName').textContent=user.name;
+    document.getElementById('sideStatus').textContent=user.verified?'✅ Verified':'Unverified';
+    document.getElementById('sideStatus').style.color=user.verified?'#00E676':'#FF9800';
+    document.getElementById('welcomeName').textContent=user.name;
+    const badge=document.getElementById('verifyBadge');
+    if(user.verified){badge.className='verified verified-yes';badge.innerHTML='✅ অ্যাকাউন্ট ভেরিফাইড';}
+    else{badge.className='verified';badge.innerHTML='⚠️ অ্যাকাউন্ট ভেরিফাইড নয়! <span style="cursor:pointer;text-decoration:underline;margin-left:5px;" onclick="verifyAccount()">Verify</span>';}
+    updateBalance();renderAll();loadNotifications();loadAdminAds();loadServices();loadGradePresets();loadChat();
+  } else {modal.classList.add('active');modal.style.display='flex';app.style.display='none';}
+}
+
+function updateBalance(){
+  const u=getCurrentUser();if(!u) return;
+  document.getElementById('mainBalance').textContent=(u.balance||0).toFixed(2);
+  document.getElementById('walletBalance').textContent=(u.balance||0).toFixed(2);
+  document.getElementById('totalEarned').textContent=(u.totalEarned||0).toFixed(2);
+  document.getElementById('adsWatched').textContent=u.adsWatched||0;
+  document.getElementById('refCode').textContent=u.referralCode||'-';
+  document.getElementById('refLink').textContent=location.origin+location.pathname+'?ref='+(u.referralCode||'');
+  const today=new Date().toISOString().split('T')[0];
+  const logs=u.adLog||[];
+  const todaySum=logs.filter(l=>l.date.startsWith(today)).reduce((s,l)=>s+(l.reward||0)+(l.math||0),0);
+  document.getElementById('todayIncome').textContent=todaySum.toFixed(2);
+  const el=document.getElementById('mathCorrect');if(el) el.textContent=u.mathCorrect||0;
+  const el2=document.getElementById('mathWrong');if(el2) el2.textContent=u.mathWrong||0;
+  const el3=document.getElementById('mathEarnTotal');if(el3) el3.textContent=(u.mathEarn||0).toFixed(2);
+}
+
+function renderAll(){const u=getCurrentUser();if(!u) return;renderTxn(u);updateAdStats();renderLeaderboard();}
+function updateAdStats(){
+  const u=getCurrentUser();if(!u) return;
+  const today=new Date().toISOString().split('T')[0];
+  const logs=(u.adLog||[]).filter(l=>l.date.startsWith(today)&&l.platform!=='MathPage');
+  const el=document.getElementById('completedToday');if(el) el.textContent=logs.length;
+  const el2=document.getElementById('todayAdEarn');if(el2) el2.textContent=logs.reduce((s,l)=>s+(l.reward||0)+(l.math||0),0).toFixed(2);
+}
+function renderTxn(u){
+  const t=document.getElementById('txnTable');if(!t) return;
+  const all=[];
+  (u.deposits||[]).forEach(d=>all.push({date:d.date,type:'💵 Deposit',amount:d.amount,status:d.status}));
+  (u.withdraws||[]).forEach(w=>all.push({date:w.date,type:'🏧 Withdraw',amount:w.amount,status:w.status}));
+  (u.adLog||[]).forEach(a=>all.push({date:a.date,type:'📺 '+(a.platform||'Ads'),amount:(a.reward||0)+(a.math||0),status:'completed'}));
+  (u.jobProofs||[]).forEach(j=>all.push({date:j.date,type:'📅 '+j.job,amount:j.reward,status:j.status}));
+  (u.orders||[]).forEach(o=>all.push({date:o.date,type:'🛒 '+o.service,amount:o.price,status:o.status}));
+  all.sort((a,b)=>new Date(b.date)-new Date(a.date));
+  if(!all.length){t.innerHTML='<tr><td colspan="4" class="history-empty">কোনো লেনদেন নেই</td></tr>';return;}
+  t.innerHTML=all.slice(0,30).map(x=>`<tr><td>${new Date(x.date).toLocaleDateString('bn-BD')}</td><td>${x.type}</td><td style="color:#00E676;font-weight:bold;">৳ ${(x.amount||0).toFixed(2)}</td><td style="color:${x.status==='approved'||x.status==='paid'||x.status==='completed'?'#00E676':x.status==='pending'?'#FF9800':'#FF1744'};font-weight:bold;">${x.status}</td></tr>`).join('');
+}
+
+const FAKE_NAMES=['Atik Hasan','Rahim Khan','Karim Ali','Sabbir Hossain','Nusrat Jahan','Tanvir Ahmed','Mehedi Hasan','Farhan Rahman','Sakib Al Hasan','Rakib Islam','Ayesha Siddika','Sumaiya Akter','Jannatul Ferdous','Mim Akter','Rubel Mia','Shakil Ahmed','Nazmul Hasan','Rifat Hossain','Jisan Ahmed','Tania Islam'];
+function renderLeaderboard(){
+  const fake=[];
+  fake.push({name:'Atik Hasan',balance:85420,tag:'👑 Founder'});
+  fake.push({name:'Rahim Khan',balance:65230,tag:'💎 Diamond'});
+  fake.push({name:'Karim Ali',balance:52100,tag:'🥇 Gold'});
+  for(let i=0;i<20;i++){const nm=FAKE_NAMES[i%FAKE_NAMES.length]+(i>10?' '+(i+1):'');fake.push({name:nm,balance:Math.max(100,50000-i*1500-Math.random()*200),tag:'⭐ Active'});}
+  const medals=['🥇','🥈','🥉'];
+  const html=fake.map((u,i)=>{const medal=i<3?medals[i]:'#'+(i+1);return `<div style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:rgba(255,255,255,.04);border-radius:14px;border-left:4px solid ${i<3?['#FFD700','#C0C0C0','#CD7F32'][i]:'#6b7d94'};margin-bottom:8px;"><div style="font-size:18px;font-weight:900;color:#FFD700;width:35px;text-align:center;">${medal}</div><div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#FFD700,#FF9800);display:flex;align-items:center;justify-content:center;font-weight:900;color:#000;">${(u.name||'U')[0].toUpperCase()}</div><div style="flex:1;"><div style="font-size:14px;font-weight:700;color:#fff;">${u.name}</div><div style="font-size:11px;color:#8fa8c4;">${u.tag}</div></div><div style="font-size:16px;font-weight:900;color:#00E676;font-family:'Courier New',monospace;">৳ ${(u.balance||0).toFixed(0)}</div></div>`;}).join('');
+  const el=document.getElementById('leaderBoard');if(el) el.innerHTML=html;
+  const el2=document.getElementById('leaderBoardDash');if(el2) el2.innerHTML=fake.slice(0,5).map((u,i)=>`<div style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:rgba(255,255,255,.04);border-radius:14px;border-left:4px solid ${i<3?['#FFD700','#C0C0C0','#CD7F32'][i]:'#6b7d94'};margin-bottom:8px;"><div style="font-size:18px;font-weight:900;color:#FFD700;width:35px;text-align:center;">${medals[i]}</div><div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#FFD700,#FF9800);display:flex;align-items:center;justify-content:center;font-weight:900;color:#000;">${(u.name||'U')[0].toUpperCase()}</div><div style="flex:1;"><div style="font-size:14px;font-weight:700;color:#fff;">${u.name}</div><div style="font-size:11px;color:#8fa8c4;">${u.tag}</div></div><div style="font-size:16px;font-weight:900;color:#00E676;font-family:'Courier New',monospace;">৳ ${(u.balance||0).toFixed(0)}</div></div>`).join('');
+}
+
+document.querySelectorAll('.menu-item[data-panel]').forEach(item=>{
+  item.addEventListener('click',()=>{
+    goPanel(item.dataset.panel);
+    document.getElementById('sidebar').classList.remove('open');
+  });
+});
+function goPanel(name){
+  document.querySelectorAll('.menu-item').forEach(m=>m.classList.remove('active'));
+  const target=document.querySelector(`.menu-item[data-panel="${name}"]`);
+  if(target) target.classList.add('active');
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  const panel=document.getElementById(name);
+  if(panel) panel.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(name==='math'){setTimeout(initMathPage,100);}
+  if(name==='chat'){setTimeout(loadChat,100);}
+}
+function verifyAccount(){const u=getCurrentUser();if(!u) return;if(u.verified){showToast('✅ ইতিমধ্যে verified!');return;}u.verified=true;saveCurrentUser(u);initUI();showToast('✅ ভেরিফাইড!');}
+
+function doDeposit(){
+  const u=getCurrentUser();if(!u) return;
+  const amt=parseFloat(document.getElementById('depositAmt').value);
+  const sender=document.getElementById('depositSender').value.trim();
+  const txn=document.getElementById('depositTxn').value.trim();
+  if(!amt||amt<100) return showToast('❌ মিনিমাম ৳100');
+  if(!sender||!txn) return showToast('❌ সব ঘর পূরণ!');
+  u.deposits=u.deposits||[];
+  u.deposits.push({date:new Date().toISOString(),amount:amt,sender,txn,method:'Bkash',status:'pending',email:u.email,name:u.name});
+  saveCurrentUser(u);renderTxn(u);
+  showToast('✅ ডিপোজিট রিকোয়েস্ট!');
+  document.getElementById('depositAmt').value='';document.getElementById('depositSender').value='';document.getElementById('depositTxn').value='';
+}
+function doWithdraw(){
+  const u=getCurrentUser();if(!u) return;
+  const amt=parseFloat(document.getElementById('withdrawAmt').value);
+  const acc=document.getElementById('withdrawAcc').value.trim();
+  if(!amt||amt<110) return showToast('❌ মিনিমাম ৳110');
+  if(!acc) return showToast('❌ Account দিন!');
+  if((u.balance||0)<amt+10) return showToast('❌ পর্যাপ্ত নেই!');
+  u.balance-=amt+10;
+  u.withdraws=u.withdraws||[];
+  u.withdraws.push({date:new Date().toISOString(),amount:amt,fee:10,account:acc,status:'pending',email:u.email,name:u.name});
+  saveCurrentUser(u);updateBalance();renderTxn(u);
+  showToast('✅ Withdraw রিকোয়েস্ট!');
+  document.getElementById('withdrawAmt').value='';document.getElementById('withdrawAcc').value='';
+}
+function copyRef(){const u=getCurrentUser();if(!u) return;navigator.clipboard.writeText(location.origin+location.pathname+'?ref='+u.referralCode);showToast('📋 কপি!');}
+function shareRef(){const u=getCurrentUser();if(!u) return;const link=location.origin+location.pathname+'?ref='+u.referralCode;if(navigator.share){navigator.share({title:'Atik Daily Earning',text:'রেফারেল:',url:link});}else{navigator.clipboard.writeText(link);showToast('📋 কপি!');}}
+function buyPremium(){showToast('👑 প্রিমিয়াম: @atikbreand420');}
+
+(function(){
+  let target=localStorage.getItem('atik_countdown_target');
+  if(!target){const t=new Date();t.setDate(t.getDate()+144);t.setHours(t.getHours()+9);t.setMinutes(t.getMinutes()+59);target=t.getTime();localStorage.setItem('atik_countdown_target',target);} else {target=parseInt(target);}
+  function tick(){
+    const now=Date.now();let diff=Math.max(0,target-now);
+    const days=Math.floor(diff/86400000);diff%=86400000;
+    const hours=Math.floor(diff/3600000);diff%=3600000;
+    const mins=Math.floor(diff/60000);diff%=60000;
+    const secs=Math.floor(diff/1000);
+    const d=document.getElementById('cdDays');if(d)d.textContent=String(days).padStart(2,'0');
+    const h=document.getElementById('cdHours');if(h)h.textContent=String(hours).padStart(2,'0');
+    const m=document.getElementById('cdMins');if(m)m.textContent=String(mins).padStart(2,'0');
+    const s=document.getElementById('cdSecs');if(s)s.textContent=String(secs).padStart(2,'0');
+  }
+  tick();setInterval(tick,1000);
+})();
+
+let currentMathAnswer=0,adsTimerInterval=null;
+function startAdFlow(){
+  const u=getCurrentUser();if(!u) return;
+  document.getElementById('adDisplayBox').style.display='none';
+  document.getElementById('startAdBtn').style.display='none';
+  document.getElementById('adBigTimer').style.display='block';
+  let time=8;
+  document.getElementById('adsBigTimerValue').textContent=time;
+  if(adsTimerInterval) clearInterval(adsTimerInterval);
+  adsTimerInterval=setInterval(()=>{
+    time--;document.getElementById('adsBigTimerValue').textContent=time;
+    if(time<=0){clearInterval(adsTimerInterval);document.getElementById('adBigTimer').style.display='none';document.getElementById('adMathCard').style.display='block';generateMathProblem();}
+  },1000);
+}
+function generateMathProblem(){
+  const a=Math.floor(Math.random()*20)+5,b=Math.floor(Math.random()*20)+5;
+  const op=Math.random()>0.5?'+':'-';
+  if(op==='+'){currentMathAnswer=a+b;document.getElementById('mathQuestion').textContent=a+' + '+b+' = ?';}
+  else{const big=Math.max(a,b),small=Math.min(a,b);currentMathAnswer=big-small;document.getElementById('mathQuestion').textContent=big+' - '+small+' = ?';}
+  document.getElementById('mathAnswer').value='';document.getElementById('mathFeedback').textContent='';
+}
+function submitMath(){
+  const u=getCurrentUser();if(!u) return;
+  const ans=parseInt(document.getElementById('mathAnswer').value);
+  const fb=document.getElementById('mathFeedback');
+  if(isNaN(ans)){fb.textContent='⚠️ উত্তর লিখুন!';fb.className='math-feedback error';return;}
+  if(ans===currentMathAnswer){
+    u.balance=(u.balance||0)+0.10;u.totalEarned=(u.totalEarned||0)+0.10;u.adsWatched=(u.adsWatched||0)+1;
+    u.adLog=u.adLog||[];u.adLog.push({date:new Date().toISOString(),reward:0.06,math:0.04,platform:'Ads'});
+    saveCurrentUser(u);updateBalance();updateAdStats();
+    showToast('🎉 ৳0.10 যোগ!');
+    document.getElementById('adMathCard').style.display='none';
+    document.getElementById('adDisplayBox').style.display='flex';
+    document.getElementById('startAdBtn').style.display='block';
+  } else {fb.textContent='❌ ভুল!';fb.className='math-feedback error';setTimeout(generateMathProblem,1200);}
+}
+
+let mathPageAnswer=0;
+function initMathPage(){generateMathPageProblem();updateBalance();}
+function generateMathPageProblem(){
+  const a=Math.floor(Math.random()*20)+5,b=Math.floor(Math.random()*20)+5;
+  const op=Math.random()>0.5?'+':'-';
+  if(op==='+'){mathPageAnswer=a+b;document.getElementById('mathPageQuestion').textContent=a+' + '+b+' = ?';}
+  else{const big=Math.max(a,b),small=Math.min(a,b);mathPageAnswer=big-small;document.getElementById('mathPageQuestion').textContent=big+' - '+small+' = ?';}
+  document.getElementById('mathPageAnswer').value='';document.getElementById('mathPageFeedback').textContent='';document.getElementById('mathPageFeedback').className='math-feedback';
+}
+function submitMathPage(){
+  const u=getCurrentUser();if(!u) return;
+  const ans=parseInt(document.getElementById('mathPageAnswer').value);
+  const fb=document.getElementById('mathPageFeedback');
+  if(isNaN(ans)){fb.textContent='⚠️ উত্তর লিখুন!';fb.className='math-feedback error';return;}
+  if(ans===mathPageAnswer){
+    u.balance=(u.balance||0)+0.04;u.totalEarned=(u.totalEarned||0)+0.04;u.mathCorrect=(u.mathCorrect||0)+1;u.mathEarn=(u.mathEarn||0)+0.04;
+    u.adLog=u.adLog||[];u.adLog.push({date:new Date().toISOString(),reward:0,math:0.04,platform:'MathPage'});
+    saveCurrentUser(u);fb.textContent='✅ সঠিক! ৳0.04!';fb.className='math-feedback';fb.style.color='#00E676';
+    updateBalance();showToast('🎉 ৳0.04!');setTimeout(generateMathPageProblem,1500);
+  } else {u.mathWrong=(u.mathWrong||0)+1;saveCurrentUser(u);fb.textContent='❌ ভুল! সঠিক: '+mathPageAnswer;fb.className='math-feedback error';updateBalance();setTimeout(generateMathPageProblem,1500);}
+}
+
+let currentJob={name:'',reward:0},proofImg1Data=null,proofImg2Data=null;
+function openJobProof(jobName,reward){
+  currentJob={name:jobName,reward:reward};
+  document.getElementById('proofJobName').textContent=jobName;
+  document.getElementById('proofJobReward').textContent='৳'+reward.toFixed(2);
+  document.getElementById('proofBio').value='';
+  document.getElementById('proofImg1Preview').style.display='none';
+  document.getElementById('proofImg2Preview').style.display='none';
+  proofImg1Data=null;proofImg2Data=null;
+  document.getElementById('jobProofPanel').style.display='block';
+  document.getElementById('jobProofPanel').scrollIntoView({behavior:'smooth'});
+}
+function closeJobProof(){document.getElementById('jobProofPanel').style.display='none';}
+function previewProof(n,e){
+  const file=e.target.files[0];if(!file) return;
+  const reader=new FileReader();
+  reader.onload=function(ev){
+    const img=document.getElementById('proofImg'+n+'Preview');
+    img.src=ev.target.result;img.style.display='block';
+    if(n===1) proofImg1Data=ev.target.result;
+    if(n===2) proofImg2Data=ev.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+function submitJobProof(){
+  const u=getCurrentUser();if(!u) return;
+  const bio=document.getElementById('proofBio').value.trim();
+  if(!bio) return showToast('❌ Bio লিখুন!');
+  if(!proofImg1Data||!proofImg2Data) return showToast('❌ ২টি Screenshot দিন!');
+  u.jobProofs=u.jobProofs||[];
+  u.jobProofs.push({date:new Date().toISOString(),job:currentJob.name,reward:currentJob.reward,bio:bio,img1:proofImg1Data,img2:proofImg2Data,email:u.email,name:u.name,status:'pending'});
+  saveCurrentUser(u);showToast('✅ Admin কে পাঠানো!');closeJobProof();
+}
+
+const SERVICES={
+  facebook:[{name:'Facebook ID Followers',price:50},{name:'Facebook ID Likes',price:50},{name:'Facebook Page Followers',price:70},{name:'Facebook Page Likes',price:80},{name:'Facebook Video Views',price:40},{name:'Facebook Reels Views',price:50},{name:'Facebook Post Reactions',price:40},{name:'Facebook Post Comments',price:60},{name:'Facebook Group Members',price:100},{name:'Facebook Watch Time (60K Min)',price:250}],
+  youtube:[{name:'YouTube Channel Subscribers',price:300},{name:'YouTube Video Views',price:60},{name:'YouTube Shorts Views',price:50},{name:'YouTube Video Likes',price:70},{name:'YouTube Comments',price:100},{name:'YouTube Watch Time (4K Hours)',price:400}],
+  tiktok:[{name:'TikTok Profile Followers',price:120},{name:'TikTok Video Likes',price:60},{name:'TikTok Video Views',price:40},{name:'TikTok Shares',price:50},{name:'TikTok Saves',price:55},{name:'TikTok Comments',price:80}],
+  instagram:[{name:'Instagram Profile Followers',price:130},{name:'Instagram Photo Likes',price:60},{name:'Instagram Video Views',price:50},{name:'Instagram Reels Views',price:55},{name:'Instagram Story Views',price:45},{name:'Instagram Comments',price:90}],
+  telegram:[{name:'Telegram Channel Members',price:150},{name:'Telegram Group Members',price:130},{name:'Telegram Post Views',price:30},{name:'Telegram Post Reactions',price:60},{name:'Telegram Poll Votes',price:70}]
+};
+function loadServices(){switchSocial('facebook',document.querySelector('.social-tab.active'));}
+function switchSocial(cat,btn){
+  document.querySelectorAll('.social-tab').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  const list=document.getElementById('serviceList');if(!list) return;
+  const items=SERVICES[cat]||[];
+  list.innerHTML=items.map(s=>`<div class="service-item"><div class="s-name">${s.name}</div><div class="s-price">৳ ${s.price}<small>প্রতি 1K</small></div><button class="s-btn" onclick="orderService('${s.name.replace(/'/g,"\\'")}',${s.price})">Order</button></div>`).join('');
+}
+
+let currentOrder={name:'',price:0},orderProofData=null;
+function orderService(name,price){
+  const u=getCurrentUser();if(!u) return;
+  currentOrder={name:name,price:price};orderProofData=null;
+  document.getElementById('orderServiceName').textContent=name;
+  document.getElementById('orderServicePrice').textContent=price;
+  document.getElementById('orderWalletBalance').textContent=(u.balance||0).toFixed(2);
+  document.getElementById('orderLink').value='';document.getElementById('orderTxn').value='';
+  document.getElementById('orderProofPreview').style.display='none';
+  document.getElementById('orderPaymentMethod').value='wallet';
+  togglePaymentMethod();
+  document.getElementById('orderModal').classList.add('active');
+}
+function closeOrderModal(){document.getElementById('orderModal').classList.remove('active');orderProofData=null;}
+function togglePaymentMethod(){const method=document.getElementById('orderPaymentMethod').value;if(method==='wallet'){document.getElementById('walletPaymentBox').style.display='block';document.getElementById('bkashPaymentBox').style.display='none';}else{document.getElementById('walletPaymentBox').style.display='none';document.getElementById('bkashPaymentBox').style.display='block';}}
+function previewOrderProof(e){
+  const file=e.target.files[0];if(!file) return;
+  const reader=new FileReader();
+  reader.onload=function(ev){const img=document.getElementById('orderProofPreview');img.src=ev.target.result;img.style.display='block';orderProofData=ev.target.result;};
+  reader.readAsDataURL(file);
+}
+function submitOrder(){
+  const u=getCurrentUser();if(!u) return;
+  const link=document.getElementById('orderLink').value.trim();
+  const method=document.getElementById('orderPaymentMethod').value;
+  if(!link) return showToast('❌ Service Link দিন!');
+  if(method==='wallet'){
+    if((u.balance||0)<currentOrder.price) return showToast('❌ পর্যাপ্ত Balance নেই!');
+    u.balance-=currentOrder.price;
+    u.orders=u.orders||[];
+    u.orders.push({date:new Date().toISOString(),service:currentOrder.name,price:currentOrder.price,link:link,method:'Wallet',status:'pending',email:u.email,name:u.name});
+    saveCurrentUser(u);updateBalance();showToast('✅ Order সফল!');closeOrderModal();
+  } else {
+    const txn=document.getElementById('orderTxn').value.trim();
+    if(!txn) return showToast('❌ TrxID দিন!');
+    if(!orderProofData) return showToast('❌ Screenshot দিন!');
+    u.orders=u.orders||[];
+    u.orders.push({date:new Date().toISOString(),service:currentOrder.name,price:currentOrder.price,link:link,method:'Bkash',txn:txn,proof:orderProofData,status:'pending',email:u.email,name:u.name});
+    saveCurrentUser(u);showToast('✅ Order পাঠানো!');closeOrderModal();
+  }
+}
+
+function loadChat(){
+  const u=getCurrentUser();if(!u) return;
+  const msgs=u.chat||[];
+  const box=document.getElementById('chatMessages');if(!box) return;
+  if(!msgs.length){box.innerHTML='<div class="chat-msg admin">👋 স্বাগতম! যেকোনো সমস্যায় আমাদের লিখুন।<span class="chat-time">এখনই</span></div>';return;}
+  box.innerHTML=msgs.map(m=>`<div class="chat-msg ${m.from}">${m.text}<span class="chat-time">${new Date(m.date).toLocaleString('bn-BD')}</span></div>`).join('');
+  box.scrollTop=box.scrollHeight;
+}
+function sendChat(){
+  const u=getCurrentUser();if(!u) return;
+  const inp=document.getElementById('chatInput');
+  const text=inp.value.trim();if(!text) return;
+  u.chat=u.chat||[];u.chat.push({from:'user',text:text,date:new Date().toISOString()});
+  saveCurrentUser(u);inp.value='';loadChat();
+  const inbox=JSON.parse(localStorage.getItem('atik_chat_inbox')||'[]');
+  inbox.push({user:u.name,email:u.email,text:text,date:new Date().toISOString(),replied:false});
+  localStorage.setItem('atik_chat_inbox',JSON.stringify(inbox));
+  showToast('✅ মেসেজ পাঠানো!');
+}
+
+/* ================= AI ASSISTANT ================= */
+function switchAI(type,btn){
+  document.querySelectorAll('.ai-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.ai-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('ai-'+type).classList.add('active');
+}
+
+/* AI CHAT — Pollinations Free */
+async function sendAIChat(){
+  const inp=document.getElementById('aiChatInput');
+  const text=inp.value.trim();
+  if(!text) return;
+  const box=document.getElementById('aiChatMessages');
+  box.innerHTML += `<div class="chat-msg user">${text}<span class="chat-time">এখনই</span></div>`;
+  inp.value='';
+  box.scrollTop=box.scrollHeight;
+
+  // Loading
+  const loadingId='aiLoading'+Date.now();
+  box.innerHTML += `<div class="chat-msg admin" id="${loadingId}">🤖 চিন্তা করছি...</div>`;
+  box.scrollTop=box.scrollHeight;
+
+  try {
+    // Pollinations free text API
+    const url='https://text.pollinations.ai/'+encodeURIComponent('তুমি Atik Daily Earning এর AI Assistant. বাংলায় সংক্ষেপে উত্তর দাও: '+text);
+    const res=await fetch(url);
+    const reply=await res.text();
+    document.getElementById(loadingId).remove();
+    box.innerHTML += `<div class="chat-msg admin">${reply}<span class="chat-time">এখনই</span></div>`;
+    box.scrollTop=box.scrollHeight;
+  } catch(err){
+    // Fallback to keyword answers
+    document.getElementById(loadingId).remove();
+    const lower=text.toLowerCase();
+    let reply='';
+    if(lower.includes('ads')||lower.includes('এড')) reply='📺 Watch Ads মেনুতে যান। ৮ সেকেন্ড দেখে Math করলে ৳0.10 পাবেন।';
+    else if(lower.includes('withdraw')||lower.includes('টাকা তুল')) reply='🏧 Withdraw এ যান। মিনিমাম ৳110, ফি ৳10।';
+    else if(lower.includes('voice')||lower.includes('ভয়েস')) reply='🎙️ Voice ট্যাবে গিয়ে বাংলা লিখুন, তারপর Voice Generate চাপুন।';
+    else if(lower.includes('job')||lower.includes('কাজ')) reply='📅 Daily Job এ ৪টি কাজ আছে, প্রতিটিতে ৳0.20।';
+    else if(lower.includes('photo')||lower.includes('ছবি')) reply='🖼️ Photo Edit ট্যাবে ছবি আপলোড করুন, তারপর Color Grading/Slider দিয়ে এডিট করুন।';
+    else if(lower.includes('premium')||lower.includes('প্রিমিয়াম')) reply='👑 Premium ৳90/মাস। ডাবল ইনকাম। Telegram: @atikbreand420';
+    else reply='🤖 যোগাযোগ করুন Telegram এ: @atikbreand420';
+    box.innerHTML += `<div class="chat-msg admin">${reply}<span class="chat-time">এখনই</span></div>`;
+    box.scrollTop=box.scrollHeight;
+  }
+}
+
+/* AI VOICE — Pollinations TTS Free */
+document.addEventListener('input',e=>{
+  if(e.target.id==='voiceText'){
+    document.getElementById('voiceCount').textContent=e.target.value.length;
+  }
+});
+
+async function generateVoice(){
+  const text=document.getElementById('voiceText').value.trim();
+  const voice=document.getElementById('voiceSelect').value;
+  if(!text) return showToast('❌ আগে টেক্সট লিখুন!');
+  if(text.length>200) return showToast('❌ ফ্রিতে ২০০ অক্ষর লিমিট!');
+
+  const result=document.getElementById('voiceResult');
+  result.innerHTML='<div style="text-align:center;padding:20px;"><div class="spinner"></div><p style="color:#FFD700;margin-top:10px;">🎙️ AI ভয়েস বানাচ্ছে...</p></div>';
+
+  try {
+    // Pollinations TTS - returns audio
+    const url='https://text.pollinations.ai/'+encodeURIComponent(text)+'?model=openai-audio&voice='+voice;
+    const audio=new Audio(url);
+    audio.crossOrigin='anonymous';
+    
+    // Setup success after metadata loads
+    audio.onloadedmetadata=function(){
+      result.innerHTML=`<div style="background:rgba(0,230,118,.1);border:2px solid #00E676;border-radius:15px;padding:15px;">
+        <h4 style="color:#00E676;margin-bottom:10px;">✅ Voice তৈরি হয়েছে!</h4>
+        <audio src="${url}" controls style="width:100%;"></audio>
+        <a href="${url}" download="atik-voice.mp3" class="btn btn-green" style="width:100%;justify-content:center;margin-top:10px;text-decoration:none;">💾 Download MP3</a>
+      </div>`;
+    };
+    
+    audio.onerror=function(){
+      result.innerHTML='<div style="background:rgba(255,23,68,.1);border:2px solid #FF1744;border-radius:15px;padding:15px;color:#FF1744;">⚠️ সার্ভারে সমস্যা। আবার চেষ্টা করুন অথবা Telegram এ যোগাযোগ করুন।</div>';
+    };
+    
+    audio.load();
+  } catch(err){
+    result.innerHTML='<div style="background:rgba(255,23,68,.1);border:2px solid #FF1744;border-radius:15px;padding:15px;color:#FF1744;">⚠️ এরর: '+err.message+'</div>';
+  }
+}
+
+/* AI PHOTO EDITOR — Color Grading */
+let currentPhoto=null,currentGrade='none';
+const GRADE_PRESETS={
+  'None':'none',
+  'Vivid':'saturate(1.5) contrast(1.15)',
+  'Cinematic':'contrast(1.2) saturate(0.95) brightness(0.98)',
+  'Warm':'sepia(0.2) saturate(1.2) brightness(1.05)',
+  'Cool':'hue-rotate(180deg) saturate(1.1)',
+  'Vintage':'sepia(0.45) contrast(1.1) brightness(1.02)',
+  'B&W':'grayscale(1) contrast(1.15)',
+  'Sepia':'sepia(1)',
+  'Retro':'sepia(0.3) saturate(1.3)',
+  'Golden':'sepia(0.3) saturate(1.4) brightness(1.1)',
+  'Neon':'saturate(1.8) brightness(1.05)',
+  'Cyberpunk':'saturate(1.6) contrast(1.2) hue-rotate(-15deg)',
+  'Moody':'contrast(1.25) saturate(0.8) brightness(0.92)',
+  'Fade':'contrast(0.85) brightness(1.1)',
+  'Punch':'contrast(1.35) saturate(1.35)',
+  'HDR':'contrast(1.4) saturate(1.3)',
+  'Dreamy':'brightness(1.12) saturate(1.15) blur(0.3px)',
+  'Sunset':'sepia(0.4) saturate(1.5) hue-rotate(-15deg)',
+  'Winter':'hue-rotate(190deg) saturate(0.8)',
+  'Anime':'saturate(1.7) contrast(1.2) brightness(1.05)',
+  'Manga':'grayscale(1) contrast(1.4)'
+};
+
+function loadGradePresets(){
+  const el=document.getElementById('gradePresets');if(!el) return;
+  el.innerHTML='';
+  Object.keys(GRADE_PRESETS).forEach(name=>{
+    const chip=document.createElement('div');
+    chip.className='grade-chip';
+    if(name==='None') chip.classList.add('selected');
+    chip.textContent=name;
+    chip.onclick=()=>{
+      document.querySelectorAll('.grade-chip').forEach(c=>c.classList.remove('selected'));
+      chip.classList.add('selected');
+      currentGrade=name;
+      photoAdjust();
+    };
+    el.appendChild(chip);
+  });
+}
+
+function handleAIPhoto(e){
+  const file=e.target.files[0];if(!file) return;
+  currentPhoto=file;
+  const url=URL.createObjectURL(file);
+  const img=document.getElementById('aiPhotoPreview');
+  img.src=url;
+  document.getElementById('aiPhotoPreviewWrap').style.display='block';
+  photoAdjust();
+}
+
+function buildPhotoFilter(){
+  const brightness=document.getElementById('pBrightnessSlider').value;
+  const contrast=document.getElementById('pContrastSlider').value;
+  const saturate=document.getElementById('pSaturateSlider').value;
+  const hue=document.getElementById('pHueSlider').value;
+  const blur=document.getElementById('pBlurSlider').value;
+  const grayscale=document.getElementById('pGrayscaleSlider').value;
+  
+  let parts=[];
+  if(brightness!=100) parts.push(`brightness(${brightness}%)`);
+  if(contrast!=100) parts.push(`contrast(${contrast}%)`);
+  if(saturate!=100) parts.push(`saturate(${saturate}%)`);
+  if(hue>0) parts.push(`hue-rotate(${hue}deg)`);
+  if(blur>0) parts.push(`blur(${blur}px)`);
+  if(grayscale>0) parts.push(`grayscale(${grayscale}%)`);
+  
+  if(currentGrade!=='None' && GRADE_PRESETS[currentGrade]) parts.push(GRADE_PRESETS[currentGrade]);
+  
+  return parts.length===0 ? 'none' : parts.join(' ');
+}
+
+function photoAdjust(){
+  const img=document.getElementById('aiPhotoPreview');
+  if(!img) return;
+  img.style.filter=buildPhotoFilter();
+  // Update labels
+  document.getElementById('pBrightness').textContent=document.getElementById('pBrightnessSlider').value;
+  document.getElementById('pContrast').textContent=document.getElementById('pContrastSlider').value;
+  document.getElementById('pSaturate').textContent=document.getElementById('pSaturateSlider').value;
+  document.getElementById('pHue').textContent=document.getElementById('pHueSlider').value;
+  document.getElementById('pBlur').textContent=document.getElementById('pBlurSlider').value;
+  document.getElementById('pGrayscale').textContent=document.getElementById('pGrayscaleSlider').value;
+}
+
+function downloadPhoto(){
+  const img=document.getElementById('aiPhotoPreview');
+  if(!img.src||img.src===window.location.href) return showToast('❌ আগে ছবি আপলোড করুন!');
+  
+  const canvas=document.createElement('canvas');
+  canvas.width=img.naturalWidth||img.width;
+  canvas.height=img.naturalHeight||img.height;
+  const ctx=canvas.getContext('2d');
+  ctx.filter=buildPhotoFilter();
+  ctx.drawImage(img,0,0,canvas.width,canvas.height);
+  
+  canvas.toBlob(blob=>{
+    const a=document.createElement('a');
+    a.download='atik-edited-'+Date.now()+'.png';
+    a.href=URL.createObjectURL(blob);
+    a.click();
+    showToast('💾 Download শুরু!');
+  },'image/png');
+}
+
+function resetPhoto(){
+  document.getElementById('pBrightnessSlider').value=100;
+  document.getElementById('pContrastSlider').value=100;
+  document.getElementById('pSaturateSlider').value=100;
+  document.getElementById('pHueSlider').value=0;
+  document.getElementById('pBlurSlider').value=0;
+  document.getElementById('pGrayscaleSlider').value=0;
+  currentGrade='None';
+  document.querySelectorAll('.grade-chip').forEach(c=>{
+    c.classList.remove('selected');
+    if(c.textContent==='None') c.classList.add('selected');
+  });
+  photoAdjust();
+  showToast('↺ রিসেট!');
+}
+
+/* NOTIFICATIONS */
+function loadNotifications(){
+  const notifs=JSON.parse(localStorage.getItem('atik_notifications')||'[]');
+  const unread=notifs.filter(n=>!n.read).length;
+  const badge=document.getElementById('notifBadge');if(badge) badge.textContent=unread;
+}
+function toggleNotifications(){
+  const notifs=JSON.parse(localStorage.getItem('atik_notifications')||'[]');
+  const badge=document.getElementById('notifBadge');if(badge) badge.textContent=0;
+  const updated=notifs.map(n=>({...n,read:true}));
+  localStorage.setItem('atik_notifications',JSON.stringify(updated));
+  if(!notifs.length){showToast('🔔 নতুন নেই');return;}
+  let msg='';
+  notifs.slice(0,5).forEach(n=>{msg+=n.icon+' '+n.title+'\n';});
+  alert('🔔 Notifications:\n\n'+msg);
+}
+function loadAdminAds(){
+  const s=JSON.parse(localStorage.getItem('atik_ad_settings')||'{}');
+  if(s.adCode&&s.adCode.trim()){
+    setTimeout(()=>{document.querySelectorAll('.ad-space-content').forEach(el=>{el.innerHTML=s.adCode;});},400);
+  }
+}
+
+document.addEventListener('keypress',e=>{
+  if(e.key!=='Enter') return;
+  const m=document.getElementById('authModal');
+  if(!m||!m.classList.contains('active')) return;
+  const lv=document.getElementById('loginForm').style.display!=='none';
+  if(lv) doLogin(); else doSignup();
+});
+
+window.addEventListener('load',()=>{
+  // Auto-login check
+  setTimeout(()=>{
+    const user=getCurrentUser();
+    if(user){
+      document.getElementById('splash').classList.add('hide');
+      setTimeout(()=>{
+        document.getElementById('splash').style.display='none';
+        initUI();
+      }, 500);
+    }
+  }, 100);
+});
+</script>
+</body>
+</html>

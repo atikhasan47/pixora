@@ -35,7 +35,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 .firefly{position:absolute;width:4px;height:4px;background:#FFEB3B;border-radius:50%;box-shadow:0 0 10px #FFEB3B,0 0 20px #FFC107;animation:fireflyFloat linear infinite;opacity:.8;}
 @keyframes fireflyFloat{0%{transform:translate(0,0);opacity:0;}20%{opacity:1;}80%{opacity:1;}100%{transform:translate(100px,-200px);opacity:0;}}
 
-/* SPLASH WELCOME */
+/* SPLASH */
 .splash{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(135deg,#0a0f1e,#1b263b,#415a77);transition:opacity 1s ease;}
 .splash.hide{opacity:0;pointer-events:none;}
 .splash-logo{width:130px;height:130px;border-radius:50%;object-fit:cover;border:4px solid #FFD700;box-shadow:0 0 60px #FFD700,0 0 120px rgba(255,215,0,.5);animation:logoBounceIn 1s ease,logoPulse 2.5s 1s ease-in-out infinite;}
@@ -64,8 +64,8 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 @keyframes loginSlideIn{from{opacity:0;transform:translateY(60px) scale(.9);}to{opacity:1;transform:translateY(0) scale(1);}}
 .login-logo-top{width:80px;height:80px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 15px;border:3px solid #FFD700;box-shadow:0 0 30px #FFD700;animation:logoPulse 2.5s infinite;}
 .login-box h2{color:#FFD700;text-align:center;margin-bottom:22px;font-size:22px;font-family:'Montserrat',sans-serif;}
-.login-box input,.login-box select{width:100%;padding:14px;margin-bottom:14px;background:rgba(255,255,255,.08);border:2px solid rgba(255,215,0,.5);border-radius:12px;color:#fff;font-size:14px;font-family:inherit;}
-.login-box input:focus,.login-box select:focus{border-color:#00E676;outline:none;}
+.login-box input{width:100%;padding:14px;margin-bottom:14px;background:rgba(255,255,255,.08);border:2px solid rgba(255,215,0,.5);border-radius:12px;color:#fff;font-size:14px;font-family:inherit;}
+.login-box input:focus{border-color:#00E676;outline:none;}
 .eye-icon{position:absolute;right:15px;top:14px;cursor:pointer;color:#FFD700;font-size:16px;}
 .auth-tabs{display:flex;gap:8px;margin-bottom:22px;background:rgba(255,255,255,.05);padding:6px;border-radius:14px;}
 .auth-tab{flex:1;padding:11px;background:transparent;border:none;color:#8fa8c4;font-size:14px;font-weight:bold;border-radius:10px;cursor:pointer;font-family:inherit;}
@@ -113,11 +113,12 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 .thb-logout{background:linear-gradient(90deg,#D32F2F,#FF1744);color:#fff;border-color:#FF1744;}
 .notif-badge{position:absolute;top:-6px;right:-6px;background:#FF1744;color:#fff;font-size:10px;padding:2px 6px;border-radius:10px;font-weight:900;}
 
-.ad-space{background:linear-gradient(135deg,rgba(27,38,59,.9),rgba(13,27,42,.9));border:2px dashed #FFD700;border-radius:16px;padding:15px 20px;margin:18px 0;text-align:center;min-height:80px;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;}
-.ad-space::before{content:'📢 AD';position:absolute;top:6px;left:10px;font-size:9px;color:#8fa8c4;letter-spacing:2px;font-weight:700;}
+.ad-space{background:linear-gradient(135deg,rgba(27,38,59,.9),rgba(13,27,42,.9));border:2px dashed #FFD700;border-radius:16px;padding:15px 20px;margin:18px 0;text-align:center;min-height:80px;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;overflow:hidden;}
+.ad-space::before{content:'AD';position:absolute;top:6px;left:10px;font-size:9px;color:#8fa8c4;letter-spacing:2px;font-weight:700;}
 .ad-space-inline{min-height:60px;padding:10px;margin:12px 0;}
 .ad-space-content{color:#FFD700;font-weight:800;font-size:13px;}
 .ad-space-content small{color:#8fa8c4;display:block;margin-top:5px;font-weight:400;font-size:10px;}
+.ad-slot{width:100%;display:flex;justify-content:center;align-items:center;min-height:50px;}
 
 .profile-logo-section{display:flex;justify-content:center;margin-bottom:20px;padding:15px;}
 .profile-logo-box{width:320px;height:320px;border-radius:50px;background:linear-gradient(135deg,#E3F2FD,#BBDEFB,#90CAF9);border:4px solid #0D47A1;position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;overflow:hidden;flex-shrink:0;box-shadow:0 0 60px rgba(255,179,0,.3);}
@@ -218,7 +219,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 
 .form-group{margin-bottom:15px;}
 .form-group label{display:block;margin-bottom:6px;color:#FFD700;font-weight:600;font-size:13px;}
-.form-group input,.form-group select,.form-group textarea{width:100%;padding:13px;background:rgba(255,255,255,.05);border:2px solid rgba(255,215,0,.3);border-radius:12px;color:#fff;font-size:14px;font-family:inherit;}
+.form-group input,.form-group textarea{width:100%;padding:13px;background:rgba(255,255,255,.05);border:2px solid rgba(255,215,0,.3);border-radius:12px;color:#fff;font-size:14px;font-family:inherit;}
 .form-group input:focus,.form-group textarea:focus{border-color:#00E676;outline:none;}
 
 .ads-hero{background:linear-gradient(135deg,rgba(13,27,42,.95),rgba(27,38,59,.95));backdrop-filter:blur(15px);border:3px solid #00E676;border-radius:22px;padding:30px;box-shadow:0 0 60px rgba(0,230,118,.4);margin-bottom:22px;text-align:center;}
@@ -366,6 +367,30 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 
 .mobile-toggle{display:none;position:fixed;top:15px;left:15px;z-index:999;background:linear-gradient(135deg,#FFD700,#FF9800);color:#000;border:none;width:45px;height:45px;border-radius:12px;font-size:20px;cursor:pointer;box-shadow:0 5px 20px rgba(0,0,0,.5);}
 
+/* ================= AD OVERLAY SYSTEM ================= */
+.ad-overlay{position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:99999;display:none;justify-content:center;align-items:center;padding:20px;backdrop-filter:blur(15px);}
+.ad-overlay.active{display:flex;animation:adFadeIn .4s ease;}
+@keyframes adFadeIn{from{opacity:0;transform:scale(.9);}to{opacity:1;transform:scale(1);}}
+.ad-overlay-box{background:linear-gradient(135deg,#0d1b2a,#1b263b);border:3px solid #FFD700;border-radius:22px;padding:25px;max-width:500px;width:100%;box-shadow:0 0 100px rgba(255,215,0,.6);position:relative;text-align:center;}
+.ad-overlay-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;padding-bottom:12px;border-bottom:2px solid rgba(255,215,0,.3);}
+.ad-overlay-title{color:#FFD700;font-size:15px;font-weight:900;display:flex;align-items:center;gap:8px;}
+.ad-overlay-timer{background:linear-gradient(135deg,#FF1744,#D32F2F);color:#fff;padding:6px 14px;border-radius:20px;font-weight:900;font-size:14px;min-width:60px;font-family:'Courier New',monospace;box-shadow:0 0 20px rgba(255,23,68,.6);}
+.ad-slot-overlay{background:#0a0f1e;border:2px dashed rgba(255,215,0,.4);border-radius:14px;padding:20px 10px;margin:15px 0;min-height:270px;display:flex;justify-content:center;align-items:center;overflow:hidden;}
+.ad-slot-overlay iframe,.ad-slot-overlay img,.ad-slot-overlay>div{max-width:100%;}
+.ad-overlay-progress{background:rgba(0,0,0,.5);height:8px;border-radius:5px;margin:15px 0;overflow:hidden;}
+.ad-overlay-progress-bar{height:100%;background:linear-gradient(90deg,#00C853,#00E676);width:0%;transition:width 1s linear;box-shadow:0 0 15px #00E676;border-radius:5px;}
+.ad-overlay-info{color:#8fa8c4;font-size:12px;font-weight:600;margin-bottom:12px;}
+.ad-overlay-btn{width:100%;padding:14px;border:none;border-radius:12px;font-size:15px;font-weight:900;cursor:pointer;font-family:inherit;transition:.3s;background:linear-gradient(90deg,#00C853,#00E676);color:#fff;box-shadow:0 5px 20px rgba(0,230,118,.4);}
+.ad-overlay-btn:disabled{background:#4a5568;cursor:not-allowed;box-shadow:none;opacity:.6;}
+.ad-overlay-btn:not(:disabled):hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,230,118,.6);}
+.ad-overlay-note{color:#6b7d94;font-size:10px;margin-top:10px;}
+@media(max-width:600px){
+  .ad-overlay-box{padding:18px 14px;}
+  .ad-slot-overlay{min-height:220px;padding:12px 6px;}
+  .ad-overlay-timer{font-size:12px;padding:5px 10px;}
+}
+
+/* ================= MEDIA QUERIES ================= */
 @media(max-width:900px){
   .mobile-toggle{display:block;}
   .sidebar{position:fixed;left:-280px;top:0;z-index:998;}
@@ -399,6 +424,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 </head>
 <body>
 
+<!-- ========== LIVE ANIMATION BG ========== -->
 <div class="village-bg" id="villageBg">
   <div class="sky-night"></div>
   <div class="stars" id="stars"></div>
@@ -415,10 +441,11 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
   <div id="fireflyContainer"></div>
 </div>
 
+<!-- ========== SPLASH ========== -->
 <div class="splash" id="splash">
   <img src="https://i.ibb.co.com/bgMN2Yv8/IMG-20260429-WA0011.jpg" class="splash-logo" alt="Logo">
   <div class="splash-title">AI ATIK DAILY EARNING</div>
-  <div class="splash-brand">★ BRAND: ATIK FREELANCER ★</div>
+  <div class="splash-brand">BRAND: ATIK FREELANCER</div>
   <div class="splash-features">
     <div class="splash-feature"><span class="sIcon">💰</span> Ads দেখে ইনকাম ৳0.10</div>
     <div class="splash-feature"><span class="sIcon">📅</span> Daily Job — ৳0.20</div>
@@ -427,49 +454,51 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
     <div class="splash-feature"><span class="sIcon">🤖</span> AI Chat Assistant</div>
   </div>
   <div class="splash-loader"><span></span><span></span><span></span></div>
-  <div class="splash-tip">⏳ লোড হচ্ছে... একটু অপেক্ষা করুন</div>
+  <div class="splash-tip">লোড হচ্ছে... একটু অপেক্ষা করুন</div>
 </div>
 
 <button class="mobile-toggle" onclick="toggleSidebar()">☰</button>
 
+<!-- ========== AUTH MODAL ========== -->
 <div class="modal-overlay" id="authModal">
   <div class="login-box">
     <img src="https://i.ibb.co.com/bgMN2Yv8/IMG-20260429-WA0011.jpg" class="login-logo-top" alt="Logo">
     <div class="auth-tabs">
-      <button class="auth-tab active" id="tabLogin" onclick="switchAuth('login')">🔑 Login</button>
-      <button class="auth-tab" id="tabSignup" onclick="switchAuth('signup')">🆕 Sign Up</button>
+      <button class="auth-tab active" id="tabLogin" onclick="switchAuth('login')">Login</button>
+      <button class="auth-tab" id="tabSignup" onclick="switchAuth('signup')">Sign Up</button>
     </div>
     <div id="loginForm">
-      <h2>🔐 Login</h2>
-      <input type="email" id="loginEmail" placeholder="📧 Email">
+      <h2>Login</h2>
+      <input type="email" id="loginEmail" placeholder="Email">
       <div style="position:relative;">
-        <input type="password" id="loginPass" placeholder="🔑 Password">
+        <input type="password" id="loginPass" placeholder="Password">
         <span onclick="togglePass('loginPass','eye1')" class="eye-icon" id="eye1">👁️</span>
       </div>
       <div class="auth-error" id="loginError"></div>
-      <button class="auth-btn" onclick="doLogin()">🚀 Login</button>
+      <button class="auth-btn" onclick="doLogin()">Login</button>
       <p class="auth-hint">নতুন? <a onclick="switchAuth('signup')">একাউন্ট খুলুন</a></p>
     </div>
     <div id="signupForm" style="display:none;">
-      <h2>🆕 Create Account</h2>
-      <input type="text" id="signupName" placeholder="👤 Full Name">
-      <input type="email" id="signupEmail" placeholder="📧 Email">
-      <input type="text" id="signupUser" placeholder="🆔 Username">
+      <h2>Create Account</h2>
+      <input type="text" id="signupName" placeholder="Full Name">
+      <input type="email" id="signupEmail" placeholder="Email">
+      <input type="text" id="signupUser" placeholder="Username">
       <div style="position:relative;">
-        <input type="password" id="signupPass" placeholder="🔑 Password (min 4)">
+        <input type="password" id="signupPass" placeholder="Password (min 4)">
         <span onclick="togglePass('signupPass','eye2')" class="eye-icon" id="eye2">👁️</span>
       </div>
       <div style="position:relative;">
-        <input type="password" id="signupPass2" placeholder="✅ Confirm Password">
+        <input type="password" id="signupPass2" placeholder="Confirm Password">
         <span onclick="togglePass('signupPass2','eye3')" class="eye-icon" id="eye3">👁️</span>
       </div>
       <div class="auth-error" id="signupError"></div>
-      <button class="auth-btn" onclick="doSignup()">✨ Create Account</button>
+      <button class="auth-btn" onclick="doSignup()">Create Account</button>
       <p class="auth-hint">আগে থেকেই আছে? <a onclick="switchAuth('login')">লগইন করুন</a></p>
     </div>
   </div>
 </div>
 
+<!-- ========== MAIN APP ========== -->
 <div class="app-layout" id="appLayout" style="display:none;">
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-logo">
@@ -479,7 +508,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
     <div class="user-card">
       <div class="avatar" id="sideAvatar">A</div>
       <div class="info">
-        <div class="name" id="sideName">Atik Hasan</div>
+        <div class="name" id="sideName">User</div>
         <div class="status" onclick="verifyAccount()" id="sideStatus">Unverified</div>
       </div>
     </div>
@@ -489,7 +518,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       <div class="menu-item active" data-panel="dashboard"><span class="icon">📊</span> Dashboard</div>
     </div>
     <div class="menu-section">
-      <div class="menu-label">💰 My Wallet</div>
+      <div class="menu-label">My Wallet</div>
       <div class="menu-sub">
         <div class="menu-item" data-panel="wallet-history"><span class="icon">📜</span> Wallet & History</div>
         <div class="menu-item" data-panel="add-funds"><span class="icon">💵</span> Add Money</div>
@@ -498,7 +527,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       </div>
     </div>
     <div class="menu-section">
-      <div class="menu-label">🎯 Earning</div>
+      <div class="menu-label">Earning</div>
       <div class="menu-sub">
         <div class="menu-item" data-panel="job"><span class="icon">📅</span> Daily Job</div>
         <div class="menu-item" data-panel="watch-ads"><span class="icon">📺</span> Watch Ads</div>
@@ -508,14 +537,14 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       </div>
     </div>
     <div class="menu-section">
-      <div class="menu-label">🤝 Affiliate</div>
+      <div class="menu-label">Affiliate</div>
       <div class="menu-sub">
         <div class="menu-item" data-panel="refer-earn"><span class="icon">🎁</span> Refer & Earn</div>
         <div class="menu-item" data-panel="leaderboard"><span class="icon">🏆</span> Leadership</div>
       </div>
     </div>
     <div class="menu-section">
-      <div class="menu-label">📞 Help</div>
+      <div class="menu-label">Help</div>
       <div class="menu-sub">
         <div class="menu-item" data-panel="support"><span class="icon">💬</span> Support</div>
         <div class="menu-item" data-panel="chat"><span class="icon">📨</span> Chat with Admin</div>
@@ -528,16 +557,20 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 
   <main class="main">
 
+    <!-- ========== DASHBOARD ========== -->
     <div class="panel active" id="dashboard">
       <div class="top-header-bar">
-        <div class="thb-greeting">👋 স্বাগতম, <strong id="thbName">Atik Hasan</strong></div>
+        <div class="thb-greeting">👋 স্বাগতম, <strong id="thbName">User</strong></div>
         <div class="thb-right">
           <button class="thb-btn" onclick="toggleNotifications()">🔔 <span class="notif-badge" id="notifBadge">0</span></button>
-          <button class="thb-btn thb-logout" onclick="doLogout()">🚪 Logout</button>
+          <button class="thb-btn thb-logout" onclick="doLogout()">Logout</button>
         </div>
       </div>
 
-      <div class="ad-space ad-space-inline"><div class="ad-space-content">📢 Sponsor Ad<small>728x90</small></div></div>
+      <!-- HEADER AD (728x90) -->
+      <div class="ad-space ad-space-inline">
+        <div class="ad-slot" id="headerAdSlot1"></div>
+      </div>
 
       <div class="profile-logo-section">
         <div class="profile-logo-box">
@@ -554,14 +587,14 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
           </div>
           <div class="logo-title-1">ATIK</div>
           <div class="logo-title-2">DAILY EARNING</div>
-          <div class="logo-brand">★ BRAND: ATIK FREELANCER ★</div>
-          <div class="logo-tag">🌟 PREMIUM PLATFORM 🌟</div>
+          <div class="logo-brand">BRAND: ATIK FREELANCER</div>
+          <div class="logo-tag">PREMIUM PLATFORM</div>
         </div>
       </div>
 
       <div class="profile-banner-section">
         <div class="profile-banner-box">
-          <div class="banner-badge">⭐ PREMIUM ⭐</div>
+          <div class="banner-badge">PREMIUM</div>
           <div class="banner-content">
             <div class="banner-photo-wrap2">
               <img src="https://i.ibb.co.com/bgMN2Yv8/IMG-20260429-WA0011.jpg" alt="Profile">
@@ -569,7 +602,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
             </div>
             <div>
               <div class="banner-title">AI ATIK <span class="banner-title-ai">DAILY EARNING</span></div>
-              <div class="banner-brand">★ BRAND: ATIK FREELANCER ★</div>
+              <div class="banner-brand">BRAND: ATIK FREELANCER</div>
               <div class="banner-divider"></div>
               <div class="banner-services-title">🎯 আমাদের সার্ভিসসমূহ</div>
               <div class="banner-services">
@@ -601,7 +634,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
         <div class="welcome-content">
           <div class="welcome-text">
             <div class="hello">WELCOME BACK,</div>
-            <div class="username" id="welcomeName">Atik Hasan</div>
+            <div class="username" id="welcomeName">User</div>
             <div class="verified" id="verifyBadge">⚠️ অ্যাকাউন্ট ভেরিফাইড নয়! <span style="cursor:pointer;text-decoration:underline;margin-left:5px;" onclick="verifyAccount()">Verify</span></div>
           </div>
           <div class="welcome-actions">
@@ -617,8 +650,6 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
         <div class="stat-card cyan clickable"><span class="icon">📈</span><h4>Total Earned</h4><div class="val">৳ <span id="totalEarned">0.00</span></div></div>
         <div class="stat-card pink clickable" onclick="goPanel('watch-ads')"><span class="icon">📺</span><h4>Total Ads</h4><div class="val"><span id="adsWatched">0</span></div></div>
       </div>
-
-      <div class="ad-space"><div class="ad-space-content">📢 Sponsored<small>320x100</small></div></div>
 
       <div class="section">
         <div class="section-title">🎯 Earning Services <span class="count">5 Options</span></div>
@@ -656,6 +687,11 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
         </div>
       </div>
 
+      <!-- BOTTOM MOBILE AD -->
+      <div class="ad-space">
+        <div class="ad-slot" id="bottomAdSlot1"></div>
+      </div>
+
       <div class="section">
         <div class="countdown-banner">
           <h2>⏰ আমরা আপনাদের সাথে আছি</h2>
@@ -688,38 +724,44 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       </div>
     </div>
 
+    <!-- ========== WATCH ADS ========== -->
     <div class="panel" id="watch-ads">
       <div class="topbar"><h2>📺 Watch Ads & Earn <span>Ads দেখুন, Math Solve করুন, ৳0.10</span></h2></div>
-      <div class="ad-space ad-space-inline"><div class="ad-space-content">📢 Sponsor Ad<small>728x90</small></div></div>
+
       <div class="ads-hero">
         <div class="ads-icon">📺</div>
         <h2>প্রতি অ্যাডে পাবেন</h2>
         <p>Ads ৳0.06 + Math ৳0.04 = মোট ৳0.10</p>
         <div class="reward-big">৳ 0.10</div>
       </div>
+
       <div class="ads-stats-bar">
         <div class="asb-item"><div class="asb-icon">🎯</div><div class="asb-info"><div class="asb-label">আজকের লিমিট</div><div class="asb-value"><span id="todayLimit">50</span> টি</div></div></div>
         <div class="asb-item"><div class="asb-icon">✅</div><div class="asb-info"><div class="asb-label">সম্পন্ন</div><div class="asb-value"><span id="completedToday">0</span> টি</div></div></div>
         <div class="asb-item"><div class="asb-icon">💰</div><div class="asb-info"><div class="asb-label">আজকের আয়</div><div class="asb-value">৳ <span id="todayAdEarn">0.00</span></div></div></div>
         <div class="asb-item"><div class="asb-icon">⏱️</div><div class="asb-info"><div class="asb-label">টাইমার</div><div class="asb-value">8s</div></div></div>
       </div>
+
       <div class="ad-display-box" id="adDisplayBox">
         <div class="adb-icon">🎬</div>
         <div class="adb-title">Ad Play করুন</div>
         <div class="adb-sub">নিচের বাটনে ক্লিক করলে ৮ সেকেন্ডের Ads শুরু হবে</div>
       </div>
+
       <div class="ad-big-timer" id="adBigTimer" style="display:none;">
-        <div class="abt-label">⏱️ ADS চলছে</div>
+        <div class="abt-label">ADS চলছে</div>
         <div class="abt-value" id="adsBigTimerValue">8</div>
         <div class="abt-hint">অপেক্ষা করুন...</div>
       </div>
-      <button class="awc-action-btn awc-claim" style="max-width:100%;margin-bottom:20px;" onclick="startAdFlow()" id="startAdBtn">▶ Ads দেখা শুরু করুন</button>
+
+      <button class="awc-action-btn awc-claim" style="max-width:100%;margin-bottom:20px;" onclick="startAdFlow()" id="startAdBtn">Ads দেখা শুরু করুন</button>
+
       <div class="ad-workflow-card" style="display:none;" id="adMathCard">
         <div class="awc-header">
           <div class="awc-brand">
             <img src="https://i.ibb.co.com/bgMN2Yv8/IMG-20260429-WA0011.jpg" alt="Logo">
             <div>
-              <div class="awc-title">𝘼𝙞 𝘼𝙩𝙞𝙠 𝘿𝙖𝙞𝙡𝙮 𝙀𝙖𝙧𝙣𝙞𝙣𝙜</div>
+              <div class="awc-title">AI Atik Daily Earning</div>
               <div class="awc-brand-sub">Ads সম্পন্ন — এখন Math</div>
             </div>
           </div>
@@ -730,7 +772,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
             <div class="math-question" id="mathQuestion">-- + -- = ?</div>
             <div class="math-input-wrap">
               <input type="number" id="mathAnswer" placeholder="উত্তর" class="math-input">
-              <button class="awc-action-btn awc-claim" onclick="submitMath()">✅ ক্লেইম</button>
+              <button class="awc-action-btn awc-claim" onclick="submitMath()">ক্লেইম</button>
             </div>
             <div class="math-feedback" id="mathFeedback"></div>
           </div>
@@ -738,6 +780,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       </div>
     </div>
 
+    <!-- ========== MATH ========== -->
     <div class="panel" id="math">
       <div class="topbar"><h2>🧮 Math Earn <span>অংক সমাধান করুন</span></h2></div>
       <div class="math-hero">
@@ -756,12 +799,13 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
         <div class="mc-q" id="mathPageQuestion">-- + -- = ?</div>
         <div class="mc-input">
           <input type="number" id="mathPageAnswer" placeholder="উত্তর">
-          <button onclick="submitMathPage()">✅ ক্লেইম</button>
+          <button onclick="submitMathPage()">ক্লেইম</button>
         </div>
         <div class="math-feedback" id="mathPageFeedback" style="margin-top:15px;"></div>
       </div>
     </div>
 
+    <!-- ========== JOB ========== -->
     <div class="panel" id="job">
       <div class="topbar"><h2>📅 Daily Job <span>কাজ করে প্রুফ দিন</span></h2></div>
       <div class="job-hero">
@@ -771,10 +815,10 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
         <div style="display:inline-block;background:linear-gradient(90deg,#FF9800,#FFD700);color:#000;padding:12px 28px;border-radius:12px;font-weight:900;font-size:15px;">প্রতি জবে ৳ 0.20</div>
       </div>
       <div class="job-grid">
-        <div class="job-card"><span class="jc-icon">▶️</span><h4>YouTube Subscribe</h4><p>Atik Freelancer চ্যানেল Subscribe করুন</p><div class="jc-pay">৳ 0.20</div><a href="https://youtube.com/@aiatikfreelanch" target="_blank" rel="noopener noreferrer" class="btn btn-gold" style="width:100%;justify-content:center;margin-bottom:8px;">Open YouTube</a><button class="btn btn-green" style="width:100%;justify-content:center;" onclick="openJobProof('YouTube Subscribe',0.20)">📸 Submit Proof</button></div>
-        <div class="job-card"><span class="jc-icon">📘</span><h4>Facebook Like</h4><p>Atik Freelancer Page Like করুন</p><div class="jc-pay">৳ 0.20</div><a href="https://www.facebook.com/profile.php?id=61592860621046" target="_blank" rel="noopener noreferrer" class="btn btn-gold" style="width:100%;justify-content:center;margin-bottom:8px;">Open Facebook</a><button class="btn btn-green" style="width:100%;justify-content:center;" onclick="openJobProof('Facebook Like',0.20)">📸 Submit Proof</button></div>
-        <div class="job-card"><span class="jc-icon">🎵</span><h4>TikTok Follow</h4><p>TikTok Follow করুন</p><div class="jc-pay">৳ 0.20</div><a href="https://www.tiktok.com/@atikhasan60057" target="_blank" rel="noopener noreferrer" class="btn btn-gold" style="width:100%;justify-content:center;margin-bottom:8px;">Open TikTok</a><button class="btn btn-green" style="width:100%;justify-content:center;" onclick="openJobProof('TikTok Follow',0.20)">📸 Submit Proof</button></div>
-        <div class="job-card"><span class="jc-icon">✈️</span><h4>Telegram Join</h4><p>Telegram Group এ Join করুন</p><div class="jc-pay">৳ 0.20</div><a href="https://t.me/aiatikdailyearning" target="_blank" rel="noopener noreferrer" class="btn btn-gold" style="width:100%;justify-content:center;margin-bottom:8px;">Open Telegram</a><button class="btn btn-green" style="width:100%;justify-content:center;" onclick="openJobProof('Telegram Join',0.20)">📸 Submit Proof</button></div>
+        <div class="job-card"><span class="jc-icon">▶️</span><h4>YouTube Subscribe</h4><p>Atik Freelancer চ্যানেল Subscribe করুন</p><div class="jc-pay">৳ 0.20</div><a href="https://youtube.com/@aiatikfreelanch" target="_blank" rel="noopener noreferrer" class="btn btn-gold" style="width:100%;justify-content:center;margin-bottom:8px;">Open YouTube</a><button class="btn btn-green" style="width:100%;justify-content:center;" onclick="openJobProof('YouTube Subscribe',0.20)">Submit Proof</button></div>
+        <div class="job-card"><span class="jc-icon">📘</span><h4>Facebook Like</h4><p>Atik Freelancer Page Like করুন</p><div class="jc-pay">৳ 0.20</div><a href="https://www.facebook.com/profile.php?id=61592860621046" target="_blank" rel="noopener noreferrer" class="btn btn-gold" style="width:100%;justify-content:center;margin-bottom:8px;">Open Facebook</a><button class="btn btn-green" style="width:100%;justify-content:center;" onclick="openJobProof('Facebook Like',0.20)">Submit Proof</button></div>
+        <div class="job-card"><span class="jc-icon">🎵</span><h4>TikTok Follow</h4><p>TikTok Follow করুন</p><div class="jc-pay">৳ 0.20</div><a href="https://www.tiktok.com/@atikhasan60057" target="_blank" rel="noopener noreferrer" class="btn btn-gold" style="width:100%;justify-content:center;margin-bottom:8px;">Open TikTok</a><button class="btn btn-green" style="width:100%;justify-content:center;" onclick="openJobProof('TikTok Follow',0.20)">Submit Proof</button></div>
+        <div class="job-card"><span class="jc-icon">✈️</span><h4>Telegram Join</h4><p>Telegram Group এ Join করুন</p><div class="jc-pay">৳ 0.20</div><a href="https://t.me/aiatikdailyearning" target="_blank" rel="noopener noreferrer" class="btn btn-gold" style="width:100%;justify-content:center;margin-bottom:8px;">Open Telegram</a><button class="btn btn-green" style="width:100%;justify-content:center;" onclick="openJobProof('Telegram Join',0.20)">Submit Proof</button></div>
       </div>
       <div id="jobProofPanel" style="display:none;margin-top:22px;background:linear-gradient(135deg,rgba(13,27,42,.98),rgba(27,38,59,.98));border:3px solid #00E676;border-radius:22px;padding:25px;">
         <h3 style="color:#00E676;font-size:18px;margin-bottom:12px;">📸 কাজের প্রুফ দিন</h3>
@@ -786,69 +830,53 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
           <div class="proof-upload" onclick="document.getElementById('proofImg2').click()"><span class="pu-icon">📷</span><div style="font-size:12px;color:#8fa8c4;font-weight:600;">Screenshot 2</div><img id="proofImg2Preview" style="display:none;"><input type="file" id="proofImg2" accept="image/*" style="display:none" onchange="previewProof(2,event)"></div>
         </div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;">
-          <button class="btn btn-green" style="flex:1;" onclick="submitJobProof()">✅ Submit to Admin</button>
-          <button class="btn btn-red" onclick="closeJobProof()">❌ Cancel</button>
+          <button class="btn btn-green" style="flex:1;" onclick="submitJobProof()">Submit to Admin</button>
+          <button class="btn btn-red" onclick="closeJobProof()">Cancel</button>
         </div>
       </div>
     </div>
 
+    <!-- ========== SOCIAL ========== -->
     <div class="panel" id="social">
       <div class="topbar"><h2>🛒 Social Media Promote <span>সব Platform এর Service</span></h2></div>
       <div class="social-tabs">
-        <button class="social-tab active" onclick="switchSocial('facebook',this)">📘 Facebook</button>
-        <button class="social-tab" onclick="switchSocial('youtube',this)">▶️ YouTube</button>
-        <button class="social-tab" onclick="switchSocial('tiktok',this)">🎵 TikTok</button>
-        <button class="social-tab" onclick="switchSocial('instagram',this)">📸 Instagram</button>
-        <button class="social-tab" onclick="switchSocial('telegram',this)">✈️ Telegram</button>
+        <button class="social-tab active" onclick="switchSocial('facebook',this)">Facebook</button>
+        <button class="social-tab" onclick="switchSocial('youtube',this)">YouTube</button>
+        <button class="social-tab" onclick="switchSocial('tiktok',this)">TikTok</button>
+        <button class="social-tab" onclick="switchSocial('instagram',this)">Instagram</button>
+        <button class="social-tab" onclick="switchSocial('telegram',this)">Telegram</button>
       </div>
       <div class="service-list" id="serviceList"></div>
     </div>
 
+    <!-- ========== AI ASSISTANT ========== -->
     <div class="panel" id="ai">
       <div class="topbar"><h2>🤖 AI Assistant <span>Chat + Voice + Photo Edit</span></h2></div>
-      <div class="ad-space ad-space-inline"><div class="ad-space-content">📢 Sponsor Ad</div></div>
-
       <div class="ai-tabs">
-        <button class="ai-tab active" onclick="switchAI('chat',this)">💬 Chat</button>
-        <button class="ai-tab" onclick="switchAI('voice',this)">🎙️ Voice</button>
-        <button class="ai-tab" onclick="switchAI('photo',this)">🖼️ Photo Edit</button>
+        <button class="ai-tab active" onclick="switchAI('chat',this)">Chat</button>
+        <button class="ai-tab" onclick="switchAI('voice',this)">Voice</button>
+        <button class="ai-tab" onclick="switchAI('photo',this)">Photo Edit</button>
       </div>
 
       <div class="ai-panel active" id="ai-chat">
         <div class="chat-box">
           <div class="chat-messages" id="aiChatMessages">
-            <div class="chat-msg admin">👋 আসসালামু আলাইকুম! আমি আপনার AI Assistant। Ads, Withdraw, Daily Job, AI Voice — যেকোনো বিষয়ে জিজ্ঞেস করুন।<span class="chat-time">এখনই</span></div>
+            <div class="chat-msg admin">👋 আসসালামু আলাইকুম! আমি আপনার AI Assistant।<span class="chat-time">এখনই</span></div>
           </div>
           <div class="chat-input-row">
             <input type="text" id="aiChatInput" placeholder="বাংলায় লিখুন..." onkeypress="if(event.key==='Enter')sendAIChat()">
-            <button onclick="sendAIChat()">📤</button>
+            <button onclick="sendAIChat()">Send</button>
           </div>
         </div>
       </div>
 
       <div class="ai-panel" id="ai-voice">
         <div class="form-group">
-          <label>✍️ যা লিখবেন, AI পড়ে শোনাবে (সর্বোচ্চ ২০০ অক্ষর)</label>
+          <label>✍️ যা লিখবেন, AI পড়ে শোনাবে</label>
           <textarea id="voiceText" rows="4" placeholder="এখানে বাংলায় লিখুন..." maxlength="200"></textarea>
           <div style="text-align:right;font-size:11px;color:#8fa8c4;margin-top:4px;"><span id="voiceCount">0</span>/200</div>
         </div>
-        <div class="form-group">
-          <label>🎙️ ভয়েস সিলেক্ট করুন</label>
-          <select id="voiceSelect">
-            <option value="alloy">Alloy</option>
-            <option value="echo">Echo</option>
-            <option value="fable">Fable</option>
-            <option value="onyx">Onyx</option>
-            <option value="nova" selected>Nova</option>
-            <option value="shimmer">Shimmer</option>
-            <option value="coral">Coral</option>
-            <option value="verse">Verse</option>
-            <option value="ballad">Ballad</option>
-            <option value="ash">Ash</option>
-            <option value="sage">Sage</option>
-          </select>
-        </div>
-        <button class="btn btn-green" style="width:100%;" onclick="generateVoice()">🎙️ Voice Generate করুন</button>
+        <button class="btn btn-green" style="width:100%;" onclick="generateVoice()">Voice Generate করুন</button>
         <div id="voiceResult" style="margin-top:15px;"></div>
       </div>
 
@@ -856,7 +884,6 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
         <div class="photo-upload-area" onclick="document.getElementById('aiPhotoInput').click()">
           <div style="font-size:50px;">🖼️</div>
           <p style="margin-top:10px;color:#FFD700;font-weight:bold;">ছবি Upload করুন</p>
-          <p style="font-size:11px;color:#8fa8c4;">JPG, PNG</p>
           <input type="file" id="aiPhotoInput" accept="image/*" style="display:none" onchange="handleAIPhoto(event)">
         </div>
         <div id="aiPhotoPreviewWrap" style="display:none;margin-top:15px;">
@@ -867,20 +894,18 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
           <div class="grade-presets" id="gradePresets"></div>
         </div>
         <div style="display:grid;grid-template-columns:1fr;gap:10px;margin-top:15px;">
-          <div><label style="font-size:12px;color:#FFD700;">☀️ Brightness: <span id="pBrightness">100</span>%</label><input type="range" min="50" max="150" value="100" id="pBrightnessSlider" oninput="photoAdjust()"></div>
-          <div><label style="font-size:12px;color:#FFD700;">🌗 Contrast: <span id="pContrast">100</span>%</label><input type="range" min="50" max="150" value="100" id="pContrastSlider" oninput="photoAdjust()"></div>
-          <div><label style="font-size:12px;color:#FFD700;">🎨 Saturation: <span id="pSaturate">100</span>%</label><input type="range" min="0" max="200" value="100" id="pSaturateSlider" oninput="photoAdjust()"></div>
-          <div><label style="font-size:12px;color:#FFD700;">🌈 Hue: <span id="pHue">0</span>°</label><input type="range" min="0" max="360" value="0" id="pHueSlider" oninput="photoAdjust()"></div>
-          <div><label style="font-size:12px;color:#FFD700;">🌫️ Blur: <span id="pBlur">0</span>px</label><input type="range" min="0" max="10" value="0" id="pBlurSlider" step="0.5" oninput="photoAdjust()"></div>
-          <div><label style="font-size:12px;color:#FFD700;">⚫ Grayscale: <span id="pGrayscale">0</span>%</label><input type="range" min="0" max="100" value="0" id="pGrayscaleSlider" oninput="photoAdjust()"></div>
+          <div><label style="font-size:12px;color:#FFD700;">Brightness: <span id="pBrightness">100</span>%</label><input type="range" min="50" max="150" value="100" id="pBrightnessSlider" oninput="photoAdjust()"></div>
+          <div><label style="font-size:12px;color:#FFD700;">Contrast: <span id="pContrast">100</span>%</label><input type="range" min="50" max="150" value="100" id="pContrastSlider" oninput="photoAdjust()"></div>
+          <div><label style="font-size:12px;color:#FFD700;">Saturation: <span id="pSaturate">100</span>%</label><input type="range" min="0" max="200" value="100" id="pSaturateSlider" oninput="photoAdjust()"></div>
         </div>
         <div style="display:flex;gap:10px;margin-top:15px;">
-          <button class="btn btn-green" style="flex:1;justify-content:center;" onclick="downloadPhoto()">💾 Download</button>
-          <button class="btn btn-red" onclick="resetPhoto()">↺ Reset</button>
+          <button class="btn btn-green" style="flex:1;justify-content:center;" onclick="downloadPhoto()">Download</button>
+          <button class="btn btn-red" onclick="resetPhoto()">Reset</button>
         </div>
       </div>
     </div>
 
+    <!-- ========== WALLET HISTORY ========== -->
     <div class="panel" id="wallet-history">
       <div class="topbar"><h2>📜 Wallet & History</h2></div>
       <div class="wallet-card">
@@ -897,6 +922,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       </div>
     </div>
 
+    <!-- ========== ADD FUNDS ========== -->
     <div class="panel" id="add-funds">
       <div class="topbar"><h2>💵 Add Money</h2></div>
       <div style="background:linear-gradient(135deg,#E8F5E9,#C8E6C9);padding:25px;border-radius:18px;color:#1B5E20;max-width:600px;">
@@ -909,10 +935,11 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
         <div class="form-group"><label style="color:#1B5E20;">Amount (Min ৳100)</label><input type="number" id="depositAmt" placeholder="100" style="background:#fff;color:#000;"></div>
         <div class="form-group"><label style="color:#1B5E20;">Sender Number</label><input type="text" id="depositSender" placeholder="01XXXXXXXXX" style="background:#fff;color:#000;"></div>
         <div class="form-group"><label style="color:#1B5E20;">Transaction ID</label><input type="text" id="depositTxn" placeholder="TrxID" style="background:#fff;color:#000;"></div>
-        <button class="btn btn-primary" style="width:100%;" onclick="doDeposit()">💵 Submit</button>
+        <button class="btn btn-primary" style="width:100%;" onclick="doDeposit()">Submit</button>
       </div>
     </div>
 
+    <!-- ========== WITHDRAW ========== -->
     <div class="panel" id="withdraw-money">
       <div class="topbar"><h2>🏧 Withdraw</h2></div>
       <div style="background:linear-gradient(135deg,#FFEBEE,#FFCDD2);padding:25px;border-radius:18px;color:#B71C1C;max-width:600px;">
@@ -920,10 +947,11 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
         <p style="font-size:14px;margin-bottom:20px;">Minimum: ৳110 | Fee: ৳10</p>
         <div class="form-group"><label style="color:#B71C1C;">Amount</label><input type="number" id="withdrawAmt" placeholder="110" style="background:#fff;color:#000;"></div>
         <div class="form-group"><label style="color:#B71C1C;">Your Bkash/Nagad</label><input type="text" id="withdrawAcc" placeholder="01XXXXXXXXX" style="background:#fff;color:#000;"></div>
-        <button class="btn btn-red" style="width:100%;" onclick="doWithdraw()">🏧 Submit</button>
+        <button class="btn btn-red" style="width:100%;" onclick="doWithdraw()">Submit</button>
       </div>
     </div>
 
+    <!-- ========== PREMIUM ========== -->
     <div class="panel" id="premium">
       <div class="topbar"><h2>👑 Get Premium</h2></div>
       <div class="premium-card">
@@ -939,10 +967,11 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
           <li>✅ দ্রুত Withdraw</li>
         </ul>
         <br>
-        <button class="btn" style="background:#000;color:#FFD700;padding:16px 40px;font-size:16px;border-radius:12px;" onclick="buyPremium()">🚀 Upgrade ৳90</button>
+        <button class="btn" style="background:#000;color:#FFD700;padding:16px 40px;font-size:16px;border-radius:12px;" onclick="buyPremium()">Upgrade ৳90</button>
       </div>
     </div>
 
+    <!-- ========== REFER ========== -->
     <div class="panel" id="refer-earn">
       <div class="topbar"><h2>🎁 Refer & Earn</h2></div>
       <div style="background:linear-gradient(135deg,rgba(27,38,59,.95),rgba(13,27,42,.95));border:2px dashed #FFD700;border-radius:18px;padding:25px;text-align:center;">
@@ -950,17 +979,19 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
         <div style="font-size:22px;font-weight:900;color:#FFD700;font-family:'Courier New',monospace;letter-spacing:3px;margin:15px 0;padding:15px;background:rgba(255,215,0,.1);border-radius:12px;" id="refCode">LOADING...</div>
         <div style="color:#00E5FF;font-size:12px;word-break:break-all;margin-bottom:15px;" id="refLink"></div>
         <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
-          <button class="btn btn-gold" onclick="copyRef()">📋 Copy</button>
-          <button class="btn btn-green" onclick="shareRef()">📤 Share</button>
+          <button class="btn btn-gold" onclick="copyRef()">Copy</button>
+          <button class="btn btn-green" onclick="shareRef()">Share</button>
         </div>
       </div>
     </div>
 
+    <!-- ========== LEADERBOARD ========== -->
     <div class="panel" id="leaderboard">
       <div class="topbar"><h2>🏆 Leadership Club <span>1,408 Members</span></h2></div>
       <div id="leaderBoard"></div>
     </div>
 
+    <!-- ========== SUPPORT ========== -->
     <div class="panel" id="support">
       <div class="topbar"><h2>💬 Support</h2></div>
       <div class="support-grid">
@@ -971,6 +1002,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       </div>
     </div>
 
+    <!-- ========== CHAT ========== -->
     <div class="panel" id="chat">
       <div class="topbar"><h2>📨 Chat with Admin</h2></div>
       <div class="chat-box">
@@ -979,7 +1011,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
         </div>
         <div class="chat-input-row">
           <input type="text" id="chatInput" placeholder="আপনার মেসেজ লিখুন..." onkeypress="if(event.key==='Enter')sendChat()">
-          <button onclick="sendChat()">📤 Send</button>
+          <button onclick="sendChat()">Send</button>
         </div>
       </div>
     </div>
@@ -987,6 +1019,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
   </main>
 </div>
 
+<!-- ========== ORDER MODAL ========== -->
 <div class="modal-overlay" id="orderModal">
   <div class="login-box" style="max-width:500px;">
     <h2>🛒 Order Service</h2>
@@ -998,35 +1031,221 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
     <div class="form-group"><label>📝 Service Link</label><input type="text" id="orderLink" placeholder="https://..."></div>
     <div class="form-group">
       <label>💳 Payment Method</label>
-      <select id="orderPaymentMethod" onchange="togglePaymentMethod()">
+      <select id="orderPaymentMethod" onchange="togglePaymentMethod()" style="width:100%;padding:12px;background:rgba(255,255,255,.05);border:2px solid rgba(255,215,0,.3);border-radius:12px;color:#fff;font-size:14px;font-family:inherit;">
         <option value="wallet">💰 Wallet Balance থেকে</option>
-        <option value="bkash">📱 Bkash / Nagad (01988891195)</option>
+        <option value="bkash">📱 Bkash / Nagad</option>
       </select>
     </div>
     <div id="walletPaymentBox" style="background:rgba(0,230,118,.08);border:2px solid rgba(0,230,118,.3);border-radius:12px;padding:14px;margin-bottom:15px;">
       <div style="color:#8fa8c4;font-size:12px;">আপনার Balance</div>
-      <div style="color:#00E676;font-size:22px;font-weight:900;font-family:'Courier New',monospace;">৳ <span id="orderWalletBalance">0</span></div>
+      <div style="color:#00E676;font-size:22px;font-weight:900;">৳ <span id="orderWalletBalance">0</span></div>
     </div>
     <div id="bkashPaymentBox" style="display:none;background:rgba(255,152,0,.08);border:2px solid rgba(255,152,0,.3);border-radius:12px;padding:14px;margin-bottom:15px;">
       <div style="color:#FFD700;font-size:14px;font-weight:800;margin-bottom:10px;">📱 Send to: 01988891195</div>
       <div class="form-group"><label>📝 TrxID</label><input type="text" id="orderTxn" placeholder="TrxID"></div>
-      <div class="proof-upload" onclick="document.getElementById('orderProof').click()" style="padding:18px;">
-        <span class="pu-icon" style="font-size:32px;">📷</span>
-        <img id="orderProofPreview" style="display:none;max-height:120px;">
-        <input type="file" id="orderProof" accept="image/*" style="display:none" onchange="previewOrderProof(event)">
-      </div>
     </div>
     <div style="display:flex;gap:10px;flex-wrap:wrap;">
-      <button class="btn btn-green" style="flex:1;justify-content:center;" onclick="submitOrder()">✅ Submit</button>
-      <button class="btn btn-red" onclick="closeOrderModal()">❌ Cancel</button>
+      <button class="btn btn-green" style="flex:1;justify-content:center;" onclick="submitOrder()">Submit</button>
+      <button class="btn btn-red" onclick="closeOrderModal()">Cancel</button>
     </div>
+  </div>
+</div>
+
+<!-- ========== AD OVERLAY ========== -->
+<div class="ad-overlay" id="adOverlay">
+  <div class="ad-overlay-box">
+    <div class="ad-overlay-header">
+      <div class="ad-overlay-title">📺 Advertisement</div>
+      <div class="ad-overlay-timer" id="adTimerDisplay">8</div>
+    </div>
+    <div class="ad-slot-overlay" id="adOverlaySlot">
+      <div style="color:#8fa8c4;font-size:14px;">Ad Loading...</div>
+    </div>
+    <div class="ad-overlay-progress">
+      <div class="ad-overlay-progress-bar" id="adProgressBar"></div>
+    </div>
+    <div class="ad-overlay-info">⏳ অপেক্ষা করুন — <span id="adTimerText">8</span> সেকেন্ড</div>
+    <button class="ad-overlay-btn" id="adCloseBtn" disabled onclick="closeAdOverlay()">অপেক্ষা করুন...</button>
+    <div class="ad-overlay-note">Sponsored content</div>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-/* ================= LIVE ANIMATION ================= */
+/* ==================================================
+   ADSTERRA AD CODES — ADMIN PANEL থেকে পরিবর্তন করা যাবে
+   ================================================== */
+var AD_CODES = {
+  ad1: '<script type="text/javascript">atOptions={"key":"f7b5fb1e6fc33ea203f08bdd042e987c","format":"iframe","height":250,"width":300,"params":{}};<\/script><script src="https://www.highrevenueformat.com/f7b5fb1e6fc33ea203f08bdd042e987c/invoke.js"><\/script>',
+  ad2: '<script type="text/javascript">atOptions={"key":"fa90bcf6b604ee93575cf3bf5161abce","format":"iframe","height":90,"width":728,"params":{}};<\/script><script src="https://www.highrevenueformat.com/fa90bcf6b604ee93575cf3bf5161abce/invoke.js"><\/script>',
+  ad3: '<script type="text/javascript">atOptions={"key":"22e82538f1de9118ba07f9a995a692d4","format":"iframe","height":50,"width":320,"params":{}};<\/script><script src="https://www.highrevenueformat.com/22e82538f1de9118ba07f9a995a692d4/invoke.js"><\/script>'
+};
+
+// Admin Panel থেকে Settings লোড করব
+function loadAdSettings(){
+  try {
+    var s = JSON.parse(localStorage.getItem('atik_settings')||'{}');
+    if(s.ad1) AD_CODES.ad1 = s.ad1;
+    if(s.ad2) AD_CODES.ad2 = s.ad2;
+    if(s.ad3) AD_CODES.ad3 = s.ad3;
+    window.__adTimer = parseInt(s.adsTimer) || 8;
+    window.__adDailyLimit = parseInt(s.adDailyLimit) || 10;
+    window.__adRotation = s.adRotation !== false;
+  } catch(e){
+    window.__adTimer = 8;
+    window.__adDailyLimit = 10;
+    window.__adRotation = true;
+  }
+}
+
+/* ==================================================
+   AD INJECTION HELPERS
+   ================================================== */
+function injectAdIntoSlot(slotElement, adCode){
+  if(!slotElement) return;
+  slotElement.innerHTML = '';
+  // Parse script tags manually
+  var tempDiv = document.createElement('div');
+  tempDiv.innerHTML = adCode;
+  var scripts = tempDiv.querySelectorAll('script');
+  var nonScripts = tempDiv.querySelectorAll(':not(script)');
+  
+  nonScripts.forEach(function(el){
+    slotElement.appendChild(el.cloneNode(true));
+  });
+  
+  scripts.forEach(function(oldScript){
+    var newScript = document.createElement('script');
+    if(oldScript.src){
+      newScript.src = oldScript.src;
+      newScript.async = true;
+    } else {
+      newScript.textContent = oldScript.textContent;
+    }
+    slotElement.appendChild(newScript);
+  });
+}
+
+/* ==================================================
+   AD ROTATION SYSTEM
+   ================================================== */
+var adRotationCounter = 0;
+var AD_LIST = ['ad1', 'ad2', 'ad3'];
+
+function getNextAd(){
+  var key = AD_LIST[adRotationCounter % AD_LIST.length];
+  adRotationCounter++;
+  return AD_CODES[key];
+}
+
+/* ==================================================
+   DAILY AD LIMIT TRACKING
+   ================================================== */
+function getTodayAdCount(){
+  var today = new Date().toISOString().split('T')[0];
+  var data = JSON.parse(localStorage.getItem('atik_ad_view_count')||'{}');
+  return data[today] || 0;
+}
+function incrementTodayAdCount(){
+  var today = new Date().toISOString().split('T')[0];
+  var data = JSON.parse(localStorage.getItem('atik_ad_view_count')||'{}');
+  data[today] = (data[today]||0) + 1;
+  // Cleanup old dates
+  var keys = Object.keys(data);
+  keys.forEach(function(k){ if(k !== today) delete data[k]; });
+  localStorage.setItem('atik_ad_view_count', JSON.stringify(data));
+  return data[today];
+}
+
+/* ==================================================
+   AD OVERLAY SYSTEM
+   ================================================== */
+var adOverlayCallback = null;
+var adOverlayInterval = null;
+
+function showAdOverlay(callback){
+  loadAdSettings();
+  
+  // Check daily limit
+  var todayCount = getTodayAdCount();
+  if(todayCount >= window.__adDailyLimit){
+    showToast('⚠️ আজকের Ad লিমিট শেষ (' + window.__adDailyLimit + ')');
+    if(callback) callback();
+    return;
+  }
+  
+  var overlay = document.getElementById('adOverlay');
+  var slot = document.getElementById('adOverlaySlot');
+  var timerDisplay = document.getElementById('adTimerDisplay');
+  var timerText = document.getElementById('adTimerText');
+  var closeBtn = document.getElementById('adCloseBtn');
+  var progressBar = document.getElementById('adProgressBar');
+  
+  // Get next Ad
+  var adCode = getNextAd();
+  injectAdIntoSlot(slot, adCode);
+  
+  // Reset UI
+  var time = window.__adTimer || 8;
+  timerDisplay.textContent = time;
+  timerText.textContent = time;
+  closeBtn.disabled = true;
+  closeBtn.textContent = '⏳ অপেক্ষা করুন...';
+  progressBar.style.width = '0%';
+  
+  overlay.classList.add('active');
+  adOverlayCallback = callback;
+  
+  // Countdown
+  var elapsed = 0;
+  if(adOverlayInterval) clearInterval(adOverlayInterval);
+  adOverlayInterval = setInterval(function(){
+    elapsed++;
+    var remaining = time - elapsed;
+    timerDisplay.textContent = remaining > 0 ? remaining : 0;
+    timerText.textContent = remaining > 0 ? remaining : 0;
+    progressBar.style.width = ((elapsed / time) * 100) + '%';
+    
+    if(elapsed >= time){
+      clearInterval(adOverlayInterval);
+      closeBtn.disabled = false;
+      closeBtn.textContent = '✅ Close & Continue';
+      timerDisplay.textContent = '✓';
+    }
+  }, 1000);
+}
+
+function closeAdOverlay(){
+  var closeBtn = document.getElementById('adCloseBtn');
+  if(closeBtn.disabled) return;
+  
+  var overlay = document.getElementById('adOverlay');
+  overlay.classList.remove('active');
+  
+  if(adOverlayInterval) clearInterval(adOverlayInterval);
+  
+  // Track count
+  incrementTodayAdCount();
+  
+  // Execute callback
+  if(adOverlayCallback){
+    var cb = adOverlayCallback;
+    adOverlayCallback = null;
+    setTimeout(cb, 100);
+  }
+}
+
+/* ==================================================
+   TRIGGER AD ON BUTTON CLICK
+   ================================================== */
+function withAd(callback){
+  showAdOverlay(callback);
+}
+
+/* ==================================================
+   LIVE ANIMATION
+   ================================================== */
 (function(){
   const starsC=document.getElementById('stars');
   for(let i=0;i<80;i++){const s=document.createElement('div');s.className='star';s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';s.style.width=s.style.height=(1+Math.random()*2)+'px';s.style.animationDelay=Math.random()*3+'s';s.style.animationDuration=(2+Math.random()*3)+'s';starsC.appendChild(s);}
@@ -1037,19 +1256,23 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
   const leafC=document.getElementById('leafContainer');
   for(let i=0;i<35;i++){const l=document.createElement('div');l.className='leaf';l.style.left=Math.random()*100+'%';l.style.animationDuration=(6+Math.random()*6)+'s';l.style.animationDelay=Math.random()*8+'s';l.style.background=['#8BC34A','#33691E','#FF9800','#FDD835','#4CAF50','#E91E63'][Math.floor(Math.random()*6)];l.style.width=l.style.height=(10+Math.random()*10)+'px';leafC.appendChild(l);}
   const fireflyC=document.getElementById('fireflyContainer');
-  for(let i=0;i<15;i++){const f=document.createElement('div');f.className='firefly';f.style.left=(Math.random()*100)+'%';f.style.bottom=(5+Math.random()*30)+'%';f.style.animationDuration=(6+Math.random()*8)+'s';f.style.animationDelay=Math.random()*6+'s';fireflyC.appendChild(f);}
+  for(var i=0;i<15;i++){const f=document.createElement('div');f.className='firefly';f.style.left=(Math.random()*100)+'%';f.style.bottom=(5+Math.random()*30)+'%';f.style.animationDuration=(6+Math.random()*8)+'s';f.style.animationDelay=Math.random()*6+'s';fireflyC.appendChild(f);}
 })();
 
-/* ================= SPLASH TIMING ================= */
-setTimeout(()=>{
+/* ==================================================
+   SPLASH TIMING
+   ================================================== */
+setTimeout(function(){
   document.getElementById('splash').classList.add('hide');
-  setTimeout(()=>{
+  setTimeout(function(){
     document.getElementById('splash').style.display='none';
     document.getElementById('authModal').classList.add('active');
   }, 1000);
 }, 4500);
 
-/* ================= STORAGE ================= */
+/* ==================================================
+   STORAGE
+   ================================================== */
 function getUsers(){return JSON.parse(localStorage.getItem('atik_users')||'{}');}
 function saveUsers(u){localStorage.setItem('atik_users',JSON.stringify(u));}
 function getCurrentEmail(){return localStorage.getItem('atik_logged_in');}
@@ -1057,7 +1280,7 @@ function getCurrentUser(){const e=getCurrentEmail();return e?getUsers()[e]:null;
 function saveCurrentUser(u){const us=getUsers();us[u.email]=u;saveUsers(us);}
 
 (function(){
-  const u=getUsers();
+  var u=getUsers();
   if(!u['user@demo.com']){
     u['user@demo.com']={
       name:'Atik Hasan',username:'atikhasan',email:'user@demo.com',password:'1234',
@@ -1078,46 +1301,48 @@ function saveCurrentUser(u){const us=getUsers();us[u.email]=u;saveUsers(us);}
   }
 })();
 
-function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
+function showToast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},3000);}
 function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');}
 
-/* ================= AUTH ================= */
+/* ==================================================
+   AUTH
+   ================================================== */
 function switchAuth(type){
   document.getElementById('loginError').classList.remove('show');
   document.getElementById('signupError').classList.remove('show');
   if(type==='login'){document.getElementById('loginForm').style.display='block';document.getElementById('signupForm').style.display='none';document.getElementById('tabLogin').classList.add('active');document.getElementById('tabSignup').classList.remove('active');}
   else{document.getElementById('loginForm').style.display='none';document.getElementById('signupForm').style.display='block';document.getElementById('tabSignup').classList.add('active');document.getElementById('tabLogin').classList.remove('active');}
 }
-function togglePass(id,i){const p=document.getElementById(id),ic=document.getElementById(i);if(p.type==='password'){p.type='text';ic.textContent='🙈';}else{p.type='password';ic.textContent='👁️';}}
-function showErr(id,m){const b=document.getElementById(id);b.textContent=m;b.classList.add('show');}
+function togglePass(id,i){var p=document.getElementById(id),ic=document.getElementById(i);if(p.type==='password'){p.type='text';ic.textContent='🙈';}else{p.type='password';ic.textContent='👁️';}}
+function showErr(id,m){var b=document.getElementById(id);b.textContent=m;b.classList.add('show');}
 
 function doSignup(){
-  const name=document.getElementById('signupName').value.trim();
-  const email=document.getElementById('signupEmail').value.trim().toLowerCase();
-  const username=document.getElementById('signupUser').value.trim().toLowerCase();
-  const pass=document.getElementById('signupPass').value;
-  const pass2=document.getElementById('signupPass2').value;
+  var name=document.getElementById('signupName').value.trim();
+  var email=document.getElementById('signupEmail').value.trim().toLowerCase();
+  var username=document.getElementById('signupUser').value.trim().toLowerCase();
+  var pass=document.getElementById('signupPass').value;
+  var pass2=document.getElementById('signupPass2').value;
   document.getElementById('signupError').classList.remove('show');
   if(!name||!email||!username||!pass||!pass2) return showErr('signupError','⚠️ সব ঘর পূরণ করুন!');
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showErr('signupError','⚠️ সঠিক Email দিন!');
   if(username.length<3) return showErr('signupError','⚠️ Username কমপক্ষে ৩ অক্ষর!');
   if(pass.length<4) return showErr('signupError','⚠️ Password কমপক্ষে ৪ অক্ষর!');
   if(pass!==pass2) return showErr('signupError','⚠️ Password মিলছে না!');
-  const users=getUsers();
+  var users=getUsers();
   if(users[email]) return showErr('signupError','❌ এই Email আগে থেকে আছে!');
-  if(Object.values(users).find(u=>u.username===username)) return showErr('signupError','❌ এই Username আগে থেকে আছে!');
-  users[email]={name,username,email,password:pass,balance:0,totalEarned:0,adsWatched:0,referralCode:username.substring(0,4).toUpperCase()+Math.floor(1000+Math.random()*9000),status:'active',verified:false,deposits:[],withdraws:[],adLog:[],jobProofs:[],referrals:[],chat:[],orders:[],mathCorrect:0,mathWrong:0,mathEarn:0};
+  if(Object.values(users).find(function(u){return u.username===username;})) return showErr('signupError','❌ এই Username আগে থেকে আছে!');
+  users[email]={name:name,username:username,email:email,password:pass,balance:0,totalEarned:0,adsWatched:0,referralCode:username.substring(0,4).toUpperCase()+Math.floor(1000+Math.random()*9000),status:'active',verified:false,deposits:[],withdraws:[],adLog:[],jobProofs:[],referrals:[],chat:[],orders:[],mathCorrect:0,mathWrong:0,mathEarn:0};
   saveUsers(users);
   showToast('✅ একাউন্ট তৈরি!');
-  setTimeout(()=>{switchAuth('login');document.getElementById('loginEmail').value=email;document.getElementById('loginPass').value='';},1200);
+  setTimeout(function(){switchAuth('login');document.getElementById('loginEmail').value=email;document.getElementById('loginPass').value='';},1200);
 }
 function doLogin(){
-  const email=document.getElementById('loginEmail').value.trim().toLowerCase();
-  const pass=document.getElementById('loginPass').value;
+  var email=document.getElementById('loginEmail').value.trim().toLowerCase();
+  var pass=document.getElementById('loginPass').value;
   document.getElementById('loginError').classList.remove('show');
   if(!email||!pass) return showErr('loginError','⚠️ দুটো ঘর পূরণ করুন!');
-  const users=getUsers();
-  const user=users[email];
+  var users=getUsers();
+  var user=users[email];
   if(!user) return showErr('loginError','❌ এই Email দিয়ে একাউন্ট নেই!');
   if(user.password!==pass){document.getElementById('loginPass').value='';return showErr('loginError','❌ Password ভুল!');}
   if(user.status==='banned') return showErr('loginError','🚫 একাউন্ট ব্যান!');
@@ -1128,9 +1353,9 @@ function doLogin(){
 function doLogout(){if(confirm('লগআউট করবেন?')){localStorage.removeItem('atik_logged_in');location.reload();}}
 
 function initUI(){
-  const user=getCurrentUser();
-  const modal=document.getElementById('authModal');
-  const app=document.getElementById('appLayout');
+  var user=getCurrentUser();
+  var modal=document.getElementById('authModal');
+  var app=document.getElementById('appLayout');
   if(user){
     modal.classList.remove('active');modal.style.display='none';app.style.display='flex';
     document.getElementById('sideAvatar').textContent=(user.name||'A')[0].toUpperCase();
@@ -1139,100 +1364,136 @@ function initUI(){
     document.getElementById('sideStatus').textContent=user.verified?'✅ Verified':'Unverified';
     document.getElementById('sideStatus').style.color=user.verified?'#00E676':'#FF9800';
     document.getElementById('welcomeName').textContent=user.name;
-    const badge=document.getElementById('verifyBadge');
+    var badge=document.getElementById('verifyBadge');
     if(user.verified){badge.className='verified verified-yes';badge.innerHTML='✅ অ্যাকাউন্ট ভেরিফাইড';}
     else{badge.className='verified';badge.innerHTML='⚠️ অ্যাকাউন্ট ভেরিফাইড নয়! <span style="cursor:pointer;text-decoration:underline;margin-left:5px;" onclick="verifyAccount()">Verify</span>';}
-    updateBalance();renderAll();loadNotifications();loadAdminAds();loadServices();loadGradePresets();loadChat();
+    updateBalance();renderAll();loadNotifications();loadHeaderAds();loadServices();loadGradePresets();loadChat();
   } else {modal.classList.add('active');modal.style.display='flex';app.style.display='none';}
 }
 
+/* ==================================================
+   LOAD HEADER/BOTTOM ADS
+   ================================================== */
+function loadHeaderAds(){
+  var headerSlot = document.getElementById('headerAdSlot1');
+  var bottomSlot = document.getElementById('bottomAdSlot1');
+  if(headerSlot) injectAdIntoSlot(headerSlot, AD_CODES.ad2);
+  if(bottomSlot) injectAdIntoSlot(bottomSlot, AD_CODES.ad3);
+}
+
 function updateBalance(){
-  const u=getCurrentUser();if(!u) return;
+  var u=getCurrentUser();if(!u) return;
   document.getElementById('mainBalance').textContent=(u.balance||0).toFixed(2);
   document.getElementById('walletBalance').textContent=(u.balance||0).toFixed(2);
   document.getElementById('totalEarned').textContent=(u.totalEarned||0).toFixed(2);
   document.getElementById('adsWatched').textContent=u.adsWatched||0;
   document.getElementById('refCode').textContent=u.referralCode||'-';
   document.getElementById('refLink').textContent=location.origin+location.pathname+'?ref='+(u.referralCode||'');
-  const today=new Date().toISOString().split('T')[0];
-  const logs=u.adLog||[];
-  const todaySum=logs.filter(l=>l.date.startsWith(today)).reduce((s,l)=>s+(l.reward||0)+(l.math||0),0);
+  var today=new Date().toISOString().split('T')[0];
+  var logs=u.adLog||[];
+  var todaySum=logs.filter(function(l){return l.date.startsWith(today);}).reduce(function(s,l){return s+(l.reward||0)+(l.math||0);},0);
   document.getElementById('todayIncome').textContent=todaySum.toFixed(2);
-  const el=document.getElementById('mathCorrect');if(el) el.textContent=u.mathCorrect||0;
-  const el2=document.getElementById('mathWrong');if(el2) el2.textContent=u.mathWrong||0;
-  const el3=document.getElementById('mathEarnTotal');if(el3) el3.textContent=(u.mathEarn||0).toFixed(2);
+  var el=document.getElementById('mathCorrect');if(el) el.textContent=u.mathCorrect||0;
+  var el2=document.getElementById('mathWrong');if(el2) el2.textContent=u.mathWrong||0;
+  var el3=document.getElementById('mathEarnTotal');if(el3) el3.textContent=(u.mathEarn||0).toFixed(2);
 }
 
-function renderAll(){const u=getCurrentUser();if(!u) return;renderTxn(u);updateAdStats();renderLeaderboard();}
+function renderAll(){var u=getCurrentUser();if(!u) return;renderTxn(u);updateAdStats();renderLeaderboard();}
 function updateAdStats(){
-  const u=getCurrentUser();if(!u) return;
-  const today=new Date().toISOString().split('T')[0];
-  const logs=(u.adLog||[]).filter(l=>l.date.startsWith(today)&&l.platform!=='MathPage');
-  const el=document.getElementById('completedToday');if(el) el.textContent=logs.length;
-  const el2=document.getElementById('todayAdEarn');if(el2) el2.textContent=logs.reduce((s,l)=>s+(l.reward||0)+(l.math||0),0).toFixed(2);
+  var u=getCurrentUser();if(!u) return;
+  var today=new Date().toISOString().split('T')[0];
+  var logs=(u.adLog||[]).filter(function(l){return l.date.startsWith(today)&&l.platform!=='MathPage';});
+  var el=document.getElementById('completedToday');if(el) el.textContent=logs.length;
+  var el2=document.getElementById('todayAdEarn');if(el2) el2.textContent=logs.reduce(function(s,l){return s+(l.reward||0)+(l.math||0);},0).toFixed(2);
 }
 function renderTxn(u){
-  const t=document.getElementById('txnTable');if(!t) return;
-  const all=[];
-  (u.deposits||[]).forEach(d=>all.push({date:d.date,type:'💵 Deposit',amount:d.amount,status:d.status}));
-  (u.withdraws||[]).forEach(w=>all.push({date:w.date,type:'🏧 Withdraw',amount:w.amount,status:w.status}));
-  (u.adLog||[]).forEach(a=>all.push({date:a.date,type:'📺 '+(a.platform||'Ads'),amount:(a.reward||0)+(a.math||0),status:'completed'}));
-  (u.jobProofs||[]).forEach(j=>all.push({date:j.date,type:'📅 '+j.job,amount:j.reward,status:j.status}));
-  (u.orders||[]).forEach(o=>all.push({date:o.date,type:'🛒 '+o.service,amount:o.price,status:o.status}));
-  all.sort((a,b)=>new Date(b.date)-new Date(a.date));
+  var t=document.getElementById('txnTable');if(!t) return;
+  var all=[];
+  (u.deposits||[]).forEach(function(d){all.push({date:d.date,type:'💵 Deposit',amount:d.amount,status:d.status});});
+  (u.withdraws||[]).forEach(function(w){all.push({date:w.date,type:'🏧 Withdraw',amount:w.amount,status:w.status});});
+  (u.adLog||[]).forEach(function(a){all.push({date:a.date,type:'📺 '+(a.platform||'Ads'),amount:(a.reward||0)+(a.math||0),status:'completed'});});
+  (u.jobProofs||[]).forEach(function(j){all.push({date:j.date,type:'📅 '+j.job,amount:j.reward,status:j.status});});
+  (u.orders||[]).forEach(function(o){all.push({date:o.date,type:'🛒 '+o.service,amount:o.price,status:o.status});});
+  all.sort(function(a,b){return new Date(b.date)-new Date(a.date);});
   if(!all.length){t.innerHTML='<tr><td colspan="4" class="history-empty">কোনো লেনদেন নেই</td></tr>';return;}
-  t.innerHTML=all.slice(0,30).map(x=>`<tr><td>${new Date(x.date).toLocaleDateString('bn-BD')}</td><td>${x.type}</td><td style="color:#00E676;font-weight:bold;">৳ ${(x.amount||0).toFixed(2)}</td><td style="color:${x.status==='approved'||x.status==='paid'||x.status==='completed'?'#00E676':x.status==='pending'?'#FF9800':'#FF1744'};font-weight:bold;">${x.status}</td></tr>`).join('');
+  t.innerHTML=all.slice(0,30).map(function(x){
+    return '<tr><td>'+new Date(x.date).toLocaleDateString('bn-BD')+'</td><td>'+x.type+'</td><td style="color:#00E676;font-weight:bold;">৳ '+(x.amount||0).toFixed(2)+'</td><td style="color:'+(x.status==='approved'||x.status==='paid'||x.status==='completed'?'#00E676':x.status==='pending'?'#FF9800':'#FF1744')+';font-weight:bold;">'+x.status+'</td></tr>';
+  }).join('');
 }
 
-const FAKE_NAMES=['Atik Hasan','Rahim Khan','Karim Ali','Sabbir Hossain','Nusrat Jahan','Tanvir Ahmed','Mehedi Hasan','Farhan Rahman','Sakib Al Hasan','Rakib Islam','Ayesha Siddika','Sumaiya Akter','Jannatul Ferdous','Mim Akter','Rubel Mia','Shakil Ahmed','Nazmul Hasan','Rifat Hossain','Jisan Ahmed','Tania Islam'];
+var FAKE_NAMES=['Atik Hasan','Rahim Khan','Karim Ali','Sabbir Hossain','Nusrat Jahan','Tanvir Ahmed','Mehedi Hasan','Farhan Rahman','Sakib Al Hasan','Rakib Islam','Ayesha Siddika','Sumaiya Akter','Jannatul Ferdous','Mim Akter','Rubel Mia','Shakil Ahmed','Nazmul Hasan','Rifat Hossain','Jisan Ahmed','Tania Islam'];
 function renderLeaderboard(){
-  const fake=[];
+  var fake=[];
   fake.push({name:'Atik Hasan',balance:85420,tag:'👑 Founder'});
   fake.push({name:'Rahim Khan',balance:65230,tag:'💎 Diamond'});
   fake.push({name:'Karim Ali',balance:52100,tag:'🥇 Gold'});
-  for(let i=0;i<20;i++){const nm=FAKE_NAMES[i%FAKE_NAMES.length]+(i>10?' '+(i+1):'');fake.push({name:nm,balance:Math.max(100,50000-i*1500-Math.random()*200),tag:'⭐ Active'});}
-  const medals=['🥇','🥈','🥉'];
-  const html=fake.map((u,i)=>{const medal=i<3?medals[i]:'#'+(i+1);return `<div style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:rgba(255,255,255,.04);border-radius:14px;border-left:4px solid ${i<3?['#FFD700','#C0C0C0','#CD7F32'][i]:'#6b7d94'};margin-bottom:8px;"><div style="font-size:18px;font-weight:900;color:#FFD700;width:35px;text-align:center;">${medal}</div><div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#FFD700,#FF9800);display:flex;align-items:center;justify-content:center;font-weight:900;color:#000;">${(u.name||'U')[0].toUpperCase()}</div><div style="flex:1;"><div style="font-size:14px;font-weight:700;color:#fff;">${u.name}</div><div style="font-size:11px;color:#8fa8c4;">${u.tag}</div></div><div style="font-size:16px;font-weight:900;color:#00E676;font-family:'Courier New',monospace;">৳ ${(u.balance||0).toFixed(0)}</div></div>`;}).join('');
-  const el=document.getElementById('leaderBoard');if(el) el.innerHTML=html;
-  const el2=document.getElementById('leaderBoardDash');if(el2) el2.innerHTML=fake.slice(0,5).map((u,i)=>`<div style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:rgba(255,255,255,.04);border-radius:14px;border-left:4px solid ${i<3?['#FFD700','#C0C0C0','#CD7F32'][i]:'#6b7d94'};margin-bottom:8px;"><div style="font-size:18px;font-weight:900;color:#FFD700;width:35px;text-align:center;">${medals[i]}</div><div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#FFD700,#FF9800);display:flex;align-items:center;justify-content:center;font-weight:900;color:#000;">${(u.name||'U')[0].toUpperCase()}</div><div style="flex:1;"><div style="font-size:14px;font-weight:700;color:#fff;">${u.name}</div><div style="font-size:11px;color:#8fa8c4;">${u.tag}</div></div><div style="font-size:16px;font-weight:900;color:#00E676;font-family:'Courier New',monospace;">৳ ${(u.balance||0).toFixed(0)}</div></div>`).join('');
+  for(var i=0;i<20;i++){var nm=FAKE_NAMES[i%FAKE_NAMES.length]+(i>10?' '+(i+1):'');fake.push({name:nm,balance:Math.max(100,50000-i*1500-Math.random()*200),tag:'⭐ Active'});}
+  var medals=['🥇','🥈','🥉'];
+  var html=fake.map(function(u,i){
+    var medal=i<3?medals[i]:'#'+(i+1);
+    return '<div style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:rgba(255,255,255,.04);border-radius:14px;border-left:4px solid '+(i<3?['#FFD700','#C0C0C0','#CD7F32'][i]:'#6b7d94')+';margin-bottom:8px;"><div style="font-size:18px;font-weight:900;color:#FFD700;width:35px;text-align:center;">'+medal+'</div><div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#FFD700,#FF9800);display:flex;align-items:center;justify-content:center;font-weight:900;color:#000;">'+(u.name||'U')[0].toUpperCase()+'</div><div style="flex:1;"><div style="font-size:14px;font-weight:700;color:#fff;">'+u.name+'</div><div style="font-size:11px;color:#8fa8c4;">'+u.tag+'</div></div><div style="font-size:16px;font-weight:900;color:#00E676;font-family:\'Courier New\',monospace;">৳ '+(u.balance||0).toFixed(0)+'</div></div>';
+  }).join('');
+  var el=document.getElementById('leaderBoard');if(el) el.innerHTML=html;
+  var el2=document.getElementById('leaderBoardDash');if(el2) el2.innerHTML=fake.slice(0,5).map(function(u,i){
+    return '<div style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:rgba(255,255,255,.04);border-radius:14px;border-left:4px solid '+(i<3?['#FFD700','#C0C0C0','#CD7F32'][i]:'#6b7d94')+';margin-bottom:8px;"><div style="font-size:18px;font-weight:900;color:#FFD700;width:35px;text-align:center;">'+medals[i]+'</div><div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#FFD700,#FF9800);display:flex;align-items:center;justify-content:center;font-weight:900;color:#000;">'+(u.name||'U')[0].toUpperCase()+'</div><div style="flex:1;"><div style="font-size:14px;font-weight:700;color:#fff;">'+u.name+'</div><div style="font-size:11px;color:#8fa8c4;">'+u.tag+'</div></div><div style="font-size:16px;font-weight:900;color:#00E676;font-family:\'Courier New\',monospace;">৳ '+(u.balance||0).toFixed(0)+'</div></div>';
+  }).join('');
 }
 
-document.querySelectorAll('.menu-item[data-panel]').forEach(item=>{
-  item.addEventListener('click',()=>{
+document.querySelectorAll('.menu-item[data-panel]').forEach(function(item){
+  item.addEventListener('click',function(){
     goPanel(item.dataset.panel);
     document.getElementById('sidebar').classList.remove('open');
   });
 });
 function goPanel(name){
-  document.querySelectorAll('.menu-item').forEach(m=>m.classList.remove('active'));
-  const target=document.querySelector(`.menu-item[data-panel="${name}"]`);
+  document.querySelectorAll('.menu-item').forEach(function(m){m.classList.remove('active');});
+  var target=document.querySelector('.menu-item[data-panel="'+name+'"]');
   if(target) target.classList.add('active');
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-  const panel=document.getElementById(name);
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});
+  var panel=document.getElementById(name);
   if(panel) panel.classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
   if(name==='math'){setTimeout(initMathPage,100);}
   if(name==='chat'){setTimeout(loadChat,100);}
 }
-function verifyAccount(){const u=getCurrentUser();if(!u) return;if(u.verified){showToast('✅ ইতিমধ্যে verified!');return;}u.verified=true;saveCurrentUser(u);initUI();showToast('✅ ভেরিফাইড!');}
 
+/* ==================================================
+   VERIFY WITH AD
+   ================================================== */
+function verifyAccount(){
+  var u=getCurrentUser();
+  if(!u) return;
+  if(u.verified){showToast('✅ ইতিমধ্যে verified!');return;}
+  
+  showToast('📺 Ad দেখলে Verified হবেন...');
+  withAd(function(){
+    u.verified=true;
+    saveCurrentUser(u);
+    initUI();
+    showToast('✅ ভেরিফাইড!');
+  });
+}
+
+/* ==================================================
+   DEPOSIT / WITHDRAW
+   ================================================== */
 function doDeposit(){
-  const u=getCurrentUser();if(!u) return;
-  const amt=parseFloat(document.getElementById('depositAmt').value);
-  const sender=document.getElementById('depositSender').value.trim();
-  const txn=document.getElementById('depositTxn').value.trim();
+  var u=getCurrentUser();if(!u) return;
+  var amt=parseFloat(document.getElementById('depositAmt').value);
+  var sender=document.getElementById('depositSender').value.trim();
+  var txn=document.getElementById('depositTxn').value.trim();
   if(!amt||amt<100) return showToast('❌ মিনিমাম ৳100');
   if(!sender||!txn) return showToast('❌ সব ঘর পূরণ!');
   u.deposits=u.deposits||[];
-  u.deposits.push({date:new Date().toISOString(),amount:amt,sender,txn,method:'Bkash',status:'pending',email:u.email,name:u.name});
+  u.deposits.push({date:new Date().toISOString(),amount:amt,sender:sender,txn:txn,method:'Bkash',status:'pending',email:u.email,name:u.name});
   saveCurrentUser(u);renderTxn(u);
   showToast('✅ ডিপোজিট রিকোয়েস্ট!');
   document.getElementById('depositAmt').value='';document.getElementById('depositSender').value='';document.getElementById('depositTxn').value='';
 }
 function doWithdraw(){
-  const u=getCurrentUser();if(!u) return;
-  const amt=parseFloat(document.getElementById('withdrawAmt').value);
-  const acc=document.getElementById('withdrawAcc').value.trim();
+  var u=getCurrentUser();if(!u) return;
+  var amt=parseFloat(document.getElementById('withdrawAmt').value);
+  var acc=document.getElementById('withdrawAcc').value.trim();
   if(!amt||amt<110) return showToast('❌ মিনিমাম ৳110');
   if(!acc) return showToast('❌ Account দিন!');
   if((u.balance||0)<amt+10) return showToast('❌ পর্যাপ্ত নেই!');
@@ -1243,52 +1504,63 @@ function doWithdraw(){
   showToast('✅ Withdraw রিকোয়েস্ট!');
   document.getElementById('withdrawAmt').value='';document.getElementById('withdrawAcc').value='';
 }
-function copyRef(){const u=getCurrentUser();if(!u) return;navigator.clipboard.writeText(location.origin+location.pathname+'?ref='+u.referralCode);showToast('📋 কপি!');}
-function shareRef(){const u=getCurrentUser();if(!u) return;const link=location.origin+location.pathname+'?ref='+u.referralCode;if(navigator.share){navigator.share({title:'Atik Daily Earning',text:'রেফারেল:',url:link});}else{navigator.clipboard.writeText(link);showToast('📋 কপি!');}}
+function copyRef(){var u=getCurrentUser();if(!u) return;navigator.clipboard.writeText(location.origin+location.pathname+'?ref='+u.referralCode);showToast('📋 কপি!');}
+function shareRef(){var u=getCurrentUser();if(!u) return;var link=location.origin+location.pathname+'?ref='+u.referralCode;if(navigator.share){navigator.share({title:'Atik Daily Earning',text:'রেফারেল:',url:link});}else{navigator.clipboard.writeText(link);showToast('📋 কপি!');}}
 function buyPremium(){showToast('👑 প্রিমিয়াম: @atikbreand420');}
 
+/* ==================================================
+   COUNTDOWN
+   ================================================== */
 (function(){
-  let target=localStorage.getItem('atik_countdown_target');
-  if(!target){const t=new Date();t.setDate(t.getDate()+144);t.setHours(t.getHours()+9);t.setMinutes(t.getMinutes()+59);target=t.getTime();localStorage.setItem('atik_countdown_target',target);} else {target=parseInt(target);}
+  var target=localStorage.getItem('atik_countdown_target');
+  if(!target){var t=new Date();t.setDate(t.getDate()+144);t.setHours(t.getHours()+9);t.setMinutes(t.getMinutes()+59);target=t.getTime();localStorage.setItem('atik_countdown_target',target);} else {target=parseInt(target);}
   function tick(){
-    const now=Date.now();let diff=Math.max(0,target-now);
-    const days=Math.floor(diff/86400000);diff%=86400000;
-    const hours=Math.floor(diff/3600000);diff%=3600000;
-    const mins=Math.floor(diff/60000);diff%=60000;
-    const secs=Math.floor(diff/1000);
-    const d=document.getElementById('cdDays');if(d)d.textContent=String(days).padStart(2,'0');
-    const h=document.getElementById('cdHours');if(h)h.textContent=String(hours).padStart(2,'0');
-    const m=document.getElementById('cdMins');if(m)m.textContent=String(mins).padStart(2,'0');
-    const s=document.getElementById('cdSecs');if(s)s.textContent=String(secs).padStart(2,'0');
+    var now=Date.now();var diff=Math.max(0,target-now);
+    var days=Math.floor(diff/86400000);diff%=86400000;
+    var hours=Math.floor(diff/3600000);diff%=3600000;
+    var mins=Math.floor(diff/60000);diff%=60000;
+    var secs=Math.floor(diff/1000);
+    var d=document.getElementById('cdDays');if(d)d.textContent=String(days).padStart(2,'0');
+    var h=document.getElementById('cdHours');if(h)h.textContent=String(hours).padStart(2,'0');
+    var m=document.getElementById('cdMins');if(m)m.textContent=String(mins).padStart(2,'0');
+    var s=document.getElementById('cdSecs');if(s)s.textContent=String(secs).padStart(2,'0');
   }
   tick();setInterval(tick,1000);
 })();
 
-let currentMathAnswer=0,adsTimerInterval=null;
+/* ==================================================
+   ADS FLOW (Watch Ads)
+   ================================================== */
+var currentMathAnswer=0,adsTimerInterval=null;
 function startAdFlow(){
-  const u=getCurrentUser();if(!u) return;
-  document.getElementById('adDisplayBox').style.display='none';
-  document.getElementById('startAdBtn').style.display='none';
-  document.getElementById('adBigTimer').style.display='block';
-  let time=8;
-  document.getElementById('adsBigTimerValue').textContent=time;
-  if(adsTimerInterval) clearInterval(adsTimerInterval);
-  adsTimerInterval=setInterval(()=>{
-    time--;document.getElementById('adsBigTimerValue').textContent=time;
-    if(time<=0){clearInterval(adsTimerInterval);document.getElementById('adBigTimer').style.display='none';document.getElementById('adMathCard').style.display='block';generateMathProblem();}
-  },1000);
+  var u=getCurrentUser();if(!u) return;
+  
+  // Show Ad Overlay first
+  showToast('📺 Ad দেখুন তারপর Math আসবে...');
+  withAd(function(){
+    document.getElementById('adDisplayBox').style.display='none';
+    document.getElementById('startAdBtn').style.display='none';
+    document.getElementById('adBigTimer').style.display='block';
+    var time=8;
+    document.getElementById('adsBigTimerValue').textContent=time;
+    if(adsTimerInterval) clearInterval(adsTimerInterval);
+    adsTimerInterval=setInterval(function(){
+      time--;document.getElementById('adsBigTimerValue').textContent=time;
+      if(time<=0){clearInterval(adsTimerInterval);document.getElementById('adBigTimer').style.display='none';document.getElementById('adMathCard').style.display='block';generateMathProblem();}
+    },1000);
+  });
 }
 function generateMathProblem(){
-  const a=Math.floor(Math.random()*20)+5,b=Math.floor(Math.random()*20)+5;
-  const op=Math.random()>0.5?'+':'-';
+  var a=Math.floor(Math.random()*20)+5,b=Math.floor(Math.random()*20)+5;
+  var op=Math.random()>0.5?'+':'-';
   if(op==='+'){currentMathAnswer=a+b;document.getElementById('mathQuestion').textContent=a+' + '+b+' = ?';}
-  else{const big=Math.max(a,b),small=Math.min(a,b);currentMathAnswer=big-small;document.getElementById('mathQuestion').textContent=big+' - '+small+' = ?';}
+  else{var big=Math.max(a,b),small=Math.min(a,b);currentMathAnswer=big-small;document.getElementById('mathQuestion').textContent=big+' - '+small+' = ?';}
   document.getElementById('mathAnswer').value='';document.getElementById('mathFeedback').textContent='';
 }
 function submitMath(){
-  const u=getCurrentUser();if(!u) return;
-  const ans=parseInt(document.getElementById('mathAnswer').value);
-  const fb=document.getElementById('mathFeedback');
+  var u=getCurrentUser();if(!u) return;
+  var ans=parseInt(document.getElementById('mathAnswer').value);
+  var fb=document.getElementById('mathFeedback');
   if(isNaN(ans)){fb.textContent='⚠️ উত্তর লিখুন!';fb.className='math-feedback error';return;}
   if(ans===currentMathAnswer){
     u.balance=(u.balance||0)+0.10;u.totalEarned=(u.totalEarned||0)+0.10;u.adsWatched=(u.adsWatched||0)+1;
@@ -1301,29 +1573,46 @@ function submitMath(){
   } else {fb.textContent='❌ ভুল!';fb.className='math-feedback error';setTimeout(generateMathProblem,1200);}
 }
 
-let mathPageAnswer=0;
+/* ==================================================
+   MATH PAGE (with Ad)
+   ================================================== */
+var mathPageAnswer=0;
 function initMathPage(){generateMathPageProblem();updateBalance();}
 function generateMathPageProblem(){
-  const a=Math.floor(Math.random()*20)+5,b=Math.floor(Math.random()*20)+5;
-  const op=Math.random()>0.5?'+':'-';
+  var a=Math.floor(Math.random()*20)+5,b=Math.floor(Math.random()*20)+5;
+  var op=Math.random()>0.5?'+':'-';
   if(op==='+'){mathPageAnswer=a+b;document.getElementById('mathPageQuestion').textContent=a+' + '+b+' = ?';}
-  else{const big=Math.max(a,b),small=Math.min(a,b);mathPageAnswer=big-small;document.getElementById('mathPageQuestion').textContent=big+' - '+small+' = ?';}
+  else{var big=Math.max(a,b),small=Math.min(a,b);mathPageAnswer=big-small;document.getElementById('mathPageQuestion').textContent=big+' - '+small+' = ?';}
   document.getElementById('mathPageAnswer').value='';document.getElementById('mathPageFeedback').textContent='';document.getElementById('mathPageFeedback').className='math-feedback';
 }
 function submitMathPage(){
-  const u=getCurrentUser();if(!u) return;
-  const ans=parseInt(document.getElementById('mathPageAnswer').value);
-  const fb=document.getElementById('mathPageFeedback');
+  var u=getCurrentUser();if(!u) return;
+  var ans=parseInt(document.getElementById('mathPageAnswer').value);
+  var fb=document.getElementById('mathPageFeedback');
   if(isNaN(ans)){fb.textContent='⚠️ উত্তর লিখুন!';fb.className='math-feedback error';return;}
+  
   if(ans===mathPageAnswer){
-    u.balance=(u.balance||0)+0.04;u.totalEarned=(u.totalEarned||0)+0.04;u.mathCorrect=(u.mathCorrect||0)+1;u.mathEarn=(u.mathEarn||0)+0.04;
-    u.adLog=u.adLog||[];u.adLog.push({date:new Date().toISOString(),reward:0,math:0.04,platform:'MathPage'});
-    saveCurrentUser(u);fb.textContent='✅ সঠিক! ৳0.04!';fb.className='math-feedback';fb.style.color='#00E676';
-    updateBalance();showToast('🎉 ৳0.04!');setTimeout(generateMathPageProblem,1500);
-  } else {u.mathWrong=(u.mathWrong||0)+1;saveCurrentUser(u);fb.textContent='❌ ভুল! সঠিক: '+mathPageAnswer;fb.className='math-feedback error';updateBalance();setTimeout(generateMathPageProblem,1500);}
+    // Show Ad before reward
+    showToast('📺 Ad দেখুন...');
+    withAd(function(){
+      u.balance=(u.balance||0)+0.04;u.totalEarned=(u.totalEarned||0)+0.04;u.mathCorrect=(u.mathCorrect||0)+1;u.mathEarn=(u.mathEarn||0)+0.04;
+      u.adLog=u.adLog||[];u.adLog.push({date:new Date().toISOString(),reward:0,math:0.04,platform:'MathPage'});
+      saveCurrentUser(u);
+      fb.textContent='✅ সঠিক! ৳0.04!';fb.className='math-feedback';fb.style.color='#00E676';
+      updateBalance();showToast('🎉 ৳0.04!');
+      setTimeout(generateMathPageProblem,1500);
+    });
+  } else {
+    u.mathWrong=(u.mathWrong||0)+1;saveCurrentUser(u);
+    fb.textContent='❌ ভুল! সঠিক: '+mathPageAnswer;fb.className='math-feedback error';
+    updateBalance();setTimeout(generateMathPageProblem,1500);
+  }
 }
 
-let currentJob={name:'',reward:0},proofImg1Data=null,proofImg2Data=null;
+/* ==================================================
+   JOB PROOF (with Ad)
+   ================================================== */
+var currentJob={name:'',reward:0},proofImg1Data=null,proofImg2Data=null;
 function openJobProof(jobName,reward){
   currentJob={name:jobName,reward:reward};
   document.getElementById('proofJobName').textContent=jobName;
@@ -1337,10 +1626,10 @@ function openJobProof(jobName,reward){
 }
 function closeJobProof(){document.getElementById('jobProofPanel').style.display='none';}
 function previewProof(n,e){
-  const file=e.target.files[0];if(!file) return;
-  const reader=new FileReader();
+  var file=e.target.files[0];if(!file) return;
+  var reader=new FileReader();
   reader.onload=function(ev){
-    const img=document.getElementById('proofImg'+n+'Preview');
+    var img=document.getElementById('proofImg'+n+'Preview');
     img.src=ev.target.result;img.style.display='block';
     if(n===1) proofImg1Data=ev.target.result;
     if(n===2) proofImg2Data=ev.target.result;
@@ -1348,16 +1637,26 @@ function previewProof(n,e){
   reader.readAsDataURL(file);
 }
 function submitJobProof(){
-  const u=getCurrentUser();if(!u) return;
-  const bio=document.getElementById('proofBio').value.trim();
+  var u=getCurrentUser();if(!u) return;
+  var bio=document.getElementById('proofBio').value.trim();
   if(!bio) return showToast('❌ Bio লিখুন!');
   if(!proofImg1Data||!proofImg2Data) return showToast('❌ ২টি Screenshot দিন!');
-  u.jobProofs=u.jobProofs||[];
-  u.jobProofs.push({date:new Date().toISOString(),job:currentJob.name,reward:currentJob.reward,bio:bio,img1:proofImg1Data,img2:proofImg2Data,email:u.email,name:u.name,status:'pending'});
-  saveCurrentUser(u);showToast('✅ Admin কে পাঠানো!');closeJobProof();
+  
+  // Show Ad before submit
+  showToast('📺 Ad দেখুন...');
+  withAd(function(){
+    u.jobProofs=u.jobProofs||[];
+    u.jobProofs.push({date:new Date().toISOString(),job:currentJob.name,reward:currentJob.reward,bio:bio,img1:proofImg1Data,img2:proofImg2Data,email:u.email,name:u.name,status:'pending'});
+    saveCurrentUser(u);
+    showToast('✅ Admin কে পাঠানো!');
+    closeJobProof();
+  });
 }
 
-const SERVICES={
+/* ==================================================
+   SERVICES
+   ================================================== */
+var SERVICES={
   facebook:[{name:'Facebook ID Followers',price:50},{name:'Facebook ID Likes',price:50},{name:'Facebook Page Followers',price:70},{name:'Facebook Page Likes',price:80},{name:'Facebook Video Views',price:40},{name:'Facebook Reels Views',price:50},{name:'Facebook Post Reactions',price:40},{name:'Facebook Post Comments',price:60},{name:'Facebook Group Members',price:100},{name:'Facebook Watch Time (60K Min)',price:250}],
   youtube:[{name:'YouTube Channel Subscribers',price:300},{name:'YouTube Video Views',price:60},{name:'YouTube Shorts Views',price:50},{name:'YouTube Video Likes',price:70},{name:'YouTube Comments',price:100},{name:'YouTube Watch Time (4K Hours)',price:400}],
   tiktok:[{name:'TikTok Profile Followers',price:120},{name:'TikTok Video Likes',price:60},{name:'TikTok Video Views',price:40},{name:'TikTok Shares',price:50},{name:'TikTok Saves',price:55},{name:'TikTok Comments',price:80}],
@@ -1366,200 +1665,167 @@ const SERVICES={
 };
 function loadServices(){switchSocial('facebook',document.querySelector('.social-tab.active'));}
 function switchSocial(cat,btn){
-  document.querySelectorAll('.social-tab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.social-tab').forEach(function(b){b.classList.remove('active');});
   if(btn) btn.classList.add('active');
-  const list=document.getElementById('serviceList');if(!list) return;
-  const items=SERVICES[cat]||[];
-  list.innerHTML=items.map(s=>`<div class="service-item"><div class="s-name">${s.name}</div><div class="s-price">৳ ${s.price}<small>প্রতি 1K</small></div><button class="s-btn" onclick="orderService('${s.name.replace(/'/g,"\\'")}',${s.price})">Order</button></div>`).join('');
+  var list=document.getElementById('serviceList');if(!list) return;
+  var items=SERVICES[cat]||[];
+  list.innerHTML=items.map(function(s){
+    return '<div class="service-item"><div class="s-name">'+s.name+'</div><div class="s-price">৳ '+s.price+'<small>প্রতি 1K</small></div><button class="s-btn" onclick="orderService(\''+s.name.replace(/'/g,"\\'")+'\','+s.price+')">Order</button></div>';
+  }).join('');
 }
 
-let currentOrder={name:'',price:0},orderProofData=null;
+var currentOrder={name:'',price:0},orderProofData=null;
 function orderService(name,price){
-  const u=getCurrentUser();if(!u) return;
+  var u=getCurrentUser();if(!u) return;
   currentOrder={name:name,price:price};orderProofData=null;
   document.getElementById('orderServiceName').textContent=name;
   document.getElementById('orderServicePrice').textContent=price;
   document.getElementById('orderWalletBalance').textContent=(u.balance||0).toFixed(2);
   document.getElementById('orderLink').value='';document.getElementById('orderTxn').value='';
-  document.getElementById('orderProofPreview').style.display='none';
   document.getElementById('orderPaymentMethod').value='wallet';
   togglePaymentMethod();
   document.getElementById('orderModal').classList.add('active');
 }
 function closeOrderModal(){document.getElementById('orderModal').classList.remove('active');orderProofData=null;}
-function togglePaymentMethod(){const method=document.getElementById('orderPaymentMethod').value;if(method==='wallet'){document.getElementById('walletPaymentBox').style.display='block';document.getElementById('bkashPaymentBox').style.display='none';}else{document.getElementById('walletPaymentBox').style.display='none';document.getElementById('bkashPaymentBox').style.display='block';}}
-function previewOrderProof(e){
-  const file=e.target.files[0];if(!file) return;
-  const reader=new FileReader();
-  reader.onload=function(ev){const img=document.getElementById('orderProofPreview');img.src=ev.target.result;img.style.display='block';orderProofData=ev.target.result;};
-  reader.readAsDataURL(file);
-}
+function togglePaymentMethod(){var method=document.getElementById('orderPaymentMethod').value;if(method==='wallet'){document.getElementById('walletPaymentBox').style.display='block';document.getElementById('bkashPaymentBox').style.display='none';}else{document.getElementById('walletPaymentBox').style.display='none';document.getElementById('bkashPaymentBox').style.display='block';}}
 function submitOrder(){
-  const u=getCurrentUser();if(!u) return;
-  const link=document.getElementById('orderLink').value.trim();
-  const method=document.getElementById('orderPaymentMethod').value;
+  var u=getCurrentUser();if(!u) return;
+  var link=document.getElementById('orderLink').value.trim();
+  var method=document.getElementById('orderPaymentMethod').value;
   if(!link) return showToast('❌ Service Link দিন!');
-  if(method==='wallet'){
-    if((u.balance||0)<currentOrder.price) return showToast('❌ পর্যাপ্ত Balance নেই!');
-    u.balance-=currentOrder.price;
-    u.orders=u.orders||[];
-    u.orders.push({date:new Date().toISOString(),service:currentOrder.name,price:currentOrder.price,link:link,method:'Wallet',status:'pending',email:u.email,name:u.name});
-    saveCurrentUser(u);updateBalance();showToast('✅ Order সফল!');closeOrderModal();
-  } else {
-    const txn=document.getElementById('orderTxn').value.trim();
-    if(!txn) return showToast('❌ TrxID দিন!');
-    if(!orderProofData) return showToast('❌ Screenshot দিন!');
-    u.orders=u.orders||[];
-    u.orders.push({date:new Date().toISOString(),service:currentOrder.name,price:currentOrder.price,link:link,method:'Bkash',txn:txn,proof:orderProofData,status:'pending',email:u.email,name:u.name});
-    saveCurrentUser(u);showToast('✅ Order পাঠানো!');closeOrderModal();
-  }
+  
+  showToast('📺 Ad দেখুন...');
+  withAd(function(){
+    if(method==='wallet'){
+      if((u.balance||0)<currentOrder.price) return showToast('❌ পর্যাপ্ত Balance নেই!');
+      u.balance-=currentOrder.price;
+      u.orders=u.orders||[];
+      u.orders.push({date:new Date().toISOString(),service:currentOrder.name,price:currentOrder.price,link:link,method:'Wallet',status:'pending',email:u.email,name:u.name});
+      saveCurrentUser(u);updateBalance();showToast('✅ Order সফল!');closeOrderModal();
+    } else {
+      var txn=document.getElementById('orderTxn').value.trim();
+      if(!txn) return showToast('❌ TrxID দিন!');
+      u.orders=u.orders||[];
+      u.orders.push({date:new Date().toISOString(),service:currentOrder.name,price:currentOrder.price,link:link,method:'Bkash',txn:txn,status:'pending',email:u.email,name:u.name});
+      saveCurrentUser(u);showToast('✅ Order পাঠানো!');closeOrderModal();
+    }
+  });
 }
 
+/* ==================================================
+   CHAT
+   ================================================== */
 function loadChat(){
-  const u=getCurrentUser();if(!u) return;
-  const msgs=u.chat||[];
-  const box=document.getElementById('chatMessages');if(!box) return;
+  var u=getCurrentUser();if(!u) return;
+  var msgs=u.chat||[];
+  var box=document.getElementById('chatMessages');if(!box) return;
   if(!msgs.length){box.innerHTML='<div class="chat-msg admin">👋 স্বাগতম! যেকোনো সমস্যায় আমাদের লিখুন।<span class="chat-time">এখনই</span></div>';return;}
-  box.innerHTML=msgs.map(m=>`<div class="chat-msg ${m.from}">${m.text}<span class="chat-time">${new Date(m.date).toLocaleString('bn-BD')}</span></div>`).join('');
+  box.innerHTML=msgs.map(function(m){
+    return '<div class="chat-msg '+m.from+'">'+m.text+'<span class="chat-time">'+new Date(m.date).toLocaleString('bn-BD')+'</span></div>';
+  }).join('');
   box.scrollTop=box.scrollHeight;
 }
 function sendChat(){
-  const u=getCurrentUser();if(!u) return;
-  const inp=document.getElementById('chatInput');
-  const text=inp.value.trim();if(!text) return;
+  var u=getCurrentUser();if(!u) return;
+  var inp=document.getElementById('chatInput');
+  var text=inp.value.trim();if(!text) return;
   u.chat=u.chat||[];u.chat.push({from:'user',text:text,date:new Date().toISOString()});
   saveCurrentUser(u);inp.value='';loadChat();
-  const inbox=JSON.parse(localStorage.getItem('atik_chat_inbox')||'[]');
+  var inbox=JSON.parse(localStorage.getItem('atik_chat_inbox')||'[]');
   inbox.push({user:u.name,email:u.email,text:text,date:new Date().toISOString(),replied:false});
   localStorage.setItem('atik_chat_inbox',JSON.stringify(inbox));
   showToast('✅ মেসেজ পাঠানো!');
 }
 
-/* ================= AI ASSISTANT ================= */
+/* ==================================================
+   AI ASSISTANT
+   ================================================== */
 function switchAI(type,btn){
-  document.querySelectorAll('.ai-tab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.ai-tab').forEach(function(b){b.classList.remove('active');});
   btn.classList.add('active');
-  document.querySelectorAll('.ai-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.ai-panel').forEach(function(p){p.classList.remove('active');});
   document.getElementById('ai-'+type).classList.add('active');
 }
 
-/* AI CHAT — Pollinations Free */
 async function sendAIChat(){
-  const inp=document.getElementById('aiChatInput');
-  const text=inp.value.trim();
+  var inp=document.getElementById('aiChatInput');
+  var text=inp.value.trim();
   if(!text) return;
-  const box=document.getElementById('aiChatMessages');
-  box.innerHTML += `<div class="chat-msg user">${text}<span class="chat-time">এখনই</span></div>`;
+  var box=document.getElementById('aiChatMessages');
+  box.innerHTML += '<div class="chat-msg user">'+text+'<span class="chat-time">এখনই</span></div>';
   inp.value='';
   box.scrollTop=box.scrollHeight;
-
-  // Loading
-  const loadingId='aiLoading'+Date.now();
-  box.innerHTML += `<div class="chat-msg admin" id="${loadingId}">🤖 চিন্তা করছি...</div>`;
+  var loadingId='aiLoading'+Date.now();
+  box.innerHTML += '<div class="chat-msg admin" id="'+loadingId+'">🤖 চিন্তা করছি...</div>';
   box.scrollTop=box.scrollHeight;
-
   try {
-    // Pollinations free text API
-    const url='https://text.pollinations.ai/'+encodeURIComponent('তুমি Atik Daily Earning এর AI Assistant. বাংলায় সংক্ষেপে উত্তর দাও: '+text);
-    const res=await fetch(url);
-    const reply=await res.text();
+    var url='https://text.pollinations.ai/'+encodeURIComponent('তুমি Atik Daily Earning এর AI Assistant. বাংলায় সংক্ষেপে উত্তর দাও: '+text);
+    var res=await fetch(url);
+    var reply=await res.text();
     document.getElementById(loadingId).remove();
-    box.innerHTML += `<div class="chat-msg admin">${reply}<span class="chat-time">এখনই</span></div>`;
+    box.innerHTML += '<div class="chat-msg admin">'+reply+'<span class="chat-time">এখনই</span></div>';
     box.scrollTop=box.scrollHeight;
   } catch(err){
-    // Fallback to keyword answers
     document.getElementById(loadingId).remove();
-    const lower=text.toLowerCase();
-    let reply='';
-    if(lower.includes('ads')||lower.includes('এড')) reply='📺 Watch Ads মেনুতে যান। ৮ সেকেন্ড দেখে Math করলে ৳0.10 পাবেন।';
-    else if(lower.includes('withdraw')||lower.includes('টাকা তুল')) reply='🏧 Withdraw এ যান। মিনিমাম ৳110, ফি ৳10।';
-    else if(lower.includes('voice')||lower.includes('ভয়েস')) reply='🎙️ Voice ট্যাবে গিয়ে বাংলা লিখুন, তারপর Voice Generate চাপুন।';
-    else if(lower.includes('job')||lower.includes('কাজ')) reply='📅 Daily Job এ ৪টি কাজ আছে, প্রতিটিতে ৳0.20।';
-    else if(lower.includes('photo')||lower.includes('ছবি')) reply='🖼️ Photo Edit ট্যাবে ছবি আপলোড করুন, তারপর Color Grading/Slider দিয়ে এডিট করুন।';
-    else if(lower.includes('premium')||lower.includes('প্রিমিয়াম')) reply='👑 Premium ৳90/মাস। ডাবল ইনকাম। Telegram: @atikbreand420';
-    else reply='🤖 যোগাযোগ করুন Telegram এ: @atikbreand420';
-    box.innerHTML += `<div class="chat-msg admin">${reply}<span class="chat-time">এখনই</span></div>`;
+    var lower=text.toLowerCase();
+    var reply='';
+    if(lower.includes('ads')) reply='📺 Watch Ads মেনুতে যান। ৮ সেকেন্ড দেখে Math করলে ৳0.10 পাবেন।';
+    else if(lower.includes('withdraw')) reply='🏧 Withdraw এ যান। মিনিমাম ৳110, ফি ৳10।';
+    else if(lower.includes('voice')) reply='🎙️ Voice ট্যাবে গিয়ে বাংলা লিখুন।';
+    else if(lower.includes('job')) reply='📅 Daily Job এ ৪টি কাজ আছে, প্রতিটিতে ৳0.20।';
+    else reply='🤖 Telegram: @atikbreand420';
+    box.innerHTML += '<div class="chat-msg admin">'+reply+'<span class="chat-time">এখনই</span></div>';
     box.scrollTop=box.scrollHeight;
   }
 }
 
-/* AI VOICE — Pollinations TTS Free */
-document.addEventListener('input',e=>{
+document.addEventListener('input',function(e){
   if(e.target.id==='voiceText'){
     document.getElementById('voiceCount').textContent=e.target.value.length;
   }
 });
 
 async function generateVoice(){
-  const text=document.getElementById('voiceText').value.trim();
-  const voice=document.getElementById('voiceSelect').value;
+  var text=document.getElementById('voiceText').value.trim();
   if(!text) return showToast('❌ আগে টেক্সট লিখুন!');
   if(text.length>200) return showToast('❌ ফ্রিতে ২০০ অক্ষর লিমিট!');
-
-  const result=document.getElementById('voiceResult');
+  var result=document.getElementById('voiceResult');
   result.innerHTML='<div style="text-align:center;padding:20px;"><div class="spinner"></div><p style="color:#FFD700;margin-top:10px;">🎙️ AI ভয়েস বানাচ্ছে...</p></div>';
-
   try {
-    // Pollinations TTS - returns audio
-    const url='https://text.pollinations.ai/'+encodeURIComponent(text)+'?model=openai-audio&voice='+voice;
-    const audio=new Audio(url);
-    audio.crossOrigin='anonymous';
-    
-    // Setup success after metadata loads
+    var voice=document.getElementById('aiVoiceSelect') || {value:'nova'};
+    var url='https://text.pollinations.ai/'+encodeURIComponent(text)+'?model=openai-audio&voice='+voice.value;
+    var audio=new Audio(url);
     audio.onloadedmetadata=function(){
-      result.innerHTML=`<div style="background:rgba(0,230,118,.1);border:2px solid #00E676;border-radius:15px;padding:15px;">
-        <h4 style="color:#00E676;margin-bottom:10px;">✅ Voice তৈরি হয়েছে!</h4>
-        <audio src="${url}" controls style="width:100%;"></audio>
-        <a href="${url}" download="atik-voice.mp3" class="btn btn-green" style="width:100%;justify-content:center;margin-top:10px;text-decoration:none;">💾 Download MP3</a>
-      </div>`;
+      result.innerHTML='<div style="background:rgba(0,230,118,.1);border:2px solid #00E676;border-radius:15px;padding:15px;"><h4 style="color:#00E676;margin-bottom:10px;">✅ Voice তৈরি!</h4><audio src="'+url+'" controls style="width:100%;"></audio></div>';
     };
-    
     audio.onerror=function(){
-      result.innerHTML='<div style="background:rgba(255,23,68,.1);border:2px solid #FF1744;border-radius:15px;padding:15px;color:#FF1744;">⚠️ সার্ভারে সমস্যা। আবার চেষ্টা করুন অথবা Telegram এ যোগাযোগ করুন।</div>';
+      result.innerHTML='<div style="background:rgba(255,23,68,.1);border:2px solid #FF1744;border-radius:15px;padding:15px;color:#FF1744;">⚠️ সার্ভারে সমস্যা</div>';
     };
-    
     audio.load();
   } catch(err){
-    result.innerHTML='<div style="background:rgba(255,23,68,.1);border:2px solid #FF1744;border-radius:15px;padding:15px;color:#FF1744;">⚠️ এরর: '+err.message+'</div>';
+    result.innerHTML='<div style="color:#FF1744;padding:15px;">⚠️ '+err.message+'</div>';
   }
 }
 
-/* AI PHOTO EDITOR — Color Grading */
-let currentPhoto=null,currentGrade='none';
-const GRADE_PRESETS={
-  'None':'none',
-  'Vivid':'saturate(1.5) contrast(1.15)',
-  'Cinematic':'contrast(1.2) saturate(0.95) brightness(0.98)',
-  'Warm':'sepia(0.2) saturate(1.2) brightness(1.05)',
-  'Cool':'hue-rotate(180deg) saturate(1.1)',
-  'Vintage':'sepia(0.45) contrast(1.1) brightness(1.02)',
-  'B&W':'grayscale(1) contrast(1.15)',
-  'Sepia':'sepia(1)',
-  'Retro':'sepia(0.3) saturate(1.3)',
-  'Golden':'sepia(0.3) saturate(1.4) brightness(1.1)',
-  'Neon':'saturate(1.8) brightness(1.05)',
-  'Cyberpunk':'saturate(1.6) contrast(1.2) hue-rotate(-15deg)',
-  'Moody':'contrast(1.25) saturate(0.8) brightness(0.92)',
-  'Fade':'contrast(0.85) brightness(1.1)',
-  'Punch':'contrast(1.35) saturate(1.35)',
-  'HDR':'contrast(1.4) saturate(1.3)',
-  'Dreamy':'brightness(1.12) saturate(1.15) blur(0.3px)',
-  'Sunset':'sepia(0.4) saturate(1.5) hue-rotate(-15deg)',
-  'Winter':'hue-rotate(190deg) saturate(0.8)',
-  'Anime':'saturate(1.7) contrast(1.2) brightness(1.05)',
-  'Manga':'grayscale(1) contrast(1.4)'
+/* ==================================================
+   PHOTO EDITOR
+   ================================================== */
+var GRADE_PRESETS={
+  'None':'none','Vivid':'saturate(1.5) contrast(1.15)','Cinematic':'contrast(1.2) saturate(0.95)',
+  'Warm':'sepia(0.2) saturate(1.2)','Cool':'hue-rotate(180deg) saturate(1.1)',
+  'Vintage':'sepia(0.45) contrast(1.1)','B&W':'grayscale(1) contrast(1.15)','Sepia':'sepia(1)'
 };
-
+var currentGrade='none';
 function loadGradePresets(){
-  const el=document.getElementById('gradePresets');if(!el) return;
+  var el=document.getElementById('gradePresets');if(!el) return;
   el.innerHTML='';
-  Object.keys(GRADE_PRESETS).forEach(name=>{
-    const chip=document.createElement('div');
+  Object.keys(GRADE_PRESETS).forEach(function(name){
+    var chip=document.createElement('div');
     chip.className='grade-chip';
     if(name==='None') chip.classList.add('selected');
     chip.textContent=name;
-    chip.onclick=()=>{
-      document.querySelectorAll('.grade-chip').forEach(c=>c.classList.remove('selected'));
+    chip.onclick=function(){
+      document.querySelectorAll('.grade-chip').forEach(function(c){c.classList.remove('selected');});
       chip.classList.add('selected');
       currentGrade=name;
       photoAdjust();
@@ -1567,80 +1833,56 @@ function loadGradePresets(){
     el.appendChild(chip);
   });
 }
-
 function handleAIPhoto(e){
-  const file=e.target.files[0];if(!file) return;
-  currentPhoto=file;
-  const url=URL.createObjectURL(file);
-  const img=document.getElementById('aiPhotoPreview');
+  var file=e.target.files[0];if(!file) return;
+  var url=URL.createObjectURL(file);
+  var img=document.getElementById('aiPhotoPreview');
   img.src=url;
   document.getElementById('aiPhotoPreviewWrap').style.display='block';
   photoAdjust();
 }
-
 function buildPhotoFilter(){
-  const brightness=document.getElementById('pBrightnessSlider').value;
-  const contrast=document.getElementById('pContrastSlider').value;
-  const saturate=document.getElementById('pSaturateSlider').value;
-  const hue=document.getElementById('pHueSlider').value;
-  const blur=document.getElementById('pBlurSlider').value;
-  const grayscale=document.getElementById('pGrayscaleSlider').value;
-  
-  let parts=[];
-  if(brightness!=100) parts.push(`brightness(${brightness}%)`);
-  if(contrast!=100) parts.push(`contrast(${contrast}%)`);
-  if(saturate!=100) parts.push(`saturate(${saturate}%)`);
-  if(hue>0) parts.push(`hue-rotate(${hue}deg)`);
-  if(blur>0) parts.push(`blur(${blur}px)`);
-  if(grayscale>0) parts.push(`grayscale(${grayscale}%)`);
-  
+  var b=document.getElementById('pBrightnessSlider').value;
+  var c=document.getElementById('pContrastSlider').value;
+  var s=document.getElementById('pSaturateSlider').value;
+  var parts=[];
+  if(b!=100) parts.push('brightness('+b+'%)');
+  if(c!=100) parts.push('contrast('+c+'%)');
+  if(s!=100) parts.push('saturate('+s+'%)');
   if(currentGrade!=='None' && GRADE_PRESETS[currentGrade]) parts.push(GRADE_PRESETS[currentGrade]);
-  
   return parts.length===0 ? 'none' : parts.join(' ');
 }
-
 function photoAdjust(){
-  const img=document.getElementById('aiPhotoPreview');
+  var img=document.getElementById('aiPhotoPreview');
   if(!img) return;
   img.style.filter=buildPhotoFilter();
-  // Update labels
   document.getElementById('pBrightness').textContent=document.getElementById('pBrightnessSlider').value;
   document.getElementById('pContrast').textContent=document.getElementById('pContrastSlider').value;
   document.getElementById('pSaturate').textContent=document.getElementById('pSaturateSlider').value;
-  document.getElementById('pHue').textContent=document.getElementById('pHueSlider').value;
-  document.getElementById('pBlur').textContent=document.getElementById('pBlurSlider').value;
-  document.getElementById('pGrayscale').textContent=document.getElementById('pGrayscaleSlider').value;
 }
-
 function downloadPhoto(){
-  const img=document.getElementById('aiPhotoPreview');
-  if(!img.src||img.src===window.location.href) return showToast('❌ আগে ছবি আপলোড করুন!');
-  
-  const canvas=document.createElement('canvas');
+  var img=document.getElementById('aiPhotoPreview');
+  if(!img.src) return showToast('❌ আগে ছবি আপলোড করুন!');
+  var canvas=document.createElement('canvas');
   canvas.width=img.naturalWidth||img.width;
   canvas.height=img.naturalHeight||img.height;
-  const ctx=canvas.getContext('2d');
+  var ctx=canvas.getContext('2d');
   ctx.filter=buildPhotoFilter();
   ctx.drawImage(img,0,0,canvas.width,canvas.height);
-  
-  canvas.toBlob(blob=>{
-    const a=document.createElement('a');
+  canvas.toBlob(function(blob){
+    var a=document.createElement('a');
     a.download='atik-edited-'+Date.now()+'.png';
     a.href=URL.createObjectURL(blob);
     a.click();
     showToast('💾 Download শুরু!');
   },'image/png');
 }
-
 function resetPhoto(){
   document.getElementById('pBrightnessSlider').value=100;
   document.getElementById('pContrastSlider').value=100;
   document.getElementById('pSaturateSlider').value=100;
-  document.getElementById('pHueSlider').value=0;
-  document.getElementById('pBlurSlider').value=0;
-  document.getElementById('pGrayscaleSlider').value=0;
   currentGrade='None';
-  document.querySelectorAll('.grade-chip').forEach(c=>{
+  document.querySelectorAll('.grade-chip').forEach(function(c){
     c.classList.remove('selected');
     if(c.textContent==='None') c.classList.add('selected');
   });
@@ -1648,44 +1890,40 @@ function resetPhoto(){
   showToast('↺ রিসেট!');
 }
 
-/* NOTIFICATIONS */
+/* ==================================================
+   NOTIFICATIONS
+   ================================================== */
 function loadNotifications(){
-  const notifs=JSON.parse(localStorage.getItem('atik_notifications')||'[]');
-  const unread=notifs.filter(n=>!n.read).length;
-  const badge=document.getElementById('notifBadge');if(badge) badge.textContent=unread;
+  var notifs=JSON.parse(localStorage.getItem('atik_notifications')||'[]');
+  var unread=notifs.filter(function(n){return !n.read;}).length;
+  var badge=document.getElementById('notifBadge');if(badge) badge.textContent=unread;
 }
 function toggleNotifications(){
-  const notifs=JSON.parse(localStorage.getItem('atik_notifications')||'[]');
-  const badge=document.getElementById('notifBadge');if(badge) badge.textContent=0;
-  const updated=notifs.map(n=>({...n,read:true}));
+  var notifs=JSON.parse(localStorage.getItem('atik_notifications')||'[]');
+  var badge=document.getElementById('notifBadge');if(badge) badge.textContent=0;
+  var updated=notifs.map(function(n){return Object.assign({},n,{read:true});});
   localStorage.setItem('atik_notifications',JSON.stringify(updated));
   if(!notifs.length){showToast('🔔 নতুন নেই');return;}
-  let msg='';
-  notifs.slice(0,5).forEach(n=>{msg+=n.icon+' '+n.title+'\n';});
+  var msg='';
+  notifs.slice(0,5).forEach(function(n){msg+=n.icon+' '+n.title+'\n';});
   alert('🔔 Notifications:\n\n'+msg);
 }
-function loadAdminAds(){
-  const s=JSON.parse(localStorage.getItem('atik_ad_settings')||'{}');
-  if(s.adCode&&s.adCode.trim()){
-    setTimeout(()=>{document.querySelectorAll('.ad-space-content').forEach(el=>{el.innerHTML=s.adCode;});},400);
-  }
-}
 
-document.addEventListener('keypress',e=>{
+document.addEventListener('keypress',function(e){
   if(e.key!=='Enter') return;
-  const m=document.getElementById('authModal');
+  var m=document.getElementById('authModal');
   if(!m||!m.classList.contains('active')) return;
-  const lv=document.getElementById('loginForm').style.display!=='none';
+  var lv=document.getElementById('loginForm').style.display!=='none';
   if(lv) doLogin(); else doSignup();
 });
 
-window.addEventListener('load',()=>{
-  // Auto-login check
-  setTimeout(()=>{
-    const user=getCurrentUser();
+window.addEventListener('load',function(){
+  loadAdSettings();
+  setTimeout(function(){
+    var user=getCurrentUser();
     if(user){
       document.getElementById('splash').classList.add('hide');
-      setTimeout(()=>{
+      setTimeout(function(){
         document.getElementById('splash').style.display='none';
         initUI();
       }, 500);

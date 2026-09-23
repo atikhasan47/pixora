@@ -1,0 +1,27 @@
+{
+  "name": "Atik Daily Earning",
+  "short_name": "Atik Earning",
+  "description": "Ads দেখে আয় করুন - Atik Daily Earning",
+  "start_url": "/pixora/user.html",
+  "scope": "/pixora/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f172a",
+  "theme_color": "#FFD700",
+  "lang": "bn",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "https://i.ibb.co.com/bgMN2Yv8/IMG-20260429-WA0011.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://i.ibb.co.com/bgMN2Yv8/IMG-20260429-WA0011.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ]
+}

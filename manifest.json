@@ -2,7 +2,7 @@
   "name": "Atik Daily Earning",
   "short_name": "Atik Earning",
   "description": "Ads দেখে আয় করুন - Atik Daily Earning",
-  "start_url": "index.html",
+  "start_url": "user.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",

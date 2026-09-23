@@ -26,17 +26,22 @@ const APP_URL = "https://atikhasan47.github.io/pixora/user.html";
 const YOUTUBE_URL = "https://youtube.com/@aiatikfreelanch";
 const FACEBOOK_URL = "https://www.facebook.com/profile.php?id=61592860621046";
 const TIKTOK_URL = "https://www.tiktok.com/@atikhasan60057";
-const TELEGRAM_CHANNEL = "https://t.me/aiatikdailyearnin";
+const TELEGRAM_CHANNEL = "https://t.me/atikbreand420";
 const TELEGRAM_GROUP = "https://t.me/aiatikdailyearning";
 const SUPPORT_CONTACT = "@atikbreand420";
+
+// ======================================================
+// MONETAG DIRECT LINKS
+// ======================================================
+
+const MONETAG_LINK_1 = "https://omg10.com/4/11796327";
+const MONETAG_LINK_2 = "https://omg10.com/4/11867674";
 
 // ======================================================
 // CHANNEL CONFIGURATION
 // ======================================================
 
 const CHANNEL_ID = "-1003950902485";
-
-// Auto Post Timing (সকাল ৯টা, দুপুর ২টা, রাত ৮টা)
 const POST_HOURS = [9, 14, 20];
 
 // ======================================================
@@ -98,6 +103,12 @@ function mainMenu() {
           {
             text: "🎯 Open Earning App",
             url: APP_URL
+          }
+        ],
+        [
+          {
+            text: "🎁 Special Offer",
+            url: MONETAG_LINK_1
           }
         ],
         [
@@ -169,6 +180,12 @@ function backMenu() {
           {
             text: "🎯 Open App",
             url: APP_URL
+          }
+        ],
+        [
+          {
+            text: "🎁 Special Offer",
+            url: MONETAG_LINK_1
           }
         ],
         [
@@ -245,6 +262,12 @@ async function postToChannel() {
               {
                 text: "🎯 Open Earning App",
                 url: APP_URL
+              }
+            ],
+            [
+              {
+                text: "🎁 Special Offer",
+                url: MONETAG_LINK_1
               }
             ],
             [
@@ -344,6 +367,12 @@ bot.onText(/^\/earn(?:@\w+)?$/, async (msg) => {
               {
                 text: "🎯 Open Earning App",
                 url: APP_URL
+              }
+            ],
+            [
+              {
+                text: "🎁 Special Offer",
+                url: MONETAG_LINK_1
               }
             ],
             [
@@ -486,6 +515,12 @@ bot.onText(/^\/help(?:@\w+)?$/, async (msg) => {
             ],
             [
               {
+                text: "🎁 Special Offer",
+                url: MONETAG_LINK_1
+              }
+            ],
+            [
+              {
                 text: "🎯 Open App",
                 url: APP_URL
               }
@@ -593,7 +628,6 @@ bot.onText(/^\/post(?:@\w+)?$/, async (msg) => {
   const chatId = msg.chat.id;
   const userId = msg.from?.id;
 
-  // শুধু Admin (8819013561) পারবে
   if (userId !== 8819013561) {
     return bot.sendMessage(chatId, "❌ আপনি Admin না।");
   }
@@ -788,6 +822,12 @@ bot.on("new_chat_members", async (msg) => {
               ],
               [
                 {
+                  text: "🎁 Special Offer",
+                  url: MONETAG_LINK_1
+                }
+              ],
+              [
+                {
                   text: "✈️ Join Channel",
                   url: TELEGRAM_CHANNEL
                 }
@@ -928,6 +968,7 @@ async function setupTelegramWebhook() {
 
     console.log(`📢 Channel ID: ${CHANNEL_ID}`);
     console.log(`⏰ Auto Post Hours: ${POST_HOURS.join(", ")}`);
+    console.log(`🎁 Monetag Links: ${MONETAG_LINK_1}, ${MONETAG_LINK_2}`);
 
   } catch (error) {
     console.error("WEBHOOK SETUP FAILED:", error?.message || error);

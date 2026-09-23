@@ -26,9 +26,18 @@ const APP_URL = "https://atikhasan47.github.io/pixora/user.html";
 const YOUTUBE_URL = "https://youtube.com/@aiatikfreelanch";
 const FACEBOOK_URL = "https://www.facebook.com/profile.php?id=61592860621046";
 const TIKTOK_URL = "https://www.tiktok.com/@atikhasan60057";
-const TELEGRAM_CHANNEL = "https://t.me/atikbreand420";
+const TELEGRAM_CHANNEL = "https://t.me/aiatikdailyearnin";
 const TELEGRAM_GROUP = "https://t.me/aiatikdailyearning";
 const SUPPORT_CONTACT = "@atikbreand420";
+
+// ======================================================
+// CHANNEL CONFIGURATION
+// ======================================================
+
+const CHANNEL_ID = "-1003950902485";
+
+// Auto Post Timing (সকাল ৯টা, দুপুর ২টা, রাত ৮টা)
+const POST_HOURS = [9, 14, 20];
 
 // ======================================================
 // VALIDATION
@@ -95,6 +104,16 @@ function mainMenu() {
           {
             text: "💰 Earning Info",
             callback_data: "earn_info"
+          }
+        ],
+        [
+          {
+            text: "📊 Check Balance",
+            callback_data: "balance"
+          },
+          {
+            text: "💸 Withdraw",
+            callback_data: "withdraw"
           }
         ],
         [
@@ -201,6 +220,67 @@ async function sendLongMessage(chatId, text) {
 }
 
 // ======================================================
+// CHANNEL AUTO POST
+// ======================================================
+
+async function postToChannel() {
+  try {
+    await bot.sendMessage(
+      CHANNEL_ID,
+      `💰 *Ai Atik Daily Earning*
+
+📺 Watch Ads — ৳0.10
+📅 Daily Job — ৳0.20
+🧮 Math Earn — ৳0.04
+🛒 Social Promote
+
+🌐 *App:* ${APP_URL}
+
+👇 আয় শুরু করুন 👇`,
+      {
+        parse_mode: "Markdown",
+        reply_markup: {
+          inline_keyboard: [
+            [
+              {
+                text: "🎯 Open Earning App",
+                url: APP_URL
+              }
+            ],
+            [
+              {
+                text: "👥 Join Group",
+                url: TELEGRAM_GROUP
+              }
+            ]
+          ]
+        }
+      }
+    );
+
+    console.log("✅ Channel-এ Ad Post হয়েছে");
+
+  } catch (error) {
+    console.error("Channel Post Error:", error.message);
+  }
+}
+
+// ======================================================
+// AUTO POST TIMER
+// ======================================================
+
+setInterval(async () => {
+  const now = new Date();
+  const hour = now.getHours();
+  const minute = now.getMinutes();
+
+  if (POST_HOURS.includes(hour) && minute === 0) {
+    console.log(`⏰ Auto Post Time: ${hour}:00`);
+    await postToChannel();
+  }
+}, 60000);
+
+// ======================================================
 // /START
 // ======================================================
 
@@ -282,6 +362,94 @@ bot.onText(/^\/earn(?:@\w+)?$/, async (msg) => {
 });
 
 // ======================================================
+// /BALANCE
+// ======================================================
+
+bot.onText(/^\/balance(?:@\w+)?$/, async (msg) => {
+  const chatId = msg.chat.id;
+
+  try {
+    await bot.sendMessage(
+      chatId,
+      `📊 *Your Balance*
+
+আপনার Balance দেখতে App-এ Login করুন।
+
+🌐 App: ${APP_URL}
+
+👇 নিচের Button এ ক্লিক করুন 👇`,
+      {
+        parse_mode: "Markdown",
+        reply_markup: {
+          inline_keyboard: [
+            [
+              {
+                text: "🎯 Open App & Check Balance",
+                url: APP_URL
+              }
+            ],
+            [
+              {
+                text: "⬅️ Back to Menu",
+                callback_data: "back"
+              }
+            ]
+          ]
+        }
+      }
+    );
+  } catch (error) {
+    console.error("/balance error:", error.message || error);
+  }
+});
+
+// ======================================================
+// /WITHDRAW
+// ======================================================
+
+bot.onText(/^\/withdraw(?:@\w+)?$/, async (msg) => {
+  const chatId = msg.chat.id;
+
+  try {
+    await bot.sendMessage(
+      chatId,
+      `💸 *Withdraw Info*
+
+💰 Minimum: ৳110
+💸 Fee: ৳10
+📱 Bkash / Nagad
+
+Withdraw করতে App-এ যান।
+
+🌐 App: ${APP_URL}
+
+👇 নিচের Button এ ক্লিক করুন 👇`,
+      {
+        parse_mode: "Markdown",
+        reply_markup: {
+          inline_keyboard: [
+            [
+              {
+                text: "🎯 Open App & Withdraw",
+                url: APP_URL
+              }
+            ],
+            [
+              {
+                text: "⬅️ Back to Menu",
+                callback_data: "back"
+              }
+            ]
+          ]
+        }
+      }
+    );
+  } catch (error) {
+    console.error("/withdraw error:", error.message || error);
+  }
+});
+
+// ======================================================
 // /HELP
 // ======================================================
 
@@ -296,6 +464,8 @@ bot.onText(/^\/help(?:@\w+)?$/, async (msg) => {
 🎯 *Commands:*
 /start — Main Menu
 /earn — Earning Info
+/balance — Check Balance
+/withdraw — Withdraw Info
 /help — এই Help
 /contact — Admin Support
 /ai — AI Assistant
@@ -416,6 +586,27 @@ bot.onText(/^\/stop(?:@\w+)?$/, async (msg) => {
 });
 
 // ======================================================
+// /POST (Admin Only)
+// ======================================================
+
+bot.onText(/^\/post(?:@\w+)?$/, async (msg) => {
+  const chatId = msg.chat.id;
+  const userId = msg.from?.id;
+
+  // শুধু Admin (8819013561) পারবে
+  if (userId !== 8819013561) {
+    return bot.sendMessage(chatId, "❌ আপনি Admin না।");
+  }
+
+  try {
+    await postToChannel();
+    await bot.sendMessage(chatId, "✅ Channel-এ Post পাঠানো হয়েছে।");
+  } catch (error) {
+    await bot.sendMessage(chatId, "❌ Post Failed: " + error.message);
+  }
+});
+
+// ======================================================
 // CALLBACK BUTTONS
 // ======================================================
 
@@ -432,10 +623,6 @@ bot.on("callback_query", async (query) => {
   }
 
   try {
-
-    // ==================================================
-    // EARN INFO
-    // ==================================================
 
     if (data === "earn_info") {
       return bot.sendMessage(
@@ -455,9 +642,37 @@ bot.on("callback_query", async (query) => {
       );
     }
 
-    // ==================================================
-    // SUPPORT
-    // ==================================================
+    if (data === "balance") {
+      return bot.sendMessage(
+        chatId,
+        `📊 *Your Balance*
+
+App-এ Login করে Balance দেখুন।
+
+🌐 ${APP_URL}`,
+        {
+          parse_mode: "Markdown",
+          ...backMenu()
+        }
+      );
+    }
+
+    if (data === "withdraw") {
+      return bot.sendMessage(
+        chatId,
+        `💸 *Withdraw Info*
+
+💰 Minimum: ৳110
+💸 Fee: ৳10
+📱 Bkash / Nagad
+
+🌐 ${APP_URL}`,
+        {
+          parse_mode: "Markdown",
+          ...backMenu()
+        }
+      );
+    }
 
     if (data === "support") {
       return bot.sendMessage(
@@ -497,10 +712,6 @@ bot.on("callback_query", async (query) => {
       );
     }
 
-    // ==================================================
-    // HELP
-    // ==================================================
-
     if (data === "help") {
       return bot.sendMessage(
         chatId,
@@ -508,6 +719,8 @@ bot.on("callback_query", async (query) => {
 
 🎯 /start — Main Menu
 💰 /earn — Earning Info
+📊 /balance — Balance
+💸 /withdraw — Withdraw
 📞 /contact — Support
 🤖 /ai — AI Assistant
 
@@ -518,10 +731,6 @@ bot.on("callback_query", async (query) => {
         }
       );
     }
-
-    // ==================================================
-    // BACK
-    // ==================================================
 
     if (data === "back") {
       resetAI(chatId);
@@ -716,6 +925,9 @@ async function setupTelegramWebhook() {
     } else {
       console.log("Webhook has no errors.");
     }
+
+    console.log(`📢 Channel ID: ${CHANNEL_ID}`);
+    console.log(`⏰ Auto Post Hours: ${POST_HOURS.join(", ")}`);
 
   } catch (error) {
     console.error("WEBHOOK SETUP FAILED:", error?.message || error);

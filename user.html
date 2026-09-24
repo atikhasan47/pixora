@@ -1000,16 +1000,21 @@ function goPanel(name){
     document.getElementById('sidebar').classList.remove('open');
 }
 
-function renderHistories(){
-  var u=getCurrentUser(); if(!u) return;
-  var dep=document.getElementById('depositHistory');
-  var wd=document.getElementById('withdrawHistory');
-  if(dep) dep.innerHTML=(u.deposits||[]).slice().reverse().slice(0,20).map(function(d){
-    return '<div style="background:#ffffff;border:2px solid #b2ebf2;border-radius:12px;padding:14px;margin-bottom:10px;"><div style="display:flex;justify-content:space-between;"><div><strong style="color:#006064;">৳ '+(d.amount||0).toFixed(2)+'</strong><div style="color:#00838f;font-size:11px;margin-top:4px;">📱 '+d.sender+' | TrxID: '+d.txn+'</div></div><span style="color:'+(d.status==='approved'?'#00c853':d.status==='rejected'?'#FF1744':'#EF6C00')+';font-weight:900;font-size:12px;">'+d.status.toUpperCase()+'</span></div></div>';
-  }).join('') || '<div style="text-align:center;color:#00838f;padding:20px;">No deposit history</div>';
-  if(wd) wd.innerHTML=(u.withdraws||[]).slice().reverse().slice(0,20).map(function(w){
-    return '<div style="background:#ffffff;border:2px solid #b2ebf2;border-radius:12px;padding:14px;margin-bottom:10px;"><div style="display:flex;justify-content:space-between;"><div><strong style="color:#006064;">৳ '+(w.amount||0).toFixed(2)+'</strong><div style="color:#00838f;font-size:11px;margin-top:4px;">🏧 '+w.account+' | Fee: ৳'+(w.fee||10)+'</div></div><span style="color:'+(w.status==='paid'?'#00c853':w.status==='rejected'?'#FF1744':'#EF6C00')+';font-weight:900;font-size:12px;">'+w.status.toUpperCase()+'</span></div></div>';
-  }).join('') || '<div style="text-align:center;color:#00838f;padding:20px;">No withdraw history</div>';
+// ============ ২৪ ঘন্টা অটো এড রোটেশন ============
+function startAutoAdRotation(){
+  var t1=document.getElementById('topAdSlot');
+  var b1=document.getElementById('bottomAdSlot');
+  if(t1) injectAdIntoSlot(t1, AD_CODES.ad2);
+  if(b1) injectAdIntoSlot(b1, AD_CODES.ad3);
+  
+  var counter = 0;
+  setInterval(function(){
+    var t=document.getElementById('topAdSlot');
+    var b=document.getElementById('bottomAdSlot');
+    counter++;
+    if(t) injectAdIntoSlot(t, counter % 2 === 0 ? AD_CODES.ad1 : AD_CODES.ad2);
+    if(b) injectAdIntoSlot(b, counter % 2 === 0 ? AD_CODES.ad3 : AD_CODES.ad1);
+  }, 30000);
 }
 
 function verifyAccount(){

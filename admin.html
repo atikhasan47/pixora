@@ -8,8 +8,6 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-family:'Poppins','Segoe UI',sans-serif;}
-
-/* ============ LOGIN SCREEN ============ */
 .login-screen{position:fixed;inset:0;z-index:9999;display:flex;justify-content:center;align-items:center;background:linear-gradient(135deg,#0a0f1e,#1b263b,#415a77);padding:20px;}
 .login-box{background:linear-gradient(135deg,rgba(13,27,42,.98),rgba(27,38,59,.98));backdrop-filter:blur(20px);padding:40px 32px;border-radius:22px;width:100%;max-width:440px;border:3px solid #FFD700;box-shadow:0 0 80px rgba(255,215,0,.6);}
 .login-box .logo{width:90px;height:90px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 18px;border:3px solid #FFD700;box-shadow:0 0 30px #FFD700;}
@@ -21,10 +19,8 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 .login-btn:disabled{background:#4a5568;cursor:not-allowed;}
 .login-error{color:#FF1744;font-size:13px;font-weight:bold;text-align:center;padding:10px;margin-bottom:10px;background:rgba(255,23,68,.15);border-radius:10px;display:none;}
 .login-error.show{display:block;}
-
-/* ============ LAYOUT ============ */
 .app-layout{display:flex;min-height:100vh;}
-.sidebar{width:260px;background:linear-gradient(180deg,rgba(13,27,42,.97),rgba(27,38,59,.97));border-right:2px solid rgba(255,215,0,.2);padding:20px 0;position:sticky;top:0;height:100vh;overflow-y:auto;z-index:100;}
+.sidebar{width:260px;background:linear-gradient(180deg,rgba(13,27,42,.97),rgba(27,38,59,.97));border-right:2px solid rgba(255,215,0,.2);padding:20px 0;position:sticky;top:0;height:100vh;overflow-y:auto;z-index:100;transition:.3s;}
 .sidebar-logo{display:flex;align-items:center;gap:12px;padding:0 20px 20px;border-bottom:1px solid rgba(255,215,0,.2);margin-bottom:15px;}
 .sidebar-logo img{height:50px;width:50px;border-radius:50%;box-shadow:0 0 20px #FFD700;border:2px solid #FFD700;object-fit:cover;}
 .sidebar-logo .brand{color:#FFD700;font-size:13px;font-weight:bold;line-height:1.3;font-family:'Montserrat',sans-serif;}
@@ -43,8 +39,6 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 .panel{display:none;}
 .panel.active{display:block;animation:fadeIn .4s;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(15px);}to{opacity:1;transform:translateY(0);}}
-
-/* ============ CARDS ============ */
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:24px;}
 .stat-card{background:linear-gradient(135deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,215,0,.25);border-radius:18px;padding:22px;transition:.3s;}
 .stat-card:hover{transform:translateY(-5px);box-shadow:0 15px 40px rgba(255,215,0,.3);}
@@ -55,26 +49,19 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 .stat-card.orange .val{color:#FF9800;}
 .stat-card.cyan .val{color:#00E5FF;}
 .stat-card.pink .val{color:#FF4081;}
-
 .section-title{color:#FFD700;font-size:17px;font-weight:800;margin-bottom:15px;display:flex;align-items:center;gap:10px;padding-bottom:10px;border-bottom:2px solid rgba(255,215,0,.25);font-family:'Montserrat',sans-serif;}
-
-/* ============ FORM ============ */
 .form-group{margin-bottom:16px;}
 .form-group label{display:block;margin-bottom:6px;color:#FFD700;font-weight:600;font-size:13px;}
 .form-group input,.form-group textarea,.form-group select{width:100%;padding:13px;background:rgba(255,255,255,.05);border:2px solid rgba(255,215,0,.3);border-radius:12px;color:#fff;font-size:14px;font-family:inherit;}
 .form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:#00E5FF;outline:none;}
 .form-group small{color:#8fa8c4;font-size:11px;display:block;margin-top:4px;}
-
 .btn{padding:12px 22px;border:none;border-radius:12px;cursor:pointer;font-weight:700;font-size:13px;transition:.3s;text-decoration:none;display:inline-flex;align-items:center;gap:6px;font-family:inherit;}
 .btn-gold{background:linear-gradient(90deg,#FFD700,#FF9800);color:#000;}
 .btn-green{background:linear-gradient(90deg,#00C853,#00E676);color:#fff;}
 .btn-red{background:linear-gradient(90deg,#D32F2F,#FF1744);color:#fff;}
 .btn-cyan{background:linear-gradient(90deg,#00E5FF,#0288D1);color:#fff;}
 .btn-full{width:100%;justify-content:center;}
-
 .settings-card{background:linear-gradient(135deg,rgba(13,27,42,.95),rgba(27,38,59,.95));border:2px solid rgba(255,215,0,.3);border-radius:18px;padding:25px;margin-bottom:20px;}
-
-/* ============ USER TABLE ============ */
 .search-box{width:100%;padding:12px 18px;background:rgba(255,255,255,.05);border:2px solid rgba(255,215,0,.3);border-radius:12px;color:#fff;font-size:14px;font-family:inherit;margin-bottom:15px;outline:none;}
 .user-table{width:100%;border-collapse:collapse;background:rgba(255,255,255,.03);border-radius:14px;overflow:hidden;}
 .user-table th{background:rgba(255,215,0,.12);color:#FFD700;padding:12px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:1px;}
@@ -85,9 +72,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 .status-verified{background:rgba(0,230,118,.2);color:#00E676;}
 .status-unverified{background:rgba(255,152,0,.2);color:#FF9800;}
 .status-banned{background:rgba(255,23,68,.2);color:#FF1744;}
-.action-btn{padding:6px 12px;border:none;border-radius:8px;cursor:pointer;font-size:11px;font-weight:700;font-family:inherit;margin-right:4px;}
-
-/* ============ CHAT ============ */
+.action-btn{padding:6px 12px;border:none;border-radius:8px;cursor:pointer;font-size:11px;font-weight:700;font-family:inherit;margin-right:4px;margin-bottom:4px;}
 .chat-layout{display:grid;grid-template-columns:300px 1fr;gap:15px;height:600px;}
 .chat-users{background:rgba(255,255,255,.03);border:2px solid rgba(255,215,0,.3);border-radius:14px;overflow-y:auto;padding:10px;}
 .chat-user-item{padding:12px;border-radius:10px;cursor:pointer;display:flex;align-items:center;gap:10px;margin-bottom:6px;transition:.2s;border:1px solid transparent;}
@@ -107,8 +92,6 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 .chat-input-row{display:flex;gap:8px;padding:12px;border-top:1px solid rgba(255,215,0,.2);}
 .chat-input-row input{flex:1;padding:12px;background:rgba(255,255,255,.08);border:2px solid rgba(255,215,0,.3);border-radius:12px;color:#fff;font-size:13px;font-family:inherit;outline:none;}
 .chat-input-row button{background:linear-gradient(90deg,#FFD700,#FF9800);color:#000;border:none;padding:12px 22px;border-radius:12px;font-weight:800;cursor:pointer;font-family:inherit;font-size:13px;}
-
-/* ============ PROOF CARDS ============ */
 .proof-card{background:linear-gradient(135deg,rgba(13,27,42,.95),rgba(27,38,59,.95));border:2px solid rgba(255,215,0,.3);border-radius:18px;padding:20px;margin-bottom:15px;}
 .proof-card .proof-header{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
 .proof-card .proof-user{font-size:14px;font-weight:800;color:#fff;}
@@ -118,23 +101,15 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 .proof-card .proof-imgs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
 .proof-card .proof-imgs img{width:100%;border-radius:10px;border:2px solid rgba(255,215,0,.3);}
 .proof-actions{display:flex;gap:10px;flex-wrap:wrap;}
-
-/* ============ NOTIFICATION ============ */
 .notif-card{background:linear-gradient(135deg,rgba(13,27,42,.95),rgba(27,38,59,.95));border:2px solid rgba(255,215,0,.3);border-radius:14px;padding:15px;margin-bottom:10px;}
 .notif-card .notif-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:6px;}
 .notif-card .notif-msg{font-size:12px;color:#8fa8c4;}
 .notif-card .notif-meta{font-size:11px;color:#6b7d94;margin-top:8px;}
-
-/* ============ JOB CREATOR ============ */
 .job-item{background:rgba(255,255,255,.03);border:2px solid rgba(255,215,0,.3);border-radius:12px;padding:14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;}
 .job-item .job-info h4{color:#FFD700;font-size:14px;margin-bottom:4px;}
 .job-item .job-info p{color:#8fa8c4;font-size:11px;}
-
-/* ============ TOAST ============ */
 .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);background:linear-gradient(90deg,#00C853,#00E676);color:#fff;padding:16px 32px;border-radius:12px;font-weight:bold;box-shadow:0 15px 40px rgba(0,0,0,.5);transition:.4s;z-index:2000;opacity:0;}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
-
-/* ============ MOBILE ============ */
 .mobile-toggle{display:none;position:fixed;top:15px;left:15px;z-index:999;background:linear-gradient(135deg,#FFD700,#FF9800);color:#000;border:none;width:45px;height:45px;border-radius:12px;font-size:20px;cursor:pointer;box-shadow:0 5px 20px rgba(0,0,0,.5);}
 @media(max-width:900px){
   .mobile-toggle{display:block;}
@@ -149,7 +124,6 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 </head>
 <body>
 
-<!-- LOGIN SCREEN -->
 <div class="login-screen" id="loginScreen">
   <div class="login-box">
     <img src="https://i.ibb.co.com/bgMN2Yv8/IMG-20260429-WA0011.jpg" class="logo" alt="Logo">
@@ -162,7 +136,6 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
   </div>
 </div>
 
-<!-- MAIN APP -->
 <div class="app-layout" id="appLayout" style="display:none;">
   <button class="mobile-toggle" onclick="toggleSidebar()">☰</button>
   
@@ -208,7 +181,6 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       <button class="logout-btn" onclick="doAdminLogout()">Logout</button>
     </div>
 
-    <!-- DASHBOARD -->
     <div class="panel active" id="dashboard">
       <div class="stats-grid">
         <div class="stat-card green"><span class="icon">👥</span><h4>Total Users</h4><div class="val" id="statUsers">0</div></div>
@@ -227,7 +199,6 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       </div>
     </div>
 
-    <!-- USERS -->
     <div class="panel" id="users">
       <div class="section-title">👥 User Management</div>
       <input type="text" class="search-box" id="userSearch" placeholder="🔍 Search by email or name..." oninput="renderUsers()">
@@ -249,7 +220,6 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       </div>
     </div>
 
-    <!-- CHAT -->
     <div class="panel" id="chats">
       <div class="section-title">💬 User Chat</div>
       <div class="chat-layout">
@@ -267,19 +237,16 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       </div>
     </div>
 
-    <!-- JOB PROOFS -->
     <div class="panel" id="proofs">
       <div class="section-title">📸 Job Proofs Review</div>
       <div id="proofsList"></div>
     </div>
 
-    <!-- ORDERS -->
     <div class="panel" id="orders">
       <div class="section-title">🛒 Social Promote Orders</div>
       <div id="ordersList"></div>
     </div>
 
-    <!-- REWARDS SETTINGS -->
     <div class="panel" id="rewards">
       <div class="section-title">💰 Reward Settings</div>
       <div class="settings-card">
@@ -295,7 +262,6 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       </div>
     </div>
 
-    <!-- JOB CREATOR -->
     <div class="panel" id="jobs">
       <div class="section-title">📅 Job Creator</div>
       <div class="settings-card">
@@ -309,7 +275,6 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       <div id="jobsList"></div>
     </div>
 
-    <!-- PROMOTE PRICES -->
     <div class="panel" id="promote">
       <div class="section-title">🛒 Social Promote Prices</div>
       <div class="settings-card">
@@ -319,7 +284,6 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       </div>
     </div>
 
-    <!-- NOTIFICATIONS -->
     <div class="panel" id="notifications">
       <div class="section-title">🔔 Send Notification</div>
       <div class="settings-card">
@@ -339,7 +303,6 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       <div id="notificationsList"></div>
     </div>
 
-    <!-- ANIMATIONS -->
     <div class="panel" id="animations">
       <div class="section-title">🎨 Animation Designs</div>
       <div class="settings-card">
@@ -354,12 +317,9 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 
 <div class="toast" id="toast"></div>
 
-<!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-
-<!-- Firebase Sync Helper -->
 <script src="firebase-sync.js"></script>
 
 <script>
@@ -378,7 +338,6 @@ function showToast(msg){
 }
 function toggleSidebar(){ document.getElementById('sidebar').classList.toggle('open'); }
 
-// ============= LOGIN =============
 function doAdminLogin(){
   var email = document.getElementById('adminEmail').value.trim().toLowerCase();
   var pass = document.getElementById('adminPass').value;
@@ -395,8 +354,16 @@ function doAdminLogin(){
   btn.disabled = true;
   btn.textContent = '⏳ Logging in...';
   
+  var loginTimeout = setTimeout(function(){
+    errEl.textContent = '❌ Login timeout! Internet চেক করুন বা আবার চেষ্টা করুন।';
+    errEl.classList.add('show');
+    btn.disabled = false;
+    btn.textContent = '🔐 Login';
+  }, 20000);
+  
   firebase.auth().signInWithEmailAndPassword(email, pass)
     .then(function(cred){
+      clearTimeout(loginTimeout);
       var uid = cred.user.uid;
       if(uid !== ADMIN_UID){
         return firebase.auth().signOut().then(function(){
@@ -409,7 +376,13 @@ function doAdminLogin(){
       initAdminPanel();
     })
     .catch(function(err){
-      errEl.textContent = '❌ ' + (err.message || 'Login failed');
+      clearTimeout(loginTimeout);
+      var msg = err.message || 'Login failed';
+      if(msg.indexOf('user-not-found') > -1) msg = 'এই Email দিয়ে একাউন্ট নেই!';
+      else if(msg.indexOf('wrong-password') > -1 || msg.indexOf('invalid-credential') > -1) msg = 'Password ভুল!';
+      else if(msg.indexOf('network') > -1) msg = 'Internet connection error!';
+      else if(msg.indexOf('too-many-requests') > -1) msg = 'অনেকবার ভুল! কিছুক্ষণ পরে চেষ্টা করুন।';
+      errEl.textContent = '❌ ' + msg;
       errEl.classList.add('show');
       btn.disabled = false;
       btn.textContent = '🔐 Login';
@@ -418,14 +391,14 @@ function doAdminLogin(){
 
 function doAdminLogout(){
   if(!confirm('Logout করবেন?')) return;
-  firebase.auth().signOut().then(function(){
-    location.reload();
-  });
+  firebase.auth().signOut().then(function(){ location.reload(); });
 }
 
-// ============= INIT =============
 function initAdminPanel(){
-  loadSettings(function(){ loadAllData(); startPolling(refreshData, 8000); });
+  loadSettings(function(){ 
+    loadAllData(); 
+    startPolling(refreshData, 8000); 
+  });
   loadDashboardStats();
 }
 
@@ -438,6 +411,7 @@ function loadAllData(){
   loadPromoteSettings();
   loadRewardSettingsForm();
   loadAnimationSettings();
+  loadChatBadge();
 }
 
 function refreshData(){
@@ -445,9 +419,9 @@ function refreshData(){
   loadChatBadge();
   loadProofBadge();
   loadOrderBadge();
+  if(selectedChatUser) loadChatMessages();
 }
 
-// ============= DASHBOARD =============
 function loadDashboardStats(){
   getAllUsers().then(function(users){
     allUsers = users || {};
@@ -457,12 +431,8 @@ function loadDashboardStats(){
       count++;
       totalBal += parseFloat(u.balance) || 0;
       totalAds += parseInt(u.adsWatched) || 0;
-      (u.deposits || []).forEach(function(d){
-        if(d.status === 'approved') totalDep += parseFloat(d.amount) || 0;
-      });
-      (u.withdraws || []).forEach(function(w){
-        if(w.status === 'paid') totalWd += parseFloat(w.amount) || 0;
-      });
+      (u.deposits || []).forEach(function(d){ if(d.status === 'approved') totalDep += parseFloat(d.amount) || 0; });
+      (u.withdraws || []).forEach(function(w){ if(w.status === 'paid') totalWd += parseFloat(w.amount) || 0; });
     });
     document.getElementById('statUsers').textContent = count;
     document.getElementById('statBalance').textContent = '৳' + totalBal.toFixed(2);
@@ -487,15 +457,16 @@ function loadDashboardStats(){
   getOrders().then(function(orders){
     allOrders = orders || {};
     var pending = 0;
-    Object.keys(allOrders).forEach(function(k){
-      if(allOrders[k].status === 'pending') pending++;
-    });
+    Object.keys(allOrders).forEach(function(k){ if(allOrders[k].status === 'pending') pending++; });
     document.getElementById('statOrders').textContent = pending;
     renderOrders();
   });
 }
 
-// ============= USERS =============
+function loadUsers(){
+  getAllUsers().then(function(users){ allUsers = users || {}; renderUsers(); });
+}
+
 function renderUsers(){
   var search = (document.getElementById('userSearch').value || '').toLowerCase();
   var tbody = document.getElementById('usersTable');
@@ -523,60 +494,45 @@ function renderUsers(){
       '<td style="color:#FFD700;font-weight:800;">৳ ' + (parseFloat(u.totalEarned) || 0).toFixed(2) + '</td>' +
       '<td><span class="status-badge ' + statusClass + '">' + statusText + '</span></td>' +
       '<td>' +
-        '<button class="action-btn btn-cyan" style="background:#00E5FF;color:#000;" onclick="addUserBalance(\'' + u.email + '\')">💰</button>' +
-        '<button class="action-btn btn-green" style="background:#00E676;color:#fff;" onclick="toggleVerify(\'' + u.email + '\')">✅</button>' +
-        '<button class="action-btn btn-red" style="background:#FF1744;color:#fff;" onclick="toggleBan(\'' + u.email + '\')">🚫</button>' +
+        '<button class="action-btn" style="background:#00E5FF;color:#000;" onclick="addUserBalance(\'' + u.email + '\')">💰 Balance</button>' +
+        '<button class="action-btn" style="background:#00E676;color:#fff;" onclick="toggleVerify(\'' + u.email + '\')">✅</button>' +
+        '<button class="action-btn" style="background:#FF1744;color:#fff;" onclick="toggleBan(\'' + u.email + '\')">🚫</button>' +
       '</td>' +
     '</tr>';
   }).join('');
 }
 
+function findUserByEmail(email){
+  var found = null;
+  Object.keys(allUsers).forEach(function(k){ if(allUsers[k].email === email) found = allUsers[k]; });
+  return found;
+}
+
 function addUserBalance(email){
-  var amount = prompt('কত টাকা যোগ/বিয়োগ করবেন? (বিয়োগের জন্য - চিহ্ন দিন):', '10');
+  var amount = prompt('কত টাকা যোগ/বিয়োগ করবেন? (বিয়োগের জন্য - চিহ্ন):', '10');
   if(amount === null) return;
   var amt = parseFloat(amount);
   if(isNaN(amt)) return showToast('❌ সঠিক সংখ্যা দিন!');
-  var user = allUsers[email.replace(/[.#$\[\]]/g, '_')];
-  if(!user){ 
-    Object.keys(allUsers).forEach(function(k){
-      if(allUsers[k].email === email) user = allUsers[k];
-    });
-  }
+  var user = findUserByEmail(email);
   if(!user) return showToast('❌ User not found!');
   user.balance = (parseFloat(user.balance) || 0) + amt;
-  saveUser(user).then(function(){
-    showToast('✅ Balance updated!');
-    loadDashboardStats();
-  });
+  saveUser(user).then(function(){ showToast('✅ Balance updated!'); loadDashboardStats(); });
 }
 
 function toggleVerify(email){
-  var user = null;
-  Object.keys(allUsers).forEach(function(k){
-    if(allUsers[k].email === email) user = allUsers[k];
-  });
+  var user = findUserByEmail(email);
   if(!user) return showToast('❌ User not found!');
   user.verified = !user.verified;
-  saveUser(user).then(function(){
-    showToast(user.verified ? '✅ Verified!' : '⚠️ Unverified!');
-    loadDashboardStats();
-  });
+  saveUser(user).then(function(){ showToast(user.verified ? '✅ Verified!' : '⚠️ Unverified!'); loadDashboardStats(); });
 }
 
 function toggleBan(email){
-  var user = null;
-  Object.keys(allUsers).forEach(function(k){
-    if(allUsers[k].email === email) user = allUsers[k];
-  });
+  var user = findUserByEmail(email);
   if(!user) return showToast('❌ User not found!');
   user.banned = !user.banned;
-  saveUser(user).then(function(){
-    showToast(user.banned ? '🚫 Banned!' : '✅ Unbanned!');
-    loadDashboardStats();
-  });
+  saveUser(user).then(function(){ showToast(user.banned ? '🚫 Banned!' : '✅ Unbanned!'); loadDashboardStats(); });
 }
 
-// ============= CHAT =============
 function loadChatBadge(){
   getAllUsers().then(function(users){
     var count = 0;
@@ -584,7 +540,7 @@ function loadChatBadge(){
       var u = users[k];
       if(u.chat && u.chat.length){
         var lastMsg = u.chat[u.chat.length - 1];
-        if(lastMsg.from === 'user') count++;
+        if(lastMsg.from === 'user' && !lastMsg.read) count++;
       }
     });
     var badge = document.getElementById('chatBadge');
@@ -648,39 +604,33 @@ function sendAdminChat(){
     if(!u) return;
     u.chat = u.chat || [];
     u.chat.push({ from: 'admin', text: text, date: new Date().toISOString(), read: true });
-    saveUser(u).then(function(){
-      inp.value = '';
-      loadChatMessages();
-      showToast('✅ Message sent!');
-    });
+    saveUser(u).then(function(){ inp.value = ''; loadChatMessages(); showToast('✅ Message sent!'); });
   });
 }
 
-// ============= PROOFS =============
 function loadProofBadge(){
   getJobProofs().then(function(proofs){
     var count = 0;
-    Object.keys(proofs || {}).forEach(function(k){
-      if(proofs[k].status === 'pending') count++;
-    });
+    Object.keys(proofs || {}).forEach(function(k){ if(proofs[k].status === 'pending') count++; });
     var badge = document.getElementById('proofBadge');
     if(count > 0){ badge.textContent = count; badge.style.display = 'inline-block'; }
     else badge.style.display = 'none';
   });
 }
 
+function loadProofs(){
+  getJobProofs().then(function(proofs){ allProofs = proofs || {}; renderProofs(); loadProofBadge(); });
+}
+
 function renderProofs(){
   var container = document.getElementById('proofsList');
   if(!container) return;
-  var arr = Object.keys(allProofs || {}).map(function(k){
-    return Object.assign({ id: k }, allProofs[k]);
-  }).sort(function(a,b){ return (b.date || '').localeCompare(a.date || ''); });
-  
+  var arr = Object.keys(allProofs || {}).map(function(k){ return Object.assign({ id: k }, allProofs[k]); })
+    .sort(function(a,b){ return (b.date || '').localeCompare(a.date || ''); });
   if(!arr.length){
     container.innerHTML = '<div style="text-align:center;color:#6b7d94;padding:30px;">No proofs submitted yet</div>';
     return;
   }
-  
   container.innerHTML = arr.map(function(p){
     var statusColor = p.status === 'approved' ? '#00E676' : p.status === 'rejected' ? '#FF1744' : '#FF9800';
     return '<div class="proof-card">' +
@@ -711,21 +661,12 @@ function approveProof(id){
   updateJobProof(id, proof).then(function(){
     getAllUsers().then(function(users){
       var user = null;
-      Object.keys(users || {}).forEach(function(k){
-        if(users[k].email === proof.email) user = users[k];
-      });
+      Object.keys(users || {}).forEach(function(k){ if(users[k].email === proof.email) user = users[k]; });
       if(user){
         user.balance = (parseFloat(user.balance) || 0) + (parseFloat(proof.reward) || 0);
         user.totalEarned = (parseFloat(user.totalEarned) || 0) + (parseFloat(proof.reward) || 0);
-        saveUser(user).then(function(){
-          showToast('✅ Proof approved! Balance added.');
-          loadDashboardStats();
-          loadProofs();
-        });
-      } else {
-        showToast('✅ Proof approved!');
-        loadProofs();
-      }
+        saveUser(user).then(function(){ showToast('✅ Proof approved!'); loadDashboardStats(); loadProofs(); });
+      } else { showToast('✅ Proof approved!'); loadProofs(); }
     });
   });
 }
@@ -736,45 +677,32 @@ function rejectProof(id){
   if(!proof) return;
   proof.status = 'rejected';
   proof.rejectedDate = new Date().toISOString();
-  updateJobProof(id, proof).then(function(){
-    showToast('❌ Proof rejected');
-    loadProofs();
-  });
+  updateJobProof(id, proof).then(function(){ showToast('❌ Proof rejected'); loadProofs(); });
 }
 
-function loadProofs(){
-  getJobProofs().then(function(proofs){
-    allProofs = proofs || {};
-    renderProofs();
-    loadProofBadge();
-  });
-}
-
-// ============= ORDERS =============
 function loadOrderBadge(){
   getOrders().then(function(orders){
     var count = 0;
-    Object.keys(orders || {}).forEach(function(k){
-      if(orders[k].status === 'pending') count++;
-    });
+    Object.keys(orders || {}).forEach(function(k){ if(orders[k].status === 'pending') count++; });
     var badge = document.getElementById('orderBadge');
     if(count > 0){ badge.textContent = count; badge.style.display = 'inline-block'; }
     else badge.style.display = 'none';
   });
 }
 
+function loadOrders(){
+  getOrders().then(function(orders){ allOrders = orders || {}; renderOrders(); loadOrderBadge(); });
+}
+
 function renderOrders(){
   var container = document.getElementById('ordersList');
   if(!container) return;
-  var arr = Object.keys(allOrders || {}).map(function(k){
-    return Object.assign({ id: k }, allOrders[k]);
-  }).sort(function(a,b){ return (b.date || '').localeCompare(a.date || ''); });
-  
+  var arr = Object.keys(allOrders || {}).map(function(k){ return Object.assign({ id: k }, allOrders[k]); })
+    .sort(function(a,b){ return (b.date || '').localeCompare(a.date || ''); });
   if(!arr.length){
     container.innerHTML = '<div style="text-align:center;color:#6b7d94;padding:30px;">No orders yet</div>';
     return;
   }
-  
   container.innerHTML = arr.map(function(o){
     var statusColor = o.status === 'approved' ? '#00E676' : o.status === 'rejected' ? '#FF1744' : '#FF9800';
     return '<div class="proof-card">' +
@@ -800,10 +728,7 @@ function approveOrder(id){
   if(!order) return;
   order.status = 'approved';
   order.approvedDate = new Date().toISOString();
-  DB.update('/orders/' + id, order).then(function(){
-    showToast('✅ Order approved!');
-    loadDashboardStats();
-  });
+  DB.update('/orders/' + id, order).then(function(){ showToast('✅ Order approved!'); loadDashboardStats(); });
 }
 
 function rejectOrder(id){
@@ -812,21 +737,9 @@ function rejectOrder(id){
   if(!order) return;
   order.status = 'rejected';
   order.rejectedDate = new Date().toISOString();
-  DB.update('/orders/' + id, order).then(function(){
-    showToast('❌ Order rejected');
-    loadDashboardStats();
-  });
+  DB.update('/orders/' + id, order).then(function(){ showToast('❌ Order rejected'); loadDashboardStats(); });
 }
 
-function loadOrders(){
-  getOrders().then(function(orders){
-    allOrders = orders || {};
-    renderOrders();
-    loadOrderBadge();
-  });
-}
-
-// ============= REWARDS =============
 function loadRewardSettingsForm(){
   loadSettings(function(s){
     document.getElementById('sAdsReward').value = s.adsReward || 0.10;
@@ -851,12 +764,9 @@ function saveRewardSettings(){
     minWithdraw: parseInt(document.getElementById('sMinWithdraw').value) || 110,
     withdrawFee: parseInt(document.getElementById('sWithdrawFee').value) || 10
   };
-  saveSettings(newSettings).then(function(){
-    showToast('✅ Settings saved!');
-  });
+  saveSettings(newSettings).then(function(){ showToast('✅ Settings saved!'); });
 }
 
-// ============= JOB CREATOR =============
 var DEFAULT_JOBS = [
   { name: 'YouTube Subscribe', link: 'https://youtube.com/@aiatikfreelanch', reward: 0.20, icon: '▶️' },
   { name: 'Facebook Like', link: 'https://www.facebook.com/profile.php?id=61592860621046', reward: 0.20, icon: '📘' },
@@ -865,10 +775,7 @@ var DEFAULT_JOBS = [
 ];
 
 function loadJobs(){
-  DB.get('/jobs').then(function(data){
-    var jobs = data || DEFAULT_JOBS;
-    renderJobs(jobs);
-  });
+  DB.get('/jobs').then(function(data){ renderJobs(data || DEFAULT_JOBS); });
 }
 
 function renderJobs(jobs){
@@ -914,14 +821,10 @@ function deleteJob(index){
     var jobs = data || DEFAULT_JOBS;
     var arr = Array.isArray(jobs) ? jobs : Object.keys(jobs).map(function(k){ return jobs[k]; });
     arr.splice(index, 1);
-    DB.set('/jobs', arr).then(function(){
-      showToast('🗑️ Job deleted!');
-      loadJobs();
-    });
+    DB.set('/jobs', arr).then(function(){ showToast('🗑️ Job deleted!'); loadJobs(); });
   });
 }
 
-// ============= PROMOTE PRICES =============
 var PROMOTE_CATEGORIES = {
   facebook: ['Facebook ID Followers', 'Facebook ID Likes', 'Facebook Page Followers', 'Facebook Page Likes', 'Facebook Video Views', 'Facebook Reels Views', 'Facebook Post Reactions', 'Facebook Post Comments', 'Facebook Group Members', 'Facebook Watch Time'],
   youtube: ['YouTube Channel Subscribers', 'YouTube Video Views', 'YouTube Shorts Views', 'YouTube Video Likes', 'YouTube Comments', 'YouTube Watch Time'],
@@ -931,10 +834,7 @@ var PROMOTE_CATEGORIES = {
 };
 
 function loadPromoteSettings(){
-  DB.get('/promote_prices').then(function(data){
-    var prices = data || {};
-    renderPromoteSettings(prices);
-  });
+  DB.get('/promote_prices').then(function(data){ renderPromoteSettings(data || {}); });
 }
 
 function renderPromoteSettings(prices){
@@ -956,15 +856,10 @@ function renderPromoteSettings(prices){
 function savePromoteSettings(){
   var inputs = document.querySelectorAll('[data-promo-key]');
   var data = {};
-  inputs.forEach(function(inp){
-    data[inp.getAttribute('data-promo-key')] = parseFloat(inp.value) || 50;
-  });
-  DB.set('/promote_prices', data).then(function(){
-    showToast('✅ Promote prices saved!');
-  });
+  inputs.forEach(function(inp){ data[inp.getAttribute('data-promo-key')] = parseFloat(inp.value) || 50; });
+  DB.set('/promote_prices', data).then(function(){ showToast('✅ Promote prices saved!'); });
 }
 
-// ============= NOTIFICATIONS =============
 function sendAdminNotification(){
   var target = document.getElementById('notifTarget').value;
   var userEmail = document.getElementById('notifUserEmail').value.trim();
@@ -973,15 +868,10 @@ function sendAdminNotification(){
   var message = document.getElementById('notifMessage').value.trim();
   if(!title) return showToast('❌ Title দিন!');
   if(target === 'single' && !userEmail) return showToast('❌ User email দিন!');
-  
   var notif = {
     target: target === 'all' ? 'all' : userEmail,
-    icon: icon,
-    title: title,
-    message: message,
-    date: new Date().toISOString()
+    icon: icon, title: title, message: message, date: new Date().toISOString()
   };
-  
   sendNotification(notif).then(function(){
     showToast('✅ Notification sent!');
     document.getElementById('notifTitle').value = '';
@@ -1014,7 +904,6 @@ document.getElementById('notifTarget').addEventListener('change', function(){
   document.getElementById('notifUserGroup').style.display = this.value === 'single' ? 'block' : 'none';
 });
 
-// ============= ANIMATIONS =============
 var ANIMATION_OPTIONS = [
   { id: 'night', name: '🌙 Night Village', desc: 'রাতের গ্রাম, তারা, চাঁদ, গাছ' },
   { id: 'rain', name: '🌧️ Rainy Night', desc: 'বৃষ্টি, মেঘ, বিদ্যুৎ চমক' },
@@ -1043,19 +932,14 @@ function renderAnimationOptions(current){
   container.setAttribute('data-selected', current);
 }
 
-function selectAnimation(id){
-  renderAnimationOptions(id);
-}
+function selectAnimation(id){ renderAnimationOptions(id); }
 
 function saveAnimationSetting(){
   var container = document.getElementById('animationOptions');
   var design = container.getAttribute('data-selected') || 'night';
-  DB.set('/settings/animation', { design: design }).then(function(){
-    showToast('✅ Animation saved!');
-  });
+  DB.set('/settings/animation', { design: design }).then(function(){ showToast('✅ Animation saved!'); });
 }
 
-// ============= NAV =============
 document.querySelectorAll('.menu-item[data-panel]').forEach(function(item){
   item.addEventListener('click', function(){
     var panel = this.getAttribute('data-panel');
@@ -1072,13 +956,15 @@ document.querySelectorAll('.menu-item[data-panel]').forEach(function(item){
   });
 });
 
-// ============= AUTO LOGIN CHECK =============
 firebase.auth().onAuthStateChanged(function(user){
-  if(user && user.uid === ADMIN_UID){
-    currentAdmin = user;
-    document.getElementById('loginScreen').style.display = 'none';
-    document.getElementById('appLayout').style.display = 'flex';
-    initAdminPanel();
+  if(user){
+    DB.set('/admins/' + user.uid, true).catch(function(err){ console.log('Admin UID save error:', err); });
+    if(user.uid === ADMIN_UID){
+      currentAdmin = user;
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('appLayout').style.display = 'flex';
+      initAdminPanel();
+    }
   }
 });
 

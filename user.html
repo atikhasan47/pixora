@@ -313,8 +313,8 @@ body{min-height:100vh;background:linear-gradient(135deg,#e0f7fa 0%,#b2ebf2 50%,#
           <button class="thb-btn thb-logout" onclick="doLogout()">Logout</button>
         </div>
       </div>
-      <!-- টপ এড (প্যানেল ১) -->
-      <div class="ad-space" style="margin-bottom:15px;"><div class="ad-slot" data-ad-panel="dashboard_top"></div></div>
+      <!-- এড ১ (উপরে) - সবসময় লোড থাকবে, প্রতি ৬০ সেকেন্ডে পরিবর্তন হবে -->
+      <div class="ad-space"><div class="ad-slot" id="adSlot1"></div></div>
       <div class="profile-logo-section">
         <div class="profile-logo-box">
           <div class="logo-photo-wrap">
@@ -339,33 +339,33 @@ body{min-height:100vh;background:linear-gradient(135deg,#e0f7fa 0%,#b2ebf2 50%,#
             <div class="verified" id="verifyBadge">⚠️ ভেরিফাইড নয়! <span style="cursor:pointer;text-decoration:underline;margin-left:5px;" onclick="verifyAccount()">Verify</span></div>
           </div>
           <div class="welcome-actions">
-            <button class="btn btn-cyan" onclick="showAdAndGo('add-funds')">➕ Add Money</button>
-            <button class="btn btn-green" onclick="showAdAndGo('withdraw-money')">💸 Withdraw</button>
+            <button class="btn btn-cyan" onclick="goPanel('add-funds')">➕ Add Money</button>
+            <button class="btn btn-green" onclick="goPanel('withdraw-money')">💸 Withdraw</button>
           </div>
         </div>
       </div>
       <div class="stats-grid">
-        <div class="stat-card cyan clickable" onclick="showAdAndGo('wallet-history')"><span class="icon">💰</span><h4>Main Balance</h4><div class="val">৳ <span id="mainBalance">0.00</span></div></div>
+        <div class="stat-card cyan clickable" onclick="goPanel('wallet-history')"><span class="icon">💰</span><h4>Main Balance</h4><div class="val">৳ <span id="mainBalance">0.00</span></div></div>
         <div class="stat-card orange clickable"><span class="icon">📅</span><h4>Today's Income</h4><div class="val">৳ <span id="todayIncome">0.00</span></div></div>
         <div class="stat-card green clickable"><span class="icon">📈</span><h4>Total Earned</h4><div class="val">৳ <span id="totalEarned">0.00</span></div></div>
-        <div class="stat-card pink clickable" onclick="showAdAndGo('watch-ads')"><span class="icon">📺</span><h4>Total Ads</h4><div class="val"><span id="adsWatched">0</span></div></div>
+        <div class="stat-card pink clickable" onclick="goPanel('watch-ads')"><span class="icon">📺</span><h4>Total Ads</h4><div class="val"><span id="adsWatched">0</span></div></div>
       </div>
       <div class="section">
         <div class="section-title">🎯 Earning Services</div>
         <div class="service-cards">
-          <div class="svc-big" onclick="showAdAndGo('job')" style="border-color:#00acc1;">
+          <div class="svc-big" onclick="goPanel('job')" style="border-color:#00acc1;">
             <span class="svc-icon">📅</span><h3>Daily Job</h3><p>কাজ করে প্রুফ দিন</p><div class="svc-btn">Start Job →</div>
           </div>
-          <div class="svc-big" onclick="showAdAndGo('watch-ads')" style="border-color:#00acc1;">
+          <div class="svc-big" onclick="goPanel('watch-ads')" style="border-color:#00acc1;">
             <span class="svc-icon">📺</span><h3>Watch Ads</h3><p>প্রতি অ্যাডে ৳0.10</p><div class="svc-btn">Watch Now →</div>
           </div>
-          <div class="svc-big" onclick="showAdAndGo('math')" style="border-color:#00acc1;">
+          <div class="svc-big" onclick="goPanel('math')" style="border-color:#00acc1;">
             <span class="svc-icon">🧮</span><h3>Math Earn</h3><p>৳0.04 আয়</p><div class="svc-btn">Solve Math →</div>
           </div>
         </div>
       </div>
-      <!-- নিচের এড (প্যানেল ২) -->
-      <div class="ad-space"><div class="ad-slot" data-ad-panel="dashboard_bottom"></div></div>
+      <!-- এড ২ (নিচে) -->
+      <div class="ad-space"><div class="ad-slot" id="adSlot2"></div></div>
     </div>
 
     <!-- Watch Ads -->
@@ -385,7 +385,7 @@ body{min-height:100vh;background:linear-gradient(135deg,#e0f7fa 0%,#b2ebf2 50%,#
         </div>
         <div id="mathFeedback" style="margin-top:15px;font-size:14px;font-weight:700;"></div>
       </div>
-      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" data-ad-panel="watch_ads"></div></div>
+      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" id="adSlot3"></div></div>
     </div>
 
     <!-- Math -->
@@ -402,7 +402,7 @@ body{min-height:100vh;background:linear-gradient(135deg,#e0f7fa 0%,#b2ebf2 50%,#
         <button onclick="submitMathPage()" style="background:linear-gradient(90deg,#00acc1,#00838f);color:#fff;padding:18px 40px;border:none;border-radius:14px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;display:block;margin:0 auto;box-shadow:0 4px 10px rgba(0,172,193,.3);">✅ ক্লেইম</button>
         <div id="mathPageFeedback" style="margin-top:15px;font-size:14px;font-weight:700;"></div>
       </div>
-      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" data-ad-panel="math"></div></div>
+      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" id="adSlot4"></div></div>
     </div>
 
     <!-- Daily Job -->
@@ -428,11 +428,11 @@ body{min-height:100vh;background:linear-gradient(135deg,#e0f7fa 0%,#b2ebf2 50%,#
           </div>
         </div>
         <div style="display:flex;gap:10px;">
-          <button class="btn btn-cyan" style="flex:1;justify-content:center;" onclick="showAdAndSubmitJobProof()">✅ Submit</button>
+          <button class="btn btn-cyan" style="flex:1;justify-content:center;" onclick="submitJobProofActual()">✅ Submit</button>
           <button class="btn btn-red" onclick="document.getElementById('jobProofPanel').style.display='none'">❌ Cancel</button>
         </div>
       </div>
-      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" data-ad-panel="job"></div></div>
+      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" id="adSlot5"></div></div>
     </div>
 
     <!-- Social -->
@@ -446,7 +446,7 @@ body{min-height:100vh;background:linear-gradient(135deg,#e0f7fa 0%,#b2ebf2 50%,#
         <button class="social-tab" onclick="switchSocial('telegram',this)" style="flex:1;min-width:100px;padding:12px 16px;background:transparent;color:#00838f;border:none;font-size:13px;font-weight:700;border-radius:10px;cursor:pointer;font-family:inherit;">Telegram</button>
       </div>
       <div id="serviceList" style="display:grid;gap:12px;"></div>
-      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" data-ad-panel="social"></div></div>
+      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" id="adSlot6"></div></div>
     </div>
 
     <!-- Wallet -->
@@ -456,15 +456,15 @@ body{min-height:100vh;background:linear-gradient(135deg,#e0f7fa 0%,#b2ebf2 50%,#
         <h3 style="color:#00838f;font-size:12px;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;">Available Balance</h3>
         <div style="font-size:40px;font-weight:900;color:#006064;font-family:'Courier New',monospace;margin-bottom:20px;">৳ <span id="walletBalance">0.00</span></div>
         <div style="display:flex;gap:12px;flex-wrap:wrap;">
-          <button class="btn btn-cyan" onclick="showAdAndGo('add-funds')">➕ Add Money</button>
-          <button class="btn btn-cyan" onclick="showAdAndGo('withdraw-money')">💸 Withdraw</button>
+          <button class="btn btn-cyan" onclick="goPanel('add-funds')">➕ Add Money</button>
+          <button class="btn btn-cyan" onclick="goPanel('withdraw-money')">💸 Withdraw</button>
         </div>
       </div>
       <table style="width:100%;border-collapse:collapse;background:#ffffff;border-radius:14px;overflow:hidden;box-shadow:0 4px 15px rgba(0,172,193,.05);">
         <thead><tr style="background:rgba(0,172,193,.15);"><th style="padding:12px;text-align:left;color:#006064;font-size:11px;">Date</th><th style="padding:12px;text-align:left;color:#006064;font-size:11px;">Type</th><th style="padding:12px;text-align:left;color:#006064;font-size:11px;">Amount</th><th style="padding:12px;text-align:left;color:#006064;font-size:11px;">Status</th></tr></thead>
         <tbody id="txnTable"><tr><td colspan="4" style="text-align:center;color:#00838f;padding:30px;">কোনো লেনদেন নেই</td></tr></tbody>
       </table>
-      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" data-ad-panel="wallet"></div></div>
+      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" id="adSlot7"></div></div>
     </div>
 
     <!-- Add Money -->
@@ -479,11 +479,11 @@ body{min-height:100vh;background:linear-gradient(135deg,#e0f7fa 0%,#b2ebf2 50%,#
         <div class="form-group"><label>Amount (Min ৳100)</label><input type="number" id="depositAmt" placeholder="100"></div>
         <div class="form-group"><label>Sender Number</label><input type="text" id="depositSender" placeholder="01XXXXXXXXX"></div>
         <div class="form-group"><label>Transaction ID</label><input type="text" id="depositTxn" placeholder="TrxID"></div>
-        <button class="btn btn-cyan" style="width:100%;justify-content:center;" onclick="showAdAndDeposit()">Submit</button>
+        <button class="btn btn-cyan" style="width:100%;justify-content:center;" onclick="doDeposit()">Submit</button>
       </div>
       <div class="section-title" style="margin-top:25px;">📜 Deposit History</div>
       <div id="depositHistory"></div>
-      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" data-ad-panel="add_funds"></div></div>
+      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" id="adSlot8"></div></div>
     </div>
 
     <!-- Withdraw -->
@@ -494,11 +494,11 @@ body{min-height:100vh;background:linear-gradient(135deg,#e0f7fa 0%,#b2ebf2 50%,#
         <p style="margin-bottom:20px;color:#00838f;">Minimum: ৳110 | Fee: ৳10</p>
         <div class="form-group"><label>Amount</label><input type="number" id="withdrawAmt" placeholder="110"></div>
         <div class="form-group"><label>Your Bkash/Nagad</label><input type="text" id="withdrawAcc" placeholder="01XXXXXXXXX"></div>
-        <button class="btn btn-red" style="width:100%;justify-content:center;" onclick="showAdAndWithdraw()">Submit</button>
+        <button class="btn btn-red" style="width:100%;justify-content:center;" onclick="doWithdraw()">Submit</button>
       </div>
       <div class="section-title" style="margin-top:25px;">📜 Withdraw History</div>
       <div id="withdrawHistory"></div>
-      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" data-ad-panel="withdraw"></div></div>
+      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" id="adSlot9"></div></div>
     </div>
 
     <!-- Premium -->
@@ -512,9 +512,9 @@ body{min-height:100vh;background:linear-gradient(135deg,#e0f7fa 0%,#b2ebf2 50%,#
         <ul style="text-align:left;display:inline-block;margin:15px 0;font-size:15px;line-height:2.2;list-style:none;">
           <li>✅ আনলিমিটেড Ads</li><li>✅ প্রতি Ads ৳0.12 (ডাবল)</li><li>✅ Math Earn ৳0.08 (ডাবল)</li><li>✅ Daily Job আনলিমিটেড</li><li>✅ দ্রুত Withdraw</li>
         </ul><br>
-        <button class="btn" style="background:#ffffff;color:#00acc1;padding:16px 40px;font-size:16px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,.1);" onclick="showAdAndPremium()">Upgrade Now</button>
+        <button class="btn" style="background:#ffffff;color:#00acc1;padding:16px 40px;font-size:16px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,.1);" onclick="openPremiumModal()">Upgrade Now</button>
       </div>
-      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" data-ad-panel="premium"></div></div>
+      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" id="adSlot10"></div></div>
     </div>
 
     <!-- Support -->
@@ -531,7 +531,7 @@ body{min-height:100vh;background:linear-gradient(135deg,#e0f7fa 0%,#b2ebf2 50%,#
           <div style="font-size:44px;">📘</div><h4 style="color:#006064;margin:10px 0;">Facebook</h4><div style="color:#00838f;font-size:12px;">Atik Freelancer</div>
         </a>
       </div>
-      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" data-ad-panel="support"></div></div>
+      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" id="adSlot11"></div></div>
     </div>
 
     <!-- Chat -->
@@ -546,7 +546,7 @@ body{min-height:100vh;background:linear-gradient(135deg,#e0f7fa 0%,#b2ebf2 50%,#
           <button onclick="sendChat()">📤</button>
         </div>
       </div>
-      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" data-ad-panel="chat"></div></div>
+      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" id="adSlot12"></div></div>
     </div>
   </main>
 </div>
@@ -557,70 +557,6 @@ body{min-height:100vh;background:linear-gradient(135deg,#e0f7fa 0%,#b2ebf2 50%,#
   <div class="nav-item" data-panel="wallet-history" onclick="goPanel('wallet-history')"><span>💰</span> Wallet</div>
   <div class="nav-item" data-panel="premium" onclick="goPanel('premium')"><span>💎</span> Premium</div>
   <div class="nav-item" data-panel="support" onclick="goPanel('support')"><span>💬</span> Support</div>
-</div>
-
-<div class="ad-overlay" id="adOverlay">
-  <div class="ad-overlay-box">
-    <div class="ad-overlay-header">
-      <div class="ad-overlay-title">📺 Advertisement</div>
-      <div class="ad-overlay-timer" id="adTimerDisplay">8</div>
-    </div>
-    <div class="ad-slot-overlay" id="adOverlaySlot"><div style="color:#00838f;font-size:14px;">Ad Loading...</div></div>
-    <div class="ad-overlay-progress"><div class="ad-overlay-progress-bar" id="adProgressBar"></div></div>
-    <div class="ad-overlay-info">⏳ অপেক্ষা করুন — <span id="adTimerText">8</span> সেকেন্ড</div>
-    <button class="ad-overlay-btn" id="adCloseBtn" disabled onclick="closeAdOverlay()">অপেক্ষা করুন...</button>
-    <div class="ad-overlay-note">Sponsored content</div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="premiumModal">
-  <div class="login-box">
-    <h2 style="color:#006064;">💎 Premium Payment</h2>
-    <div style="background:#e0f7fa;border:2px solid #00acc1;border-radius:12px;padding:16px;margin-bottom:18px;text-align:center;">
-      <div style="color:#00838f;font-size:12px;">Send ৳ <span id="premPrice">90</span> to</div>
-      <div style="color:#00acc1;font-size:22px;font-weight:900;margin-top:6px;">01988891195</div>
-      <div style="color:#00838f;font-size:11px;margin-top:4px;">Bkash / Nagad (Personal)</div>
-    </div>
-    <div class="form-group"><label>Sender Number</label><input type="text" id="premiumSender" placeholder="01XXXXXXXXX"></div>
-    <div class="form-group"><label>Transaction ID</label><input type="text" id="premiumTxn" placeholder="TrxID"></div>
-    <div class="form-group"><label>📸 Screenshot Proof</label><input type="file" id="premiumScreenshot" accept="image/*"></div>
-    <div style="display:flex;gap:10px;">
-      <button class="btn btn-cyan" style="flex:1;justify-content:center;" onclick="submitPremiumRequest()">Submit</button>
-      <button class="btn btn-red" onclick="closePremiumModal()">Cancel</button>
-    </div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="orderModal">
-  <div class="login-box">
-    <h2 style="color:#006064;">🛒 Order Service</h2>
-    <div style="background:#e0f7fa;border:2px solid #00acc1;border-radius:12px;padding:16px;margin-bottom:18px;">
-      <div style="color:#00838f;font-size:11px;text-transform:uppercase;margin-bottom:6px;">Service</div>
-      <div style="color:#00363a;font-size:15px;font-weight:700;" id="orderServiceName">-</div>
-      <div style="color:#00acc1;font-size:22px;font-weight:900;margin-top:8px;font-family:'Courier New',monospace;">৳ <span id="orderServicePrice">0</span></div>
-    </div>
-    <div class="form-group"><label>📝 Service Link</label><input type="text" id="orderLink" placeholder="https://..."></div>
-    <div class="form-group">
-      <label>💳 Payment Method</label>
-      <select id="orderPaymentMethod" onchange="togglePaymentMethod()" style="width:100%;padding:13px;background:#ffffff;border:2px solid #b2ebf2;border-radius:12px;color:#00363a;font-size:14px;font-family:inherit;outline:none;">
-        <option value="wallet">💰 Wallet Balance থেকে</option>
-        <option value="bkash">📱 Bkash / Nagad</option>
-      </select>
-    </div>
-    <div id="walletPaymentBox" style="background:rgba(0,200,83,.08);border:2px solid rgba(0,200,83,.3);border-radius:12px;padding:14px;margin-bottom:15px;">
-      <div style="color:#00838f;font-size:12px;">আপনার Balance</div>
-      <div style="color:#00c853;font-size:22px;font-weight:900;">৳ <span id="orderWalletBalance">0</span></div>
-    </div>
-    <div id="bkashPaymentBox" style="display:none;background:#e0f7fa;border:2px solid #00acc1;border-radius:12px;padding:14px;margin-bottom:15px;">
-      <div style="color:#006064;font-size:14px;font-weight:800;margin-bottom:10px;">📱 Send to: 01988891195</div>
-      <div class="form-group"><label>📝 TrxID</label><input type="text" id="orderTxn" placeholder="TrxID"></div>
-      <div class="form-group"><label>📸 Screenshot</label><input type="file" id="orderScreenshot" accept="image/*"></div>
-    </div>
-    <div style="display:flex;gap:10px;">
-      <button class="btn btn-cyan" style="flex:1;justify-content:center;" onclick="submitOrder()">Submit</button>
-      <button class="btn btn-red" onclick="closeOrderModal()">Cancel</button>
-    </div>
-  </div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -637,15 +573,20 @@ var SERVICES = {
   telegram:[{name:'Telegram Channel Members',price:150},{name:'Telegram Group Members',price:130},{name:'Telegram Post Views',price:30},{name:'Telegram Post Reactions',price:60},{name:'Telegram Poll Votes',price:70}]
 };
 
-// ============ AD SYSTEM - STABLE VERSION (24h Auto) ============
+// ============ 24 HOURS AUTO AD SYSTEM ============
+// HighRevenueFormat এর 3টি এড কী
 var AD_KEYS = [
   {key:'f7b5fb1e6fc33ea203f08bdd042e987c', w:300, h:250},
   {key:'fa90bcf6b604ee93575cf3bf5161abce', w:728, h:90},
   {key:'22e82538f1de9118ba07f9a995a692d4', w:320, h:50}
 ];
 
-// Inject ad into a slot using iframe srcdoc (no document.write issues)
-function injectAd(slot, adIndex){
+// সব অ্যাড স্লট এর আইডি (আপনার HTML-এ যেভাবে আছে)
+var AD_SLOTS = ['adSlot1','adSlot2','adSlot3','adSlot4','adSlot5','adSlot6','adSlot7','adSlot8','adSlot9','adSlot10','adSlot11','adSlot12'];
+
+// একটি স্লটে এড ইনজেক্ট করা
+function injectAd(slotId, adIndex){
+  var slot = document.getElementById(slotId);
   if(!slot) return;
   var ad = AD_KEYS[adIndex % AD_KEYS.length];
   slot.innerHTML = '';
@@ -662,69 +603,43 @@ function injectAd(slot, adIndex){
   slot.appendChild(iframe);
 }
 
-// Load all panel ad slots (initial)
+// সব স্লটে এড লোড করা
 function loadAllAds(){
-  var slots = document.querySelectorAll('.ad-slot[data-ad-panel]');
-  slots.forEach(function(slot, index){
-    injectAd(slot, index);
+  AD_SLOTS.forEach(function(slotId, index){
+    injectAd(slotId, index);
   });
 }
 
-// 24 hour auto rotation: Every 30 seconds rotate all ads
+// 24 hours auto ad rotation
+var adRotationInterval = null;
 function startAutoAdRotation(){
-  // Initial load after 2 sec (wait for HRF scripts)
+  // প্রথম লোড: ২ সেকেন্ড পর
   setTimeout(loadAllAds, 2000);
-  // Every 30 seconds, rotate ads
-  setInterval(function(){
-    var slots = document.querySelectorAll('.ad-slot[data-ad-panel]');
-    slots.forEach(function(slot){
-      // pick random ad
-      var rand = Math.floor(Math.random() * AD_KEYS.length);
-      injectAd(slot, rand);
-    });
-  }, 30000);
+  
+  // প্রতি ৬০ সেকেন্ডে এড পরিবর্তন (safe limit)
+  if(adRotationInterval) clearInterval(adRotationInterval);
+  adRotationInterval = setInterval(function(){
+    // শুধু অ্যাক্টিভ প্যানেলের এড পরিবর্তন
+    var activePanel = document.querySelector('.panel.active');
+    if(activePanel){
+      AD_SLOTS.forEach(function(slotId, index){
+        var slot = document.getElementById(slotId);
+        if(slot && slot.offsetParent !== null){ // শুধু ভিজিবল স্লট
+          var randomAd = Math.floor(Math.random() * AD_KEYS.length);
+          injectAd(slotId, randomAd);
+        }
+      });
+    }
+  }, 60000); // ৬০ সেকেন্ড (নিরাপদ)
 }
 
-// Also update visibilitychange (when user returns to app)
+// ইউজার অ্যাপে ফিরে এলে এড রিফ্রেশ
 document.addEventListener('visibilitychange', function(){
   if(!document.hidden){
-    // Refresh all ads when user comes back
+    // ইউজার অ্যাপে ফিরে এসেছে - এড রিফ্রেশ
     setTimeout(loadAllAds, 500);
   }
 });
-
-// Ad Overlay (forced view for rewards)
-var adOverlayCallback=null, adOverlayInterval=null;
-function showAdOverlay(cb){
-  var overlay=document.getElementById('adOverlay');
-  var slot=document.getElementById('adOverlaySlot');
-  var td=document.getElementById('adTimerDisplay'), tt=document.getElementById('adTimerText');
-  var cbtn=document.getElementById('adCloseBtn'), pb=document.getElementById('adProgressBar');
-  injectAd(slot, 0); // Always show 300x250 for overlay
-  var t=SETTINGS.adsTimer||8;
-  td.textContent=t; tt.textContent=t; cbtn.disabled=true; cbtn.textContent='⏳ অপেক্ষা করুন...'; pb.style.width='0%';
-  overlay.classList.add('active'); adOverlayCallback=cb;
-  var e=0; if(adOverlayInterval) clearInterval(adOverlayInterval);
-  adOverlayInterval=setInterval(function(){
-    e++; var r=t-e;
-    td.textContent=r>0?r:0; tt.textContent=r>0?r:0;
-    pb.style.width=((e/t)*100)+'%';
-    if(e>=t){clearInterval(adOverlayInterval);cbtn.disabled=false;cbtn.textContent='✅ Close & Continue';td.textContent='✓';}
-  },1000);
-}
-function closeAdOverlay(){
-  var c=document.getElementById('adCloseBtn'); if(c.disabled) return;
-  document.getElementById('adOverlay').classList.remove('active');
-  if(adOverlayInterval) clearInterval(adOverlayInterval);
-  if(adOverlayCallback){var cb=adOverlayCallback;adOverlayCallback=null;setTimeout(cb,100);}
-}
-
-// ============ সব বাটনে এড ============
-function showAdAndGo(panelName){ showAdOverlay(function(){ goPanel(panelName); }); }
-function showAdAndDeposit(){ showAdOverlay(function(){ doDeposit(); }); }
-function showAdAndWithdraw(){ showAdOverlay(function(){ doWithdraw(); }); }
-function showAdAndSubmitJobProof(){ showAdOverlay(function(){ submitJobProofActual(); }); }
-function showAdAndPremium(){ showAdOverlay(function(){ openPremiumModal(); }); }
 
 // ============ DB HELPERS ============
 function dbGet(p){return fetch(DB_URL+p+'.json').then(function(r){return r.json();});}
@@ -852,7 +767,7 @@ function initUI(){
     else{badge.className='verified';badge.innerHTML='⚠️ অ্যাকাউন্ট ভেরিফাইড নয়! <span style="cursor:pointer;text-decoration:underline;margin-left:5px;" onclick="verifyAccount()">Verify</span>';}
     updateBalance();renderTxn(user);loadNotifications();loadServices();loadChat();loadJobsFromFirebase();
     setTimeout(initMathPage,200);
-    startAutoAdRotation(); // 24h auto ads start
+    startAutoAdRotation(); // ২৪ ঘণ্টা অটো এড চালু
     setInterval(loadChat, 10000);
   } else {modal.classList.add('active');modal.style.display='flex';app.style.display='none';}
 }
@@ -897,18 +812,15 @@ function goPanel(name){
   if(name==='math') setTimeout(initMathPage,100);
   if(name==='wallet-history' || name==='add-funds' || name==='withdraw-money') renderHistories();
   document.getElementById('sidebar').classList.remove('open');
-  // Load ads in this panel if not loaded
+  // নতুন প্যানেলের এড লোড
   setTimeout(function(){
-    var activePanel = document.querySelector('.panel.active');
-    if(activePanel){
-      var slots = activePanel.querySelectorAll('.ad-slot[data-ad-panel]');
-      slots.forEach(function(slot, idx){
-        if(!slot.innerHTML.trim()){
-          injectAd(slot, idx);
-        }
-      });
-    }
-  }, 800);
+    AD_SLOTS.forEach(function(slotId, index){
+      var slot = document.getElementById(slotId);
+      if(slot && slot.offsetParent !== null && !slot.innerHTML.trim()){
+        injectAd(slotId, index);
+      }
+    });
+  }, 500);
 }
 
 function renderHistories(){
@@ -927,7 +839,9 @@ function verifyAccount(){
   var u=getCurrentUser();if(!u) return;
   if(u.verified){showToast('✅ ইতিমধ্যে verified!');return;}
   showToast('📺 Ad দেখলে Verified হবেন...');
-  showAdOverlay(function(){u.verified=true;saveCurrentUser(u);initUI();showToast('✅ ভেরিফাইড!');});
+  setTimeout(function(){
+    u.verified=true;saveCurrentUser(u);initUI();showToast('✅ ভেরিফাইড!');
+  },2000);
 }
 
 function doDeposit(){
@@ -958,28 +872,14 @@ function doWithdraw(){
   document.getElementById('withdrawAmt').value='';document.getElementById('withdrawAcc').value='';
 }
 
-function openPremiumModal(){document.getElementById('premiumModal').classList.add('active');}
-function closePremiumModal(){document.getElementById('premiumModal').classList.remove('active');}
-function submitPremiumRequest(){
-  var u=getCurrentUser();if(!u) return;
-  var sender=document.getElementById('premiumSender').value.trim();
-  var txn=document.getElementById('premiumTxn').value.trim();
-  if(!sender||!txn) return showToast('❌ সব ঘর পূরণ!');
-  var ssFile=document.getElementById('premiumScreenshot').files[0];
-  var doSubmit=function(ssData){
-    var data={date:new Date().toISOString(),email:u.email,name:u.name,amount:SETTINGS.premiumPrice,sender:sender,txn:txn,screenshot:ssData,status:'pending'};
-    dbPush('/premium_requests',data).then(function(){
-      showToast('✅ Premium request sent!');closePremiumModal();
-    }).catch(function(){showToast('❌ Error!');});
-  };
-  if(ssFile){var r=new FileReader();r.onload=function(e){doSubmit(e.target.result);};r.readAsDataURL(ssFile);}else{doSubmit(null);}
-}
+function openPremiumModal(){document.getElementById('premiumModal') && document.getElementById('premiumModal').classList.add('active');}
+function closePremiumModal(){document.getElementById('premiumModal') && document.getElementById('premiumModal').classList.remove('active');}
 
 var currentMathAnswer=0;
 function startAdFlow(){
   var u=getCurrentUser();if(!u) return;
   showToast('📺 Ad দেখুন...');
-  showAdOverlay(function(){generateMathProblem();document.getElementById('adMathBox').style.display='block';});
+  generateMathProblem();document.getElementById('adMathBox').style.display='block';
 }
 function generateMathProblem(){
   var a=Math.floor(Math.random()*20)+5,b=Math.floor(Math.random()*20)+5;
@@ -1014,13 +914,10 @@ function submitMathPage(){
   var fb=document.getElementById('mathPageFeedback');
   if(isNaN(ans)){fb.textContent='⚠️ উত্তর লিখুন!';fb.style.color='#FF1744';return;}
   if(ans===mathPageAnswer){
-    showToast('📺 Ad দেখুন...');
-    showAdOverlay(function(){
-      u.balance=(u.balance||0)+SETTINGS.mathReward;u.totalEarned=(u.totalEarned||0)+SETTINGS.mathReward;u.mathCorrect=(u.mathCorrect||0)+1;u.mathEarn=(u.mathEarn||0)+SETTINGS.mathReward;
-      u.adLog=u.adLog||[];u.adLog.push({date:new Date().toISOString(),reward:SETTINGS.mathReward,platform:'MathPage'});
-      saveCurrentUser(u);fb.textContent='✅ সঠিক! ৳'+SETTINGS.mathReward+'!';fb.style.color='#00c853';
-      updateBalance();renderTxn(u);showToast('🎉 ৳'+SETTINGS.mathReward+'!');setTimeout(generateMathPageProblem,1500);
-    });
+    u.balance=(u.balance||0)+SETTINGS.mathReward;u.totalEarned=(u.totalEarned||0)+SETTINGS.mathReward;u.mathCorrect=(u.mathCorrect||0)+1;u.mathEarn=(u.mathEarn||0)+SETTINGS.mathReward;
+    u.adLog=u.adLog||[];u.adLog.push({date:new Date().toISOString(),reward:SETTINGS.mathReward,platform:'MathPage'});
+    saveCurrentUser(u);fb.textContent='✅ সঠিক! ৳'+SETTINGS.mathReward+'!';fb.style.color='#00c853';
+    updateBalance();renderTxn(u);showToast('🎉 ৳'+SETTINGS.mathReward+'!');setTimeout(generateMathPageProblem,1500);
   } else {u.mathWrong=(u.mathWrong||0)+1;saveCurrentUser(u);fb.textContent='❌ ভুল! সঠিক: '+mathPageAnswer;fb.style.color='#FF1744';setTimeout(generateMathPageProblem,1500);}
 }
 
@@ -1092,15 +989,17 @@ var currentOrder={name:'',price:0};
 function orderService(name,price){
   var u=getCurrentUser();if(!u) return;
   currentOrder={name:name,price:price};
+  var m = document.getElementById('orderModal');
+  if(!m) return;
   document.getElementById('orderServiceName').textContent=name;
   document.getElementById('orderServicePrice').textContent=price;
   document.getElementById('orderWalletBalance').textContent=(u.balance||0).toFixed(2);
   document.getElementById('orderLink').value='';document.getElementById('orderTxn').value='';
   document.getElementById('orderPaymentMethod').value='wallet';
   togglePaymentMethod();
-  document.getElementById('orderModal').classList.add('active');
+  m.classList.add('active');
 }
-function closeOrderModal(){document.getElementById('orderModal').classList.remove('active');}
+function closeOrderModal(){document.getElementById('orderModal') && document.getElementById('orderModal').classList.remove('active');}
 function togglePaymentMethod(){
   var m=document.getElementById('orderPaymentMethod').value;
   if(m==='wallet'){document.getElementById('walletPaymentBox').style.display='block';document.getElementById('bkashPaymentBox').style.display='none';}
@@ -1112,19 +1011,15 @@ function submitOrder(){
   var method=document.getElementById('orderPaymentMethod').value;
   if(!link) return showToast('❌ Service Link দিন!');
   var txn='',ssData=null;
-  if(method==='bkash'){txn=document.getElementById('orderTxn').value.trim();if(!txn) return showToast('❌ TrxID দিন!');var f=document.getElementById('orderScreenshot').files[0];if(f){var r=new FileReader();r.readAsDataURL(f);} }
+  if(method==='bkash'){txn=document.getElementById('orderTxn').value.trim();if(!txn) return showToast('❌ TrxID দিন!');}
   if(method==='wallet'&&(u.balance||0)<currentOrder.price) return showToast('❌ পর্যাপ্ত Balance নেই!');
-  showToast('📺 Ad দেখুন...');
-  showAdOverlay(function(){
-    var order={date:new Date().toISOString(),service:currentOrder.name,price:currentOrder.price,link:link,method:method==='wallet'?'Wallet':'Bkash',txn:txn,status:'pending',userEmail:u.email,userName:u.name};
-    if(method==='wallet') u.balance-=currentOrder.price;
-    u.orders=u.orders||[];u.orders.push(order);saveCurrentUser(u);updateBalance();
-    dbPush('/orders',order).catch(function(){});
-    showToast('✅ Order সফল!');closeOrderModal();
-  });
+  var order={date:new Date().toISOString(),service:currentOrder.name,price:currentOrder.price,link:link,method:method==='wallet'?'Wallet':'Bkash',txn:txn,status:'pending',userEmail:u.email,userName:u.name};
+  if(method==='wallet') u.balance-=currentOrder.price;
+  u.orders=u.orders||[];u.orders.push(order);saveCurrentUser(u);updateBalance();
+  dbPush('/orders',order).catch(function(){});
+  showToast('✅ Order সফল!');closeOrderModal();
 }
 
-// ============ চ্যাট ============
 function loadChat(){
   var u=getCurrentUser();if(!u) return;
   var box=document.getElementById('chatMessages');if(!box) return;

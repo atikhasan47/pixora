@@ -217,7 +217,7 @@ body {
 .spinner{width:40px;height:40px;border:4px solid #b2ebf2;border-top-color:#00acc1;border-radius:50%;margin:0 auto;animation:spin 1s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
 
-/* === নিচের মেনু (Bottom Navigation - গাঢ় পানি কালার) === */
+/* === নিচের মেনু (Bottom Navigation - গাঢ় পানি কালার) === */
 .bottom-nav {
     display: none;
     position: fixed;
@@ -647,7 +647,7 @@ body {
   </main>
 </div>
 
-<!-- === মোবাইলের নিচের মেনু (গাঢ় পানি কালার) === -->
+<!-- === মোবাইলের নিচের মেনু (গাঢ় পানি কালার) === -->
 <div class="bottom-nav" id="bottomNav">
     <div class="nav-item active" data-panel="dashboard" onclick="goPanel('dashboard')">
         <span>📊</span> Home
@@ -789,7 +789,7 @@ function applySettingsToUI(){
   var el3 = document.getElementById('premPrice'); if(el3) el3.textContent = SETTINGS.premiumPrice;
 }
 
-// ============ AD SYSTEM (আসল অ্যাড লোড) ============
+// ============ AD SYSTEM ============
 var adRotationCounter = 0;
 function getNextAd(){var k=AD_LIST[adRotationCounter%AD_LIST.length];adRotationCounter++;return AD_CODES[k];}
 
@@ -803,18 +803,24 @@ function injectAdIntoSlot(slot, code){
   }
 }
 
-// ============ ২৪ ঘন্টা অটো এড রোটেশন ============
+// ============ ২৪ ঘন্টা অটো এড রোটেশন (দেরি করে লোড) ============
 function startAutoAdRotation(){
-  var t1=document.getElementById('topAdSlot');
-  var b1=document.getElementById('bottomAdSlot');
-  if(t1) injectAdIntoSlot(t1, getNextAd());
-  if(b1) injectAdIntoSlot(b1, getNextAd());
-  
+  // এড স্ক্রিপ্ট লোড হওয়ার জন্য ২ সেকেন্ড অপেক্ষা করুন
+  setTimeout(function(){
+    var t1=document.getElementById('topAdSlot');
+    var b1=document.getElementById('bottomAdSlot');
+    if(t1) injectAdIntoSlot(t1, AD_CODES.ad2);
+    if(b1) injectAdIntoSlot(b1, AD_CODES.ad3);
+  }, 2000);
+
+  // প্রতি ৩০ সেকেন্ডে অ্যাড পরিবর্তন (২৪ ঘণ্টা)
+  var counter = 0;
   setInterval(function(){
     var t=document.getElementById('topAdSlot');
     var b=document.getElementById('bottomAdSlot');
-    if(t) injectAdIntoSlot(t, getNextAd());
-    if(b) injectAdIntoSlot(b, getNextAd());
+    counter++;
+    if(t) injectAdIntoSlot(t, counter % 2 === 0 ? AD_CODES.ad1 : AD_CODES.ad2);
+    if(b) injectAdIntoSlot(b, counter % 2 === 0 ? AD_CODES.ad3 : AD_CODES.ad1);
   }, 30000);
 }
 
@@ -948,6 +954,8 @@ function initUI(){
     updateBalance();renderTxn(user);loadNotifications();loadServices();loadChat();loadJobsFromFirebase();
     setTimeout(initMathPage,200);
     startAutoAdRotation();
+    // প্রতি ১০ সেকেন্ডে চ্যাট আপডেট
+    setInterval(loadChat, 10000);
   } else {modal.classList.add('active');modal.style.display='flex';app.style.display='none';}
 }
 
@@ -1000,21 +1008,16 @@ function goPanel(name){
     document.getElementById('sidebar').classList.remove('open');
 }
 
-// ============ ২৪ ঘন্টা অটো এড রোটেশন ============
-function startAutoAdRotation(){
-  var t1=document.getElementById('topAdSlot');
-  var b1=document.getElementById('bottomAdSlot');
-  if(t1) injectAdIntoSlot(t1, AD_CODES.ad2);
-  if(b1) injectAdIntoSlot(b1, AD_CODES.ad3);
-  
-  var counter = 0;
-  setInterval(function(){
-    var t=document.getElementById('topAdSlot');
-    var b=document.getElementById('bottomAdSlot');
-    counter++;
-    if(t) injectAdIntoSlot(t, counter % 2 === 0 ? AD_CODES.ad1 : AD_CODES.ad2);
-    if(b) injectAdIntoSlot(b, counter % 2 === 0 ? AD_CODES.ad3 : AD_CODES.ad1);
-  }, 30000);
+function renderHistories(){
+  var u=getCurrentUser(); if(!u) return;
+  var dep=document.getElementById('depositHistory');
+  var wd=document.getElementById('withdrawHistory');
+  if(dep) dep.innerHTML=(u.deposits||[]).slice().reverse().slice(0,20).map(function(d){
+    return '<div style="background:#ffffff;border:2px solid #b2ebf2;border-radius:12px;padding:14px;margin-bottom:10px;"><div style="display:flex;justify-content:space-between;"><div><strong style="color:#006064;">৳ '+(d.amount||0).toFixed(2)+'</strong><div style="color:#00838f;font-size:11px;margin-top:4px;">📱 '+d.sender+' | TrxID: '+d.txn+'</div></div><span style="color:'+(d.status==='approved'?'#00c853':d.status==='rejected'?'#FF1744':'#EF6C00')+';font-weight:900;font-size:12px;">'+d.status.toUpperCase()+'</span></div></div>';
+  }).join('') || '<div style="text-align:center;color:#00838f;padding:20px;">No deposit history</div>';
+  if(wd) wd.innerHTML=(u.withdraws||[]).slice().reverse().slice(0,20).map(function(w){
+    return '<div style="background:#ffffff;border:2px solid #b2ebf2;border-radius:12px;padding:14px;margin-bottom:10px;"><div style="display:flex;justify-content:space-between;"><div><strong style="color:#006064;">৳ '+(w.amount||0).toFixed(2)+'</strong><div style="color:#00838f;font-size:11px;margin-top:4px;">🏧 '+w.account+' | Fee: ৳'+(w.fee||10)+'</div></div><span style="color:'+(w.status==='paid'?'#00c853':w.status==='rejected'?'#FF1744':'#EF6C00')+';font-weight:900;font-size:12px;">'+w.status.toUpperCase()+'</span></div></div>';
+  }).join('') || '<div style="text-align:center;color:#00838f;padding:20px;">No withdraw history</div>';
 }
 
 function verifyAccount(){
@@ -1218,20 +1221,41 @@ function submitOrder(){
   });
 }
 
+// ============ চ্যাট ফাংশন (Firebase-এর সাথে যুক্ত) ============
 function loadChat(){
   var u=getCurrentUser();if(!u) return;
-  var msgs=u.chat||[];
   var box=document.getElementById('chatMessages');if(!box) return;
-  if(!msgs.length){box.innerHTML='<div class="chat-msg admin">👋 স্বাগতম!<span class="chat-time">এখনই</span></div>';return;}
-  box.innerHTML=msgs.map(function(m){return '<div class="chat-msg '+m.from+'">'+m.text+'<span class="chat-time">'+new Date(m.date).toLocaleString('bn-BD')+'</span></div>';}).join('');
-  box.scrollTop=box.scrollHeight;
+  dbGet('/chats/'+userKey(u.email)).then(function(data){
+    var msgs = [];
+    if(data){
+      Object.keys(data).forEach(function(k){ msgs.push(data[k]); });
+    }
+    msgs.sort(function(a,b){ return new Date(a.date)-new Date(b.date); });
+    if(!msgs.length){
+      box.innerHTML='<div class="chat-msg admin">👋 স্বাগতম! সমস্যা লিখুন।<span class="chat-time">এখনই</span></div>';
+      return;
+    }
+    box.innerHTML = msgs.map(function(m){
+      return '<div class="chat-msg '+m.from+'">'+m.text+'<span class="chat-time">'+new Date(m.date).toLocaleString('bn-BD')+'</span></div>';
+    }).join('');
+    box.scrollTop = box.scrollHeight;
+  }).catch(function(){
+    var msgs=u.chat||[];
+    if(!msgs.length){box.innerHTML='<div class="chat-msg admin">👋 স্বাগতম!<span class="chat-time">এখনই</span></div>';return;}
+    box.innerHTML=msgs.map(function(m){return '<div class="chat-msg '+m.from+'">'+m.text+'<span class="chat-time">'+new Date(m.date).toLocaleString('bn-BD')+'</span></div>';}).join('');
+    box.scrollTop=box.scrollHeight;
+  });
 }
+
 function sendChat(){
   var u=getCurrentUser();if(!u) return;
   var inp=document.getElementById('chatInput');
   var text=inp.value.trim();if(!text) return;
-  u.chat=u.chat||[];u.chat.push({from:'user',text:text,date:new Date().toISOString(),read:false});
-  saveCurrentUser(u);inp.value='';loadChat();
+  var msg = {from:'user',text:text,date:new Date().toISOString(),read:false,userEmail:u.email,userName:u.name};
+  u.chat=u.chat||[];u.chat.push(msg);saveCurrentUser(u);
+  // Firebase-এ পাঠান
+  dbPush('/chats/'+userKey(u.email), msg).catch(function(){});
+  inp.value='';loadChat();
   showToast('✅ মেসেজ পাঠানো!');
 }
 

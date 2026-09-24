@@ -16,7 +16,6 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 .login-box input{width:100%;padding:15px;margin-bottom:14px;background:rgba(255,255,255,.08);border:2px solid rgba(0,229,255,.5);border-radius:12px;color:#fff;font-size:14px;font-family:inherit;}
 .login-box input:focus{border-color:#00E5FF;outline:none;}
 .login-btn{width:100%;padding:16px;background:linear-gradient(90deg,#00E5FF,#0288D1);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:bold;cursor:pointer;font-family:inherit;margin-top:8px;}
-.login-btn:disabled{background:#4a5568;cursor:not-allowed;}
 .login-error{color:#FF1744;font-size:13px;font-weight:bold;text-align:center;padding:10px;margin-bottom:10px;background:rgba(255,23,68,.15);border-radius:10px;display:none;}
 .login-error.show{display:block;}
 .app-layout{display:flex;min-height:100vh;}
@@ -47,15 +46,13 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 .stat-card .val{font-size:22px;font-weight:900;color:#00E5FF;font-family:'Courier New',monospace;}
 .stat-card.green .val{color:#00E676;}
 .stat-card.orange .val{color:#FF9800;}
-.stat-card.cyan .val{color:#00E5FF;}
-.stat-card.pink .val{color:#FF4081;}
 .section-title{color:#00E5FF;font-size:17px;font-weight:800;margin-bottom:15px;display:flex;align-items:center;gap:10px;padding-bottom:10px;border-bottom:2px solid rgba(0,229,255,.25);font-family:'Montserrat',sans-serif;}
 .form-group{margin-bottom:16px;}
 .form-group label{display:block;margin-bottom:6px;color:#00E5FF;font-weight:600;font-size:13px;}
 .form-group input,.form-group textarea,.form-group select{width:100%;padding:13px;background:rgba(255,255,255,.05);border:2px solid rgba(0,229,255,.3);border-radius:12px;color:#fff;font-size:14px;font-family:inherit;}
 .form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:#00E5FF;outline:none;}
 .form-group small{color:#8fa8c4;font-size:11px;display:block;margin-top:4px;}
-.btn{padding:12px 22px;border:none;border-radius:12px;cursor:pointer;font-weight:700;font-size:13px;transition:.3s;text-decoration:none;display:inline-flex;align-items:center;gap:6px;font-family:inherit;}
+.btn{padding:12px 22px;border:none;border-radius:12px;cursor:pointer;font-weight:700;font-size:13px;transition:.3s;display:inline-flex;align-items:center;gap:6px;font-family:inherit;}
 .btn-green{background:linear-gradient(90deg,#00C853,#00E676);color:#fff;}
 .btn-red{background:linear-gradient(90deg,#D32F2F,#FF1744);color:#fff;}
 .btn-cyan{background:linear-gradient(90deg,#00E5FF,#0288D1);color:#fff;}
@@ -75,6 +72,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 .status-pending{background:rgba(255,152,0,.2);color:#FF9800;}
 .status-approved{background:rgba(0,230,118,.2);color:#00E676;}
 .status-rejected{background:rgba(255,23,68,.2);color:#FF1744;}
+.status-paid{background:rgba(0,230,118,.2);color:#00E676;}
 .action-btn{padding:6px 12px;border:none;border-radius:8px;cursor:pointer;font-size:11px;font-weight:700;font-family:inherit;margin-right:4px;margin-bottom:4px;}
 .chat-layout{display:grid;grid-template-columns:300px 1fr;gap:15px;height:600px;}
 .chat-users{background:rgba(255,255,255,.03);border:2px solid rgba(0,229,255,.3);border-radius:14px;overflow-y:auto;padding:10px;}
@@ -100,7 +98,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 .proof-card .proof-user{font-size:14px;font-weight:800;color:#fff;}
 .proof-card .proof-job{font-size:12px;color:#00E5FF;margin-top:4px;}
 .proof-card .proof-date{font-size:11px;color:#8fa8c4;}
-.proof-card .proof-bio{color:#ddd;font-size:13px;margin-bottom:12px;padding:10px;background:rgba(0,0,0,.3);border-radius:8px;}
+.proof-card .proof-bio{color:#ddd;font-size:13px;margin-bottom:12px;padding:10px;background:rgba(0,0,0,.3);border-radius:8px;word-break:break-all;}
 .proof-card .proof-imgs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
 .proof-card .proof-imgs img{width:100%;border-radius:10px;border:2px solid rgba(0,229,255,.3);cursor:pointer;}
 .proof-actions{display:flex;gap:10px;flex-wrap:wrap;}
@@ -110,7 +108,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 .notif-card .notif-meta{font-size:11px;color:#6b7d94;margin-top:8px;}
 .job-item{background:rgba(255,255,255,.03);border:2px solid rgba(0,229,255,.3);border-radius:12px;padding:14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;}
 .job-item .job-info h4{color:#00E5FF;font-size:14px;margin-bottom:4px;}
-.job-item .job-info p{color:#8fa8c4;font-size:11px;}
+.job-item .job-info p{color:#8fa8c4;font-size:11px;word-break:break-all;}
 .design-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;}
 .design-card{background:linear-gradient(135deg,rgba(27,38,59,.95),rgba(13,27,42,.95));border:2px solid rgba(0,229,255,.3);border-radius:16px;padding:18px;cursor:pointer;transition:.3s;text-align:center;position:relative;}
 .design-card:hover{transform:translateY(-5px);box-shadow:0 15px 40px rgba(0,229,255,.3);}
@@ -174,12 +172,16 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       <div class="menu-label">Payments</div>
       <div class="menu-item" data-panel="deposits"><span class="icon">💵</span> Deposits <span class="badge" id="depositBadge" style="display:none;">0</span></div>
       <div class="menu-item" data-panel="withdraws"><span class="icon">🏧</span> Withdraws <span class="badge" id="withdrawBadge" style="display:none;">0</span></div>
-      <div class="menu-item" data-panel="premium"><span class="icon">💎</span> Premium Requests <span class="badge" id="premiumBadge" style="display:none;">0</span></div>
+      <div class="menu-item" data-panel="premium"><span class="icon">💎</span> Premium <span class="badge" id="premiumBadge" style="display:none;">0</span></div>
     </div>
 
     <div class="menu-section">
       <div class="menu-label">Settings</div>
+      <div class="menu-item" data-panel="designs"><span class="icon">🎨</span> Design Settings</div>
       <div class="menu-item" data-panel="rewards"><span class="icon">💰</span> Rewards</div>
+      <div class="menu-item" data-panel="jobs"><span class="icon">📅</span> Job Creator</div>
+      <div class="menu-item" data-panel="promote"><span class="icon">🛒</span> Promote Prices</div>
+      <div class="menu-item" data-panel="leaderboard"><span class="icon">🏆</span> Leaderboard</div>
       <div class="menu-item" data-panel="notifications"><span class="icon">🔔</span> Notifications</div>
     </div>
 
@@ -194,13 +196,12 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       <button class="logout-btn" onclick="doAdminLogout()">Logout</button>
     </div>
 
-    <!-- DASHBOARD -->
     <div class="panel active" id="dashboard">
       <div class="stats-grid">
-        <div class="stat-card cyan"><span class="icon">👥</span><h4>Total Users</h4><div class="val" id="statUsers">0</div></div>
+        <div class="stat-card"><span class="icon">👥</span><h4>Total Users</h4><div class="val" id="statUsers">0</div></div>
         <div class="stat-card green"><span class="icon">💰</span><h4>Total Balance</h4><div class="val" id="statBalance">৳0</div></div>
         <div class="stat-card orange"><span class="icon">📸</span><h4>Pending Proofs</h4><div class="val" id="statProofs">0</div></div>
-        <div class="stat-card pink"><span class="icon">🛒</span><h4>Pending Orders</h4><div class="val" id="statOrders">0</div></div>
+        <div class="stat-card"><span class="icon">🛒</span><h4>Pending Orders</h4><div class="val" id="statOrders">0</div></div>
       </div>
       <div class="settings-card">
         <div class="section-title">📊 Quick Stats</div>
@@ -208,12 +209,11 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
           <div class="stat-card"><span class="icon">💵</span><h4>Pending Deposits</h4><div class="val" id="statPendDep">0</div></div>
           <div class="stat-card"><span class="icon">🏧</span><h4>Pending Withdraws</h4><div class="val" id="statPendWd">0</div></div>
           <div class="stat-card"><span class="icon">💎</span><h4>Pending Premium</h4><div class="val" id="statPendPrem">0</div></div>
-          <div class="stat-card"><span class="icon">✅</span><h4>Approved Proofs</h4><div class="val" id="statApproved">0</div></div>
+          <div class="stat-card green"><span class="icon">✅</span><h4>Approved Proofs</h4><div class="val" id="statApproved">0</div></div>
         </div>
       </div>
     </div>
 
-    <!-- USERS -->
     <div class="panel" id="users">
       <div class="section-title">👥 User Management</div>
       <input type="text" class="search-box" id="userSearch" placeholder="🔍 Search by email or name..." oninput="renderUsers()">
@@ -225,7 +225,6 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       </div>
     </div>
 
-    <!-- CHAT -->
     <div class="panel" id="chats">
       <div class="section-title">💬 User Chat</div>
       <div class="chat-layout">
@@ -241,37 +240,44 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       </div>
     </div>
 
-    <!-- PROOFS -->
     <div class="panel" id="proofs">
       <div class="section-title">📸 Job Proofs Review</div>
       <div id="proofsList"></div>
     </div>
 
-    <!-- ORDERS -->
     <div class="panel" id="orders">
       <div class="section-title">🛒 Social Promote Orders</div>
       <div id="ordersList"></div>
     </div>
 
-    <!-- DEPOSITS -->
     <div class="panel" id="deposits">
       <div class="section-title">💵 Deposit Requests</div>
       <div id="depositsList"></div>
     </div>
 
-    <!-- WITHDRAWS -->
     <div class="panel" id="withdraws">
       <div class="section-title">🏧 Withdraw Requests</div>
       <div id="withdrawsList"></div>
     </div>
 
-    <!-- PREMIUM -->
     <div class="panel" id="premium">
       <div class="section-title">💎 Premium Requests</div>
       <div id="premiumList"></div>
     </div>
 
-    <!-- REWARDS -->
+    <div class="panel" id="designs">
+      <div class="section-title">🎨 Design Settings</div>
+      <p style="color:#8fa8c4;font-size:13px;margin-bottom:20px;">এখান থেকে ইউজার প্যানেলের ডিজাইন পরিবর্তন করুন। সিলেক্ট করলে সাথে সাথে সব ইউজারের অ্যাপে পরিবর্তন হবে।</p>
+      <div class="settings-card">
+        <div class="section-title" style="font-size:15px;">🔐 Login Page Animation</div>
+        <div class="design-grid" id="loginDesigns"></div>
+      </div>
+      <div class="settings-card">
+        <div class="section-title" style="font-size:15px;">📊 Dashboard Animation</div>
+        <div class="design-grid" id="dashboardDesigns"></div>
+      </div>
+    </div>
+
     <div class="panel" id="rewards">
       <div class="section-title">💰 Reward Settings</div>
       <div class="settings-card">
@@ -279,6 +285,9 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
         <div class="form-group"><label>📅 Daily Job Reward (৳)</label><input type="number" step="0.01" id="sJobReward" placeholder="0.20"></div>
         <div class="form-group"><label>🧮 Math Reward (৳)</label><input type="number" step="0.01" id="sMathReward" placeholder="0.04"></div>
         <div class="form-group"><label>⏱️ Ads Timer (সেকেন্ড)</label><input type="number" id="sAdsTimer" placeholder="8"></div>
+        <div class="form-group"><label>🎯 Daily Ad Limit</label><input type="number" id="sAdDailyLimit" placeholder="10"></div>
+        <div class="form-group"><label>⏰ Popunder Ad Interval (মিনিট)</label><input type="number" id="sPopunderInterval" placeholder="3"><small>ইউজার অ্যাপ খোলা রাখলে প্রতি কত মিনিটে Popunder Ad আসবে</small></div>
+        <div class="form-group"><label>🎬 Interstitial Ad Interval (মিনিট)</label><input type="number" id="sInterstitialInterval" placeholder="5"><small>ইউজার অ্যাপ খোলা রাখলে প্রতি কত মিনিটে Interstitial Ad আসবে</small></div>
         <div class="form-group"><label>💵 Min Deposit (৳)</label><input type="number" id="sMinDeposit" placeholder="100"></div>
         <div class="form-group"><label>🏧 Min Withdraw (৳)</label><input type="number" id="sMinWithdraw" placeholder="110"></div>
         <div class="form-group"><label>💸 Withdraw Fee (৳)</label><input type="number" id="sWithdrawFee" placeholder="10"></div>
@@ -287,7 +296,50 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       </div>
     </div>
 
-    <!-- NOTIFICATIONS -->
+    <div class="panel" id="jobs">
+      <div class="section-title">📅 Job Creator</div>
+      <div class="settings-card">
+        <div class="form-group"><label>Job Name</label><input type="text" id="jobName" placeholder="যেমন: YouTube Subscribe"></div>
+        <div class="form-group"><label>Job Link</label><input type="text" id="jobLink" placeholder="https://..."></div>
+        <div class="form-group"><label>Job Reward (৳)</label><input type="number" step="0.01" id="jobRewardInput" placeholder="0.20"></div>
+        <div class="form-group"><label>Job Icon (Emoji)</label><input type="text" id="jobIcon" placeholder="▶️"></div>
+        <button class="btn btn-cyan btn-full" onclick="createJob()">➕ Create Job</button>
+      </div>
+      <div class="section-title">📋 Current Jobs</div>
+      <div id="jobsList"></div>
+    </div>
+
+    <div class="panel" id="promote">
+      <div class="section-title">🛒 Social Promote Prices</div>
+      <div class="settings-card">
+        <p style="color:#8fa8c4;font-size:13px;margin-bottom:15px;">প্রতিটি সার্ভিসের দাম পরিবর্তন করুন।</p>
+        <div id="promoteSettings"></div>
+        <button class="btn btn-cyan btn-full" onclick="savePromoteSettings()" style="margin-top:15px;">💾 Save Prices</button>
+      </div>
+    </div>
+
+    <div class="panel" id="leaderboard">
+      <div class="section-title">🏆 Leaderboard Management</div>
+      <p style="color:#8fa8c4;font-size:13px;margin-bottom:15px;">এখানে ডেমো ইউজার যোগ করতে পারবেন, যাতে লিডারবোর্ডে দেখাবে।</p>
+      <div class="settings-card">
+        <div class="form-group"><label>Name</label><input type="text" id="lbName" placeholder="User Name"></div>
+        <div class="form-group"><label>Balance (৳)</label><input type="number" id="lbBalance" placeholder="10000"></div>
+        <div class="form-group"><label>Tag</label>
+          <select id="lbTag">
+            <option value="👑 Founder">👑 Founder</option>
+            <option value="💎 Diamond">💎 Diamond</option>
+            <option value="🥇 Gold">🥇 Gold</option>
+            <option value="🥈 Silver">🥈 Silver</option>
+            <option value="🥉 Bronze">🥉 Bronze</option>
+            <option value="⭐ Active">⭐ Active</option>
+          </select>
+        </div>
+        <button class="btn btn-cyan btn-full" onclick="addLeaderboardUser()">➕ Add Demo User</button>
+      </div>
+      <div class="section-title">📋 Current Leaderboard Users</div>
+      <div id="lbList"></div>
+    </div>
+
     <div class="panel" id="notifications">
       <div class="section-title">🔔 Send Notification</div>
       <div class="settings-card">
@@ -313,11 +365,33 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 <div class="toast" id="toast"></div>
 
 <script>
-/* ==================================================
-   🔥 FIREBASE REALTIME DATABASE CONNECTION
-   ================================================== */
-var ADMIN_PASSWORD = "Atik@Admin2024!Earning";
 var FIREBASE_URL = "https://atik-8be75-default-rtdb.asia-southeast1.firebasedatabase.app";
+var ADMIN_PASSWORD = "atik2024";
+var currentAdmin = null;
+var allUsers = {};
+var allProofs = {};
+var allOrders = {};
+var allDeposits = [];
+var allWithdraws = [];
+var allPremium = [];
+var selectedChatUser = null;
+var chatPolling = null;
+
+var LOGIN_DESIGNS = [
+  { id: 'night-village', name: '🌙 Night Village', desc: 'রাতের গ্রাম, তারা, চাঁদ, গাছ' },
+  { id: 'rainy-night', name: '🌧️ Rainy Night', desc: 'বৃষ্টি, মেঘ, বিদ্যুৎ চমক' },
+  { id: 'golden-sunset', name: '🌅 Golden Sunset', desc: 'সোনালী সূর্যাস্ত, কমলা আকাশ' },
+  { id: 'snowfall', name: '❄️ Snowfall', desc: 'তুষারপাত, সাদা পরিবেশ' },
+  { id: 'starry-galaxy', name: '✨ Starry Galaxy', desc: 'তারার গ্যালাক্সি, নীহারিকা' }
+];
+
+var DASHBOARD_DESIGNS = [
+  { id: 'night-village', name: '🌙 Night Village', desc: 'রাতের গ্রাম, তারা, চাঁদ, গাছ' },
+  { id: 'rainy-night', name: '🌧️ Rainy Night', desc: 'বৃষ্টি, মেঘ, বিদ্যুৎ চমক' },
+  { id: 'golden-sunset', name: '🌅 Golden Sunset', desc: 'সোনালী সূর্যাস্ত, কমলা আকাশ' },
+  { id: 'green-forest', name: '🌲 Green Forest', desc: 'সবুজ বন, পাখি, প্রজাপতি' },
+  { id: 'ocean-wave', name: '🌊 Ocean Wave', desc: 'সমুদ্রের ঢেউ, নীল জল' }
+];
 
 var DB = {
   get: function(path){ return fetch(FIREBASE_URL + path + '.json').then(function(r){ return r.json(); }); },
@@ -347,16 +421,6 @@ var DB = {
   }
 };
 
-var currentAdmin = null;
-var allUsers = {};
-var allProofs = {};
-var allOrders = {};
-var allDeposits = [];
-var allWithdraws = [];
-var allPremium = [];
-var selectedChatUser = null;
-var chatPolling = null;
-
 function fbKey(email){ return (email || '').replace(/[.#$\[\]]/g, '_'); }
 
 function showToast(msg){
@@ -370,25 +434,17 @@ function toggleSidebar(){ document.getElementById('sidebar').classList.toggle('o
 function doAdminLogin(){
   var pass = document.getElementById('adminPassword').value;
   var errEl = document.getElementById('loginError');
-  var btn = document.getElementById('loginBtn');
-  errEl.classList.remove('show');
   if(!pass){ errEl.textContent = '⚠️ Password দিন!'; errEl.classList.add('show'); return; }
-  btn.disabled = true;
-  btn.textContent = '⏳ Logging in...';
-  setTimeout(function(){
-    if(pass === ADMIN_PASSWORD){
-      currentAdmin = { loggedIn: true };
-      sessionStorage.setItem('atik_admin_logged', 'true');
-      document.getElementById('loginScreen').style.display = 'none';
-      document.getElementById('appLayout').style.display = 'flex';
-      initAdminPanel();
-    } else {
-      errEl.textContent = '❌ Password ভুল!';
-      errEl.classList.add('show');
-      btn.disabled = false;
-      btn.textContent = '🔐 Login';
-    }
-  }, 500);
+  if(pass === ADMIN_PASSWORD){
+    currentAdmin = { loggedIn: true };
+    sessionStorage.setItem('atik_admin_logged', 'true');
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('appLayout').style.display = 'flex';
+    initAdminPanel();
+  } else {
+    errEl.textContent = '❌ Password ভুল!';
+    errEl.classList.add('show');
+  }
 }
 
 function doAdminLogout(){
@@ -397,13 +453,12 @@ function doAdminLogout(){
   location.reload();
 }
 
-/* ==================================================
-   DATA LOADERS
-   ================================================== */
 function initAdminPanel(){
+  loadDesigns();
   loadAllData();
   setInterval(refreshData, 8000);
 }
+
 function loadAllData(){
   loadUsers();
   loadProofs();
@@ -412,9 +467,13 @@ function loadAllData(){
   loadWithdraws();
   loadPremium();
   loadNotificationsList();
+  loadJobs();
+  loadPromoteSettings();
   loadRewardSettingsForm();
+  loadLeaderboardUsers();
   loadChatBadge();
 }
+
 function refreshData(){
   loadDashboardStats();
   loadChatBadge();
@@ -424,6 +483,58 @@ function refreshData(){
   loadWithdrawBadge();
   loadPremiumBadge();
   if(selectedChatUser) loadChatMessages();
+}
+
+function loadDesigns(){
+  DB.get('/settings/designs').then(function(d){
+    var loginDesign = (d && d.login) ? d.login : 'night-village';
+    var dashDesign = (d && d.dashboard) ? d.dashboard : 'night-village';
+    renderLoginDesigns(loginDesign);
+    renderDashboardDesigns(dashDesign);
+  }).catch(function(){
+    renderLoginDesigns('night-village');
+    renderDashboardDesigns('night-village');
+  });
+}
+
+function renderLoginDesigns(current){
+  var container = document.getElementById('loginDesigns');
+  if(!container) return;
+  container.innerHTML = LOGIN_DESIGNS.map(function(d){
+    var selected = d.id === current;
+    return '<div class="design-card' + (selected ? ' selected' : '') + '" onclick="selectLoginDesign(\'' + d.id + '\')">' +
+      (selected ? '<div class="selected-mark">✓</div>' : '') +
+      '<div class="design-name">' + d.name + '</div>' +
+      '<div class="design-desc">' + d.desc + '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function renderDashboardDesigns(current){
+  var container = document.getElementById('dashboardDesigns');
+  if(!container) return;
+  container.innerHTML = DASHBOARD_DESIGNS.map(function(d){
+    var selected = d.id === current;
+    return '<div class="design-card' + (selected ? ' selected' : '') + '" onclick="selectDashboardDesign(\'' + d.id + '\')">' +
+      (selected ? '<div class="selected-mark">✓</div>' : '') +
+      '<div class="design-name">' + d.name + '</div>' +
+      '<div class="design-desc">' + d.desc + '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function selectLoginDesign(id){
+  DB.update('/settings/designs', { login: id }).then(function(){
+    showToast('✅ Login design updated!');
+    renderLoginDesigns(id);
+  });
+}
+
+function selectDashboardDesign(id){
+  DB.update('/settings/designs', { dashboard: id }).then(function(){
+    showToast('✅ Dashboard design updated!');
+    renderDashboardDesigns(id);
+  });
 }
 
 function loadDashboardStats(){
@@ -439,7 +550,6 @@ function loadDashboardStats(){
     document.getElementById('statBalance').textContent = '৳' + totalBal.toFixed(2);
     renderUsers();
   });
-  
   DB.get('/job_proofs').then(function(proofs){
     allProofs = proofs || {};
     var pending = 0, approved = 0;
@@ -451,7 +561,6 @@ function loadDashboardStats(){
     document.getElementById('statApproved').textContent = approved;
     renderProofs();
   });
-  
   DB.get('/orders').then(function(orders){
     allOrders = orders || {};
     var pending = 0;
@@ -459,7 +568,6 @@ function loadDashboardStats(){
     document.getElementById('statOrders').textContent = pending;
     renderOrders();
   });
-  
   DB.get('/deposits').then(function(deposits){
     allDeposits = [];
     Object.keys(deposits || {}).forEach(function(k){
@@ -470,7 +578,6 @@ function loadDashboardStats(){
     document.getElementById('statPendDep').textContent = pend;
     renderDeposits();
   });
-  
   DB.get('/withdraws').then(function(withdraws){
     allWithdraws = [];
     Object.keys(withdraws || {}).forEach(function(k){
@@ -481,7 +588,6 @@ function loadDashboardStats(){
     document.getElementById('statPendWd').textContent = pend;
     renderWithdraws();
   });
-  
   DB.get('/premium_requests').then(function(prem){
     allPremium = [];
     Object.keys(prem || {}).forEach(function(k){
@@ -545,27 +651,23 @@ function addUserBalance(email){
   var user = findUserByEmail(email);
   if(!user) return showToast('❌ User not found!');
   user.balance = (parseFloat(user.balance) || 0) + amt;
-  var key = fbKey(email);
-  DB.set('/users/' + key, user).then(function(){ showToast('✅ Balance updated!'); loadDashboardStats(); });
+  DB.set('/users/' + fbKey(email), user).then(function(){ showToast('✅ Balance updated!'); loadDashboardStats(); });
 }
 
 function toggleVerify(email){
   var user = findUserByEmail(email);
   if(!user) return showToast('❌ User not found!');
   user.verified = !user.verified;
-  var key = fbKey(email);
-  DB.set('/users/' + key, user).then(function(){ showToast(user.verified ? '✅ Verified!' : '⚠️ Unverified!'); loadDashboardStats(); });
+  DB.set('/users/' + fbKey(email), user).then(function(){ showToast(user.verified ? '✅ Verified!' : '⚠️ Unverified!'); loadDashboardStats(); });
 }
 
 function toggleBan(email){
   var user = findUserByEmail(email);
   if(!user) return showToast('❌ User not found!');
   user.banned = !user.banned;
-  var key = fbKey(email);
-  DB.set('/users/' + key, user).then(function(){ showToast(user.banned ? '🚫 Banned!' : '✅ Unbanned!'); loadDashboardStats(); });
+  DB.set('/users/' + fbKey(email), user).then(function(){ showToast(user.banned ? '🚫 Banned!' : '✅ Unbanned!'); loadDashboardStats(); });
 }
 
-/* ============== CHAT ============== */
 function loadChatBadge(){
   DB.get('/users').then(function(users){
     var count = 0;
@@ -609,8 +711,7 @@ function openChatWith(email){
 
 function loadChatMessages(){
   if(!selectedChatUser) return;
-  var key = fbKey(selectedChatUser);
-  DB.get('/users/' + key).then(function(u){
+  DB.get('/users/' + fbKey(selectedChatUser)).then(function(u){
     if(!u) return;
     var msgs = u.chat || [];
     var box = document.getElementById('chatMessages');
@@ -632,7 +733,6 @@ function sendAdminChat(){
   DB.get('/users/' + key).then(function(u){
     if(!u) return;
     u.chat = u.chat || [];
-    // সব আগের মেসেজ read করা
     u.chat = u.chat.map(function(m){ m.read = true; return m; });
     u.chat.push({ from: 'admin', text: text, date: new Date().toISOString(), read: true });
     DB.set('/users/' + key, u).then(function(){
@@ -644,7 +744,6 @@ function sendAdminChat(){
   });
 }
 
-/* ============== PROOFS ============== */
 function loadProofBadge(){
   DB.get('/job_proofs').then(function(proofs){
     var count = 0;
@@ -701,10 +800,7 @@ function approveProof(id){
           loadDashboardStats();
           loadProofs();
         });
-      } else {
-        showToast('✅ Proof approved!');
-        loadProofs();
-      }
+      } else { showToast('✅ Proof approved!'); loadProofs(); }
     });
   });
 }
@@ -718,7 +814,6 @@ function rejectProof(id){
   DB.update('/job_proofs/' + id, proof).then(function(){ showToast('❌ Proof rejected'); loadProofs(); });
 }
 
-/* ============== ORDERS ============== */
 function loadOrderBadge(){
   DB.get('/orders').then(function(orders){
     var count = 0;
@@ -773,7 +868,6 @@ function rejectOrder(id){
   DB.update('/orders/' + id, order).then(function(){ showToast('❌ Order rejected'); loadDashboardStats(); });
 }
 
-/* ============== DEPOSITS ============== */
 function loadDepositBadge(){
   DB.get('/deposits').then(function(deposits){
     var count = 0;
@@ -823,19 +917,15 @@ function approveDeposit(id){
   var dep = allDeposits.find(function(d){ return d.id === id; });
   if(!dep) return;
   DB.update('/deposits/' + id, { status: 'approved', approvedDate: new Date().toISOString() }).then(function(){
-    var key = fbKey(dep.email);
-    DB.get('/users/' + key).then(function(user){
+    DB.get('/users/' + fbKey(dep.email)).then(function(user){
       if(user){
         user.balance = (parseFloat(user.balance) || 0) + (parseFloat(dep.amount) || 0);
-        DB.set('/users/' + key, user).then(function(){
+        DB.set('/users/' + fbKey(dep.email), user).then(function(){
           showToast('✅ Deposit approved! Balance added.');
           loadDashboardStats();
           loadDeposits();
         });
-      } else {
-        showToast('✅ Deposit approved!');
-        loadDeposits();
-      }
+      } else { showToast('✅ Deposit approved!'); loadDeposits(); }
     });
   });
 }
@@ -847,7 +937,6 @@ function rejectDeposit(id){
   });
 }
 
-/* ============== WITHDRAWS ============== */
 function loadWithdrawBadge(){
   DB.get('/withdraws').then(function(withdraws){
     var count = 0;
@@ -903,11 +992,10 @@ function rejectWithdraw(id){
   if(!confirm('Reject this withdraw?')) return;
   var w = allWithdraws.find(function(x){ return x.id === id; });
   if(!w) return;
-  var key = fbKey(w.email);
-  DB.get('/users/' + key).then(function(user){
+  DB.get('/users/' + fbKey(w.email)).then(function(user){
     if(user){
       user.balance = (parseFloat(user.balance) || 0) + (parseFloat(w.amount) || 0) + (parseFloat(w.fee) || 10);
-      DB.set('/users/' + key, user).then(function(){
+      DB.set('/users/' + fbKey(w.email), user).then(function(){
         DB.update('/withdraws/' + id, { status: 'rejected', rejectedDate: new Date().toISOString() }).then(function(){
           showToast('❌ Rejected, balance returned!');
           loadWithdraws();
@@ -922,7 +1010,6 @@ function rejectWithdraw(id){
   });
 }
 
-/* ============== PREMIUM ============== */
 function loadPremiumBadge(){
   DB.get('/premium_requests').then(function(prem){
     var count = 0;
@@ -972,20 +1059,15 @@ function approvePremium(id){
   var p = allPremium.find(function(x){ return x.id === id; });
   if(!p) return;
   DB.update('/premium_requests/' + id, { status: 'approved', approvedDate: new Date().toISOString() }).then(function(){
-    var key = fbKey(p.email);
-    DB.get('/users/' + key).then(function(user){
+    DB.get('/users/' + fbKey(p.email)).then(function(user){
       if(user){
         user.premium = true;
+        user.verified = true;
         user.premiumDate = new Date().toISOString();
-        DB.set('/users/' + key, user).then(function(){
-          showToast('💎 Premium approved!');
-          loadDashboardStats();
-          loadPremium();
+        DB.set('/users/' + fbKey(p.email), user).then(function(){
+          showToast('💎 Premium approved!'); loadDashboardStats(); loadPremium();
         });
-      } else {
-        showToast('💎 Premium approved!');
-        loadPremium();
-      }
+      } else { showToast('💎 Premium approved!'); loadPremium(); }
     });
   });
 }
@@ -997,7 +1079,6 @@ function rejectPremium(id){
   });
 }
 
-/* ============== REWARD SETTINGS ============== */
 function loadRewardSettingsForm(){
   DB.get('/settings').then(function(s){
     s = s || {};
@@ -1005,6 +1086,9 @@ function loadRewardSettingsForm(){
     document.getElementById('sJobReward').value = s.jobReward || 0.20;
     document.getElementById('sMathReward').value = s.mathReward || 0.04;
     document.getElementById('sAdsTimer').value = s.adsTimer || 8;
+    document.getElementById('sAdDailyLimit').value = s.adDailyLimit || 10;
+    document.getElementById('sPopunderInterval').value = s.popunderInterval || 3;
+    document.getElementById('sInterstitialInterval').value = s.interstitialInterval || 5;
     document.getElementById('sMinDeposit').value = s.minDeposit || 100;
     document.getElementById('sMinWithdraw').value = s.minWithdraw || 110;
     document.getElementById('sWithdrawFee').value = s.withdrawFee || 10;
@@ -1018,6 +1102,9 @@ function saveRewardSettings(){
     jobReward: parseFloat(document.getElementById('sJobReward').value) || 0.20,
     mathReward: parseFloat(document.getElementById('sMathReward').value) || 0.04,
     adsTimer: parseInt(document.getElementById('sAdsTimer').value) || 8,
+    adDailyLimit: parseInt(document.getElementById('sAdDailyLimit').value) || 10,
+    popunderInterval: parseInt(document.getElementById('sPopunderInterval').value) || 3,
+    interstitialInterval: parseInt(document.getElementById('sInterstitialInterval').value) || 5,
     minDeposit: parseInt(document.getElementById('sMinDeposit').value) || 100,
     minWithdraw: parseInt(document.getElementById('sMinWithdraw').value) || 110,
     withdrawFee: parseInt(document.getElementById('sWithdrawFee').value) || 10,
@@ -1026,7 +1113,135 @@ function saveRewardSettings(){
   DB.update('/settings', newSettings).then(function(){ showToast('✅ Settings saved!'); });
 }
 
-/* ============== NOTIFICATIONS ============== */
+var DEFAULT_JOBS = [
+  { name: 'YouTube Subscribe', link: 'https://youtube.com/@aiatikfreelanch', reward: 0.20, icon: '▶️' },
+  { name: 'Facebook Like', link: 'https://www.facebook.com/profile.php?id=61592860621046', reward: 0.20, icon: '📘' },
+  { name: 'TikTok Follow', link: 'https://www.tiktok.com/@atikhasan60057', reward: 0.20, icon: '🎵' },
+  { name: 'Telegram Join', link: 'https://t.me/aiatikdailyearning', reward: 0.20, icon: '✈️' }
+];
+
+function loadJobs(){
+  DB.get('/jobs').then(function(data){ renderJobs(data || DEFAULT_JOBS); });
+}
+
+function renderJobs(jobs){
+  var container = document.getElementById('jobsList');
+  if(!container) return;
+  var arr = Array.isArray(jobs) ? jobs : Object.keys(jobs).map(function(k){ return jobs[k]; });
+  if(!arr.length){ container.innerHTML = '<div style="text-align:center;color:#6b7d94;padding:20px;">No jobs</div>'; return; }
+  container.innerHTML = arr.map(function(j, i){
+    return '<div class="job-item">' +
+      '<div class="job-info"><h4>' + (j.icon || '📌') + ' ' + j.name + '</h4><p>৳' + (j.reward || 0.20) + ' | ' + j.link + '</p></div>' +
+      '<button class="btn btn-red" onclick="deleteJob(' + i + ')" style="padding:6px 12px;font-size:11px;">🗑️ Delete</button>' +
+    '</div>';
+  }).join('');
+}
+
+function createJob(){
+  var name = document.getElementById('jobName').value.trim();
+  var link = document.getElementById('jobLink').value.trim();
+  var reward = parseFloat(document.getElementById('jobRewardInput').value) || 0.20;
+  var icon = document.getElementById('jobIcon').value.trim() || '📌';
+  if(!name || !link) return showToast('❌ Name ও Link দিন!');
+  DB.get('/jobs').then(function(data){
+    var jobs = data || DEFAULT_JOBS;
+    var arr = Array.isArray(jobs) ? jobs : Object.keys(jobs).map(function(k){ return jobs[k]; });
+    arr.push({ name: name, link: link, reward: reward, icon: icon });
+    DB.set('/jobs', arr).then(function(){
+      showToast('✅ Job created!');
+      document.getElementById('jobName').value = '';
+      document.getElementById('jobLink').value = '';
+      document.getElementById('jobRewardInput').value = '';
+      document.getElementById('jobIcon').value = '';
+      loadJobs();
+    });
+  });
+}
+
+function deleteJob(index){
+  if(!confirm('Delete this job?')) return;
+  DB.get('/jobs').then(function(data){
+    var jobs = data || DEFAULT_JOBS;
+    var arr = Array.isArray(jobs) ? jobs : Object.keys(jobs).map(function(k){ return jobs[k]; });
+    arr.splice(index, 1);
+    DB.set('/jobs', arr).then(function(){ showToast('🗑️ Job deleted!'); loadJobs(); });
+  });
+}
+
+var PROMOTE_CATEGORIES = {
+  facebook: ['Facebook ID Followers', 'Facebook ID Likes', 'Facebook Page Followers', 'Facebook Page Likes', 'Facebook Video Views', 'Facebook Reels Views', 'Facebook Post Reactions', 'Facebook Post Comments', 'Facebook Group Members', 'Facebook Watch Time'],
+  youtube: ['YouTube Channel Subscribers', 'YouTube Video Views', 'YouTube Shorts Views', 'YouTube Video Likes', 'YouTube Comments', 'YouTube Watch Time'],
+  tiktok: ['TikTok Profile Followers', 'TikTok Video Likes', 'TikTok Video Views', 'TikTok Shares', 'TikTok Saves', 'TikTok Comments'],
+  instagram: ['Instagram Profile Followers', 'Instagram Photo Likes', 'Instagram Video Views', 'Instagram Reels Views', 'Instagram Story Views', 'Instagram Comments'],
+  telegram: ['Telegram Channel Members', 'Telegram Group Members', 'Telegram Post Views', 'Telegram Post Reactions', 'Telegram Poll Votes']
+};
+
+function loadPromoteSettings(){
+  DB.get('/promote_prices').then(function(data){ renderPromoteSettings(data || {}); });
+}
+
+function renderPromoteSettings(prices){
+  var container = document.getElementById('promoteSettings');
+  if(!container) return;
+  var html = '';
+  Object.keys(PROMOTE_CATEGORIES).forEach(function(cat){
+    html += '<div style="margin-bottom:20px;"><h4 style="color:#00E5FF;margin-bottom:10px;text-transform:capitalize;">' + cat + '</h4>';
+    PROMOTE_CATEGORIES[cat].forEach(function(svc){
+      var key = svc.replace(/\s+/g, '_').toLowerCase();
+      var val = prices[key] || 50;
+      html += '<div class="form-group"><label>' + svc + ' (৳)</label><input type="number" data-promo-key="' + key + '" value="' + val + '"></div>';
+    });
+    html += '</div>';
+  });
+  container.innerHTML = html;
+}
+
+function savePromoteSettings(){
+  var inputs = document.querySelectorAll('[data-promo-key]');
+  var data = {};
+  inputs.forEach(function(inp){ data[inp.getAttribute('data-promo-key')] = parseFloat(inp.value) || 50; });
+  DB.set('/promote_prices', data).then(function(){ showToast('✅ Promote prices saved!'); });
+}
+
+function loadLeaderboardUsers(){
+  DB.get('/leaderboard_users').then(function(data){ renderLeaderboardList(data || {}); });
+}
+
+function renderLeaderboardList(data){
+  var container = document.getElementById('lbList');
+  if(!container) return;
+  var arr = Object.keys(data).map(function(k){ return Object.assign({ id: k }, data[k]); });
+  arr.sort(function(a,b){ return (b.balance || 0) - (a.balance || 0); });
+  if(!arr.length){
+    container.innerHTML = '<div style="text-align:center;color:#6b7d94;padding:20px;">No demo users yet.</div>';
+    return;
+  }
+  container.innerHTML = arr.map(function(u){
+    return '<div class="job-item">' +
+      '<div class="job-info"><h4>' + (u.name || 'Unknown') + '</h4><p>৳ ' + (u.balance || 0) + ' | ' + (u.tag || 'Active') + '</p></div>' +
+      '<button class="btn btn-red" onclick="deleteLeaderboardUser(\'' + u.id + '\')" style="padding:6px 12px;font-size:11px;">🗑️</button>' +
+    '</div>';
+  }).join('');
+}
+
+function addLeaderboardUser(){
+  var name = document.getElementById('lbName').value.trim();
+  var balance = parseFloat(document.getElementById('lbBalance').value) || 1000;
+  var tag = document.getElementById('lbTag').value;
+  if(!name) return showToast('❌ Name দিন!');
+  DB.push('/leaderboard_users', { name: name, balance: balance, tag: tag, addedDate: new Date().toISOString() }).then(function(){
+    showToast('✅ Demo user added!');
+    document.getElementById('lbName').value = '';
+    document.getElementById('lbBalance').value = '';
+    loadLeaderboardUsers();
+  });
+}
+
+function deleteLeaderboardUser(id){
+  if(!confirm('Delete this user?')) return;
+  DB.delete('/leaderboard_users/' + id).then(function(){ showToast('🗑️ Deleted!'); loadLeaderboardUsers(); });
+}
+
 function sendAdminNotification(){
   var target = document.getElementById('notifTarget').value;
   var userEmail = document.getElementById('notifUserEmail').value.trim();
@@ -1068,7 +1283,6 @@ document.getElementById('notifTarget').addEventListener('change', function(){
   document.getElementById('notifUserGroup').style.display = this.value === 'single' ? 'block' : 'none';
 });
 
-/* ============== NAV ============== */
 document.querySelectorAll('.menu-item[data-panel]').forEach(function(item){
   item.addEventListener('click', function(){
     var panel = this.getAttribute('data-panel');
@@ -1085,7 +1299,11 @@ document.querySelectorAll('.menu-item[data-panel]').forEach(function(item){
     if(panel === 'deposits') loadDeposits();
     if(panel === 'withdraws') loadWithdraws();
     if(panel === 'premium') loadPremium();
-    if(panel === 'users') loadUsers();
+    if(panel === 'designs') loadDesigns();
+    if(panel === 'leaderboard') loadLeaderboardUsers();
+    if(panel === 'jobs') loadJobs();
+    if(panel === 'promote') loadPromoteSettings();
+    if(panel === 'rewards') loadRewardSettingsForm();
   });
 });
 

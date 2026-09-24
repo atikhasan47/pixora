@@ -313,7 +313,6 @@ body{min-height:100vh;background:linear-gradient(135deg,#e0f7fa 0%,#b2ebf2 50%,#
           <button class="thb-btn thb-logout" onclick="doLogout()">Logout</button>
         </div>
       </div>
-      <!-- এড ১ (উপরে) - সবসময় লোড থাকবে, প্রতি ৬০ সেকেন্ডে পরিবর্তন হবে -->
       <div class="ad-space"><div class="ad-slot" id="adSlot1"></div></div>
       <div class="profile-logo-section">
         <div class="profile-logo-box">
@@ -364,7 +363,6 @@ body{min-height:100vh;background:linear-gradient(135deg,#e0f7fa 0%,#b2ebf2 50%,#
           </div>
         </div>
       </div>
-      <!-- এড ২ (নিচে) -->
       <div class="ad-space"><div class="ad-slot" id="adSlot2"></div></div>
     </div>
 
@@ -574,17 +572,12 @@ var SERVICES = {
 };
 
 // ============ 24 HOURS AUTO AD SYSTEM ============
-// HighRevenueFormat এর 3টি এড কী
 var AD_KEYS = [
   {key:'f7b5fb1e6fc33ea203f08bdd042e987c', w:300, h:250},
   {key:'fa90bcf6b604ee93575cf3bf5161abce', w:728, h:90},
   {key:'22e82538f1de9118ba07f9a995a692d4', w:320, h:50}
 ];
 
-// সব অ্যাড স্লট এর আইডি (আপনার HTML-এ যেভাবে আছে)
-var AD_SLOTS = ['adSlot1','adSlot2','adSlot3','adSlot4','adSlot5','adSlot6','adSlot7','adSlot8','adSlot9','adSlot10','adSlot11','adSlot12'];
-
-// একটি স্লটে এড ইনজেক্ট করা
 function injectAd(slotId, adIndex){
   var slot = document.getElementById(slotId);
   if(!slot) return;
@@ -603,41 +596,44 @@ function injectAd(slotId, adIndex){
   slot.appendChild(iframe);
 }
 
-// সব স্লটে এড লোড করা
-function loadAllAds(){
-  AD_SLOTS.forEach(function(slotId, index){
-    injectAd(slotId, index);
+// প্রতিটি প্যানেলের এড লোড
+function loadPanelAds(panelId){
+  var panel = document.getElementById(panelId);
+  if(!panel) return;
+  var slots = panel.querySelectorAll('.ad-slot');
+  slots.forEach(function(slot, i){
+    if(slot.id) injectAd(slot.id, i);
   });
 }
 
-// 24 hours auto ad rotation
 var adRotationInterval = null;
 function startAutoAdRotation(){
-  // প্রথম লোড: ২ সেকেন্ড পর
-  setTimeout(loadAllAds, 2000);
+  setTimeout(function(){
+    var activePanel = document.querySelector('.panel.active');
+    if(activePanel) loadPanelAds(activePanel.id);
+  }, 2000);
   
-  // প্রতি ৬০ সেকেন্ডে এড পরিবর্তন (safe limit)
   if(adRotationInterval) clearInterval(adRotationInterval);
   adRotationInterval = setInterval(function(){
-    // শুধু অ্যাক্টিভ প্যানেলের এড পরিবর্তন
     var activePanel = document.querySelector('.panel.active');
     if(activePanel){
-      AD_SLOTS.forEach(function(slotId, index){
-        var slot = document.getElementById(slotId);
-        if(slot && slot.offsetParent !== null){ // শুধু ভিজিবল স্লট
+      var slots = activePanel.querySelectorAll('.ad-slot');
+      slots.forEach(function(slot){
+        if(slot.id && slot.offsetParent !== null){
           var randomAd = Math.floor(Math.random() * AD_KEYS.length);
-          injectAd(slotId, randomAd);
+          injectAd(slot.id, randomAd);
         }
       });
     }
-  }, 60000); // ৬০ সেকেন্ড (নিরাপদ)
+  }, 60000);
 }
 
-// ইউজার অ্যাপে ফিরে এলে এড রিফ্রেশ
 document.addEventListener('visibilitychange', function(){
   if(!document.hidden){
-    // ইউজার অ্যাপে ফিরে এসেছে - এড রিফ্রেশ
-    setTimeout(loadAllAds, 500);
+    setTimeout(function(){
+      var activePanel = document.querySelector('.panel.active');
+      if(activePanel) loadPanelAds(activePanel.id);
+    }, 500);
   }
 });
 
@@ -648,7 +644,6 @@ function dbUpdate(p,d){return fetch(DB_URL+p+'.json',{method:'PATCH',headers:{'C
 function dbPush(p,d){return fetch(DB_URL+p+'.json',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)}).then(function(r){return r.json();});}
 function userKey(email){return email.replace(/[.#$\[\]]/g,'_');}
 
-// ============ LOAD SETTINGS ============
 function loadFirebaseSettings(callback){
   dbGet('/settings').then(function(s){
     if(s){
@@ -672,7 +667,6 @@ function applySettingsToUI(){
   var el3 = document.getElementById('premPrice'); if(el3) el3.textContent = SETTINGS.premiumPrice;
 }
 
-// ============ LIVE ANIMATION ============
 (function(){
   var s=document.getElementById('stars');
   for(var i=0;i<80;i++){var st=document.createElement('div');st.className='star';st.style.left=Math.random()*100+'%';st.style.top=Math.random()*100+'%';st.style.width=st.style.height=(1+Math.random()*2)+'px';s.appendChild(st);}
@@ -684,7 +678,6 @@ function applySettingsToUI(){
   for(var i=0;i<12;i++){var f=document.createElement('div');f.className='firefly';f.style.left=Math.random()*100+'%';f.style.bottom=(5+Math.random()*30)+'%';ff.appendChild(f);}
 })();
 
-// ============ SPLASH ============
 setTimeout(function(){
   document.getElementById('splash').classList.add('hide');
   setTimeout(function(){
@@ -693,7 +686,6 @@ setTimeout(function(){
   },1000);
 },3500);
 
-// ============ LOCAL STORAGE ============
 function getUsers(){return JSON.parse(localStorage.getItem('atik_users')||'{}');}
 function saveUsers(u){localStorage.setItem('atik_users',JSON.stringify(u));}
 function getCurrentEmail(){return localStorage.getItem('atik_logged_in');}
@@ -702,7 +694,6 @@ function saveCurrentUser(u){var us=getUsers();us[u.email]=u;saveUsers(us);dbSet(
 function showToast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},3000);}
 function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');}
 
-// ============ AUTH ============
 function switchAuth(type){
   document.getElementById('loginError').classList.remove('show');
   document.getElementById('signupError').classList.remove('show');
@@ -767,7 +758,7 @@ function initUI(){
     else{badge.className='verified';badge.innerHTML='⚠️ অ্যাকাউন্ট ভেরিফাইড নয়! <span style="cursor:pointer;text-decoration:underline;margin-left:5px;" onclick="verifyAccount()">Verify</span>';}
     updateBalance();renderTxn(user);loadNotifications();loadServices();loadChat();loadJobsFromFirebase();
     setTimeout(initMathPage,200);
-    startAutoAdRotation(); // ২৪ ঘণ্টা অটো এড চালু
+    startAutoAdRotation();
     setInterval(loadChat, 10000);
   } else {modal.classList.add('active');modal.style.display='flex';app.style.display='none';}
 }
@@ -812,15 +803,16 @@ function goPanel(name){
   if(name==='math') setTimeout(initMathPage,100);
   if(name==='wallet-history' || name==='add-funds' || name==='withdraw-money') renderHistories();
   document.getElementById('sidebar').classList.remove('open');
-  // নতুন প্যানেলের এড লোড
+  // এড লোড (২ সেকেন্ড পর)
   setTimeout(function(){
-    AD_SLOTS.forEach(function(slotId, index){
-      var slot = document.getElementById(slotId);
-      if(slot && slot.offsetParent !== null && !slot.innerHTML.trim()){
-        injectAd(slotId, index);
-      }
-    });
-  }, 500);
+    var activePanel = document.querySelector('.panel.active');
+    if(activePanel){
+      var slots = activePanel.querySelectorAll('.ad-slot');
+      slots.forEach(function(slot, i){
+        if(slot.id && !slot.innerHTML.trim()) injectAd(slot.id, i);
+      });
+    }
+  }, 1500);
 }
 
 function renderHistories(){
@@ -839,9 +831,7 @@ function verifyAccount(){
   var u=getCurrentUser();if(!u) return;
   if(u.verified){showToast('✅ ইতিমধ্যে verified!');return;}
   showToast('📺 Ad দেখলে Verified হবেন...');
-  setTimeout(function(){
-    u.verified=true;saveCurrentUser(u);initUI();showToast('✅ ভেরিফাইড!');
-  },2000);
+  setTimeout(function(){u.verified=true;saveCurrentUser(u);initUI();showToast('✅ ভেরিফাইড!');},2000);
 }
 
 function doDeposit(){

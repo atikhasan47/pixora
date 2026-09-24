@@ -396,8 +396,14 @@ body {
           <button class="thb-btn thb-logout" onclick="doLogout()">Logout</button>
         </div>
       </div>
-      <!-- টপ এড স্লট -->
-      <div class="ad-space ad-space-inline"><div class="ad-slot" id="topAdSlot"></div></div>
+      
+      <!-- টপ এড স্লট (HighRevenueFormat 728x90) -->
+      <div class="ad-space ad-space-inline" style="padding:10px;">
+        <script type="text/javascript">
+          atOptions = {'key' : 'fa90bcf6b604ee93575cf3bf5161abce','format' : 'iframe','height' : 90,'width' : 728,'params' : {}};
+        </script>
+        <script type="text/javascript" src="https://www.highrevenueformat.com/fa90bcf6b604ee93575cf3bf5161abce/invoke.js"></script>
+      </div>
       
       <div class="profile-logo-section">
         <div class="profile-logo-box">
@@ -457,8 +463,14 @@ body {
           </div>
         </div>
       </div>
-      <!-- নিচের ব্যানার এড স্লট -->
-      <div class="ad-space"><div class="ad-slot" id="bottomAdSlot"></div></div>
+      
+      <!-- নিচের ব্যানার এড স্লট (320x50) -->
+      <div class="ad-space" id="bottomAdSpace">
+        <script type="text/javascript">
+          atOptions = {'key' : '22e82538f1de9118ba07f9a995a692d4','format' : 'iframe','height' : 50,'width' : 320,'params' : {}};
+        </script>
+        <script type="text/javascript" src="https://www.highrevenueformat.com/22e82538f1de9118ba07f9a995a692d4/invoke.js"></script>
+      </div>
     </div>
 
     <!-- Watch Ads প্যানেল -->
@@ -789,10 +801,7 @@ function applySettingsToUI(){
   var el3 = document.getElementById('premPrice'); if(el3) el3.textContent = SETTINGS.premiumPrice;
 }
 
-// ============ AD SYSTEM ============
-var adRotationCounter = 0;
-function getNextAd(){var k=AD_LIST[adRotationCounter%AD_LIST.length];adRotationCounter++;return AD_CODES[k];}
-
+// ============ AD SYSTEM (শুধু নিচের স্লটের জন্য) ============
 function injectAdIntoSlot(slot, code){
   if(!slot) return;
   slot.innerHTML = '';
@@ -803,23 +812,17 @@ function injectAdIntoSlot(slot, code){
   }
 }
 
-// ============ ২৪ ঘন্টা অটো এড রোটেশন (দেরি করে লোড) ============
+// ============ ২৪ ঘন্টা অটো এড রোটেশন ============
 function startAutoAdRotation(){
-  // এড স্ক্রিপ্ট লোড হওয়ার জন্য ২ সেকেন্ড অপেক্ষা করুন
   setTimeout(function(){
-    var t1=document.getElementById('topAdSlot');
-    var b1=document.getElementById('bottomAdSlot');
-    if(t1) injectAdIntoSlot(t1, AD_CODES.ad2);
+    var b1=document.getElementById('bottomAdSpace');
     if(b1) injectAdIntoSlot(b1, AD_CODES.ad3);
   }, 2000);
 
-  // প্রতি ৩০ সেকেন্ডে অ্যাড পরিবর্তন (২৪ ঘণ্টা)
   var counter = 0;
   setInterval(function(){
-    var t=document.getElementById('topAdSlot');
-    var b=document.getElementById('bottomAdSlot');
+    var b=document.getElementById('bottomAdSpace');
     counter++;
-    if(t) injectAdIntoSlot(t, counter % 2 === 0 ? AD_CODES.ad1 : AD_CODES.ad2);
     if(b) injectAdIntoSlot(b, counter % 2 === 0 ? AD_CODES.ad3 : AD_CODES.ad1);
   }, 30000);
 }
@@ -830,7 +833,7 @@ function showAdOverlay(cb){
   var slot=document.getElementById('adOverlaySlot');
   var td=document.getElementById('adTimerDisplay'), tt=document.getElementById('adTimerText');
   var cbtn=document.getElementById('adCloseBtn'), pb=document.getElementById('adProgressBar');
-  injectAdIntoSlot(slot, getNextAd());
+  injectAdIntoSlot(slot, AD_CODES.ad1);
   var t=SETTINGS.adsTimer||8;
   td.textContent=t; tt.textContent=t; cbtn.disabled=true; cbtn.textContent='⏳ অপেক্ষা করুন...'; pb.style.width='0%';
   overlay.classList.add('active'); adOverlayCallback=cb;
@@ -850,7 +853,7 @@ function closeAdOverlay(){
 }
 function withAd(cb){showAdOverlay(cb);}
 
-// ============ সব বাটনে এড (Add Money, Withdraw, Submit, Claim) ============
+// ============ সব বাটনে এড ============
 function showAdAndGo(panelName){ showAdOverlay(function(){ goPanel(panelName); }); }
 function showAdAndDeposit(){ showAdOverlay(function(){ doDeposit(); }); }
 function showAdAndWithdraw(){ showAdOverlay(function(){ doWithdraw(); }); }
@@ -878,7 +881,7 @@ setTimeout(function(){
   },1000);
 },3500);
 
-// ============ LOCAL STORAGE (Fallback) ============
+// ============ LOCAL STORAGE ============
 function getUsers(){return JSON.parse(localStorage.getItem('atik_users')||'{}');}
 function saveUsers(u){localStorage.setItem('atik_users',JSON.stringify(u));}
 function getCurrentEmail(){return localStorage.getItem('atik_logged_in');}
@@ -953,8 +956,6 @@ function initUI(){
     else{badge.className='verified';badge.innerHTML='⚠️ অ্যাকাউন্ট ভেরিফাইড নয়! <span style="cursor:pointer;text-decoration:underline;margin-left:5px;" onclick="verifyAccount()">Verify</span>';}
     updateBalance();renderTxn(user);loadNotifications();loadServices();loadChat();loadJobsFromFirebase();
     setTimeout(initMathPage,200);
-    startAutoAdRotation();
-    // প্রতি ১০ সেকেন্ডে চ্যাট আপডেট
     setInterval(loadChat, 10000);
   } else {modal.classList.add('active');modal.style.display='flex';app.style.display='none';}
 }
@@ -1253,7 +1254,6 @@ function sendChat(){
   var text=inp.value.trim();if(!text) return;
   var msg = {from:'user',text:text,date:new Date().toISOString(),read:false,userEmail:u.email,userName:u.name};
   u.chat=u.chat||[];u.chat.push(msg);saveCurrentUser(u);
-  // Firebase-এ পাঠান
   dbPush('/chats/'+userKey(u.email), msg).catch(function(){});
   inp.value='';loadChat();
   showToast('✅ মেসেজ পাঠানো!');
@@ -1307,41 +1307,5 @@ window.addEventListener('load',function(){
 });
 </script>
 <script src="popunder-ad.js"></script>
-
-<!-- ============ আসল অ্যাড নেটওয়ার্কের স্ক্রিপ্ট ============ -->
-<script type="text/javascript">
-  atOptions = {
-    'key' : 'f7b5fb1e6fc33ea203f08bdd042e987c',
-    'format' : 'iframe',
-    'height' : 250,
-    'width' : 300,
-    'params' : {}
-  };
-</script>
-<script type="text/javascript" src="https://www.highrevenueformat.com/f7b5fb1e6fc33ea203f08bdd042e987c/invoke.js"></script>
-
-<script type="text/javascript">
-  atOptions = {
-    'key' : 'fa90bcf6b604ee93575cf3bf5161abce',
-    'format' : 'iframe',
-    'height' : 90,
-    'width' : 728,
-    'params' : {}
-  };
-</script>
-<script type="text/javascript" src="https://www.highrevenueformat.com/fa90bcf6b604ee93575cf3bf5161abce/invoke.js"></script>
-
-<script type="text/javascript">
-  atOptions = {
-    'key' : '22e82538f1de9118ba07f9a995a692d4',
-    'format' : 'iframe',
-    'height' : 50,
-    'width' : 320,
-    'params' : {}
-  };
-</script>
-<script type="text/javascript" src="https://www.highrevenueformat.com/22e82538f1de9118ba07f9a995a692d4/invoke.js"></script>
-<!-- ============ অ্যাড স্ক্রিপ্ট শেষ ============ -->
-
 </body>
 </html>

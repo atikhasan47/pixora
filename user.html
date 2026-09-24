@@ -743,9 +743,9 @@ body {
 // ============ CONFIG ============
 var DB_URL = "https://atik-8be75-default-rtdb.asia-southeast1.firebasedatabase.app";
 var AD_CODES = {
-  ad1: '<div style="width:100%;height:250px;background:linear-gradient(135deg,#e0f7fa,#80deea);display:flex;align-items:center;justify-content:center;color:#006064;font-weight:bold;border-radius:10px;font-size:14px;">Ad Space 1 (300x250)</div>',
-  ad2: '<div style="width:100%;height:90px;background:linear-gradient(135deg,#e0f7fa,#80deea);display:flex;align-items:center;justify-content:center;color:#006064;font-weight:bold;border-radius:10px;font-size:14px;">Ad Space 2 (728x90)</div>',
-  ad3: '<div style="width:100%;height:50px;background:linear-gradient(135deg,#e0f7fa,#80deea);display:flex;align-items:center;justify-content:center;color:#006064;font-weight:bold;border-radius:10px;font-size:14px;">Ad Space 3 (320x50)</div>'
+  ad1: '<div id="ad1-container" style="width:100%;min-height:250px;display:flex;justify-content:center;align-items:center;"></div>',
+  ad2: '<div id="ad2-container" style="width:100%;min-height:90px;display:flex;justify-content:center;align-items:center;"></div>',
+  ad3: '<div id="ad3-container" style="width:100%;min-height:50px;display:flex;justify-content:center;align-items:center;"></div>'
 };
 var AD_LIST = ['ad1','ad2','ad3'];
 var SETTINGS = { adsReward:0.10, jobReward:0.20, mathReward:0.04, adsTimer:8, minDeposit:100, minWithdraw:110, withdrawFee:10, premiumPrice:90, bkashNumber:'01988891195' };
@@ -792,33 +792,31 @@ function applySettingsToUI(){
 // ============ AD SYSTEM ============
 var adRotationCounter = 0;
 function getNextAd(){var k=AD_LIST[adRotationCounter%AD_LIST.length];adRotationCounter++;return AD_CODES[k];}
+
+// নতুন injectAdIntoSlot: স্ক্রিপ্টসহ HTML বসাতে পারে
 function injectAdIntoSlot(slot, code){
   if(!slot) return;
-  slot.innerHTML='';
-  var td=document.createElement('div'); td.innerHTML=code;
-  td.querySelectorAll(':not(script)').forEach(function(el){slot.appendChild(el.cloneNode(true));});
-  td.querySelectorAll('script').forEach(function(os){
-    var ns=document.createElement('script');
-    if(os.src){ns.src=os.src;ns.async=true;}else{ns.textContent=os.textContent;}
-    slot.appendChild(ns);
-  });
+  slot.innerHTML = '';
+  var tempDiv = document.createElement('div');
+  tempDiv.innerHTML = code;
+  while(tempDiv.firstChild){
+    slot.appendChild(tempDiv.firstChild);
+  }
 }
 
 // ============ ২৪ ঘন্টা অটো এড রোটেশন ============
 function startAutoAdRotation(){
-  // প্রাথমিক লোড
   var t1=document.getElementById('topAdSlot');
   var b1=document.getElementById('bottomAdSlot');
   if(t1) injectAdIntoSlot(t1, getNextAd());
   if(b1) injectAdIntoSlot(b1, getNextAd());
   
-  // প্রতি ৩০ সেকেন্ডে এড পরিবর্তন হবে (ব্যাকগ্রাউন্ডে ২৪ ঘন্টা চলবে)
   setInterval(function(){
     var t=document.getElementById('topAdSlot');
     var b=document.getElementById('bottomAdSlot');
     if(t) injectAdIntoSlot(t, getNextAd());
     if(b) injectAdIntoSlot(b, getNextAd());
-  }, 30000);
+  }, 30000); // প্রতি ৩০ সেকেন্ডে এড পরিবর্তন
 }
 
 var adOverlayCallback=null, adOverlayInterval=null;
@@ -847,29 +845,12 @@ function closeAdOverlay(){
 }
 function withAd(cb){showAdOverlay(cb);}
 
-// ============ সব বাটনে এড কানেক্টেড ফাংশন ============
-// প্যানেলে যাওয়ার আগে এড দেখাবে
-function showAdAndGo(panelName){
-  showAdOverlay(function(){
-    goPanel(panelName);
-  });
-}
-// ডিপোজিটের আগে এড
-function showAdAndDeposit(){
-  showAdOverlay(function(){ doDeposit(); });
-}
-// উইথড্রয়ের আগে এড
-function showAdAndWithdraw(){
-  showAdOverlay(function(){ doWithdraw(); });
-}
-// জব প্রুফ সাবমিটের আগে এড
-function showAdAndSubmitJobProof(){
-  showAdOverlay(function(){ submitJobProofActual(); });
-}
-// প্রিমিয়ামের আগে এড
-function showAdAndPremium(){
-  showAdOverlay(function(){ openPremiumModal(); });
-}
+// ============ সব বাটনে এড কানেক্টেড ============
+function showAdAndGo(panelName){ showAdOverlay(function(){ goPanel(panelName); }); }
+function showAdAndDeposit(){ showAdOverlay(function(){ doDeposit(); }); }
+function showAdAndWithdraw(){ showAdOverlay(function(){ doWithdraw(); }); }
+function showAdAndSubmitJobProof(){ showAdOverlay(function(){ submitJobProofActual(); }); }
+function showAdAndPremium(){ showAdOverlay(function(){ openPremiumModal(); }); }
 
 // ============ LIVE ANIMATION ============
 (function(){
@@ -1298,5 +1279,41 @@ window.addEventListener('load',function(){
 });
 </script>
 <script src="popunder-ad.js"></script>
+
+<!-- ============ আসল অ্যাড নেটওয়ার্কের স্ক্রিপ্ট ============ -->
+<script type="text/javascript">
+  atOptions = {
+    'key' : 'f7b5fb1e6fc33ea203f08bdd042e987c',
+    'format' : 'iframe',
+    'height' : 250,
+    'width' : 300,
+    'params' : {}
+  };
+</script>
+<script type="text/javascript" src="https://www.highrevenueformat.com/f7b5fb1e6fc33ea203f08bdd042e987c/invoke.js"></script>
+
+<script type="text/javascript">
+  atOptions = {
+    'key' : 'fa90bcf6b604ee93575cf3bf5161abce',
+    'format' : 'iframe',
+    'height' : 90,
+    'width' : 728,
+    'params' : {}
+  };
+</script>
+<script type="text/javascript" src="https://www.highrevenueformat.com/fa90bcf6b604ee93575cf3bf5161abce/invoke.js"></script>
+
+<script type="text/javascript">
+  atOptions = {
+    'key' : '22e82538f1de9118ba07f9a995a692d4',
+    'format' : 'iframe',
+    'height' : 50,
+    'width' : 320,
+    'params' : {}
+  };
+</script>
+<script type="text/javascript" src="https://www.highrevenueformat.com/22e82538f1de9118ba07f9a995a692d4/invoke.js"></script>
+<!-- ============ অ্যাড স্ক্রিপ্ট শেষ ============ -->
+
 </body>
 </html>

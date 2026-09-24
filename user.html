@@ -378,7 +378,7 @@ body{min-height:100vh;background:linear-gradient(135deg,#e0f7fa 0%,#b2ebf2 50%,#
       <div id="adMathBox" style="display:none;background:#ffffff;border:2px dashed #00acc1;border-radius:18px;padding:25px;text-align:center;margin-top:20px;">
         <div style="font-size:36px;font-weight:900;color:#006064;font-family:'Courier New',monospace;margin-bottom:20px;" id="mathQuestion">-- + -- = ?</div>
         <input type="number" id="mathAnswer" placeholder="উত্তর লিখুন" style="width:100%;max-width:280px;padding:16px;background:#e0f7fa;border:2px solid #b2ebf2;border-radius:12px;color:#00363a;font-size:22px;text-align:center;outline:none;display:block;margin:0 auto 15px auto;">
-<button onclick="submitMath()" style="background:linear-gradient(90deg,#00acc1,#00838f);color:#fff;padding:16px 40px;border:none;border-radius:14px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;display:block;margin:0 auto;box-shadow:0 4px 10px rgba(0,172,193,.3);width:100%;max-width:280px;">✅ ক্লেইম করুন</button>
+        <button onclick="submitMath()" style="background:linear-gradient(90deg,#00acc1,#00838f);color:#fff;padding:16px 40px;border:none;border-radius:14px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;display:block;margin:0 auto;box-shadow:0 4px 10px rgba(0,172,193,.3);width:100%;max-width:280px;">✅ ক্লেইম করুন</button>
         <div id="mathFeedback" style="margin-top:15px;font-size:14px;font-weight:700;"></div>
       </div>
       <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" id="adSlot3"></div></div>
@@ -569,17 +569,23 @@ var SERVICES = {
   telegram:[{name:'Telegram Channel Members',price:150},{name:'Telegram Group Members',price:130},{name:'Telegram Post Views',price:30},{name:'Telegram Post Reactions',price:60},{name:'Telegram Poll Votes',price:70}]
 };
 
-// ============ 24 HOURS AUTO AD SYSTEM ============
+// ============ 24 HOURS AUTO AD SYSTEM - FIXED ============
 var AD_KEYS = [
   {key:'f7b5fb1e6fc33ea203f08bdd042e987c', w:300, h:250},
   {key:'fa90bcf6b604ee93575cf3bf5161abce', w:728, h:90},
   {key:'22e82538f1de9118ba07f9a995a692d4', w:320, h:50}
 ];
 
+// Track which slot has which ad (to rotate them differently)
+var adSlotRotation = {};
+
 function injectAd(slotId, adIndex){
   var slot = document.getElementById(slotId);
   if(!slot) return;
-  var ad = AD_KEYS[adIndex % AD_KEYS.length];
+  // প্রতিটি স্লটে আলাদা এড দেখানোর জন্য rotation counter
+  if(adSlotRotation[slotId] === undefined) adSlotRotation[slotId] = adIndex;
+  var ad = AD_KEYS[adSlotRotation[slotId] % AD_KEYS.length];
+  adSlotRotation[slotId]++;
   slot.innerHTML = '';
   var iframe = document.createElement('iframe');
   iframe.style.width = '100%';
@@ -594,7 +600,7 @@ function injectAd(slotId, adIndex){
   slot.appendChild(iframe);
 }
 
-// প্রতিটি প্যানেলের এড লোড
+// প্রতিটি প্যানেলের এড লোড (শুধু ভিজিবল)
 function loadPanelAds(panelId){
   var panel = document.getElementById(panelId);
   if(!panel) return;
@@ -604,34 +610,33 @@ function loadPanelAds(panelId){
   });
 }
 
+// সব প্যানেলের এড একবারে লোড (প্রথমবার)
+function loadAllAdsOnce(){
+  var slots = document.querySelectorAll('.ad-slot');
+  slots.forEach(function(slot, i){
+    if(slot.id) injectAd(slot.id, i);
+  });
+}
+
 var adRotationInterval = null;
 function startAutoAdRotation(){
-  setTimeout(function(){
-    var activePanel = document.querySelector('.panel.active');
-    if(activePanel) loadPanelAds(activePanel.id);
-  }, 2000);
+  // প্রথমে সব প্যানেলের এড লোড (২ সেকেন্ড পর)
+  setTimeout(loadAllAdsOnce, 2000);
   
+  // ৩ সেকেন্ড পর আবার লোড (যদি প্রথমে মিস হয়)
+  setTimeout(loadAllAdsOnce, 5000);
+  
+  // প্রতি ৬০ সেকেন্ডে সব এড পরিবর্তন (২৪ ঘণ্টা, চাপ লাগবে না)
   if(adRotationInterval) clearInterval(adRotationInterval);
   adRotationInterval = setInterval(function(){
-    var activePanel = document.querySelector('.panel.active');
-    if(activePanel){
-      var slots = activePanel.querySelectorAll('.ad-slot');
-      slots.forEach(function(slot){
-        if(slot.id && slot.offsetParent !== null){
-          var randomAd = Math.floor(Math.random() * AD_KEYS.length);
-          injectAd(slot.id, randomAd);
-        }
-      });
-    }
+    loadAllAdsOnce();
   }, 60000);
 }
 
+// ইউজার অ্যাপে ফিরে এলে সব এড রিফ্রেশ
 document.addEventListener('visibilitychange', function(){
   if(!document.hidden){
-    setTimeout(function(){
-      var activePanel = document.querySelector('.panel.active');
-      if(activePanel) loadPanelAds(activePanel.id);
-    }, 500);
+    setTimeout(loadAllAdsOnce, 1000);
   }
 });
 
@@ -801,16 +806,16 @@ function goPanel(name){
   if(name==='math') setTimeout(initMathPage,100);
   if(name==='wallet-history' || name==='add-funds' || name==='withdraw-money') renderHistories();
   document.getElementById('sidebar').classList.remove('open');
-  // এড লোড (২ সেকেন্ড পর)
+  // প্যানেলে ঢোকার ২ সেকেন্ড পর এড লোড
   setTimeout(function(){
     var activePanel = document.querySelector('.panel.active');
     if(activePanel){
       var slots = activePanel.querySelectorAll('.ad-slot');
       slots.forEach(function(slot, i){
-        if(slot.id && !slot.innerHTML.trim()) injectAd(slot.id, i);
+        if(slot.id) injectAd(slot.id, i);
       });
     }
-  }, 1500);
+  }, 2000);
 }
 
 function renderHistories(){
@@ -866,8 +871,13 @@ function closePremiumModal(){document.getElementById('premiumModal') && document
 var currentMathAnswer=0;
 function startAdFlow(){
   var u=getCurrentUser();if(!u) return;
-  showToast('📺 Ad দেখুন...');
-  generateMathProblem();document.getElementById('adMathBox').style.display='block';
+  showToast('📺 Ad লোড হচ্ছে...');
+  var slot = document.getElementById('adSlot3');
+  if(slot) injectAd('adSlot3', 0);
+  setTimeout(function(){
+    generateMathProblem();
+    document.getElementById('adMathBox').style.display='block';
+  }, 1500);
 }
 function generateMathProblem(){
   var a=Math.floor(Math.random()*20)+5,b=Math.floor(Math.random()*20)+5;

@@ -377,10 +377,8 @@ body{min-height:100vh;background:linear-gradient(135deg,#e0f7fa 0%,#b2ebf2 50%,#
       <button class="btn btn-cyan" style="width:100%;justify-content:center;padding:20px;font-size:16px;" onclick="startAdFlow()">▶ Ads দেখা শুরু করুন</button>
       <div id="adMathBox" style="display:none;background:#ffffff;border:2px dashed #00acc1;border-radius:18px;padding:25px;text-align:center;margin-top:20px;">
         <div style="font-size:36px;font-weight:900;color:#006064;font-family:'Courier New',monospace;margin-bottom:20px;" id="mathQuestion">-- + -- = ?</div>
-        <div style="display:flex;gap:10px;max-width:400px;margin:0 auto;">
-          <input type="number" id="mathAnswer" placeholder="উত্তর" style="flex:1;padding:14px;background:#e0f7fa;border:2px solid #b2ebf2;border-radius:12px;color:#00363a;font-size:20px;text-align:center;outline:none;">
-          <button class="btn btn-cyan" onclick="submitMath()">✅ ক্লেইম</button>
-        </div>
+        <input type="number" id="mathAnswer" placeholder="উত্তর লিখুন" style="width:100%;max-width:280px;padding:16px;background:#e0f7fa;border:2px solid #b2ebf2;border-radius:12px;color:#00363a;font-size:22px;text-align:center;outline:none;display:block;margin:0 auto 15px auto;">
+<button onclick="submitMath()" style="background:linear-gradient(90deg,#00acc1,#00838f);color:#fff;padding:16px 40px;border:none;border-radius:14px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;display:block;margin:0 auto;box-shadow:0 4px 10px rgba(0,172,193,.3);width:100%;max-width:280px;">✅ ক্লেইম করুন</button>
         <div id="mathFeedback" style="margin-top:15px;font-size:14px;font-weight:700;"></div>
       </div>
       <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" id="adSlot3"></div></div>

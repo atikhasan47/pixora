@@ -353,8 +353,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 </style>
 </head>
 <body>
-
-<div class="village-bg" id="villageBg">
+  <div class="village-bg" id="villageBg">
   <div class="sky-night"></div>
   <div class="stars" id="stars"></div>
   <div class="moon"></div>
@@ -797,6 +796,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       <div class="topbar"><h2>👑 Get Premium</h2></div>
       <div class="ad-space ad-space-inline"><div class="ad-slot" id="adSlot13"></div></div>
       <div class="premium-card">
+        <div id="premiumStatusBox" style="display:none;background:linear-gradient(90deg,#00C853,#00E676);color:#fff;padding:14px 20px;border-radius:14px;font-weight:900;font-size:16px;margin-bottom:20px;text-align:center;">✅ আপনি Premium মেম্বার!</div>
         <div style="font-size:60px;margin-bottom:10px;">👑</div>
         <h2>PREMIUM</h2>
         <p style="font-size:15px;margin-bottom:15px;">ডাবল ইনকাম, ডাবল কাজ</p>
@@ -947,7 +947,6 @@ var FB = {
 
 function fbKey(email){ return (email || '').replace(/[.#$\[\]]/g, '_'); }
 
-// ইউজার ডাটা ফায়ারবেসে সেভ
 function fbSaveUser(user){
   if(!user || !user.email) return;
   var key = fbKey(user.email);
@@ -968,7 +967,6 @@ function fbSaveUser(user){
   });
 }
 
-// ইউজারের ব্যালেন্স রিয়েল-টাইমে অ্যাডমিন থেকে আসা আপডেট চেক
 var fbListener = null;
 function fbStartListener(email){
   if(!email) return;
@@ -1102,7 +1100,21 @@ function closeAdOverlay(){
     setTimeout(cb, 100);
   }
 }
-function withAd(callback){ showAdOverlay(callback); }
+function withAd(callback){
+  var called = false;
+  var safeCallback = function(){
+    if(called) return;
+    called = true;
+    try { callback(); } catch(e){ console.error('Callback error:', e); }
+  };
+  showAdOverlay(safeCallback);
+  setTimeout(function(){
+    if(!called){
+      called = true;
+      try { callback(); } catch(e){ console.error('Forced callback error:', e); }
+    }
+  }, 15000);
+}
 
 /* LIVE ANIMATION */
 (function(){
@@ -1242,12 +1254,11 @@ function doSignup(){
     name:name,username:username,email:email,password:pass,
     balance:0,totalEarned:0,adsWatched:0,
     referralCode:username.substring(0,4).toUpperCase()+Math.floor(1000+Math.random()*9000),
-    status:'active',verified:false,
+    status:'active',verified:false,premium:false,banned:false,
     deposits:[],withdraws:[],adLog:[],jobProofs:[],referrals:[],chat:[],orders:[],
     mathCorrect:0,mathWrong:0,mathEarn:0
   };
   saveUsers(users);
-  // 🔥 Firebase এ পাঠান
   fbSaveUser(users[email]);
   showToast('✅ একাউন্ট তৈরি!');
   setTimeout(function(){
@@ -1271,7 +1282,6 @@ function doLogin(){
   }
   if(user.banned) return showErr('loginError', '🚫 একাউন্ট ব্যান!');
   localStorage.setItem('atik_logged_in', email);
-  // 🔥 Firebase এ সেভ + লিসেন শুরু
   fbSaveUser(user);
   fbStartListener(user.email);
   showToast('✅ স্বাগতম ' + user.name);
@@ -1313,7 +1323,6 @@ function initUI(){
     loadServices();
     loadChat();
     startAutoAdRotation();
-    // 🔥 Firebase এ সেভ + লিসেন শুরু
     fbSaveUser(user);
     fbStartListener(user.email);
   } else {
@@ -1339,6 +1348,11 @@ function updateBalance(){
   var el = document.getElementById('mathCorrect'); if(el) el.textContent = u.mathCorrect || 0;
   var el2 = document.getElementById('mathWrong'); if(el2) el2.textContent = u.mathWrong || 0;
   var el3 = document.getElementById('mathEarnTotal'); if(el3) el3.textContent = (u.mathEarn || 0).toFixed(2);
+  var premiumBox = document.getElementById('premiumStatusBox');
+  if(premiumBox){
+    if(u.premium){ premiumBox.style.display = 'block'; }
+    else { premiumBox.style.display = 'none'; }
+  }
 }
 
 function renderAll(){ var u = getCurrentUser(); if(!u) return; renderTxn(u); updateAdStats(); renderLeaderboard(); }
@@ -1437,29 +1451,30 @@ function doDeposit(){
   var screenshotFile = document.getElementById('depositScreenshot').files[0];
   if(!amt || amt < 100) return showToast('❌ মিনিমাম ৳100');
   if(!sender || !txn) return showToast('❌ সব ঘর পূরণ!');
-  showToast('📺 Ad দেখুন তারপর সাবমিট হবে...');
-  withAd(function(){
-    var doSave = function(ssData){
-      var newDep = { date: new Date().toISOString(), amount: amt, sender: sender, txn: txn, screenshot: ssData || '', method:'Bkash', status:'pending', email:u.email, name:u.name };
-      u.deposits = u.deposits || [];
-      u.deposits.push(newDep);
+  var newDep = { date: new Date().toISOString(), amount: amt, sender: sender, txn: txn, screenshot: '', method:'Bkash', status:'pending', email:u.email, name:u.name };
+  u.deposits = u.deposits || [];
+  u.deposits.push(newDep);
+  saveCurrentUser(u);
+  renderTxn(u);
+  var depKey = Date.now() + '_' + fbKey(u.email);
+  FB.set('/deposits/' + depKey, newDep);
+  showToast('✅ ডিপোজিট রিকোয়েস্ট!');
+  document.getElementById('depositAmt').value = '';
+  document.getElementById('depositSender').value = '';
+  document.getElementById('depositTxn').value = '';
+  document.getElementById('depositScreenshot').value = '';
+  if(screenshotFile){
+    var r = new FileReader();
+    r.onload = function(e){
+      u.deposits[u.deposits.length-1].screenshot = e.target.result;
       saveCurrentUser(u);
-      renderTxn(u);
-      // 🔥 Firebase এ ডিপোজিট পাঠান
-      var depKey = Date.now() + '_' + fbKey(u.email);
-      FB.set('/deposits/' + depKey, newDep);
-      showToast('✅ ডিপোজিট রিকোয়েস্ট!');
-      document.getElementById('depositAmt').value = '';
-      document.getElementById('depositSender').value = '';
-      document.getElementById('depositTxn').value = '';
-      document.getElementById('depositScreenshot').value = '';
+      var upd = {}; upd['screenshot'] = e.target.result;
+      FB.update('/deposits/' + depKey, upd);
     };
-    if(screenshotFile){
-      var r = new FileReader();
-      r.onload = function(e){ doSave(e.target.result); };
-      r.readAsDataURL(screenshotFile);
-    } else doSave(null);
-  });
+    r.readAsDataURL(screenshotFile);
+  }
+  showToast('📺 Ad দেখুন...');
+  withAd(function(){});
 }
 
 /* WITHDRAW */
@@ -1472,31 +1487,32 @@ function doWithdraw(){
   if(!amt || amt < 110) return showToast('❌ মিনিমাম ৳110');
   if(!acc) return showToast('❌ Account দিন!');
   if((u.balance || 0) < amt + 10) return showToast('❌ পর্যাপ্ত নেই!');
-  showToast('📺 Ad দেখুন তারপর উইথড্র হবে...');
-  withAd(function(){
-    var doSave = function(ssData){
-      u.balance -= amt + 10;
-      var newWd = { date: new Date().toISOString(), amount: amt, fee: 10, account: acc, screenshot: ssData || '', status:'pending', email:u.email, name:u.name };
-      u.withdraws = u.withdraws || [];
-      u.withdraws.push(newWd);
+  u.balance -= amt + 10;
+  var newWd = { date: new Date().toISOString(), amount: amt, fee: 10, account: acc, screenshot: '', status:'pending', email:u.email, name:u.name };
+  u.withdraws = u.withdraws || [];
+  u.withdraws.push(newWd);
+  saveCurrentUser(u);
+  updateBalance();
+  renderTxn(u);
+  fbSaveUser(u);
+  var wdKey = Date.now() + '_' + fbKey(u.email);
+  FB.set('/withdraws/' + wdKey, newWd);
+  showToast('✅ Withdraw রিকোয়েস্ট!');
+  document.getElementById('withdrawAmt').value = '';
+  document.getElementById('withdrawAcc').value = '';
+  document.getElementById('withdrawScreenshot').value = '';
+  if(screenshotFile){
+    var r = new FileReader();
+    r.onload = function(e){
+      u.withdraws[u.withdraws.length-1].screenshot = e.target.result;
       saveCurrentUser(u);
-      updateBalance();
-      renderTxn(u);
-      fbSaveUser(u);
-      // 🔥 Firebase এ উইথড্র পাঠান
-      var wdKey = Date.now() + '_' + fbKey(u.email);
-      FB.set('/withdraws/' + wdKey, newWd);
-      showToast('✅ Withdraw রিকোয়েস্ট!');
-      document.getElementById('withdrawAmt').value = '';
-      document.getElementById('withdrawAcc').value = '';
-      document.getElementById('withdrawScreenshot').value = '';
+      var upd = {}; upd['screenshot'] = e.target.result;
+      FB.update('/withdraws/' + wdKey, upd);
     };
-    if(screenshotFile){
-      var r = new FileReader();
-      r.onload = function(e){ doSave(e.target.result); };
-      r.readAsDataURL(screenshotFile);
-    } else doSave(null);
-  });
+    r.readAsDataURL(screenshotFile);
+  }
+  showToast('📺 Ad দেখুন...');
+  withAd(function(){});
 }
 
 function copyRef(){
@@ -1539,26 +1555,25 @@ function submitPremiumRequest(){
   var txn = document.getElementById('premiumTxn').value.trim();
   var ssFile = document.getElementById('premiumScreenshot').files[0];
   if(!sender || !txn) return showToast('❌ সব ঘর পূরণ!');
-  showToast('📺 Ad দেখুন...');
-  withAd(function(){
-    var doSave = function(ssData){
-      var newPrem = { date: new Date().toISOString(), email:u.email, name:u.name, sender:sender, txn:txn, screenshot:ssData||'', amount:90, status:'pending' };
-      var premiumRequests = JSON.parse(localStorage.getItem('atik_premium_requests') || '[]');
-      premiumRequests.push(newPrem);
-      localStorage.setItem('atik_premium_requests', JSON.stringify(premiumRequests));
-      // 🔥 Firebase এ প্রিমিয়াম পাঠান
-      var premKey = Date.now() + '_' + fbKey(u.email);
-      FB.set('/premium_requests/' + premKey, newPrem);
-      showToast('✅ Premium রিকোয়েস্ট পাঠানো!');
-      var m = document.getElementById('premiumPayModal');
-      if(m) m.remove();
+  var newPrem = { date: new Date().toISOString(), email:u.email, name:u.name, sender:sender, txn:txn, screenshot:'', amount:90, status:'pending' };
+  var premiumRequests = JSON.parse(localStorage.getItem('atik_premium_requests') || '[]');
+  premiumRequests.push(newPrem);
+  localStorage.setItem('atik_premium_requests', JSON.stringify(premiumRequests));
+  var premKey = Date.now() + '_' + fbKey(u.email);
+  FB.set('/premium_requests/' + premKey, newPrem);
+  showToast('✅ Premium রিকোয়েস্ট পাঠানো!');
+  var m = document.getElementById('premiumPayModal');
+  if(m) m.remove();
+  if(ssFile){
+    var r = new FileReader();
+    r.onload = function(e){
+      var upd = {}; upd['screenshot'] = e.target.result;
+      FB.update('/premium_requests/' + premKey, upd);
     };
-    if(ssFile){
-      var r = new FileReader();
-      r.onload = function(e){ doSave(e.target.result); };
-      r.readAsDataURL(ssFile);
-    } else doSave(null);
-  });
+    r.readAsDataURL(ssFile);
+  }
+  showToast('📺 Ad দেখুন...');
+  withAd(function(){});
 }
 
 /* COUNTDOWN */
@@ -1664,23 +1679,22 @@ function submitMathPage(){
   var fb = document.getElementById('mathPageFeedback');
   if(isNaN(ans)){ fb.textContent = '⚠️ উত্তর লিখুন!'; fb.className = 'math-feedback error'; return; }
   if(ans === mathPageAnswer){
+    u.balance = (u.balance||0) + 0.04;
+    u.totalEarned = (u.totalEarned||0) + 0.04;
+    u.mathCorrect = (u.mathCorrect||0) + 1;
+    u.mathEarn = (u.mathEarn||0) + 0.04;
+    u.adLog = u.adLog || [];
+    u.adLog.push({ date: new Date().toISOString(), reward: 0, math: 0.04, platform:'MathPage' });
+    saveCurrentUser(u);
+    fb.textContent = '✅ সঠিক! ৳0.04!';
+    fb.className = 'math-feedback';
+    fb.style.color = '#00E676';
+    updateBalance();
+    fbSaveUser(u);
+    showToast('🎉 ৳0.04!');
+    setTimeout(generateMathPageProblem, 1500);
     showToast('📺 Ad দেখুন...');
-    withAd(function(){
-      u.balance = (u.balance||0) + 0.04;
-      u.totalEarned = (u.totalEarned||0) + 0.04;
-      u.mathCorrect = (u.mathCorrect||0) + 1;
-      u.mathEarn = (u.mathEarn||0) + 0.04;
-      u.adLog = u.adLog || [];
-      u.adLog.push({ date: new Date().toISOString(), reward: 0, math: 0.04, platform:'MathPage' });
-      saveCurrentUser(u);
-      fb.textContent = '✅ সঠিক! ৳0.04!';
-      fb.className = 'math-feedback';
-      fb.style.color = '#00E676';
-      updateBalance();
-      fbSaveUser(u);
-      showToast('🎉 ৳0.04!');
-      setTimeout(generateMathPageProblem, 1500);
-    });
+    withAd(function(){});
   } else {
     u.mathWrong = (u.mathWrong||0) + 1;
     saveCurrentUser(u);
@@ -1722,18 +1736,16 @@ function submitJobProof(){
   var bio = document.getElementById('proofBio').value.trim();
   if(!bio) return showToast('❌ Bio লিখুন!');
   if(!proofImg1Data || !proofImg2Data) return showToast('❌ ২টি Screenshot দিন!');
+  var newProof = { date: new Date().toISOString(), job:currentJob.name, reward:currentJob.reward, bio:bio, img1:proofImg1Data, img2:proofImg2Data, email:u.email, name:u.name, status:'pending' };
+  u.jobProofs = u.jobProofs || [];
+  u.jobProofs.push(newProof);
+  saveCurrentUser(u);
+  var proofKey = Date.now() + '_' + fbKey(u.email);
+  FB.set('/job_proofs/' + proofKey, newProof);
+  showToast('✅ Admin কে পাঠানো!');
+  closeJobProof();
   showToast('📺 Ad দেখুন...');
-  withAd(function(){
-    var newProof = { date: new Date().toISOString(), job:currentJob.name, reward:currentJob.reward, bio:bio, img1:proofImg1Data, img2:proofImg2Data, email:u.email, name:u.name, status:'pending' };
-    u.jobProofs = u.jobProofs || [];
-    u.jobProofs.push(newProof);
-    saveCurrentUser(u);
-    // 🔥 Firebase এ জব প্রুফ পাঠান
-    var proofKey = Date.now() + '_' + fbKey(u.email);
-    FB.set('/job_proofs/' + proofKey, newProof);
-    showToast('✅ Admin কে পাঠানো!');
-    closeJobProof();
-  });
+  withAd(function(){});
 }
 
 /* SERVICES + ORDER */
@@ -1806,32 +1818,30 @@ function submitOrder(){
   var link = document.getElementById('orderLink').value.trim();
   var method = document.getElementById('orderPaymentMethod').value;
   if(!link) return showToast('❌ Service Link দিন!');
+  var newOrder;
+  if(method === 'wallet'){
+    if((u.balance||0) < currentOrder.price) return showToast('❌ পর্যাপ্ত Balance নেই!');
+    u.balance -= currentOrder.price;
+    newOrder = { date: new Date().toISOString(), service:currentOrder.name, price:currentOrder.price, link:link, method:'Wallet', status:'pending', userEmail:u.email, userName:u.name };
+    u.orders = u.orders || [];
+    u.orders.push(newOrder);
+    saveCurrentUser(u);
+    updateBalance();
+    fbSaveUser(u);
+  } else {
+    var txn = document.getElementById('orderTxn').value.trim();
+    if(!txn) return showToast('❌ TrxID দিন!');
+    newOrder = { date: new Date().toISOString(), service:currentOrder.name, price:currentOrder.price, link:link, method:'Bkash', txn:txn, status:'pending', userEmail:u.email, userName:u.name };
+    u.orders = u.orders || [];
+    u.orders.push(newOrder);
+    saveCurrentUser(u);
+  }
+  var orderKey = Date.now() + '_' + fbKey(u.email);
+  FB.set('/orders/' + orderKey, newOrder);
+  showToast('✅ Order সফল!');
+  closeOrderModal();
   showToast('📺 Ad দেখুন...');
-  withAd(function(){
-    var newOrder;
-    if(method === 'wallet'){
-      if((u.balance||0) < currentOrder.price) return showToast('❌ পর্যাপ্ত Balance নেই!');
-      u.balance -= currentOrder.price;
-      newOrder = { date: new Date().toISOString(), service:currentOrder.name, price:currentOrder.price, link:link, method:'Wallet', status:'pending', userEmail:u.email, userName:u.name };
-      u.orders = u.orders || [];
-      u.orders.push(newOrder);
-      saveCurrentUser(u);
-      updateBalance();
-      fbSaveUser(u);
-    } else {
-      var txn = document.getElementById('orderTxn').value.trim();
-      if(!txn) return showToast('❌ TrxID দিন!');
-      newOrder = { date: new Date().toISOString(), service:currentOrder.name, price:currentOrder.price, link:link, method:'Bkash', txn:txn, status:'pending', userEmail:u.email, userName:u.name };
-      u.orders = u.orders || [];
-      u.orders.push(newOrder);
-      saveCurrentUser(u);
-    }
-    // 🔥 Firebase এ অর্ডার পাঠান
-    var orderKey = Date.now() + '_' + fbKey(u.email);
-    FB.set('/orders/' + orderKey, newOrder);
-    showToast('✅ Order সফল!');
-    closeOrderModal();
-  });
+  withAd(function(){});
 }
 
 /* CHAT */
@@ -1901,4 +1911,4 @@ window.addEventListener('load', function(){
 });
 </script>
 </body>
-</html>
+            </html>

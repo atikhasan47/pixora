@@ -9,50 +9,50 @@
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-family:'Poppins','Segoe UI',sans-serif;}
 .login-screen{position:fixed;inset:0;z-index:9999;display:flex;justify-content:center;align-items:center;background:linear-gradient(135deg,#0a0f1e,#1b263b,#415a77);padding:20px;}
-.login-box{background:linear-gradient(135deg,rgba(13,27,42,.98),rgba(27,38,59,.98));padding:40px 32px;border-radius:22px;width:100%;max-width:440px;border:3px solid #FFD700;box-shadow:0 0 80px rgba(255,215,0,.6);}
-.login-box .logo{width:90px;height:90px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 18px;border:3px solid #FFD700;box-shadow:0 0 30px #FFD700;}
-.login-box h1{color:#FFD700;text-align:center;font-size:24px;font-weight:900;margin-bottom:6px;font-family:'Montserrat',sans-serif;}
+.login-box{background:linear-gradient(135deg,rgba(13,27,42,.98),rgba(27,38,59,.98));padding:40px 32px;border-radius:22px;width:100%;max-width:440px;border:3px solid #00E5FF;box-shadow:0 0 80px rgba(0,229,255,.6);}
+.login-box .logo{width:90px;height:90px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 18px;border:3px solid #00E5FF;box-shadow:0 0 30px #00E5FF;}
+.login-box h1{color:#00E5FF;text-align:center;font-size:24px;font-weight:900;margin-bottom:6px;font-family:'Montserrat',sans-serif;}
 .login-box .sub{color:#8fa8c4;text-align:center;font-size:12px;margin-bottom:25px;letter-spacing:2px;}
-.login-box input{width:100%;padding:15px;margin-bottom:14px;background:rgba(255,255,255,.08);border:2px solid rgba(255,215,0,.5);border-radius:12px;color:#fff;font-size:14px;font-family:inherit;}
+.login-box input{width:100%;padding:15px;margin-bottom:14px;background:rgba(255,255,255,.08);border:2px solid rgba(0,229,255,.5);border-radius:12px;color:#fff;font-size:14px;font-family:inherit;}
 .login-box input:focus{border-color:#00E5FF;outline:none;}
-.login-btn{width:100%;padding:16px;background:linear-gradient(90deg,#00C853,#00E676);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:bold;cursor:pointer;font-family:inherit;margin-top:8px;}
+.login-btn{width:100%;padding:16px;background:linear-gradient(90deg,#00E5FF,#0288D1);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:bold;cursor:pointer;font-family:inherit;margin-top:8px;}
 .login-btn:disabled{background:#4a5568;cursor:not-allowed;}
 .login-error{color:#FF1744;font-size:13px;font-weight:bold;text-align:center;padding:10px;margin-bottom:10px;background:rgba(255,23,68,.15);border-radius:10px;display:none;}
 .login-error.show{display:block;}
 .app-layout{display:flex;min-height:100vh;}
-.sidebar{width:260px;background:linear-gradient(180deg,rgba(13,27,42,.97),rgba(27,38,59,.97));border-right:2px solid rgba(255,215,0,.2);padding:20px 0;position:sticky;top:0;height:100vh;overflow-y:auto;z-index:100;transition:.3s;}
-.sidebar-logo{display:flex;align-items:center;gap:12px;padding:0 20px 20px;border-bottom:1px solid rgba(255,215,0,.2);margin-bottom:15px;}
-.sidebar-logo img{height:50px;width:50px;border-radius:50%;box-shadow:0 0 20px #FFD700;border:2px solid #FFD700;object-fit:cover;}
-.sidebar-logo .brand{color:#FFD700;font-size:13px;font-weight:bold;line-height:1.3;font-family:'Montserrat',sans-serif;}
+.sidebar{width:260px;background:linear-gradient(180deg,rgba(13,27,42,.97),rgba(27,38,59,.97));border-right:2px solid rgba(0,229,255,.2);padding:20px 0;position:sticky;top:0;height:100vh;overflow-y:auto;z-index:100;transition:.3s;}
+.sidebar-logo{display:flex;align-items:center;gap:12px;padding:0 20px 20px;border-bottom:1px solid rgba(0,229,255,.2);margin-bottom:15px;}
+.sidebar-logo img{height:50px;width:50px;border-radius:50%;box-shadow:0 0 20px #00E5FF;border:2px solid #00E5FF;object-fit:cover;}
+.sidebar-logo .brand{color:#00E5FF;font-size:13px;font-weight:bold;line-height:1.3;font-family:'Montserrat',sans-serif;}
 .sidebar-logo .brand-sub{color:#8fa8c4;font-size:10px;font-weight:600;letter-spacing:1px;margin-top:3px;}
 .menu-section{margin-bottom:12px;padding:0 12px;}
 .menu-label{font-size:10px;color:#6b7d94;letter-spacing:2px;padding:8px 12px;text-transform:uppercase;font-weight:700;}
 .menu-item{display:flex;align-items:center;gap:12px;padding:12px 15px;color:#b0bec5;cursor:pointer;border-radius:12px;transition:.3s;font-size:13px;font-weight:600;margin-bottom:3px;position:relative;}
-.menu-item:hover{background:rgba(255,215,0,.1);color:#FFD700;transform:translateX(4px);}
-.menu-item.active{background:linear-gradient(90deg,rgba(255,215,0,.2),transparent);color:#FFD700;box-shadow:inset 4px 0 0 #FFD700;}
+.menu-item:hover{background:rgba(0,229,255,.1);color:#00E5FF;transform:translateX(4px);}
+.menu-item.active{background:linear-gradient(90deg,rgba(0,229,255,.2),transparent);color:#00E5FF;box-shadow:inset 4px 0 0 #00E5FF;}
 .menu-item .icon{font-size:18px;width:24px;text-align:center;}
 .menu-item .badge{margin-left:auto;background:#FF1744;color:#fff;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:900;}
 .main{flex:1;padding:25px;overflow-x:hidden;max-width:100%;}
 .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;flex-wrap:wrap;gap:10px;}
-.topbar h2{color:#FFD700;font-size:22px;font-weight:900;font-family:'Montserrat',sans-serif;}
+.topbar h2{color:#00E5FF;font-size:22px;font-weight:900;font-family:'Montserrat',sans-serif;}
 .topbar .logout-btn{background:linear-gradient(90deg,#D32F2F,#FF1744);color:#fff;border:none;padding:10px 20px;border-radius:20px;font-weight:700;cursor:pointer;font-size:12px;font-family:inherit;}
 .panel{display:none;}
 .panel.active{display:block;animation:fadeIn .4s;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(15px);}to{opacity:1;transform:translateY(0);}}
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:24px;}
-.stat-card{background:linear-gradient(135deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,215,0,.25);border-radius:18px;padding:22px;transition:.3s;}
-.stat-card:hover{transform:translateY(-5px);box-shadow:0 15px 40px rgba(255,215,0,.3);}
+.stat-card{background:linear-gradient(135deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(0,229,255,.25);border-radius:18px;padding:22px;transition:.3s;}
+.stat-card:hover{transform:translateY(-5px);box-shadow:0 15px 40px rgba(0,229,255,.3);}
 .stat-card .icon{font-size:32px;margin-bottom:10px;display:block;}
 .stat-card h4{font-size:11px;color:#8fa8c4;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;}
-.stat-card .val{font-size:22px;font-weight:900;color:#FFD700;font-family:'Courier New',monospace;}
+.stat-card .val{font-size:22px;font-weight:900;color:#00E5FF;font-family:'Courier New',monospace;}
 .stat-card.green .val{color:#00E676;}
 .stat-card.orange .val{color:#FF9800;}
 .stat-card.cyan .val{color:#00E5FF;}
 .stat-card.pink .val{color:#FF4081;}
-.section-title{color:#FFD700;font-size:17px;font-weight:800;margin-bottom:15px;display:flex;align-items:center;gap:10px;padding-bottom:10px;border-bottom:2px solid rgba(255,215,0,.25);font-family:'Montserrat',sans-serif;}
+.section-title{color:#00E5FF;font-size:17px;font-weight:800;margin-bottom:15px;display:flex;align-items:center;gap:10px;padding-bottom:10px;border-bottom:2px solid rgba(0,229,255,.25);font-family:'Montserrat',sans-serif;}
 .form-group{margin-bottom:16px;}
-.form-group label{display:block;margin-bottom:6px;color:#FFD700;font-weight:600;font-size:13px;}
-.form-group input,.form-group textarea,.form-group select{width:100%;padding:13px;background:rgba(255,255,255,.05);border:2px solid rgba(255,215,0,.3);border-radius:12px;color:#fff;font-size:14px;font-family:inherit;}
+.form-group label{display:block;margin-bottom:6px;color:#00E5FF;font-weight:600;font-size:13px;}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:13px;background:rgba(255,255,255,.05);border:2px solid rgba(0,229,255,.3);border-radius:12px;color:#fff;font-size:14px;font-family:inherit;}
 .form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:#00E5FF;outline:none;}
 .form-group small{color:#8fa8c4;font-size:11px;display:block;margin-top:4px;}
 .btn{padding:12px 22px;border:none;border-radius:12px;cursor:pointer;font-weight:700;font-size:13px;transition:.3s;text-decoration:none;display:inline-flex;align-items:center;gap:6px;font-family:inherit;}
@@ -61,64 +61,63 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 .btn-cyan{background:linear-gradient(90deg,#00E5FF,#0288D1);color:#fff;}
 .btn-gold{background:linear-gradient(90deg,#FFD700,#FF9800);color:#000;}
 .btn-full{width:100%;justify-content:center;}
-.settings-card{background:linear-gradient(135deg,rgba(13,27,42,.95),rgba(27,38,59,.95));border:2px solid rgba(255,215,0,.3);border-radius:18px;padding:25px;margin-bottom:20px;}
-.search-box{width:100%;padding:12px 18px;background:rgba(255,255,255,.05);border:2px solid rgba(255,215,0,.3);border-radius:12px;color:#fff;font-size:14px;font-family:inherit;margin-bottom:15px;outline:none;}
+.settings-card{background:linear-gradient(135deg,rgba(13,27,42,.95),rgba(27,38,59,.95));border:2px solid rgba(0,229,255,.3);border-radius:18px;padding:25px;margin-bottom:20px;}
+.search-box{width:100%;padding:12px 18px;background:rgba(255,255,255,.05);border:2px solid rgba(0,229,255,.3);border-radius:12px;color:#fff;font-size:14px;font-family:inherit;margin-bottom:15px;outline:none;}
 .user-table{width:100%;border-collapse:collapse;background:rgba(255,255,255,.03);border-radius:14px;overflow:hidden;}
-.user-table th{background:rgba(255,215,0,.12);color:#FFD700;padding:12px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:1px;}
+.user-table th{background:rgba(0,229,255,.12);color:#00E5FF;padding:12px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:1px;}
 .user-table td{padding:12px;font-size:12px;color:#ddd;border-bottom:1px solid rgba(255,255,255,.05);}
-.user-table tr:hover{background:rgba(255,215,0,.05);}
-.user-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#FFD700,#FF9800);display:flex;align-items:center;justify-content:center;font-weight:900;color:#000;font-size:14px;}
+.user-table tr:hover{background:rgba(0,229,255,.05);}
+.user-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#00E5FF,#0288D1);display:flex;align-items:center;justify-content:center;font-weight:900;color:#000;font-size:14px;}
 .status-badge{padding:4px 10px;border-radius:20px;font-size:10px;font-weight:800;display:inline-block;}
 .status-verified{background:rgba(0,230,118,.2);color:#00E676;}
 .status-unverified{background:rgba(255,152,0,.2);color:#FF9800;}
 .status-banned{background:rgba(255,23,68,.2);color:#FF1744;}
 .action-btn{padding:6px 12px;border:none;border-radius:8px;cursor:pointer;font-size:11px;font-weight:700;font-family:inherit;margin-right:4px;margin-bottom:4px;}
 .chat-layout{display:grid;grid-template-columns:300px 1fr;gap:15px;height:600px;}
-.chat-users{background:rgba(255,255,255,.03);border:2px solid rgba(255,215,0,.3);border-radius:14px;overflow-y:auto;padding:10px;}
+.chat-users{background:rgba(255,255,255,.03);border:2px solid rgba(0,229,255,.3);border-radius:14px;overflow-y:auto;padding:10px;}
 .chat-user-item{padding:12px;border-radius:10px;cursor:pointer;display:flex;align-items:center;gap:10px;margin-bottom:6px;transition:.2s;border:1px solid transparent;}
-.chat-user-item:hover{background:rgba(255,215,0,.1);}
-.chat-user-item.active{background:rgba(255,215,0,.15);border-color:#FFD700;}
-.chat-user-item .avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#FFD700,#FF9800);display:flex;align-items:center;justify-content:center;font-weight:900;color:#000;font-size:13px;}
+.chat-user-item:hover{background:rgba(0,229,255,.1);}
+.chat-user-item.active{background:rgba(0,229,255,.15);border-color:#00E5FF;}
+.chat-user-item .avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#00E5FF,#0288D1);display:flex;align-items:center;justify-content:center;font-weight:900;color:#000;font-size:13px;}
 .chat-user-item .info{flex:1;overflow:hidden;}
 .chat-user-item .info .name{font-size:13px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .chat-user-item .info .email{font-size:10px;color:#8fa8c4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.chat-box{background:rgba(255,255,255,.03);border:2px solid rgba(255,215,0,.3);border-radius:14px;display:flex;flex-direction:column;overflow:hidden;}
-.chat-header{padding:14px;background:rgba(255,215,0,.1);border-bottom:1px solid rgba(255,215,0,.2);font-weight:700;color:#FFD700;font-size:14px;}
+.chat-box{background:rgba(255,255,255,.03);border:2px solid rgba(0,229,255,.3);border-radius:14px;display:flex;flex-direction:column;overflow:hidden;}
+.chat-header{padding:14px;background:rgba(0,229,255,.1);border-bottom:1px solid rgba(0,229,255,.2);font-weight:700;color:#00E5FF;font-size:14px;}
 .chat-messages{flex:1;overflow-y:auto;padding:15px;display:flex;flex-direction:column;gap:10px;}
 .chat-msg{padding:10px 14px;border-radius:12px;font-size:13px;line-height:1.5;max-width:80%;word-wrap:break-word;}
 .chat-msg.user{background:linear-gradient(135deg,#0D47A1,#1976D2);color:#fff;align-self:flex-start;}
-.chat-msg.admin{background:linear-gradient(135deg,#FFD700,#FF9800);color:#000;align-self:flex-end;}
+.chat-msg.admin{background:linear-gradient(135deg,#00E5FF,#0288D1);color:#fff;align-self:flex-end;}
 .chat-msg .time{font-size:9px;opacity:.7;margin-top:4px;display:block;}
-.chat-input-row{display:flex;gap:8px;padding:12px;border-top:1px solid rgba(255,215,0,.2);}
-.chat-input-row input{flex:1;padding:12px;background:rgba(255,255,255,.08);border:2px solid rgba(255,215,0,.3);border-radius:12px;color:#fff;font-size:13px;font-family:inherit;outline:none;}
-.chat-input-row button{background:linear-gradient(90deg,#FFD700,#FF9800);color:#000;border:none;padding:12px 22px;border-radius:12px;font-weight:800;cursor:pointer;font-family:inherit;font-size:13px;}
-.proof-card{background:linear-gradient(135deg,rgba(13,27,42,.95),rgba(27,38,59,.95));border:2px solid rgba(255,215,0,.3);border-radius:18px;padding:20px;margin-bottom:15px;}
+.chat-input-row{display:flex;gap:8px;padding:12px;border-top:1px solid rgba(0,229,255,.2);}
+.chat-input-row input{flex:1;padding:12px;background:rgba(255,255,255,.08);border:2px solid rgba(0,229,255,.3);border-radius:12px;color:#fff;font-size:13px;font-family:inherit;outline:none;}
+.chat-input-row button{background:linear-gradient(90deg,#00E5FF,#0288D1);color:#fff;border:none;padding:12px 22px;border-radius:12px;font-weight:800;cursor:pointer;font-family:inherit;font-size:13px;}
+.proof-card{background:linear-gradient(135deg,rgba(13,27,42,.95),rgba(27,38,59,.95));border:2px solid rgba(0,229,255,.3);border-radius:18px;padding:20px;margin-bottom:15px;}
 .proof-card .proof-header{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
 .proof-card .proof-user{font-size:14px;font-weight:800;color:#fff;}
-.proof-card .proof-job{font-size:12px;color:#FFD700;margin-top:4px;}
+.proof-card .proof-job{font-size:12px;color:#00E5FF;margin-top:4px;}
 .proof-card .proof-date{font-size:11px;color:#8fa8c4;}
 .proof-card .proof-bio{color:#ddd;font-size:13px;margin-bottom:12px;padding:10px;background:rgba(0,0,0,.3);border-radius:8px;}
 .proof-card .proof-imgs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
-.proof-card .proof-imgs img{width:100%;border-radius:10px;border:2px solid rgba(255,215,0,.3);}
+.proof-card .proof-imgs img{width:100%;border-radius:10px;border:2px solid rgba(0,229,255,.3);}
 .proof-actions{display:flex;gap:10px;flex-wrap:wrap;}
-.notif-card{background:linear-gradient(135deg,rgba(13,27,42,.95),rgba(27,38,59,.95));border:2px solid rgba(255,215,0,.3);border-radius:14px;padding:15px;margin-bottom:10px;}
+.notif-card{background:linear-gradient(135deg,rgba(13,27,42,.95),rgba(27,38,59,.95));border:2px solid rgba(0,229,255,.3);border-radius:14px;padding:15px;margin-bottom:10px;}
 .notif-card .notif-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:6px;}
 .notif-card .notif-msg{font-size:12px;color:#8fa8c4;}
 .notif-card .notif-meta{font-size:11px;color:#6b7d94;margin-top:8px;}
-.job-item{background:rgba(255,255,255,.03);border:2px solid rgba(255,215,0,.3);border-radius:12px;padding:14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;}
-.job-item .job-info h4{color:#FFD700;font-size:14px;margin-bottom:4px;}
+.job-item{background:rgba(255,255,255,.03);border:2px solid rgba(0,229,255,.3);border-radius:12px;padding:14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;}
+.job-item .job-info h4{color:#00E5FF;font-size:14px;margin-bottom:4px;}
 .job-item .job-info p{color:#8fa8c4;font-size:11px;}
 .design-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;}
-.design-card{background:linear-gradient(135deg,rgba(27,38,59,.95),rgba(13,27,42,.95));border:2px solid rgba(255,215,0,.3);border-radius:16px;padding:18px;cursor:pointer;transition:.3s;text-align:center;}
-.design-card:hover{transform:translateY(-5px);box-shadow:0 15px 40px rgba(255,215,0,.3);}
-.design-card.selected{border-color:#FFD700;background:linear-gradient(135deg,rgba(255,215,0,.15),rgba(255,152,0,.1));box-shadow:0 0 30px rgba(255,215,0,.5);}
-.design-card .design-preview{width:100%;height:100px;border-radius:12px;margin-bottom:12px;position:relative;overflow:hidden;}
-.design-card .design-name{font-size:14px;font-weight:800;color:#FFD700;margin-bottom:4px;}
+.design-card{background:linear-gradient(135deg,rgba(27,38,59,.95),rgba(13,27,42,.95));border:2px solid rgba(0,229,255,.3);border-radius:16px;padding:18px;cursor:pointer;transition:.3s;text-align:center;position:relative;}
+.design-card:hover{transform:translateY(-5px);box-shadow:0 15px 40px rgba(0,229,255,.3);}
+.design-card.selected{border-color:#00E5FF;background:linear-gradient(135deg,rgba(0,229,255,.15),rgba(2,136,209,.1));box-shadow:0 0 30px rgba(0,229,255,.5);}
+.design-card .design-name{font-size:14px;font-weight:800;color:#00E5FF;margin-bottom:4px;}
 .design-card .design-desc{font-size:11px;color:#8fa8c4;}
 .design-card .selected-mark{position:absolute;top:8px;right:8px;background:#00E676;color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;}
-.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);background:linear-gradient(90deg,#00C853,#00E676);color:#fff;padding:16px 32px;border-radius:12px;font-weight:bold;box-shadow:0 15px 40px rgba(0,0,0,.5);transition:.4s;z-index:2000;opacity:0;}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);background:linear-gradient(90deg,#00E5FF,#0288D1);color:#fff;padding:16px 32px;border-radius:12px;font-weight:bold;box-shadow:0 15px 40px rgba(0,0,0,.5);transition:.4s;z-index:2000;opacity:0;}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
-.mobile-toggle{display:none;position:fixed;top:15px;left:15px;z-index:999;background:linear-gradient(135deg,#FFD700,#FF9800);color:#000;border:none;width:45px;height:45px;border-radius:12px;font-size:20px;cursor:pointer;box-shadow:0 5px 20px rgba(0,0,0,.5);}
+.mobile-toggle{display:none;position:fixed;top:15px;left:15px;z-index:999;background:linear-gradient(135deg,#00E5FF,#0288D1);color:#fff;border:none;width:45px;height:45px;border-radius:12px;font-size:20px;cursor:pointer;box-shadow:0 5px 20px rgba(0,0,0,.5);}
 @media(max-width:900px){
   .mobile-toggle{display:block;}
   .sidebar{position:fixed;left:-280px;top:0;z-index:998;}
@@ -169,15 +168,23 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
     </div>
 
     <div class="menu-section">
+      <div class="menu-label">Payments</div>
+      <div class="menu-item" data-panel="deposits"><span class="icon">💵</span> Deposits <span class="badge" id="depositBadge" style="display:none;">0</span></div>
+      <div class="menu-item" data-panel="withdraws"><span class="icon">🏧</span> Withdraws <span class="badge" id="withdrawBadge" style="display:none;">0</span></div>
+      <div class="menu-item" data-panel="premium"><span class="icon">💎</span> Premium Requests <span class="badge" id="premiumBadge" style="display:none;">0</span></div>
+    </div>
+
+    <div class="menu-section">
       <div class="menu-label">Settings</div>
       <div class="menu-item" data-panel="designs"><span class="icon">🎨</span> Design Settings</div>
       <div class="menu-item" data-panel="rewards"><span class="icon">💰</span> Rewards</div>
       <div class="menu-item" data-panel="jobs"><span class="icon">📅</span> Job Creator</div>
       <div class="menu-item" data-panel="promote"><span class="icon">🛒</span> Promote Prices</div>
+      <div class="menu-item" data-panel="leaderboard"><span class="icon">🏆</span> Leaderboard</div>
       <div class="menu-item" data-panel="notifications"><span class="icon">🔔</span> Notifications</div>
     </div>
 
-    <div class="menu-section" style="padding-top:15px;border-top:1px solid rgba(255,215,0,.2);margin-top:15px;">
+    <div class="menu-section" style="padding-top:15px;border-top:1px solid rgba(0,229,255,.2);margin-top:15px;">
       <div class="menu-item" onclick="doAdminLogout()"><span class="icon">🚪</span> Logout</div>
     </div>
   </aside>
@@ -191,17 +198,17 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
     <!-- DASHBOARD -->
     <div class="panel active" id="dashboard">
       <div class="stats-grid">
-        <div class="stat-card green"><span class="icon">👥</span><h4>Total Users</h4><div class="val" id="statUsers">0</div></div>
-        <div class="stat-card orange"><span class="icon">💰</span><h4>Total Balance</h4><div class="val" id="statBalance">৳0</div></div>
-        <div class="stat-card cyan"><span class="icon">📸</span><h4>Pending Proofs</h4><div class="val" id="statProofs">0</div></div>
+        <div class="stat-card cyan"><span class="icon">👥</span><h4>Total Users</h4><div class="val" id="statUsers">0</div></div>
+        <div class="stat-card green"><span class="icon">💰</span><h4>Total Balance</h4><div class="val" id="statBalance">৳0</div></div>
+        <div class="stat-card orange"><span class="icon">📸</span><h4>Pending Proofs</h4><div class="val" id="statProofs">0</div></div>
         <div class="stat-card pink"><span class="icon">🛒</span><h4>Pending Orders</h4><div class="val" id="statOrders">0</div></div>
       </div>
       <div class="settings-card">
         <div class="section-title">📊 Quick Stats</div>
         <div class="stats-grid" style="margin-bottom:0;">
-          <div class="stat-card"><span class="icon">💵</span><h4>Total Deposits</h4><div class="val" id="statDeposits">৳0</div></div>
-          <div class="stat-card"><span class="icon">🏧</span><h4>Total Withdraws</h4><div class="val" id="statWithdraws">৳0</div></div>
-          <div class="stat-card"><span class="icon">📺</span><h4>Total Ads Watched</h4><div class="val" id="statAds">0</div></div>
+          <div class="stat-card"><span class="icon">💵</span><h4>Pending Deposits</h4><div class="val" id="statPendDep">0</div></div>
+          <div class="stat-card"><span class="icon">🏧</span><h4>Pending Withdraws</h4><div class="val" id="statPendWd">0</div></div>
+          <div class="stat-card"><span class="icon">💎</span><h4>Pending Premium</h4><div class="val" id="statPendPrem">0</div></div>
           <div class="stat-card"><span class="icon">✅</span><h4>Approved Proofs</h4><div class="val" id="statApproved">0</div></div>
         </div>
       </div>
@@ -213,8 +220,8 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       <input type="text" class="search-box" id="userSearch" placeholder="🔍 Search by email or name..." oninput="renderUsers()">
       <div style="overflow-x:auto;">
         <table class="user-table">
-          <thead><tr><th>User</th><th>Balance</th><th>Earned</th><th>Status</th><th>Actions</th></tr></thead>
-          <tbody id="usersTable"><tr><td colspan="5" style="text-align:center;color:#6b7d94;padding:30px;">Loading...</td></tr></tbody>
+          <thead><tr><th>User</th><th>Balance</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="usersTable"><tr><td colspan="4" style="text-align:center;color:#6b7d94;padding:30px;">Loading...</td></tr></tbody>
         </table>
       </div>
     </div>
@@ -247,22 +254,36 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       <div id="ordersList"></div>
     </div>
 
-    <!-- DESIGNS (NEW!) -->
+    <!-- DEPOSITS -->
+    <div class="panel" id="deposits">
+      <div class="section-title">💵 Deposit Requests</div>
+      <div id="depositsList"></div>
+    </div>
+
+    <!-- WITHDRAWS -->
+    <div class="panel" id="withdraws">
+      <div class="section-title">🏧 Withdraw Requests</div>
+      <div id="withdrawsList"></div>
+    </div>
+
+    <!-- PREMIUM -->
+    <div class="panel" id="premium">
+      <div class="section-title">💎 Premium Requests</div>
+      <div id="premiumList"></div>
+    </div>
+
+    <!-- DESIGNS -->
     <div class="panel" id="designs">
       <div class="section-title">🎨 Design Settings</div>
-      <p style="color:#8fa8c4;font-size:13px;margin-bottom:20px;">এখান থেকে আপনি ইউজার প্যানেলের ডিজাইন পরিবর্তন করতে পারবেন। যখন যেটি ভালো লাগবে, সেটি সিলেক্ট করলে সাথে সাথে সব ইউজারের অ্যাপে পরিবর্তন হবে।</p>
+      <p style="color:#8fa8c4;font-size:13px;margin-bottom:20px;">এখান থেকে ইউজার প্যানেলের ডিজাইন পরিবর্তন করুন। সিলেক্ট করলে সাথে সাথে সব ইউজারের অ্যাপে পরিবর্তন হবে।</p>
 
-      <!-- LOGIN DESIGNS -->
       <div class="settings-card">
         <div class="section-title" style="font-size:15px;">🔐 Login Page Animation</div>
-        <p style="color:#8fa8c4;font-size:12px;margin-bottom:15px;">লগইন পেজে যে অ্যানিমেশন দেখাবে সেটি সিলেক্ট করুন।</p>
         <div class="design-grid" id="loginDesigns"></div>
       </div>
 
-      <!-- DASHBOARD DESIGNS -->
       <div class="settings-card">
         <div class="section-title" style="font-size:15px;">📊 Dashboard Animation</div>
-        <p style="color:#8fa8c4;font-size:12px;margin-bottom:15px;">ড্যাশবোর্ডে যে অ্যানিমেশন দেখাবে সেটি সিলেক্ট করুন।</p>
         <div class="design-grid" id="dashboardDesigns"></div>
       </div>
     </div>
@@ -276,10 +297,13 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
         <div class="form-group"><label>🧮 Math Reward (৳)</label><input type="number" step="0.01" id="sMathReward" placeholder="0.04"></div>
         <div class="form-group"><label>⏱️ Ads Timer (সেকেন্ড)</label><input type="number" id="sAdsTimer" placeholder="8"></div>
         <div class="form-group"><label>🎯 Daily Ad Limit</label><input type="number" id="sAdDailyLimit" placeholder="10"></div>
+        <div class="form-group"><label>⏰ Popunder Ad Interval (মিনিট)</label><input type="number" id="sPopunderInterval" placeholder="3"><small>ইউজার অ্যাপ খোলা রাখলে প্রতি কত মিনিটে Popunder Ad আসবে</small></div>
+        <div class="form-group"><label>🎬 Interstitial Ad Interval (মিনিট)</label><input type="number" id="sInterstitialInterval" placeholder="5"><small>ইউজার অ্যাপ খোলা রাখলে প্রতি কত মিনিটে Interstitial Ad আসবে</small></div>
         <div class="form-group"><label>💵 Min Deposit (৳)</label><input type="number" id="sMinDeposit" placeholder="100"></div>
         <div class="form-group"><label>🏧 Min Withdraw (৳)</label><input type="number" id="sMinWithdraw" placeholder="110"></div>
         <div class="form-group"><label>💸 Withdraw Fee (৳)</label><input type="number" id="sWithdrawFee" placeholder="10"></div>
-        <button class="btn btn-green btn-full" onclick="saveRewardSettings()">💾 Save Settings</button>
+        <div class="form-group"><label>💎 Premium Price (৳)</label><input type="number" id="sPremiumPrice" placeholder="90"></div>
+        <button class="btn btn-cyan btn-full" onclick="saveRewardSettings()">💾 Save Settings</button>
       </div>
     </div>
 
@@ -291,7 +315,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
         <div class="form-group"><label>Job Link</label><input type="text" id="jobLink" placeholder="https://..."></div>
         <div class="form-group"><label>Job Reward (৳)</label><input type="number" step="0.01" id="jobRewardInput" placeholder="0.20"></div>
         <div class="form-group"><label>Job Icon (Emoji)</label><input type="text" id="jobIcon" placeholder="▶️"></div>
-        <button class="btn btn-green btn-full" onclick="createJob()">➕ Create Job</button>
+        <button class="btn btn-cyan btn-full" onclick="createJob()">➕ Create Job</button>
       </div>
       <div class="section-title">📋 Current Jobs</div>
       <div id="jobsList"></div>
@@ -303,8 +327,31 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       <div class="settings-card">
         <p style="color:#8fa8c4;font-size:13px;margin-bottom:15px;">প্রতিটি সার্ভিসের দাম পরিবর্তন করুন।</p>
         <div id="promoteSettings"></div>
-        <button class="btn btn-green btn-full" onclick="savePromoteSettings()" style="margin-top:15px;">💾 Save Prices</button>
+        <button class="btn btn-cyan btn-full" onclick="savePromoteSettings()" style="margin-top:15px;">💾 Save Prices</button>
       </div>
+    </div>
+
+    <!-- LEADERBOARD -->
+    <div class="panel" id="leaderboard">
+      <div class="section-title">🏆 Leaderboard Management</div>
+      <p style="color:#8fa8c4;font-size:13px;margin-bottom:15px;">এখানে ডেমো ইউজার যোগ করতে পারবেন, যাতে লিডারবোর্ডে দেখাবে। আপনি চাইলে ডিলিটও করতে পারবেন।</p>
+      <div class="settings-card">
+        <div class="form-group"><label>Name</label><input type="text" id="lbName" placeholder="User Name"></div>
+        <div class="form-group"><label>Balance (৳)</label><input type="number" id="lbBalance" placeholder="10000"></div>
+        <div class="form-group"><label>Tag</label>
+          <select id="lbTag">
+            <option value="👑 Founder">👑 Founder</option>
+            <option value="💎 Diamond">💎 Diamond</option>
+            <option value="🥇 Gold">🥇 Gold</option>
+            <option value="🥈 Silver">🥈 Silver</option>
+            <option value="🥉 Bronze">🥉 Bronze</option>
+            <option value="⭐ Active">⭐ Active</option>
+          </select>
+        </div>
+        <button class="btn btn-cyan btn-full" onclick="addLeaderboardUser()">➕ Add Demo User</button>
+      </div>
+      <div class="section-title">📋 Current Leaderboard Users</div>
+      <div id="lbList"></div>
     </div>
 
     <!-- NOTIFICATIONS -->
@@ -321,7 +368,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
         <div class="form-group"><label>Icon (Emoji)</label><input type="text" id="notifIcon" placeholder="🎉" value="🔔"></div>
         <div class="form-group"><label>Title</label><input type="text" id="notifTitle" placeholder="Notification Title"></div>
         <div class="form-group"><label>Message</label><textarea id="notifMessage" rows="3" placeholder="Write your message..."></textarea></div>
-        <button class="btn btn-green btn-full" onclick="sendAdminNotification()">📤 Send Notification</button>
+        <button class="btn btn-cyan btn-full" onclick="sendAdminNotification()">📤 Send Notification</button>
       </div>
       <div class="section-title">📜 Sent Notifications</div>
       <div id="notificationsList"></div>
@@ -333,17 +380,18 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 <div class="toast" id="toast"></div>
 
 <script>
-// ============= CONFIG =============
 var ADMIN_PASSWORD = "Atik@Admin2024!Earning";
 var DB_URL = "https://atik-8be75-default-rtdb.asia-southeast1.firebasedatabase.app";
 var currentAdmin = null;
 var allUsers = {};
 var allProofs = {};
 var allOrders = {};
+var allDeposits = [];
+var allWithdraws = [];
+var allPremium = [];
 var selectedChatUser = null;
 var chatPolling = null;
 
-// ============= LOGIN DESIGNS (5) =============
 var LOGIN_DESIGNS = [
   { id: 'night-village', name: '🌙 Night Village', desc: 'রাতের গ্রাম, তারা, চাঁদ, গাছ' },
   { id: 'rainy-night', name: '🌧️ Rainy Night', desc: 'বৃষ্টি, মেঘ, বিদ্যুৎ চমক' },
@@ -352,7 +400,6 @@ var LOGIN_DESIGNS = [
   { id: 'starry-galaxy', name: '✨ Starry Galaxy', desc: 'তারার গ্যালাক্সি, নীহারিকা' }
 ];
 
-// ============= DASHBOARD DESIGNS (5) =============
 var DASHBOARD_DESIGNS = [
   { id: 'night-village', name: '🌙 Night Village', desc: 'রাতের গ্রাম, তারা, চাঁদ, গাছ' },
   { id: 'rainy-night', name: '🌧️ Rainy Night', desc: 'বৃষ্টি, মেঘ, বিদ্যুৎ চমক' },
@@ -361,7 +408,6 @@ var DASHBOARD_DESIGNS = [
   { id: 'ocean-wave', name: '🌊 Ocean Wave', desc: 'সমুদ্রের ঢেউ, নীল জল' }
 ];
 
-// ============= UTILS =============
 function showToast(msg){
   var t = document.getElementById('toast');
   t.textContent = msg;
@@ -370,27 +416,18 @@ function showToast(msg){
 }
 function toggleSidebar(){ document.getElementById('sidebar').classList.toggle('open'); }
 
-// ============= LOGIN =============
 function doAdminLogin(){
   var pass = document.getElementById('adminPassword').value;
   var errEl = document.getElementById('loginError');
   var btn = document.getElementById('loginBtn');
   errEl.classList.remove('show');
-  
-  if(!pass){
-    errEl.textContent = '⚠️ Password দিন!';
-    errEl.classList.add('show');
-    return;
-  }
-  
+  if(!pass){ errEl.textContent = '⚠️ Password দিন!'; errEl.classList.add('show'); return; }
   btn.disabled = true;
   btn.textContent = '⏳ Logging in...';
-  
   setTimeout(function(){
     if(pass === ADMIN_PASSWORD){
-      currentAdmin = { loggedIn: true, date: new Date().toISOString() };
+      currentAdmin = { loggedIn: true };
       localStorage.setItem('atik_admin_logged', 'true');
-      localStorage.setItem('atik_admin_date', new Date().toISOString());
       document.getElementById('loginScreen').style.display = 'none';
       document.getElementById('appLayout').style.display = 'flex';
       initAdminPanel();
@@ -406,15 +443,11 @@ function doAdminLogin(){
 function doAdminLogout(){
   if(!confirm('Logout করবেন?')) return;
   localStorage.removeItem('atik_admin_logged');
-  localStorage.removeItem('atik_admin_date');
   location.reload();
 }
 
-// ============= DB HELPERS =============
 var DB = {
-  get: function(path){
-    return fetch(DB_URL + path + '.json').then(function(r){ return r.json(); });
-  },
+  get: function(path){ return fetch(DB_URL + path + '.json').then(function(r){ return r.json(); }); },
   set: function(path, data){
     return fetch(DB_URL + path + '.json', {
       method: 'PUT',
@@ -455,7 +488,6 @@ function updateJobProof(id, data){ return DB.update('/job_proofs/' + id, data); 
 function getOrders(){ return DB.get('/orders').then(function(d){ return d || {}; }); }
 function sendNotification(notif){ return DB.push('/notifications', notif); }
 
-// ============= INIT =============
 function initAdminPanel(){
   loadDesigns();
   loadAllData();
@@ -467,10 +499,14 @@ function loadAllData(){
   loadUsers();
   loadProofs();
   loadOrders();
+  loadDeposits();
+  loadWithdraws();
+  loadPremium();
   loadNotificationsList();
   loadJobs();
   loadPromoteSettings();
   loadRewardSettingsForm();
+  loadLeaderboardUsers();
   loadChatBadge();
 }
 
@@ -479,10 +515,12 @@ function refreshData(){
   loadChatBadge();
   loadProofBadge();
   loadOrderBadge();
+  loadDepositBadge();
+  loadWithdrawBadge();
+  loadPremiumBadge();
   if(selectedChatUser) loadChatMessages();
 }
 
-// ============= DESIGN SETTINGS =============
 function loadDesigns(){
   DB.get('/settings/designs').then(function(d){
     var loginDesign = (d && d.login) ? d.login : 'night-village';
@@ -506,7 +544,6 @@ function renderLoginDesigns(current){
       '<div class="design-desc">' + d.desc + '</div>' +
     '</div>';
   }).join('');
-  container.setAttribute('data-current', current);
 }
 
 function renderDashboardDesigns(current){
@@ -520,7 +557,6 @@ function renderDashboardDesigns(current){
       '<div class="design-desc">' + d.desc + '</div>' +
     '</div>';
   }).join('');
-  container.setAttribute('data-current', current);
 }
 
 function selectLoginDesign(id){
@@ -537,24 +573,17 @@ function selectDashboardDesign(id){
   });
 }
 
-// ============= DASHBOARD =============
 function loadDashboardStats(){
   getAllUsers().then(function(users){
     allUsers = users || {};
-    var count = 0, totalBal = 0, totalDep = 0, totalWd = 0, totalAds = 0;
+    var count = 0, totalBal = 0;
     Object.keys(allUsers).forEach(function(k){
       var u = allUsers[k];
       count++;
       totalBal += parseFloat(u.balance) || 0;
-      totalAds += parseInt(u.adsWatched) || 0;
-      (u.deposits || []).forEach(function(d){ if(d.status === 'approved') totalDep += parseFloat(d.amount) || 0; });
-      (u.withdraws || []).forEach(function(w){ if(w.status === 'paid') totalWd += parseFloat(w.amount) || 0; });
     });
     document.getElementById('statUsers').textContent = count;
     document.getElementById('statBalance').textContent = '৳' + totalBal.toFixed(2);
-    document.getElementById('statDeposits').textContent = '৳' + totalDep.toFixed(2);
-    document.getElementById('statWithdraws').textContent = '৳' + totalWd.toFixed(2);
-    document.getElementById('statAds').textContent = totalAds;
     renderUsers();
   });
   
@@ -577,9 +606,41 @@ function loadDashboardStats(){
     document.getElementById('statOrders').textContent = pending;
     renderOrders();
   });
+  
+  DB.get('/deposits').then(function(deposits){
+    allDeposits = [];
+    Object.keys(deposits || {}).forEach(function(k){
+      allDeposits.push(Object.assign({ id: k }, deposits[k]));
+    });
+    allDeposits.sort(function(a,b){ return (b.date||'').localeCompare(a.date||''); });
+    var pend = allDeposits.filter(function(d){ return d.status === 'pending'; }).length;
+    document.getElementById('statPendDep').textContent = pend;
+    renderDeposits();
+  });
+  
+  DB.get('/withdraws').then(function(withdraws){
+    allWithdraws = [];
+    Object.keys(withdraws || {}).forEach(function(k){
+      allWithdraws.push(Object.assign({ id: k }, withdraws[k]));
+    });
+    allWithdraws.sort(function(a,b){ return (b.date||'').localeCompare(a.date||''); });
+    var pend = allWithdraws.filter(function(w){ return w.status === 'pending'; }).length;
+    document.getElementById('statPendWd').textContent = pend;
+    renderWithdraws();
+  });
+  
+  DB.get('/premium_requests').then(function(prem){
+    allPremium = [];
+    Object.keys(prem || {}).forEach(function(k){
+      allPremium.push(Object.assign({ id: k }, prem[k]));
+    });
+    allPremium.sort(function(a,b){ return (b.date||'').localeCompare(a.date||''); });
+    var pend = allPremium.filter(function(p){ return p.status === 'pending'; }).length;
+    document.getElementById('statPendPrem').textContent = pend;
+    renderPremium();
+  });
 }
 
-// ============= USERS =============
 function loadUsers(){
   getAllUsers().then(function(users){ allUsers = users || {}; renderUsers(); });
 }
@@ -594,13 +655,14 @@ function renderUsers(){
     arr.push(u);
   });
   if(!arr.length){
-    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#6b7d94;padding:30px;">No users found</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:#6b7d94;padding:30px;">No users found</td></tr>';
     return;
   }
   tbody.innerHTML = arr.map(function(u){
     var statusClass = u.verified ? 'status-verified' : 'status-unverified';
     var statusText = u.verified ? '✅ Verified' : '⚠️ Unverified';
     if(u.banned) { statusClass = 'status-banned'; statusText = '🚫 Banned'; }
+    if(u.premium) { statusClass = 'status-verified'; statusText = '💎 Premium'; }
     return '<tr>' +
       '<td><div style="display:flex;align-items:center;gap:10px;">' +
         '<div class="user-avatar">' + (u.name || 'U')[0].toUpperCase() + '</div>' +
@@ -608,10 +670,9 @@ function renderUsers(){
         '<div style="color:#8fa8c4;font-size:11px;">' + (u.email || '') + '</div></div>' +
       '</div></td>' +
       '<td style="color:#00E676;font-weight:800;">৳ ' + (parseFloat(u.balance) || 0).toFixed(2) + '</td>' +
-      '<td style="color:#FFD700;font-weight:800;">৳ ' + (parseFloat(u.totalEarned) || 0).toFixed(2) + '</td>' +
       '<td><span class="status-badge ' + statusClass + '">' + statusText + '</span></td>' +
       '<td>' +
-        '<button class="action-btn" style="background:#00E5FF;color:#000;" onclick="addUserBalance(\'' + u.email + '\')">💰</button>' +
+        '<button class="action-btn" style="background:#00E5FF;color:#fff;" onclick="addUserBalance(\'' + u.email + '\')">💰</button>' +
         '<button class="action-btn" style="background:#00E676;color:#fff;" onclick="toggleVerify(\'' + u.email + '\')">✅</button>' +
         '<button class="action-btn" style="background:#FF1744;color:#fff;" onclick="toggleBan(\'' + u.email + '\')">🚫</button>' +
       '</td>' +
@@ -650,7 +711,6 @@ function toggleBan(email){
   saveUser(user).then(function(){ showToast(user.banned ? '🚫 Banned!' : '✅ Unbanned!'); loadDashboardStats(); });
 }
 
-// ============= CHAT =============
 function loadChatBadge(){
   getAllUsers().then(function(users){
     var count = 0;
@@ -672,10 +732,7 @@ function renderChatUsers(users){
   var container = document.getElementById('chatUsers');
   if(!container) return;
   var arr = Object.keys(users || {}).map(function(k){ return users[k]; });
-  if(!arr.length){
-    container.innerHTML = '<div style="text-align:center;color:#6b7d94;padding:20px;">No users</div>';
-    return;
-  }
+  if(!arr.length){ container.innerHTML = '<div style="text-align:center;color:#6b7d94;padding:20px;">No users</div>'; return; }
   container.innerHTML = arr.map(function(u){
     var unread = (u.chat || []).filter(function(m){ return m.from === 'user' && !m.read; }).length;
     return '<div class="chat-user-item' + (selectedChatUser === u.email ? ' active' : '') + '" onclick="openChatWith(\'' + u.email + '\')">' +
@@ -701,10 +758,7 @@ function loadChatMessages(){
     if(!u) return;
     var msgs = u.chat || [];
     var box = document.getElementById('chatMessages');
-    if(!msgs.length){
-      box.innerHTML = '<div style="text-align:center;color:#6b7d94;padding:30px;">No messages yet</div>';
-      return;
-    }
+    if(!msgs.length){ box.innerHTML = '<div style="text-align:center;color:#6b7d94;padding:30px;">No messages yet</div>'; return; }
     box.innerHTML = msgs.map(function(m){
       return '<div class="chat-msg ' + (m.from === 'admin' ? 'admin' : 'user') + '">' + m.text +
         '<span class="time">' + new Date(m.date).toLocaleString('bn-BD') + '</span></div>';
@@ -726,7 +780,6 @@ function sendAdminChat(){
   });
 }
 
-// ============= PROOFS =============
 function loadProofBadge(){
   getJobProofs().then(function(proofs){
     var count = 0;
@@ -746,10 +799,7 @@ function renderProofs(){
   if(!container) return;
   var arr = Object.keys(allProofs || {}).map(function(k){ return Object.assign({ id: k }, allProofs[k]); })
     .sort(function(a,b){ return (b.date || '').localeCompare(a.date || ''); });
-  if(!arr.length){
-    container.innerHTML = '<div style="text-align:center;color:#6b7d94;padding:30px;">No proofs submitted yet</div>';
-    return;
-  }
+  if(!arr.length){ container.innerHTML = '<div style="text-align:center;color:#6b7d94;padding:30px;">No proofs submitted yet</div>'; return; }
   container.innerHTML = arr.map(function(p){
     var statusColor = p.status === 'approved' ? '#00E676' : p.status === 'rejected' ? '#FF1744' : '#FF9800';
     return '<div class="proof-card">' +
@@ -799,7 +849,6 @@ function rejectProof(id){
   updateJobProof(id, proof).then(function(){ showToast('❌ Proof rejected'); loadProofs(); });
 }
 
-// ============= ORDERS =============
 function loadOrderBadge(){
   getOrders().then(function(orders){
     var count = 0;
@@ -819,10 +868,7 @@ function renderOrders(){
   if(!container) return;
   var arr = Object.keys(allOrders || {}).map(function(k){ return Object.assign({ id: k }, allOrders[k]); })
     .sort(function(a,b){ return (b.date || '').localeCompare(a.date || ''); });
-  if(!arr.length){
-    container.innerHTML = '<div style="text-align:center;color:#6b7d94;padding:30px;">No orders yet</div>';
-    return;
-  }
+  if(!arr.length){ container.innerHTML = '<div style="text-align:center;color:#6b7d94;padding:30px;">No orders yet</div>'; return; }
   container.innerHTML = arr.map(function(o){
     var statusColor = o.status === 'approved' ? '#00E676' : o.status === 'rejected' ? '#FF1744' : '#FF9800';
     return '<div class="proof-card">' +
@@ -860,6 +906,206 @@ function rejectOrder(id){
   DB.update('/orders/' + id, order).then(function(){ showToast('❌ Order rejected'); loadDashboardStats(); });
 }
 
+// ============= DEPOSITS =============
+function loadDepositBadge(){
+  DB.get('/deposits').then(function(deposits){
+    var count = 0;
+    Object.keys(deposits || {}).forEach(function(k){ if(deposits[k].status === 'pending') count++; });
+    var badge = document.getElementById('depositBadge');
+    if(count > 0){ badge.textContent = count; badge.style.display = 'inline-block'; }
+    else badge.style.display = 'none';
+  });
+}
+
+function loadDeposits(){
+  DB.get('/deposits').then(function(deposits){
+    allDeposits = [];
+    Object.keys(deposits || {}).forEach(function(k){
+      allDeposits.push(Object.assign({ id: k }, deposits[k]));
+    });
+    allDeposits.sort(function(a,b){ return (b.date||'').localeCompare(a.date||''); });
+    renderDeposits();
+    loadDepositBadge();
+  });
+}
+
+function renderDeposits(){
+  var container = document.getElementById('depositsList');
+  if(!container) return;
+  if(!allDeposits.length){ container.innerHTML = '<div style="text-align:center;color:#6b7d94;padding:30px;">No deposit requests</div>'; return; }
+  container.innerHTML = allDeposits.map(function(d){
+    var statusColor = d.status === 'approved' ? '#00E676' : d.status === 'rejected' ? '#FF1744' : '#FF9800';
+    return '<div class="proof-card">' +
+      '<div class="proof-header">' +
+        '<div><div class="proof-user">' + (d.name || d.email || 'Unknown') + '</div>' +
+        '<div class="proof-job">💵 Deposit — ৳' + (parseFloat(d.amount) || 0).toFixed(2) + '</div></div>' +
+        '<div><div style="color:' + statusColor + ';font-weight:900;font-size:12px;">' + (d.status || 'pending').toUpperCase() + '</div>' +
+        '<div class="proof-date">' + new Date(d.date).toLocaleString('bn-BD') + '</div></div>' +
+      '</div>' +
+      '<div class="proof-bio">📱 Sender: ' + (d.sender || 'N/A') + '<br>📝 TrxID: ' + (d.txn || 'N/A') + '</div>' +
+      (d.status === 'pending' ? '<div class="proof-actions">' +
+        '<button class="btn btn-green" onclick="approveDeposit(\'' + d.id + '\')">✅ Approve</button>' +
+        '<button class="btn btn-red" onclick="rejectDeposit(\'' + d.id + '\')">❌ Reject</button>' +
+      '</div>' : '') +
+    '</div>';
+  }).join('');
+}
+
+function approveDeposit(id){
+  var dep = allDeposits.find(function(d){ return d.id === id; });
+  if(!dep) return;
+  DB.update('/deposits/' + id, { status: 'approved', approvedDate: new Date().toISOString() }).then(function(){
+    getUser(dep.email).then(function(user){
+      if(user){
+        user.balance = (parseFloat(user.balance) || 0) + (parseFloat(dep.amount) || 0);
+        saveUser(user).then(function(){ showToast('✅ Deposit approved!'); loadDashboardStats(); loadDeposits(); });
+      } else { showToast('✅ Deposit approved!'); loadDeposits(); }
+    });
+  });
+}
+
+function rejectDeposit(id){
+  if(!confirm('Reject this deposit?')) return;
+  DB.update('/deposits/' + id, { status: 'rejected', rejectedDate: new Date().toISOString() }).then(function(){
+    showToast('❌ Deposit rejected'); loadDeposits();
+  });
+}
+
+// ============= WITHDRAWS =============
+function loadWithdrawBadge(){
+  DB.get('/withdraws').then(function(withdraws){
+    var count = 0;
+    Object.keys(withdraws || {}).forEach(function(k){ if(withdraws[k].status === 'pending') count++; });
+    var badge = document.getElementById('withdrawBadge');
+    if(count > 0){ badge.textContent = count; badge.style.display = 'inline-block'; }
+    else badge.style.display = 'none';
+  });
+}
+
+function loadWithdraws(){
+  DB.get('/withdraws').then(function(withdraws){
+    allWithdraws = [];
+    Object.keys(withdraws || {}).forEach(function(k){
+      allWithdraws.push(Object.assign({ id: k }, withdraws[k]));
+    });
+    allWithdraws.sort(function(a,b){ return (b.date||'').localeCompare(a.date||''); });
+    renderWithdraws();
+    loadWithdrawBadge();
+  });
+}
+
+function renderWithdraws(){
+  var container = document.getElementById('withdrawsList');
+  if(!container) return;
+  if(!allWithdraws.length){ container.innerHTML = '<div style="text-align:center;color:#6b7d94;padding:30px;">No withdraw requests</div>'; return; }
+  container.innerHTML = allWithdraws.map(function(w){
+    var statusColor = w.status === 'paid' ? '#00E676' : w.status === 'rejected' ? '#FF1744' : '#FF9800';
+    return '<div class="proof-card">' +
+      '<div class="proof-header">' +
+        '<div><div class="proof-user">' + (w.name || w.email || 'Unknown') + '</div>' +
+        '<div class="proof-job">🏧 Withdraw — ৳' + (parseFloat(w.amount) || 0).toFixed(2) + '</div></div>' +
+        '<div><div style="color:' + statusColor + ';font-weight:900;font-size:12px;">' + (w.status || 'pending').toUpperCase() + '</div>' +
+        '<div class="proof-date">' + new Date(w.date).toLocaleString('bn-BD') + '</div></div>' +
+      '</div>' +
+      '<div class="proof-bio">📱 Account: ' + (w.account || 'N/A') + '<br>💸 Fee: ৳' + (w.fee || 10) + '</div>' +
+      (w.status === 'pending' ? '<div class="proof-actions">' +
+        '<button class="btn btn-green" onclick="markWithdrawPaid(\'' + w.id + '\')">✅ Mark as Paid</button>' +
+        '<button class="btn btn-red" onclick="rejectWithdraw(\'' + w.id + '\')">❌ Reject</button>' +
+      '</div>' : '') +
+    '</div>';
+  }).join('');
+}
+
+function markWithdrawPaid(id){
+  DB.update('/withdraws/' + id, { status: 'paid', paidDate: new Date().toISOString() }).then(function(){
+    showToast('✅ Marked as paid!'); loadWithdraws(); loadDashboardStats();
+  });
+}
+
+function rejectWithdraw(id){
+  if(!confirm('Reject this withdraw?')) return;
+  var w = allWithdraws.find(function(x){ return x.id === id; });
+  if(w){
+    getUser(w.email).then(function(user){
+      if(user){
+        user.balance = (parseFloat(user.balance) || 0) + (parseFloat(w.amount) || 0) + (parseFloat(w.fee) || 10);
+        saveUser(user).then(function(){
+          DB.update('/withdraws/' + id, { status: 'rejected', rejectedDate: new Date().toISOString() }).then(function(){
+            showToast('❌ Rejected, balance returned!'); loadWithdraws(); loadDashboardStats();
+          });
+        });
+      }
+    });
+  }
+}
+
+// ============= PREMIUM =============
+function loadPremiumBadge(){
+  DB.get('/premium_requests').then(function(prem){
+    var count = 0;
+    Object.keys(prem || {}).forEach(function(k){ if(prem[k].status === 'pending') count++; });
+    var badge = document.getElementById('premiumBadge');
+    if(count > 0){ badge.textContent = count; badge.style.display = 'inline-block'; }
+    else badge.style.display = 'none';
+  });
+}
+
+function loadPremium(){
+  DB.get('/premium_requests').then(function(prem){
+    allPremium = [];
+    Object.keys(prem || {}).forEach(function(k){
+      allPremium.push(Object.assign({ id: k }, prem[k]));
+    });
+    allPremium.sort(function(a,b){ return (b.date||'').localeCompare(a.date||''); });
+    renderPremium();
+    loadPremiumBadge();
+  });
+}
+
+function renderPremium(){
+  var container = document.getElementById('premiumList');
+  if(!container) return;
+  if(!allPremium.length){ container.innerHTML = '<div style="text-align:center;color:#6b7d94;padding:30px;">No premium requests</div>'; return; }
+  container.innerHTML = allPremium.map(function(p){
+    var statusColor = p.status === 'approved' ? '#00E676' : p.status === 'rejected' ? '#FF1744' : '#FF9800';
+    return '<div class="proof-card">' +
+      '<div class="proof-header">' +
+        '<div><div class="proof-user">' + (p.name || p.email || 'Unknown') + '</div>' +
+        '<div class="proof-job">💎 Premium — ৳' + (parseFloat(p.amount) || 90).toFixed(2) + '</div></div>' +
+        '<div><div style="color:' + statusColor + ';font-weight:900;font-size:12px;">' + (p.status || 'pending').toUpperCase() + '</div>' +
+        '<div class="proof-date">' + new Date(p.date).toLocaleString('bn-BD') + '</div></div>' +
+      '</div>' +
+      '<div class="proof-bio">📱 Sender: ' + (p.sender || 'N/A') + '<br>📝 TrxID: ' + (p.txn || 'N/A') + '</div>' +
+      (p.screenshot ? '<div class="proof-imgs"><img src="' + p.screenshot + '" onclick="window.open(this.src)"></div>' : '') +
+      (p.status === 'pending' ? '<div class="proof-actions">' +
+        '<button class="btn btn-green" onclick="approvePremium(\'' + p.id + '\')">✅ Approve</button>' +
+        '<button class="btn btn-red" onclick="rejectPremium(\'' + p.id + '\')">❌ Reject</button>' +
+      '</div>' : '') +
+    '</div>';
+  }).join('');
+}
+
+function approvePremium(id){
+  var p = allPremium.find(function(x){ return x.id === id; });
+  if(!p) return;
+  DB.update('/premium_requests/' + id, { status: 'approved', approvedDate: new Date().toISOString() }).then(function(){
+    getUser(p.email).then(function(user){
+      if(user){
+        user.premium = true;
+        user.premiumDate = new Date().toISOString();
+        saveUser(user).then(function(){ showToast('💎 Premium approved!'); loadDashboardStats(); loadPremium(); });
+      }
+    });
+  });
+}
+
+function rejectPremium(id){
+  if(!confirm('Reject this premium request?')) return;
+  DB.update('/premium_requests/' + id, { status: 'rejected', rejectedDate: new Date().toISOString() }).then(function(){
+    showToast('❌ Premium rejected'); loadPremium();
+  });
+}
+
 // ============= REWARDS =============
 function loadRewardSettingsForm(){
   DB.get('/settings').then(function(s){
@@ -869,9 +1115,12 @@ function loadRewardSettingsForm(){
     document.getElementById('sMathReward').value = s.mathReward || 0.04;
     document.getElementById('sAdsTimer').value = s.adsTimer || 8;
     document.getElementById('sAdDailyLimit').value = s.adDailyLimit || 10;
+    document.getElementById('sPopunderInterval').value = s.popunderInterval || 3;
+    document.getElementById('sInterstitialInterval').value = s.interstitialInterval || 5;
     document.getElementById('sMinDeposit').value = s.minDeposit || 100;
     document.getElementById('sMinWithdraw').value = s.minWithdraw || 110;
     document.getElementById('sWithdrawFee').value = s.withdrawFee || 10;
+    document.getElementById('sPremiumPrice').value = s.premiumPrice || 90;
   });
 }
 
@@ -882,9 +1131,12 @@ function saveRewardSettings(){
     mathReward: parseFloat(document.getElementById('sMathReward').value) || 0.04,
     adsTimer: parseInt(document.getElementById('sAdsTimer').value) || 8,
     adDailyLimit: parseInt(document.getElementById('sAdDailyLimit').value) || 10,
+    popunderInterval: parseInt(document.getElementById('sPopunderInterval').value) || 3,
+    interstitialInterval: parseInt(document.getElementById('sInterstitialInterval').value) || 5,
     minDeposit: parseInt(document.getElementById('sMinDeposit').value) || 100,
     minWithdraw: parseInt(document.getElementById('sMinWithdraw').value) || 110,
-    withdrawFee: parseInt(document.getElementById('sWithdrawFee').value) || 10
+    withdrawFee: parseInt(document.getElementById('sWithdrawFee').value) || 10,
+    premiumPrice: parseInt(document.getElementById('sPremiumPrice').value) || 90
   };
   DB.update('/settings', newSettings).then(function(){ showToast('✅ Settings saved!'); });
 }
@@ -905,10 +1157,7 @@ function renderJobs(jobs){
   var container = document.getElementById('jobsList');
   if(!container) return;
   var arr = Array.isArray(jobs) ? jobs : Object.keys(jobs).map(function(k){ return jobs[k]; });
-  if(!arr.length){
-    container.innerHTML = '<div style="text-align:center;color:#6b7d94;padding:20px;">No jobs</div>';
-    return;
-  }
+  if(!arr.length){ container.innerHTML = '<div style="text-align:center;color:#6b7d94;padding:20px;">No jobs</div>'; return; }
   container.innerHTML = arr.map(function(j, i){
     return '<div class="job-item">' +
       '<div class="job-info"><h4>' + (j.icon || '📌') + ' ' + j.name + '</h4><p>৳' + (j.reward || 0.20) + ' | ' + j.link + '</p></div>' +
@@ -984,6 +1233,48 @@ function savePromoteSettings(){
   DB.set('/promote_prices', data).then(function(){ showToast('✅ Promote prices saved!'); });
 }
 
+// ============= LEADERBOARD =============
+function loadLeaderboardUsers(){
+  DB.get('/leaderboard_users').then(function(data){
+    renderLeaderboardList(data || {});
+  });
+}
+
+function renderLeaderboardList(data){
+  var container = document.getElementById('lbList');
+  if(!container) return;
+  var arr = Object.keys(data).map(function(k){ return Object.assign({ id: k }, data[k]); });
+  arr.sort(function(a,b){ return (b.balance || 0) - (a.balance || 0); });
+  if(!arr.length){
+    container.innerHTML = '<div style="text-align:center;color:#6b7d94;padding:20px;">No demo users yet. Add some to make the leaderboard look active.</div>';
+    return;
+  }
+  container.innerHTML = arr.map(function(u){
+    return '<div class="job-item">' +
+      '<div class="job-info"><h4>' + (u.name || 'Unknown') + '</h4><p>৳ ' + (u.balance || 0) + ' | ' + (u.tag || 'Active') + '</p></div>' +
+      '<button class="btn btn-red" onclick="deleteLeaderboardUser(\'' + u.id + '\')" style="padding:6px 12px;font-size:11px;">🗑️</button>' +
+    '</div>';
+  }).join('');
+}
+
+function addLeaderboardUser(){
+  var name = document.getElementById('lbName').value.trim();
+  var balance = parseFloat(document.getElementById('lbBalance').value) || 1000;
+  var tag = document.getElementById('lbTag').value;
+  if(!name) return showToast('❌ Name দিন!');
+  DB.push('/leaderboard_users', { name: name, balance: balance, tag: tag, addedDate: new Date().toISOString() }).then(function(){
+    showToast('✅ Demo user added!');
+    document.getElementById('lbName').value = '';
+    document.getElementById('lbBalance').value = '';
+    loadLeaderboardUsers();
+  });
+}
+
+function deleteLeaderboardUser(id){
+  if(!confirm('Delete this user?')) return;
+  DB.delete('/leaderboard_users/' + id).then(function(){ showToast('🗑️ Deleted!'); loadLeaderboardUsers(); });
+}
+
 // ============= NOTIFICATIONS =============
 function sendAdminNotification(){
   var target = document.getElementById('notifTarget').value;
@@ -1009,10 +1300,7 @@ function loadNotificationsList(){
   DB.get('/notifications').then(function(data){
     var container = document.getElementById('notificationsList');
     if(!container) return;
-    if(!data){
-      container.innerHTML = '<div style="text-align:center;color:#6b7d94;padding:20px;">No notifications sent</div>';
-      return;
-    }
+    if(!data){ container.innerHTML = '<div style="text-align:center;color:#6b7d94;padding:20px;">No notifications sent</div>'; return; }
     var arr = Object.keys(data).map(function(k){ return Object.assign({ id: k }, data[k]); })
       .sort(function(a,b){ return (b.date || '').localeCompare(a.date || ''); });
     container.innerHTML = arr.slice(0, 20).map(function(n){
@@ -1043,11 +1331,14 @@ document.querySelectorAll('.menu-item[data-panel]').forEach(function(item){
     if(panel === 'chats') loadChatBadge();
     if(panel === 'proofs') loadProofs();
     if(panel === 'orders') loadOrders();
+    if(panel === 'deposits') loadDeposits();
+    if(panel === 'withdraws') loadWithdraws();
+    if(panel === 'premium') loadPremium();
     if(panel === 'designs') loadDesigns();
+    if(panel === 'leaderboard') loadLeaderboardUsers();
   });
 });
 
-// ============= AUTO LOGIN =============
 if(localStorage.getItem('atik_admin_logged') === 'true'){
   document.getElementById('loginScreen').style.display = 'none';
   document.getElementById('appLayout').style.display = 'flex';

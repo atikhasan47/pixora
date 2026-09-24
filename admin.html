@@ -359,7 +359,7 @@ function doAdminLogin(){
     errEl.classList.add('show');
     btn.disabled = false;
     btn.textContent = '🔐 Login';
-  }, 20000);
+  }, 30000);
   
   firebase.auth().signInWithEmailAndPassword(email, pass)
     .then(function(cred){
@@ -367,7 +367,7 @@ function doAdminLogin(){
       var uid = cred.user.uid;
       if(uid !== ADMIN_UID){
         return firebase.auth().signOut().then(function(){
-          throw new Error('আপনি Admin নন!');
+          throw new Error('আপনি Admin নন! UID মেলেনি।');
         });
       }
       currentAdmin = cred.user;
@@ -381,7 +381,9 @@ function doAdminLogin(){
       if(msg.indexOf('user-not-found') > -1) msg = 'এই Email দিয়ে একাউন্ট নেই!';
       else if(msg.indexOf('wrong-password') > -1 || msg.indexOf('invalid-credential') > -1) msg = 'Password ভুল!';
       else if(msg.indexOf('network') > -1) msg = 'Internet connection error!';
-      else if(msg.indexOf('too-many-requests') > -1) msg = 'অনেকবার ভুল! কিছুক্ষণ পরে চেষ্টা করুন।';
+      else if(msg.indexOf('too-many-requests') > -1) msg = 'অনেকবার ভুল হয়েছে! কিছুক্ষণ পরে চেষ্টা করুন।';
+      else if(msg.indexOf('Admin নন') > -1) msg = 'আপনি Admin নন!';
+      else if(msg.indexOf('operation-not-allowed') > -1) msg = 'Firebase Auth চালু নেই!';
       errEl.textContent = '❌ ' + msg;
       errEl.classList.add('show');
       btn.disabled = false;

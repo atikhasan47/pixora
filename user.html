@@ -304,7 +304,7 @@ body{min-height:100vh;background:linear-gradient(135deg,#e0f7fa 0%,#b2ebf2 50%,#
   </aside>
 
   <main class="main">
-    <!-- ড্যাশবোর্ড প্যানেল -->
+    <!-- ড্যাশবোর্ড -->
     <div class="panel active" id="dashboard">
       <div class="top-header-bar">
         <div class="thb-greeting">👋 স্বাগতম, <strong id="thbName">User</strong></div>
@@ -313,7 +313,8 @@ body{min-height:100vh;background:linear-gradient(135deg,#e0f7fa 0%,#b2ebf2 50%,#
           <button class="thb-btn thb-logout" onclick="doLogout()">Logout</button>
         </div>
       </div>
-      <div class="ad-space"><div class="ad-slot" data-ad-panel="dashboard_top"></div></div>
+      <!-- টপ এড (প্যানেল ১) -->
+      <div class="ad-space" style="margin-bottom:15px;"><div class="ad-slot" data-ad-panel="dashboard_top"></div></div>
       <div class="profile-logo-section">
         <div class="profile-logo-box">
           <div class="logo-photo-wrap">
@@ -353,29 +354,21 @@ body{min-height:100vh;background:linear-gradient(135deg,#e0f7fa 0%,#b2ebf2 50%,#
         <div class="section-title">🎯 Earning Services</div>
         <div class="service-cards">
           <div class="svc-big" onclick="showAdAndGo('job')" style="border-color:#00acc1;">
-            <span class="svc-icon">📅</span>
-            <h3>Daily Job</h3>
-            <p>কাজ করে প্রুফ দিন</p>
-            <div class="svc-btn">Start Job →</div>
+            <span class="svc-icon">📅</span><h3>Daily Job</h3><p>কাজ করে প্রুফ দিন</p><div class="svc-btn">Start Job →</div>
           </div>
           <div class="svc-big" onclick="showAdAndGo('watch-ads')" style="border-color:#00acc1;">
-            <span class="svc-icon">📺</span>
-            <h3>Watch Ads</h3>
-            <p>প্রতি অ্যাডে ৳0.10</p>
-            <div class="svc-btn">Watch Now →</div>
+            <span class="svc-icon">📺</span><h3>Watch Ads</h3><p>প্রতি অ্যাডে ৳0.10</p><div class="svc-btn">Watch Now →</div>
           </div>
           <div class="svc-big" onclick="showAdAndGo('math')" style="border-color:#00acc1;">
-            <span class="svc-icon">🧮</span>
-            <h3>Math Earn</h3>
-            <p>৳0.04 আয়</p>
-            <div class="svc-btn">Solve Math →</div>
+            <span class="svc-icon">🧮</span><h3>Math Earn</h3><p>৳0.04 আয়</p><div class="svc-btn">Solve Math →</div>
           </div>
         </div>
       </div>
+      <!-- নিচের এড (প্যানেল ২) -->
       <div class="ad-space"><div class="ad-slot" data-ad-panel="dashboard_bottom"></div></div>
     </div>
 
-    <!-- Watch Ads প্যানেল -->
+    <!-- Watch Ads -->
     <div class="panel" id="watch-ads">
       <div class="topbar"><h2>📺 Watch Ads & Earn <span>৳0.10 প্রতি Ads</span></h2></div>
       <div style="text-align:center;background:rgba(0,172,193,.1);border:3px solid #00acc1;border-radius:22px;padding:30px;margin-bottom:20px;">
@@ -392,10 +385,10 @@ body{min-height:100vh;background:linear-gradient(135deg,#e0f7fa 0%,#b2ebf2 50%,#
         </div>
         <div id="mathFeedback" style="margin-top:15px;font-size:14px;font-weight:700;"></div>
       </div>
-      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" data-ad-panel="watch-ads"></div></div>
+      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" data-ad-panel="watch_ads"></div></div>
     </div>
 
-    <!-- Math প্যানেল -->
+    <!-- Math -->
     <div class="panel" id="math">
       <div class="topbar"><h2>🧮 Math Earn <span>৳0.04 প্রতি সঠিক উত্তরে</span></h2></div>
       <div style="text-align:center;background:rgba(0,172,193,.1);border:3px solid #00acc1;border-radius:22px;padding:30px;margin-bottom:20px;">
@@ -412,7 +405,7 @@ body{min-height:100vh;background:linear-gradient(135deg,#e0f7fa 0%,#b2ebf2 50%,#
       <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" data-ad-panel="math"></div></div>
     </div>
 
-    <!-- Daily Job প্যানেল -->
+    <!-- Daily Job -->
     <div class="panel" id="job">
       <div class="topbar"><h2>📅 Daily Job <span>৳0.20 প্রতি Job</span></h2></div>
       <p style="color:#00838f;margin-bottom:20px;">কাজ করে Screenshot প্রুফ দিন → Admin Approve করলে ৳0.20</p>
@@ -424,14 +417,12 @@ body{min-height:100vh;background:linear-gradient(135deg,#e0f7fa 0%,#b2ebf2 50%,#
         <label style="color:#006064;font-weight:600;font-size:13px;display:block;margin-bottom:8px;">📸 Screenshot (২টি)</label>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:15px;">
           <div style="border:3px dashed #00acc1;border-radius:16px;padding:20px;text-align:center;cursor:pointer;" onclick="document.getElementById('proofImg1').click()">
-            <div style="font-size:32px;">📷</div>
-            <div style="font-size:12px;color:#00838f;">Screenshot 1</div>
+            <div style="font-size:32px;">📷</div><div style="font-size:12px;color:#00838f;">Screenshot 1</div>
             <img id="proofImg1Preview" style="display:none;max-width:100%;border-radius:8px;margin-top:8px;">
             <input type="file" id="proofImg1" accept="image/*" style="display:none" onchange="previewProof(1,event)">
           </div>
           <div style="border:3px dashed #00acc1;border-radius:16px;padding:20px;text-align:center;cursor:pointer;" onclick="document.getElementById('proofImg2').click()">
-            <div style="font-size:32px;">📷</div>
-            <div style="font-size:12px;color:#00838f;">Screenshot 2</div>
+            <div style="font-size:32px;">📷</div><div style="font-size:12px;color:#00838f;">Screenshot 2</div>
             <img id="proofImg2Preview" style="display:none;max-width:100%;border-radius:8px;margin-top:8px;">
             <input type="file" id="proofImg2" accept="image/*" style="display:none" onchange="previewProof(2,event)">
           </div>
@@ -444,7 +435,7 @@ body{min-height:100vh;background:linear-gradient(135deg,#e0f7fa 0%,#b2ebf2 50%,#
       <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" data-ad-panel="job"></div></div>
     </div>
 
-    <!-- Social Promote প্যানেল -->
+    <!-- Social -->
     <div class="panel" id="social">
       <div class="topbar"><h2>🛒 Social Media Promote <span>সব Platform এর Service</span></h2></div>
       <div style="display:flex;gap:8px;margin-bottom:20px;background:#ffffff;padding:6px;border-radius:14px;flex-wrap:wrap;border:1px solid #b2ebf2;">
@@ -458,7 +449,7 @@ body{min-height:100vh;background:linear-gradient(135deg,#e0f7fa 0%,#b2ebf2 50%,#
       <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" data-ad-panel="social"></div></div>
     </div>
 
-    <!-- Wallet History প্যানেল -->
+    <!-- Wallet -->
     <div class="panel" id="wallet-history">
       <div class="topbar"><h2>📜 Wallet & History</h2></div>
       <div style="background:#ffffff;border:3px solid #00acc1;border-radius:22px;padding:30px;margin-bottom:22px;box-shadow:0 5px 20px rgba(0,172,193,.1);">
@@ -473,10 +464,10 @@ body{min-height:100vh;background:linear-gradient(135deg,#e0f7fa 0%,#b2ebf2 50%,#
         <thead><tr style="background:rgba(0,172,193,.15);"><th style="padding:12px;text-align:left;color:#006064;font-size:11px;">Date</th><th style="padding:12px;text-align:left;color:#006064;font-size:11px;">Type</th><th style="padding:12px;text-align:left;color:#006064;font-size:11px;">Amount</th><th style="padding:12px;text-align:left;color:#006064;font-size:11px;">Status</th></tr></thead>
         <tbody id="txnTable"><tr><td colspan="4" style="text-align:center;color:#00838f;padding:30px;">কোনো লেনদেন নেই</td></tr></tbody>
       </table>
-      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" data-ad-panel="wallet-history"></div></div>
+      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" data-ad-panel="wallet"></div></div>
     </div>
 
-    <!-- Add Money প্যানেল -->
+    <!-- Add Money -->
     <div class="panel" id="add-funds">
       <div class="topbar"><h2>💵 Add Money</h2></div>
       <div style="background:#ffffff;padding:25px;border-radius:18px;color:#00363a;max-width:600px;border:2px solid #00acc1;box-shadow:0 5px 20px rgba(0,172,193,.1);">
@@ -492,10 +483,10 @@ body{min-height:100vh;background:linear-gradient(135deg,#e0f7fa 0%,#b2ebf2 50%,#
       </div>
       <div class="section-title" style="margin-top:25px;">📜 Deposit History</div>
       <div id="depositHistory"></div>
-      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" data-ad-panel="add-funds"></div></div>
+      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" data-ad-panel="add_funds"></div></div>
     </div>
 
-    <!-- Withdraw প্যানেল -->
+    <!-- Withdraw -->
     <div class="panel" id="withdraw-money">
       <div class="topbar"><h2>🏧 Withdraw</h2></div>
       <div style="background:#ffffff;padding:25px;border-radius:18px;color:#00363a;max-width:600px;border:2px solid #00acc1;box-shadow:0 5px 20px rgba(0,172,193,.1);">
@@ -507,10 +498,10 @@ body{min-height:100vh;background:linear-gradient(135deg,#e0f7fa 0%,#b2ebf2 50%,#
       </div>
       <div class="section-title" style="margin-top:25px;">📜 Withdraw History</div>
       <div id="withdrawHistory"></div>
-      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" data-ad-panel="withdraw-money"></div></div>
+      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" data-ad-panel="withdraw"></div></div>
     </div>
 
-    <!-- Premium প্যানেল -->
+    <!-- Premium -->
     <div class="panel" id="premium">
       <div class="topbar"><h2>💎 Get Premium</h2></div>
       <div style="background:linear-gradient(135deg,#00acc1,#00838f);color:#fff;border-radius:22px;padding:35px;text-align:center;box-shadow:0 0 60px rgba(0,172,193,.4);max-width:600px;margin:0 auto;">
@@ -519,42 +510,31 @@ body{min-height:100vh;background:linear-gradient(135deg,#e0f7fa 0%,#b2ebf2 50%,#
         <p style="font-size:15px;margin-bottom:15px;">ডাবল ইনকাম, ডাবল কাজ</p>
         <div style="font-size:48px;font-weight:900;margin:15px 0;">৳ <span id="premiumPrice">90</span> <span style="font-size:18px;">/ মাস</span></div>
         <ul style="text-align:left;display:inline-block;margin:15px 0;font-size:15px;line-height:2.2;list-style:none;">
-          <li>✅ আনলিমিটেড Ads</li>
-          <li>✅ প্রতি Ads ৳0.12 (ডাবল)</li>
-          <li>✅ Math Earn ৳0.08 (ডাবল)</li>
-          <li>✅ Daily Job আনলিমিটেড</li>
-          <li>✅ দ্রুত Withdraw</li>
-        </ul>
-        <br>
+          <li>✅ আনলিমিটেড Ads</li><li>✅ প্রতি Ads ৳0.12 (ডাবল)</li><li>✅ Math Earn ৳0.08 (ডাবল)</li><li>✅ Daily Job আনলিমিটেড</li><li>✅ দ্রুত Withdraw</li>
+        </ul><br>
         <button class="btn" style="background:#ffffff;color:#00acc1;padding:16px 40px;font-size:16px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,.1);" onclick="showAdAndPremium()">Upgrade Now</button>
       </div>
       <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" data-ad-panel="premium"></div></div>
     </div>
 
-    <!-- Support প্যানেল -->
+    <!-- Support -->
     <div class="panel" id="support">
       <div class="topbar"><h2>💬 Support</h2></div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;">
         <a href="https://t.me/atikbreand420" target="_blank" style="background:#ffffff;border:2px solid #00acc1;border-radius:18px;padding:25px;text-align:center;text-decoration:none;color:#00363a;box-shadow:0 5px 15px rgba(0,172,193,.05);">
-          <div style="font-size:44px;">✈️</div>
-          <h4 style="color:#006064;margin:10px 0;">Telegram Channel</h4>
-          <div style="color:#00838f;font-size:12px;">@atikbreand420</div>
+          <div style="font-size:44px;">✈️</div><h4 style="color:#006064;margin:10px 0;">Telegram Channel</h4><div style="color:#00838f;font-size:12px;">@atikbreand420</div>
         </a>
         <a href="https://t.me/aiatikdailyearning" target="_blank" style="background:#ffffff;border:2px solid #00acc1;border-radius:18px;padding:25px;text-align:center;text-decoration:none;color:#00363a;box-shadow:0 5px 15px rgba(0,172,193,.05);">
-          <div style="font-size:44px;">👥</div>
-          <h4 style="color:#006064;margin:10px 0;">Telegram Group</h4>
-          <div style="color:#00838f;font-size:12px;">@aiatikdailyearning</div>
+          <div style="font-size:44px;">👥</div><h4 style="color:#006064;margin:10px 0;">Telegram Group</h4><div style="color:#00838f;font-size:12px;">@aiatikdailyearning</div>
         </a>
         <a href="https://www.facebook.com/profile.php?id=61592860621046" target="_blank" style="background:#ffffff;border:2px solid #00acc1;border-radius:18px;padding:25px;text-align:center;text-decoration:none;color:#00363a;box-shadow:0 5px 15px rgba(0,172,193,.05);">
-          <div style="font-size:44px;">📘</div>
-          <h4 style="color:#006064;margin:10px 0;">Facebook</h4>
-          <div style="color:#00838f;font-size:12px;">Atik Freelancer</div>
+          <div style="font-size:44px;">📘</div><h4 style="color:#006064;margin:10px 0;">Facebook</h4><div style="color:#00838f;font-size:12px;">Atik Freelancer</div>
         </a>
       </div>
       <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" data-ad-panel="support"></div></div>
     </div>
 
-    <!-- Chat প্যানেল -->
+    <!-- Chat -->
     <div class="panel" id="chat">
       <div class="topbar"><h2>📨 Chat with Admin</h2></div>
       <div class="chat-box">
@@ -657,12 +637,94 @@ var SERVICES = {
   telegram:[{name:'Telegram Channel Members',price:150},{name:'Telegram Group Members',price:130},{name:'Telegram Post Views',price:30},{name:'Telegram Post Reactions',price:60},{name:'Telegram Poll Votes',price:70}]
 };
 
-// Ad keys (HighRevenueFormat) for different sizes
-var AD_KEYS = {
-  small: {key:'22e82538f1de9118ba07f9a995a692d4', w:320, h:50},
-  medium: {key:'fa90bcf6b604ee93575cf3bf5161abce', w:728, h:90},
-  large: {key:'f7b5fb1e6fc33ea203f08bdd042e987c', w:300, h:250}
-};
+// ============ AD SYSTEM - STABLE VERSION (24h Auto) ============
+var AD_KEYS = [
+  {key:'f7b5fb1e6fc33ea203f08bdd042e987c', w:300, h:250},
+  {key:'fa90bcf6b604ee93575cf3bf5161abce', w:728, h:90},
+  {key:'22e82538f1de9118ba07f9a995a692d4', w:320, h:50}
+];
+
+// Inject ad into a slot using iframe srcdoc (no document.write issues)
+function injectAd(slot, adIndex){
+  if(!slot) return;
+  var ad = AD_KEYS[adIndex % AD_KEYS.length];
+  slot.innerHTML = '';
+  var iframe = document.createElement('iframe');
+  iframe.style.width = '100%';
+  iframe.style.maxWidth = ad.w + 'px';
+  iframe.style.height = ad.h + 'px';
+  iframe.style.border = 'none';
+  iframe.style.display = 'block';
+  iframe.style.margin = '0 auto';
+  iframe.setAttribute('scrolling', 'no');
+  iframe.setAttribute('frameborder', '0');
+  iframe.srcdoc = '<!DOCTYPE html><html><head><style>html,body{margin:0;padding:0;display:flex;justify-content:center;align-items:center;background:transparent;width:100%;height:100%;overflow:hidden;}</style></head><body><script type="text/javascript">atOptions={"key":"'+ad.key+'","format":"iframe","height":'+ad.h+',"width":'+ad.w+',"params":{}};<\/script><script type="text/javascript" src="https://www.highrevenueformat.com/'+ad.key+'/invoke.js"><\/script></body></html>';
+  slot.appendChild(iframe);
+}
+
+// Load all panel ad slots (initial)
+function loadAllAds(){
+  var slots = document.querySelectorAll('.ad-slot[data-ad-panel]');
+  slots.forEach(function(slot, index){
+    injectAd(slot, index);
+  });
+}
+
+// 24 hour auto rotation: Every 30 seconds rotate all ads
+function startAutoAdRotation(){
+  // Initial load after 2 sec (wait for HRF scripts)
+  setTimeout(loadAllAds, 2000);
+  // Every 30 seconds, rotate ads
+  setInterval(function(){
+    var slots = document.querySelectorAll('.ad-slot[data-ad-panel]');
+    slots.forEach(function(slot){
+      // pick random ad
+      var rand = Math.floor(Math.random() * AD_KEYS.length);
+      injectAd(slot, rand);
+    });
+  }, 30000);
+}
+
+// Also update visibilitychange (when user returns to app)
+document.addEventListener('visibilitychange', function(){
+  if(!document.hidden){
+    // Refresh all ads when user comes back
+    setTimeout(loadAllAds, 500);
+  }
+});
+
+// Ad Overlay (forced view for rewards)
+var adOverlayCallback=null, adOverlayInterval=null;
+function showAdOverlay(cb){
+  var overlay=document.getElementById('adOverlay');
+  var slot=document.getElementById('adOverlaySlot');
+  var td=document.getElementById('adTimerDisplay'), tt=document.getElementById('adTimerText');
+  var cbtn=document.getElementById('adCloseBtn'), pb=document.getElementById('adProgressBar');
+  injectAd(slot, 0); // Always show 300x250 for overlay
+  var t=SETTINGS.adsTimer||8;
+  td.textContent=t; tt.textContent=t; cbtn.disabled=true; cbtn.textContent='⏳ অপেক্ষা করুন...'; pb.style.width='0%';
+  overlay.classList.add('active'); adOverlayCallback=cb;
+  var e=0; if(adOverlayInterval) clearInterval(adOverlayInterval);
+  adOverlayInterval=setInterval(function(){
+    e++; var r=t-e;
+    td.textContent=r>0?r:0; tt.textContent=r>0?r:0;
+    pb.style.width=((e/t)*100)+'%';
+    if(e>=t){clearInterval(adOverlayInterval);cbtn.disabled=false;cbtn.textContent='✅ Close & Continue';td.textContent='✓';}
+  },1000);
+}
+function closeAdOverlay(){
+  var c=document.getElementById('adCloseBtn'); if(c.disabled) return;
+  document.getElementById('adOverlay').classList.remove('active');
+  if(adOverlayInterval) clearInterval(adOverlayInterval);
+  if(adOverlayCallback){var cb=adOverlayCallback;adOverlayCallback=null;setTimeout(cb,100);}
+}
+
+// ============ সব বাটনে এড ============
+function showAdAndGo(panelName){ showAdOverlay(function(){ goPanel(panelName); }); }
+function showAdAndDeposit(){ showAdOverlay(function(){ doDeposit(); }); }
+function showAdAndWithdraw(){ showAdOverlay(function(){ doWithdraw(); }); }
+function showAdAndSubmitJobProof(){ showAdOverlay(function(){ submitJobProofActual(); }); }
+function showAdAndPremium(){ showAdOverlay(function(){ openPremiumModal(); }); }
 
 // ============ DB HELPERS ============
 function dbGet(p){return fetch(DB_URL+p+'.json').then(function(r){return r.json();});}
@@ -694,88 +756,6 @@ function applySettingsToUI(){
   var el2 = document.getElementById('premiumPrice'); if(el2) el2.textContent = SETTINGS.premiumPrice;
   var el3 = document.getElementById('premPrice'); if(el3) el3.textContent = SETTINGS.premiumPrice;
 }
-
-// ============ AD SYSTEM - ALL PANELS ============
-// HighRevenueFormat এড iframe দিয়ে লোড
-function loadHRFAd(slot, adType){
-  if(!slot) return;
-  var ad = AD_KEYS[adType] || AD_KEYS.medium;
-  slot.innerHTML = '';
-  var iframe = document.createElement('iframe');
-  iframe.style.width = '100%';
-  iframe.style.maxWidth = ad.w + 'px';
-  iframe.style.height = ad.h + 'px';
-  iframe.style.border = 'none';
-  iframe.style.display = 'block';
-  iframe.style.margin = '0 auto';
-  iframe.setAttribute('scrolling', 'no');
-  iframe.srcdoc = '<html><head><style>body{margin:0;display:flex;justify-content:center;align-items:center;background:transparent;overflow:hidden;}</style></head><body><script type="text/javascript">atOptions={"key":"'+ad.key+'","format":"iframe","height":'+ad.h+',"width":'+ad.w+',"params":{}};<\/script><script src="https://www.highrevenueformat.com/'+ad.key+'/invoke.js"><\/script></body></html>';
-  slot.appendChild(iframe);
-}
-
-// সব প্যানেলের এড স্লট লোড
-function loadAllPanelAds(){
-  var slots = document.querySelectorAll('.ad-slot[data-ad-panel]');
-  slots.forEach(function(slot, index){
-    // rotate ad types
-    var adTypes = ['large','medium','small'];
-    var type = adTypes[index % adTypes.length];
-    loadHRFAd(slot, type);
-  });
-}
-
-// ২৪ ঘন্টা অটো এড রোটেশন (সব স্লট)
-function startAutoAdRotation(){
-  // initial load (2 sec delay for HRF script)
-  setTimeout(function(){
-    loadAllPanelAds();
-  }, 2000);
-
-  // প্রতি ৩০ সেকেন্ডে সব স্লটে এড পরিবর্তন
-  setInterval(function(){
-    var slots = document.querySelectorAll('.ad-slot[data-ad-panel]');
-    var adTypes = ['large','medium','small'];
-    slots.forEach(function(slot, index){
-      // ঘুরিয়ে ঘুরিয়ে এড আসবে
-      var randomType = adTypes[Math.floor(Math.random() * adTypes.length)];
-      loadHRFAd(slot, randomType);
-    });
-  }, 30000);
-}
-
-// Ad Overlay (জোর করে এড দেখানোর জন্য)
-var adOverlayCallback=null, adOverlayInterval=null;
-function showAdOverlay(cb){
-  var overlay=document.getElementById('adOverlay');
-  var slot=document.getElementById('adOverlaySlot');
-  var td=document.getElementById('adTimerDisplay'), tt=document.getElementById('adTimerText');
-  var cbtn=document.getElementById('adCloseBtn'), pb=document.getElementById('adProgressBar');
-  loadHRFAd(slot, 'large');
-  var t=SETTINGS.adsTimer||8;
-  td.textContent=t; tt.textContent=t; cbtn.disabled=true; cbtn.textContent='⏳ অপেক্ষা করুন...'; pb.style.width='0%';
-  overlay.classList.add('active'); adOverlayCallback=cb;
-  var e=0; if(adOverlayInterval) clearInterval(adOverlayInterval);
-  adOverlayInterval=setInterval(function(){
-    e++; var r=t-e;
-    td.textContent=r>0?r:0; tt.textContent=r>0?r:0;
-    pb.style.width=((e/t)*100)+'%';
-    if(e>=t){clearInterval(adOverlayInterval);cbtn.disabled=false;cbtn.textContent='✅ Close & Continue';td.textContent='✓';}
-  },1000);
-}
-function closeAdOverlay(){
-  var c=document.getElementById('adCloseBtn'); if(c.disabled) return;
-  document.getElementById('adOverlay').classList.remove('active');
-  if(adOverlayInterval) clearInterval(adOverlayInterval);
-  if(adOverlayCallback){var cb=adOverlayCallback;adOverlayCallback=null;setTimeout(cb,100);}
-}
-function withAd(cb){showAdOverlay(cb);}
-
-// সব বাটনে এড (Add Money, Withdraw, Submit, Claim)
-function showAdAndGo(panelName){ showAdOverlay(function(){ goPanel(panelName); }); }
-function showAdAndDeposit(){ showAdOverlay(function(){ doDeposit(); }); }
-function showAdAndWithdraw(){ showAdOverlay(function(){ doWithdraw(); }); }
-function showAdAndSubmitJobProof(){ showAdOverlay(function(){ submitJobProofActual(); }); }
-function showAdAndPremium(){ showAdOverlay(function(){ openPremiumModal(); }); }
 
 // ============ LIVE ANIMATION ============
 (function(){
@@ -872,7 +852,7 @@ function initUI(){
     else{badge.className='verified';badge.innerHTML='⚠️ অ্যাকাউন্ট ভেরিফাইড নয়! <span style="cursor:pointer;text-decoration:underline;margin-left:5px;" onclick="verifyAccount()">Verify</span>';}
     updateBalance();renderTxn(user);loadNotifications();loadServices();loadChat();loadJobsFromFirebase();
     setTimeout(initMathPage,200);
-    startAutoAdRotation(); // সব প্যানেলে এড লোড + ২৪ ঘণ্টা অটো রোটেশন
+    startAutoAdRotation(); // 24h auto ads start
     setInterval(loadChat, 10000);
   } else {modal.classList.add('active');modal.style.display='flex';app.style.display='none';}
 }
@@ -917,19 +897,18 @@ function goPanel(name){
   if(name==='math') setTimeout(initMathPage,100);
   if(name==='wallet-history' || name==='add-funds' || name==='withdraw-money') renderHistories();
   document.getElementById('sidebar').classList.remove('open');
-  // প্যানেলে ঢোকার পর এড লোড
+  // Load ads in this panel if not loaded
   setTimeout(function(){
     var activePanel = document.querySelector('.panel.active');
     if(activePanel){
       var slots = activePanel.querySelectorAll('.ad-slot[data-ad-panel]');
-      slots.forEach(function(slot, index){
+      slots.forEach(function(slot, idx){
         if(!slot.innerHTML.trim()){
-          var adTypes = ['large','medium','small'];
-          loadHRFAd(slot, adTypes[index % adTypes.length]);
+          injectAd(slot, idx);
         }
       });
     }
-  }, 500);
+  }, 800);
 }
 
 function renderHistories(){
@@ -1145,7 +1124,7 @@ function submitOrder(){
   });
 }
 
-// ============ চ্যাট ফাংশন ============
+// ============ চ্যাট ============
 function loadChat(){
   var u=getCurrentUser();if(!u) return;
   var box=document.getElementById('chatMessages');if(!box) return;

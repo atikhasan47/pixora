@@ -647,21 +647,21 @@ body {
   </main>
 </div>
 
-<!-- === মোবাইলের নিচের মেনু === -->
+<!-- === মোবাইলের নিচের মেনু (অ্যাড ছাড়া) === -->
 <div class="bottom-nav" id="bottomNav">
-    <div class="nav-item active" data-panel="dashboard" onclick="showAdAndGo('dashboard')">
+    <div class="nav-item active" data-panel="dashboard" onclick="goPanel('dashboard')">
         <span>📊</span> Home
     </div>
-    <div class="nav-item" data-panel="watch-ads" onclick="showAdAndGo('watch-ads')">
+    <div class="nav-item" data-panel="watch-ads" onclick="goPanel('watch-ads')">
         <span>📺</span> Ads
     </div>
-    <div class="nav-item" data-panel="wallet-history" onclick="showAdAndGo('wallet-history')">
+    <div class="nav-item" data-panel="wallet-history" onclick="goPanel('wallet-history')">
         <span>💰</span> Wallet
     </div>
-    <div class="nav-item" data-panel="premium" onclick="showAdAndGo('premium')">
+    <div class="nav-item" data-panel="premium" onclick="goPanel('premium')">
         <span>💎</span> Premium
     </div>
-    <div class="nav-item" data-panel="support" onclick="showAdAndGo('support')">
+    <div class="nav-item" data-panel="support" onclick="goPanel('support')">
         <span>💬</span> Support
     </div>
 </div>
@@ -979,9 +979,8 @@ function renderTxn(u){
 }
 
 document.querySelectorAll('.menu-item[data-panel]').forEach(function(item){
-  item.addEventListener('click',function(){showAdAndGo(item.dataset.panel);document.getElementById('sidebar').classList.remove('open');});
+  item.addEventListener('click',function(){goPanel(item.dataset.panel);document.getElementById('sidebar').classList.remove('open');});
 });
-
 function goPanel(name){
     document.querySelectorAll('.menu-item, .bottom-nav .nav-item').forEach(function(m){
         m.classList.remove('active');

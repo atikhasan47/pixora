@@ -16,35 +16,21 @@
 </script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-
-/* === হালকা পানি কালার (Light Cyan) থিম === */
-body {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 50%, #80deea 100%);
-    color: #00363a;
-    overflow-x: hidden;
-    font-family: 'Poppins', 'Segoe UI', sans-serif;
-}
-
-/* === লাইভ গ্রামের ব্যাকগ্রাউন্ড === */
+body{min-height:100vh;background:linear-gradient(135deg,#e0f7fa 0%,#b2ebf2 50%,#80deea 100%);color:#00363a;overflow-x:hidden;font-family:'Poppins','Segoe UI',sans-serif;}
 .village-bg{position:fixed;inset:0;z-index:-1;overflow:hidden;}
 .sky-night{position:absolute;top:0;width:100%;height:100%;background:linear-gradient(180deg,#b2ebf2 0%,#80deea 40%,#4dd0e1 70%,#26c6da 100%);}
 .stars{position:absolute;top:0;width:100%;height:60%;}
-.star{position:absolute;background:#fff;border-radius:50%;animation:twinkle 3s ease-in-out infinite;box-shadow: 0 0 8px #fff;}
+.star{position:absolute;background:#fff;border-radius:50%;animation:twinkle 3s ease-in-out infinite;box-shadow:0 0 8px #fff;}
 @keyframes twinkle{0%,100%{opacity:.3;transform:scale(1);}50%{opacity:1;transform:scale(1.4);}}
 .moon{position:absolute;top:60px;right:90px;width:80px;height:80px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#FFF9C4,#FFE082,#FFD54F);box-shadow:0 0 60px #FFE082,0 0 120px rgba(0,229,255,.5);}
 .ground{position:absolute;bottom:0;width:100%;height:35%;background:linear-gradient(180deg,#26c6da 0%,#00acc1 50%,#00838f 100%);}
 .grass-layer{position:absolute;bottom:0;width:100%;height:25px;background:repeating-linear-gradient(90deg,transparent 0,transparent 3px,#00e5ff 3px,#00e5ff 5px,transparent 5px,transparent 8px);opacity:.6;}
-
-/* গাছ */
 .tree{position:absolute;bottom:12%;animation:treeSway 4s ease-in-out infinite;}
 .trunk{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:14px;height:80px;background:linear-gradient(90deg,#00acc1,#00838f);border-radius:5px;}
 .leaves{position:absolute;bottom:70px;left:50%;transform:translateX(-50%);width:110px;height:110px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#80deea,#4dd0e1 50%,#00acc1);}
 @keyframes treeSway{0%,100%{transform:rotate(0);}50%{transform:rotate(2deg);}}
 .tree1{left:4%;}.tree2{left:18%;bottom:15%;transform:scale(1.3);}
 .tree3{right:5%;bottom:10%;transform:scale(.9);}.tree4{right:25%;bottom:17%;transform:scale(1.4);}
-
-/* বৃষ্টি, পাতা, জোনাকি */
 .rain-container{position:absolute;inset:0;overflow:hidden;pointer-events:none;}
 .raindrop{position:absolute;top:-20px;width:2px;height:20px;background:linear-gradient(180deg,transparent,rgba(0,229,255,.7));animation:rainFall linear infinite;}
 @keyframes rainFall{0%{transform:translateY(-20px);}100%{transform:translateY(105vh);}}
@@ -52,8 +38,6 @@ body {
 @keyframes leafFall{0%{transform:translateY(-50px) rotate(0) translateX(0);opacity:0;}10%{opacity:.9;}50%{transform:translateY(50vh) rotate(360deg) translateX(50px);}100%{transform:translateY(105vh) rotate(720deg) translateX(120px);opacity:0;}}
 .firefly{position:absolute;width:4px;height:4px;background:#FFEB3B;border-radius:50%;box-shadow:0 0 10px #FFEB3B;animation:fireflyFloat linear infinite;opacity:.8;}
 @keyframes fireflyFloat{0%{transform:translate(0,0);opacity:0;}20%{opacity:1;}80%{opacity:1;}100%{transform:translate(100px,-200px);opacity:0;}}
-
-/* === স্প্ল্যাশ স্ক্রিন === */
 .splash{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(135deg,#e0f7fa,#80deea,#26c6da);transition:opacity 1s ease;}
 .splash.hide{opacity:0;pointer-events:none;}
 .splash-logo{width:130px;height:130px;border-radius:50%;object-fit:cover;border:4px solid #00acc1;box-shadow:0 0 60px #00acc1;animation:logoBounceIn 1s ease;}
@@ -67,37 +51,33 @@ body {
 .splash-loader span:nth-child(2){animation-delay:.2s;}
 .splash-loader span:nth-child(3){animation-delay:.4s;}
 @keyframes dotPulse{0%,80%,100%{transform:scale(.5);opacity:.5;}40%{transform:scale(1.2);opacity:1;}}
-.splash-tip{margin-top:20px;font-size:12px;color:#006064;font-weight: 600;}
-
-/* === মডাল ও লগইন === */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,172,193,.8);backdrop-filter: blur(5px);display:none;justify-content:center;align-items:center;z-index:1000;padding:15px;overflow-y:auto;}
+.splash-tip{margin-top:20px;font-size:12px;color:#006064;font-weight:600;}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,172,193,.8);backdrop-filter:blur(5px);display:none;justify-content:center;align-items:center;z-index:1000;padding:15px;overflow-y:auto;}
 .modal-overlay.active{display:flex;}
-.login-box{background:linear-gradient(135deg,#ffffff,#e0f7fa);padding:38px 32px;border-radius:22px;width:100%;max-width:430px;border:3px solid #00acc1;margin:auto;box-shadow: 0 0 40px rgba(0,172,193,.5);}
+.login-box{background:linear-gradient(135deg,#ffffff,#e0f7fa);padding:38px 32px;border-radius:22px;width:100%;max-width:430px;border:3px solid #00acc1;margin:auto;box-shadow:0 0 40px rgba(0,172,193,.5);}
 .login-logo-top{width:80px;height:80px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 15px;border:3px solid #00acc1;box-shadow:0 0 30px #00acc1;}
-.login-box h2{color:#006064;text-align:center;margin-bottom:22px;font-size:22px;font-weight: 800;}
-.login-box input{width:100%;padding:14px;margin-bottom:14px;background:#ffffff;border:2px solid #80deea;border-radius:12px;color:#00363a;font-size:14px;font-family:inherit;outline: none;}
+.login-box h2{color:#006064;text-align:center;margin-bottom:22px;font-size:22px;font-weight:800;}
+.login-box input{width:100%;padding:14px;margin-bottom:14px;background:#ffffff;border:2px solid #80deea;border-radius:12px;color:#00363a;font-size:14px;font-family:inherit;outline:none;}
 .login-box input:focus{border-color:#00acc1;}
 .eye-icon{position:absolute;right:15px;top:14px;cursor:pointer;color:#00acc1;font-size:16px;}
 .auth-tabs{display:flex;gap:8px;margin-bottom:22px;background:#e0f7fa;padding:6px;border-radius:14px;}
 .auth-tab{flex:1;padding:11px;background:transparent;border:none;color:#00838f;font-size:14px;font-weight:bold;border-radius:10px;cursor:pointer;font-family:inherit;}
-.auth-tab.active{background:linear-gradient(90deg,#00acc1,#00838f);color:#fff;box-shadow: 0 0 10px rgba(0,172,193,.4);}
-.auth-btn{width:100%;padding:15px;background:linear-gradient(90deg,#00acc1,#00838f);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:bold;cursor:pointer;font-family:inherit;box-shadow: 0 5px 15px rgba(0,172,193,.4);}
+.auth-tab.active{background:linear-gradient(90deg,#00acc1,#00838f);color:#fff;box-shadow:0 0 10px rgba(0,172,193,.4);}
+.auth-btn{width:100%;padding:15px;background:linear-gradient(90deg,#00acc1,#00838f);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:bold;cursor:pointer;font-family:inherit;box-shadow:0 5px 15px rgba(0,172,193,.4);}
 .auth-error{color:#FF1744;font-size:13px;font-weight:bold;text-align:center;padding:9px;margin-bottom:10px;background:rgba(255,23,68,.1);border-radius:10px;display:none;}
 .auth-error.show{display:block;}
 .auth-hint{color:#00838f;font-size:12px;text-align:center;margin-top:15px;}
-.auth-hint a{color:#006064;cursor:pointer;text-decoration:underline;font-weight: 700;}
-
-/* === মূল অ্যাপ লেআউট === */
+.auth-hint a{color:#006064;cursor:pointer;text-decoration:underline;font-weight:700;}
 .app-layout{display:flex;min-height:100vh;position:relative;z-index:1;}
-.sidebar{width:250px;background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(224,247,250,.95));border-right:2px solid #80deea;padding:20px 0;position:sticky;top:0;height:100vh;overflow-y:auto;z-index:100;box-shadow: 2px 0 15px rgba(0,172,193,.1);}
+.sidebar{width:250px;background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(224,247,250,.95));border-right:2px solid #80deea;padding:20px 0;position:sticky;top:0;height:100vh;overflow-y:auto;z-index:100;box-shadow:2px 0 15px rgba(0,172,193,.1);}
 .sidebar-logo{display:flex;align-items:center;gap:12px;padding:0 20px 20px;border-bottom:1px solid #b2ebf2;margin-bottom:15px;}
 .sidebar-logo img{height:50px;width:50px;border-radius:50%;box-shadow:0 0 20px #00acc1;border:2px solid #00acc1;object-fit:cover;}
 .sidebar-logo .brand{color:#006064;font-size:13px;font-weight:bold;line-height:1.3;}
 .user-card{display:flex;align-items:center;gap:12px;padding:15px 20px;background:rgba(0,172,193,.08);margin:0 12px 15px;border-radius:15px;border:1px solid #80deea;}
-.user-card .avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#00acc1,#00838f);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:bold;color:#fff;border:3px solid #fff;box-shadow: 0 0 10px rgba(0,172,193,.3);}
+.user-card .avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#00acc1,#00838f);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:bold;color:#fff;border:3px solid #fff;box-shadow:0 0 10px rgba(0,172,193,.3);}
 .user-card .info{flex:1;overflow:hidden;}
 .user-card .info .name{font-size:14px;font-weight:700;color:#00363a;}
-.user-card .info .status{font-size:11px;color:#006064;cursor:pointer;font-weight: 600;}
+.user-card .info .status{font-size:11px;color:#006064;cursor:pointer;font-weight:600;}
 .menu-section{margin-bottom:12px;padding:0 12px;}
 .menu-label{font-size:10px;color:#00838f;letter-spacing:2px;padding:8px 12px;text-transform:uppercase;font-weight:700;}
 .menu-item{display:flex;align-items:center;gap:12px;padding:12px 15px;color:#006064;cursor:pointer;border-radius:12px;transition:.3s;font-size:13px;font-weight:600;margin-bottom:3px;}
@@ -105,30 +85,23 @@ body {
 .menu-item.active{background:linear-gradient(90deg,rgba(0,172,193,.15),transparent);color:#006064;box-shadow:inset 4px 0 0 #00acc1;}
 .menu-item .icon{font-size:18px;width:24px;text-align:center;}
 .menu-sub{padding-left:14px;}
-
-/* === মেইন কন্টেন্ট === */
-.main{flex:1;padding:25px;padding-bottom: 100px;overflow-x:hidden;max-width:100%;}
+.main{flex:1;padding:25px;padding-bottom:100px;overflow-x:hidden;max-width:100%;}
 .topbar h2{font-size:22px;color:#006064;font-weight:800;}
 .topbar h2 span{color:#00838f;font-weight:400;font-size:13px;display:block;margin-top:4px;}
 .btn{padding:12px 22px;border:none;border-radius:12px;cursor:pointer;font-weight:700;font-size:13px;text-decoration:none;display:inline-flex;align-items:center;gap:6px;font-family:inherit;}
-.btn-cyan{background:linear-gradient(90deg,#00acc1,#00838f);color:#fff;box-shadow: 0 4px 10px rgba(0,172,193,.3);}
-.btn-green{background:linear-gradient(90deg,#00c853,#00e676);color:#fff;box-shadow: 0 4px 10px rgba(0,200,83,.3);}
-.btn-red{background:linear-gradient(90deg,#D32F2F,#FF1744);color:#fff;box-shadow: 0 4px 10px rgba(211,47,47,.3);}
-.top-header-bar{background:#ffffff;border:2px solid #80deea;border-radius:16px;padding:12px 20px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;box-shadow: 0 5px 15px rgba(0,172,193,.05);}
+.btn-cyan{background:linear-gradient(90deg,#00acc1,#00838f);color:#fff;box-shadow:0 4px 10px rgba(0,172,193,.3);}
+.btn-green{background:linear-gradient(90deg,#00c853,#00e676);color:#fff;box-shadow:0 4px 10px rgba(0,200,83,.3);}
+.btn-red{background:linear-gradient(90deg,#D32F2F,#FF1744);color:#fff;box-shadow:0 4px 10px rgba(211,47,47,.3);}
+.top-header-bar{background:#ffffff;border:2px solid #80deea;border-radius:16px;padding:12px 20px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;box-shadow:0 5px 15px rgba(0,172,193,.05);}
 .thb-greeting{color:#00838f;font-size:13px;}
 .thb-greeting strong{color:#006064;}
 .thb-right{display:flex;gap:8px;align-items:center;}
 .thb-btn{background:#e0f7fa;border:1px solid #80deea;color:#006064;padding:8px 14px;border-radius:20px;cursor:pointer;font-weight:700;font-size:12px;font-family:inherit;}
-.thb-logout{background:linear-gradient(90deg,#D32F2F,#FF1744);color:#fff;border: none;}
+.thb-logout{background:linear-gradient(90deg,#D32F2F,#FF1744);color:#fff;border:none;}
 .notif-badge{position:absolute;top:-6px;right:-6px;background:#FF1744;color:#fff;font-size:10px;padding:2px 6px;border-radius:10px;font-weight:900;}
-
-/* === এড স্পেস (পানি কালার) === */
 .ad-space{background:#e0f7fa;border:2px dashed #00acc1;border-radius:16px;padding:15px 20px;margin:18px 0;text-align:center;min-height:80px;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;overflow:hidden;}
 .ad-space::before{content:'AD';position:absolute;top:6px;left:10px;font-size:9px;color:#00838f;letter-spacing:2px;font-weight:700;}
-.ad-space-inline{min-height:60px;padding:10px;margin:12px 0;}
 .ad-slot{width:100%;display:flex;justify-content:center;align-items:center;min-height:50px;}
-
-/* === প্রোফাইল কার্ড (সাদা/পানি কালার) === */
 .profile-logo-section{display:flex;justify-content:center;margin-bottom:20px;padding:15px;}
 .profile-logo-box{width:320px;height:320px;border-radius:50px;background:linear-gradient(135deg,#ffffff,#e0f7fa,#b2ebf2);border:4px solid #00acc1;position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;overflow:hidden;flex-shrink:0;box-shadow:0 10px 40px rgba(0,172,193,.2);}
 .logo-photo-wrap{width:110px;height:110px;border-radius:50%;overflow:hidden;border:4px solid #00acc1;margin-bottom:6px;position:relative;background:#e0f7fa;}
@@ -139,8 +112,6 @@ body {
 .logo-brand{margin-top:6px;background:linear-gradient(90deg,#00acc1,#00838f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:9px;font-weight:900;letter-spacing:2.5px;}
 .logo-tag{margin-top:4px;color:#00838f;font-size:8px;font-weight:900;letter-spacing:1.5px;}
 .logo-corner{position:absolute;width:9px;height:9px;border-radius:50%;background:#00acc1;}
-
-/* === ওয়েলকাম কার্ড === */
 .welcome-card{background:#ffffff;border:2px solid #80deea;border-radius:20px;padding:30px;margin-bottom:22px;box-shadow:0 5px 20px rgba(0,172,193,.1);}
 .welcome-content{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;}
 .welcome-text .hello{color:#00838f;font-size:13px;letter-spacing:2px;font-weight:600;text-transform:uppercase;}
@@ -148,8 +119,6 @@ body {
 .welcome-text .verified{display:inline-flex;align-items:center;gap:8px;background:rgba(255,152,0,.15);color:#EF6C00;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;border:1px solid #FF9800;}
 .welcome-text .verified.verified-yes{background:rgba(0,200,83,.15);color:#00c853;border-color:#00c853;}
 .welcome-actions{display:flex;gap:12px;flex-wrap:wrap;}
-
-/* === স্ট্যাট কার্ড === */
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:22px;}
 .stat-card{background:#ffffff;border:1px solid #b2ebf2;border-radius:18px;padding:22px;transition:.4s;box-shadow:0 4px 15px rgba(0,172,193,.05);}
 .stat-card:hover{transform:translateY(-5px);box-shadow:0 10px 30px rgba(0,172,193,.15);}
@@ -159,8 +128,6 @@ body {
 .stat-card .val{font-size:22px;font-weight:900;color:#006064;font-family:'Courier New',monospace;}
 .stat-card.green .val{color:#00c853;}.stat-card.orange .val{color:#EF6C00;}
 .stat-card.cyan .val{color:#00838f;}.stat-card.pink .val{color:#D81B60;}
-
-/* === সেকশন ও সার্ভিস কার্ড === */
 .section{margin-bottom:25px;}
 .section-title{color:#006064;font-size:17px;font-weight:800;margin-bottom:15px;display:flex;align-items:center;gap:10px;padding-bottom:10px;border-bottom:2px solid #b2ebf2;}
 .service-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;}
@@ -170,18 +137,14 @@ body {
 .svc-big h3{color:#006064;font-size:20px;font-weight:900;margin-bottom:8px;}
 .svc-big p{color:#00838f;font-size:13px;margin-bottom:18px;}
 .svc-big .svc-btn{background:linear-gradient(90deg,#00acc1,#00838f);color:#fff;padding:12px 30px;border-radius:12px;font-weight:800;font-size:14px;display:inline-block;box-shadow:0 4px 10px rgba(0,172,193,.3);}
-
-/* === প্যানেল ও ফর্ম === */
 .panel{display:none;}
 .panel.active{display:block;animation:fadeIn .4s;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(15px);}to{opacity:1;transform:translateY(0);}}
 .form-group{margin-bottom:15px;}
 .form-group label{display:block;margin-bottom:6px;color:#006064;font-weight:600;font-size:13px;}
-.form-group input,.form-group textarea{width:100%;padding:13px;background:#ffffff;border:2px solid #b2ebf2;border-radius:12px;color:#00363a;font-size:14px;font-family:inherit;outline: none;}
+.form-group input,.form-group textarea{width:100%;padding:13px;background:#ffffff;border:2px solid #b2ebf2;border-radius:12px;color:#00363a;font-size:14px;font-family:inherit;outline:none;}
 .form-group input:focus,.form-group textarea:focus{border-color:#00acc1;}
-
-/* === চ্যাট === */
-.chat-box{background:#ffffff;border:2px solid #b2ebf2;border-radius:18px;padding:18px;box-shadow: 0 5px 15px rgba(0,172,193,.05);}
+.chat-box{background:#ffffff;border:2px solid #b2ebf2;border-radius:18px;padding:18px;box-shadow:0 5px 15px rgba(0,172,193,.05);}
 .chat-messages{max-height:400px;overflow-y:auto;margin-bottom:14px;display:flex;flex-direction:column;gap:10px;}
 .chat-msg{padding:10px 14px;border-radius:12px;font-size:13px;line-height:1.5;max-width:85%;word-wrap:break-word;}
 .chat-msg.user{background:linear-gradient(135deg,#00acc1,#00838f);color:#fff;align-self:flex-end;}
@@ -189,16 +152,10 @@ body {
 .chat-msg .chat-time{font-size:10px;opacity:.6;margin-top:4px;display:block;}
 .chat-input-row{display:flex;gap:8px;}
 .chat-input-row input{flex:1;padding:12px;background:#e0f7fa;border:2px solid #b2ebf2;border-radius:12px;color:#00363a;font-size:14px;font-family:inherit;outline:none;}
-.chat-input-row button{background:linear-gradient(90deg,#00acc1,#00838f);color:#fff;border:none;padding:12px 22px;border-radius:12px;font-weight:800;cursor:pointer;font-family:inherit;font-size:13px;box-shadow: 0 4px 10px rgba(0,172,193,.3);}
-
-/* === টোস্ট === */
+.chat-input-row button{background:linear-gradient(90deg,#00acc1,#00838f);color:#fff;border:none;padding:12px 22px;border-radius:12px;font-weight:800;cursor:pointer;font-family:inherit;font-size:13px;box-shadow:0 4px 10px rgba(0,172,193,.3);}
 .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);background:linear-gradient(90deg,#00acc1,#00838f);color:#fff;padding:16px 32px;border-radius:12px;font-weight:bold;box-shadow:0 15px 40px rgba(0,0,0,.15);transition:.4s;z-index:2000;opacity:0;}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
-
-/* === মোবাইল টগল === */
-.mobile-toggle{display:none;position:fixed;top:15px;left:15px;z-index:999;background:linear-gradient(135deg,#00acc1,#00838f);color:#fff;border:none;width:45px;height:45px;border-radius:12px;font-size:20px;cursor:pointer;box-shadow: 0 4px 15px rgba(0,172,193,.4);}
-
-/* === এড ওভারলে === */
+.mobile-toggle{display:none;position:fixed;top:15px;left:15px;z-index:999;background:linear-gradient(135deg,#00acc1,#00838f);color:#fff;border:none;width:45px;height:45px;border-radius:12px;font-size:20px;cursor:pointer;box-shadow:0 4px 15px rgba(0,172,193,.4);}
 .ad-overlay{position:fixed;inset:0;background:rgba(224,247,250,.95);z-index:99999;display:none;justify-content:center;align-items:center;padding:20px;backdrop-filter:blur(15px);}
 .ad-overlay.active{display:flex;}
 .ad-overlay-box{background:#ffffff;border:3px solid #00acc1;border-radius:22px;padding:25px;max-width:500px;width:100%;box-shadow:0 0 100px rgba(0,172,193,.4);position:relative;text-align:center;}
@@ -210,67 +167,27 @@ body {
 .ad-overlay-progress{background:#e0f7fa;height:8px;border-radius:5px;margin:15px 0;overflow:hidden;}
 .ad-overlay-progress-bar{height:100%;background:linear-gradient(90deg,#00acc1,#00838f);width:0%;transition:width 1s linear;border-radius:5px;}
 .ad-overlay-info{color:#00838f;font-size:12px;font-weight:600;margin-bottom:12px;}
-.ad-overlay-btn{width:100%;padding:14px;border:none;border-radius:12px;font-size:15px;font-weight:900;cursor:pointer;font-family:inherit;background:linear-gradient(90deg,#00acc1,#00838f);color:#fff;box-shadow: 0 4px 15px rgba(0,172,193,.3);}
-.ad-overlay-btn:disabled{background:#b0bec5;cursor:not-allowed;opacity:.6;box-shadow: none;}
+.ad-overlay-btn{width:100%;padding:14px;border:none;border-radius:12px;font-size:15px;font-weight:900;cursor:pointer;font-family:inherit;background:linear-gradient(90deg,#00acc1,#00838f);color:#fff;box-shadow:0 4px 15px rgba(0,172,193,.3);}
+.ad-overlay-btn:disabled{background:#b0bec5;cursor:not-allowed;opacity:.6;box-shadow:none;}
 .ad-overlay-note{color:#00838f;font-size:10px;margin-top:10px;}
-
-.spinner{width:40px;height:40px;border:4px solid #b2ebf2;border-top-color:#00acc1;border-radius:50%;margin:0 auto;animation:spin 1s linear infinite;}
-@keyframes spin{to{transform:rotate(360deg);}}
-
-/* === নিচের মেনু (Bottom Navigation - গাঢ় পানি কালার) === */
-.bottom-nav {
-    display: none;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: linear-gradient(90deg, #006064, #00838f, #006064);
-    backdrop-filter: blur(10px);
-    border-top: 2px solid #00e5ff;
-    justify-content: space-around;
-    padding: 10px 0 15px 0;
-    z-index: 1000;
-    box-shadow: 0 -5px 20px rgba(0, 172, 193, 0.3);
-}
-.bottom-nav .nav-item {
-    color: #b2ebf2;
-    font-size: 11px;
-    font-weight: 700;
-    text-align: center;
-    cursor: pointer;
-    transition: 0.3s;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    min-width: 60px;
-}
-.bottom-nav .nav-item span {
-    font-size: 22px;
-    line-height: 1;
-}
-.bottom-nav .nav-item.active {
-    color: #00e5ff;
-    text-shadow: 0 0 15px rgba(0, 229, 255, 0.8);
-    transform: translateY(-3px);
-    font-weight: 900;
-}
-
-/* === মিডিয়া কোয়েরি (মোবাইল) === */
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;width:100%;background:linear-gradient(90deg,#006064,#00838f,#006064);backdrop-filter:blur(10px);border-top:2px solid #00e5ff;justify-content:space-around;padding:10px 0 15px 0;z-index:1000;box-shadow:0 -5px 20px rgba(0,172,193,.3);}
+.bottom-nav .nav-item{color:#b2ebf2;font-size:11px;font-weight:700;text-align:center;cursor:pointer;transition:0.3s;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:60px;}
+.bottom-nav .nav-item span{font-size:22px;line-height:1;}
+.bottom-nav .nav-item.active{color:#00e5ff;text-shadow:0 0 15px rgba(0,229,255,.8);transform:translateY(-3px);font-weight:900;}
 @media(max-width:900px){
-    .mobile-toggle{display:block;}
-    .sidebar{position:fixed;left:-280px;top:0;z-index:998;transition: left 0.3s ease;}
-    .sidebar.open{left:0;}
-    .main{padding:15px;padding-top:70px;padding-bottom: 100px;}
-    .welcome-text .username{font-size:22px;}
-    .service-cards{grid-template-columns:1fr;}
-    .bottom-nav{display: flex;}
+  .mobile-toggle{display:block;}
+  .sidebar{position:fixed;left:-280px;top:0;z-index:998;transition:left 0.3s ease;}
+  .sidebar.open{left:0;}
+  .main{padding:15px;padding-top:70px;padding-bottom:100px;}
+  .welcome-text .username{font-size:22px;}
+  .service-cards{grid-template-columns:1fr;}
+  .bottom-nav{display:flex;}
 }
 @media(max-width:600px){
-    .stats-grid{grid-template-columns:1fr 1fr;}
-    .topbar h2{font-size:18px;}
-    .splash-title{font-size:22px;}
-    .splash-logo{width:100px;height:100px;}
+  .stats-grid{grid-template-columns:1fr 1fr;}
+  .topbar h2{font-size:18px;}
+  .splash-title{font-size:22px;}
+  .splash-logo{width:100px;height:100px;}
 }
 </style>
 </head>
@@ -396,15 +313,7 @@ body {
           <button class="thb-btn thb-logout" onclick="doLogout()">Logout</button>
         </div>
       </div>
-      
-      <!-- টপ এড স্লট (HighRevenueFormat 728x90) -->
-      <div class="ad-space ad-space-inline" style="padding:10px;">
-        <script type="text/javascript">
-          atOptions = {'key' : 'fa90bcf6b604ee93575cf3bf5161abce','format' : 'iframe','height' : 90,'width' : 728,'params' : {}};
-        </script>
-        <script type="text/javascript" src="https://www.highrevenueformat.com/fa90bcf6b604ee93575cf3bf5161abce/invoke.js"></script>
-      </div>
-      
+      <div class="ad-space"><div class="ad-slot" data-ad-panel="dashboard_top"></div></div>
       <div class="profile-logo-section">
         <div class="profile-logo-box">
           <div class="logo-photo-wrap">
@@ -463,14 +372,7 @@ body {
           </div>
         </div>
       </div>
-      
-      <!-- নিচের ব্যানার এড স্লট (320x50) -->
-      <div class="ad-space" id="bottomAdSpace">
-        <script type="text/javascript">
-          atOptions = {'key' : '22e82538f1de9118ba07f9a995a692d4','format' : 'iframe','height' : 50,'width' : 320,'params' : {}};
-        </script>
-        <script type="text/javascript" src="https://www.highrevenueformat.com/22e82538f1de9118ba07f9a995a692d4/invoke.js"></script>
-      </div>
+      <div class="ad-space"><div class="ad-slot" data-ad-panel="dashboard_bottom"></div></div>
     </div>
 
     <!-- Watch Ads প্যানেল -->
@@ -490,6 +392,7 @@ body {
         </div>
         <div id="mathFeedback" style="margin-top:15px;font-size:14px;font-weight:700;"></div>
       </div>
+      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" data-ad-panel="watch-ads"></div></div>
     </div>
 
     <!-- Math প্যানেল -->
@@ -506,6 +409,7 @@ body {
         <button onclick="submitMathPage()" style="background:linear-gradient(90deg,#00acc1,#00838f);color:#fff;padding:18px 40px;border:none;border-radius:14px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;display:block;margin:0 auto;box-shadow:0 4px 10px rgba(0,172,193,.3);">✅ ক্লেইম</button>
         <div id="mathPageFeedback" style="margin-top:15px;font-size:14px;font-weight:700;"></div>
       </div>
+      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" data-ad-panel="math"></div></div>
     </div>
 
     <!-- Daily Job প্যানেল -->
@@ -513,7 +417,7 @@ body {
       <div class="topbar"><h2>📅 Daily Job <span>৳0.20 প্রতি Job</span></h2></div>
       <p style="color:#00838f;margin-bottom:20px;">কাজ করে Screenshot প্রুফ দিন → Admin Approve করলে ৳0.20</p>
       <div id="jobList" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;"></div>
-      <div id="jobProofPanel" style="display:none;margin-top:22px;background:#ffffff;border:3px solid #00acc1;border-radius:22px;padding:25px;box-shadow: 0 5px 20px rgba(0,172,193,.1);">
+      <div id="jobProofPanel" style="display:none;margin-top:22px;background:#ffffff;border:3px solid #00acc1;border-radius:22px;padding:25px;box-shadow:0 5px 20px rgba(0,172,193,.1);">
         <h3 style="color:#006064;margin-bottom:12px;">📸 কাজের প্রুফ দিন</h3>
         <p style="color:#00838f;margin-bottom:18px;">Work: <strong id="proofJobName" style="color:#00acc1;">-</strong> | Reward: <strong id="proofJobReward" style="color:#00acc1;">৳0.20</strong></p>
         <div class="form-group"><label>📝 Bio</label><textarea id="proofBio" rows="3" placeholder="বিবরণ..."></textarea></div>
@@ -537,12 +441,13 @@ body {
           <button class="btn btn-red" onclick="document.getElementById('jobProofPanel').style.display='none'">❌ Cancel</button>
         </div>
       </div>
+      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" data-ad-panel="job"></div></div>
     </div>
 
     <!-- Social Promote প্যানেল -->
     <div class="panel" id="social">
       <div class="topbar"><h2>🛒 Social Media Promote <span>সব Platform এর Service</span></h2></div>
-      <div style="display:flex;gap:8px;margin-bottom:20px;background:#ffffff;padding:6px;border-radius:14px;flex-wrap:wrap;border: 1px solid #b2ebf2;">
+      <div style="display:flex;gap:8px;margin-bottom:20px;background:#ffffff;padding:6px;border-radius:14px;flex-wrap:wrap;border:1px solid #b2ebf2;">
         <button class="social-tab active" onclick="switchSocial('facebook',this)" style="flex:1;min-width:100px;padding:12px 16px;background:linear-gradient(90deg,#00acc1,#00838f);color:#fff;border:none;font-size:13px;font-weight:700;border-radius:10px;cursor:pointer;font-family:inherit;">Facebook</button>
         <button class="social-tab" onclick="switchSocial('youtube',this)" style="flex:1;min-width:100px;padding:12px 16px;background:transparent;color:#00838f;border:none;font-size:13px;font-weight:700;border-radius:10px;cursor:pointer;font-family:inherit;">YouTube</button>
         <button class="social-tab" onclick="switchSocial('tiktok',this)" style="flex:1;min-width:100px;padding:12px 16px;background:transparent;color:#00838f;border:none;font-size:13px;font-weight:700;border-radius:10px;cursor:pointer;font-family:inherit;">TikTok</button>
@@ -550,12 +455,13 @@ body {
         <button class="social-tab" onclick="switchSocial('telegram',this)" style="flex:1;min-width:100px;padding:12px 16px;background:transparent;color:#00838f;border:none;font-size:13px;font-weight:700;border-radius:10px;cursor:pointer;font-family:inherit;">Telegram</button>
       </div>
       <div id="serviceList" style="display:grid;gap:12px;"></div>
+      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" data-ad-panel="social"></div></div>
     </div>
 
     <!-- Wallet History প্যানেল -->
     <div class="panel" id="wallet-history">
       <div class="topbar"><h2>📜 Wallet & History</h2></div>
-      <div style="background:#ffffff;border:3px solid #00acc1;border-radius:22px;padding:30px;margin-bottom:22px;box-shadow: 0 5px 20px rgba(0,172,193,.1);">
+      <div style="background:#ffffff;border:3px solid #00acc1;border-radius:22px;padding:30px;margin-bottom:22px;box-shadow:0 5px 20px rgba(0,172,193,.1);">
         <h3 style="color:#00838f;font-size:12px;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;">Available Balance</h3>
         <div style="font-size:40px;font-weight:900;color:#006064;font-family:'Courier New',monospace;margin-bottom:20px;">৳ <span id="walletBalance">0.00</span></div>
         <div style="display:flex;gap:12px;flex-wrap:wrap;">
@@ -563,16 +469,17 @@ body {
           <button class="btn btn-cyan" onclick="showAdAndGo('withdraw-money')">💸 Withdraw</button>
         </div>
       </div>
-      <table style="width:100%;border-collapse:collapse;background:#ffffff;border-radius:14px;overflow:hidden;box-shadow: 0 4px 15px rgba(0,172,193,.05);">
+      <table style="width:100%;border-collapse:collapse;background:#ffffff;border-radius:14px;overflow:hidden;box-shadow:0 4px 15px rgba(0,172,193,.05);">
         <thead><tr style="background:rgba(0,172,193,.15);"><th style="padding:12px;text-align:left;color:#006064;font-size:11px;">Date</th><th style="padding:12px;text-align:left;color:#006064;font-size:11px;">Type</th><th style="padding:12px;text-align:left;color:#006064;font-size:11px;">Amount</th><th style="padding:12px;text-align:left;color:#006064;font-size:11px;">Status</th></tr></thead>
         <tbody id="txnTable"><tr><td colspan="4" style="text-align:center;color:#00838f;padding:30px;">কোনো লেনদেন নেই</td></tr></tbody>
       </table>
+      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" data-ad-panel="wallet-history"></div></div>
     </div>
 
     <!-- Add Money প্যানেল -->
     <div class="panel" id="add-funds">
       <div class="topbar"><h2>💵 Add Money</h2></div>
-      <div style="background:#ffffff;padding:25px;border-radius:18px;color:#00363a;max-width:600px;border:2px solid #00acc1;box-shadow: 0 5px 20px rgba(0,172,193,.1);">
+      <div style="background:#ffffff;padding:25px;border-radius:18px;color:#00363a;max-width:600px;border:2px solid #00acc1;box-shadow:0 5px 20px rgba(0,172,193,.1);">
         <h3 style="margin-bottom:15px;color:#006064;">📱 Payment Info</h3>
         <div style="background:#e0f7fa;padding:14px;border-radius:12px;margin-bottom:18px;text-align:center;border:2px solid #00acc1;">
           <div style="font-size:12px;color:#00838f;">Bkash / Nagad</div>
@@ -585,12 +492,13 @@ body {
       </div>
       <div class="section-title" style="margin-top:25px;">📜 Deposit History</div>
       <div id="depositHistory"></div>
+      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" data-ad-panel="add-funds"></div></div>
     </div>
 
     <!-- Withdraw প্যানেল -->
     <div class="panel" id="withdraw-money">
       <div class="topbar"><h2>🏧 Withdraw</h2></div>
-      <div style="background:#ffffff;padding:25px;border-radius:18px;color:#00363a;max-width:600px;border:2px solid #00acc1;box-shadow: 0 5px 20px rgba(0,172,193,.1);">
+      <div style="background:#ffffff;padding:25px;border-radius:18px;color:#00363a;max-width:600px;border:2px solid #00acc1;box-shadow:0 5px 20px rgba(0,172,193,.1);">
         <h3 style="margin-bottom:15px;color:#006064;">💸 Withdraw Info</h3>
         <p style="margin-bottom:20px;color:#00838f;">Minimum: ৳110 | Fee: ৳10</p>
         <div class="form-group"><label>Amount</label><input type="number" id="withdrawAmt" placeholder="110"></div>
@@ -599,6 +507,7 @@ body {
       </div>
       <div class="section-title" style="margin-top:25px;">📜 Withdraw History</div>
       <div id="withdrawHistory"></div>
+      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" data-ad-panel="withdraw-money"></div></div>
     </div>
 
     <!-- Premium প্যানেল -->
@@ -617,30 +526,32 @@ body {
           <li>✅ দ্রুত Withdraw</li>
         </ul>
         <br>
-        <button class="btn" style="background:#ffffff;color:#00acc1;padding:16px 40px;font-size:16px;border-radius:12px;box-shadow: 0 4px 15px rgba(0,0,0,.1);" onclick="showAdAndPremium()">Upgrade Now</button>
+        <button class="btn" style="background:#ffffff;color:#00acc1;padding:16px 40px;font-size:16px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,.1);" onclick="showAdAndPremium()">Upgrade Now</button>
       </div>
+      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" data-ad-panel="premium"></div></div>
     </div>
 
     <!-- Support প্যানেল -->
     <div class="panel" id="support">
       <div class="topbar"><h2>💬 Support</h2></div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;">
-        <a href="https://t.me/atikbreand420" target="_blank" style="background:#ffffff;border:2px solid #00acc1;border-radius:18px;padding:25px;text-align:center;text-decoration:none;color:#00363a;box-shadow: 0 5px 15px rgba(0,172,193,.05);">
+        <a href="https://t.me/atikbreand420" target="_blank" style="background:#ffffff;border:2px solid #00acc1;border-radius:18px;padding:25px;text-align:center;text-decoration:none;color:#00363a;box-shadow:0 5px 15px rgba(0,172,193,.05);">
           <div style="font-size:44px;">✈️</div>
           <h4 style="color:#006064;margin:10px 0;">Telegram Channel</h4>
           <div style="color:#00838f;font-size:12px;">@atikbreand420</div>
         </a>
-        <a href="https://t.me/aiatikdailyearning" target="_blank" style="background:#ffffff;border:2px solid #00acc1;border-radius:18px;padding:25px;text-align:center;text-decoration:none;color:#00363a;box-shadow: 0 5px 15px rgba(0,172,193,.05);">
+        <a href="https://t.me/aiatikdailyearning" target="_blank" style="background:#ffffff;border:2px solid #00acc1;border-radius:18px;padding:25px;text-align:center;text-decoration:none;color:#00363a;box-shadow:0 5px 15px rgba(0,172,193,.05);">
           <div style="font-size:44px;">👥</div>
           <h4 style="color:#006064;margin:10px 0;">Telegram Group</h4>
           <div style="color:#00838f;font-size:12px;">@aiatikdailyearning</div>
         </a>
-        <a href="https://www.facebook.com/profile.php?id=61592860621046" target="_blank" style="background:#ffffff;border:2px solid #00acc1;border-radius:18px;padding:25px;text-align:center;text-decoration:none;color:#00363a;box-shadow: 0 5px 15px rgba(0,172,193,.05);">
+        <a href="https://www.facebook.com/profile.php?id=61592860621046" target="_blank" style="background:#ffffff;border:2px solid #00acc1;border-radius:18px;padding:25px;text-align:center;text-decoration:none;color:#00363a;box-shadow:0 5px 15px rgba(0,172,193,.05);">
           <div style="font-size:44px;">📘</div>
           <h4 style="color:#006064;margin:10px 0;">Facebook</h4>
           <div style="color:#00838f;font-size:12px;">Atik Freelancer</div>
         </a>
       </div>
+      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" data-ad-panel="support"></div></div>
     </div>
 
     <!-- Chat প্যানেল -->
@@ -655,49 +566,33 @@ body {
           <button onclick="sendChat()">📤</button>
         </div>
       </div>
+      <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" data-ad-panel="chat"></div></div>
     </div>
   </main>
 </div>
 
-<!-- === মোবাইলের নিচের মেনু (গাঢ় পানি কালার) === -->
 <div class="bottom-nav" id="bottomNav">
-    <div class="nav-item active" data-panel="dashboard" onclick="goPanel('dashboard')">
-        <span>📊</span> Home
-    </div>
-    <div class="nav-item" data-panel="watch-ads" onclick="goPanel('watch-ads')">
-        <span>📺</span> Ads
-    </div>
-    <div class="nav-item" data-panel="wallet-history" onclick="goPanel('wallet-history')">
-        <span>💰</span> Wallet
-    </div>
-    <div class="nav-item" data-panel="premium" onclick="goPanel('premium')">
-        <span>💎</span> Premium
-    </div>
-    <div class="nav-item" data-panel="support" onclick="goPanel('support')">
-        <span>💬</span> Support
-    </div>
+  <div class="nav-item active" data-panel="dashboard" onclick="goPanel('dashboard')"><span>📊</span> Home</div>
+  <div class="nav-item" data-panel="watch-ads" onclick="goPanel('watch-ads')"><span>📺</span> Ads</div>
+  <div class="nav-item" data-panel="wallet-history" onclick="goPanel('wallet-history')"><span>💰</span> Wallet</div>
+  <div class="nav-item" data-panel="premium" onclick="goPanel('premium')"><span>💎</span> Premium</div>
+  <div class="nav-item" data-panel="support" onclick="goPanel('support')"><span>💬</span> Support</div>
 </div>
 
-<!-- Ad Overlay -->
 <div class="ad-overlay" id="adOverlay">
   <div class="ad-overlay-box">
     <div class="ad-overlay-header">
       <div class="ad-overlay-title">📺 Advertisement</div>
       <div class="ad-overlay-timer" id="adTimerDisplay">8</div>
     </div>
-    <div class="ad-slot-overlay" id="adOverlaySlot">
-      <div style="color:#00838f;font-size:14px;">Ad Loading...</div>
-    </div>
-    <div class="ad-overlay-progress">
-      <div class="ad-overlay-progress-bar" id="adProgressBar"></div>
-    </div>
+    <div class="ad-slot-overlay" id="adOverlaySlot"><div style="color:#00838f;font-size:14px;">Ad Loading...</div></div>
+    <div class="ad-overlay-progress"><div class="ad-overlay-progress-bar" id="adProgressBar"></div></div>
     <div class="ad-overlay-info">⏳ অপেক্ষা করুন — <span id="adTimerText">8</span> সেকেন্ড</div>
     <button class="ad-overlay-btn" id="adCloseBtn" disabled onclick="closeAdOverlay()">অপেক্ষা করুন...</button>
     <div class="ad-overlay-note">Sponsored content</div>
   </div>
 </div>
 
-<!-- Premium Modal -->
 <div class="modal-overlay" id="premiumModal">
   <div class="login-box">
     <h2 style="color:#006064;">💎 Premium Payment</h2>
@@ -716,7 +611,6 @@ body {
   </div>
 </div>
 
-<!-- Order Modal -->
 <div class="modal-overlay" id="orderModal">
   <div class="login-box">
     <h2 style="color:#006064;">🛒 Order Service</h2>
@@ -728,7 +622,7 @@ body {
     <div class="form-group"><label>📝 Service Link</label><input type="text" id="orderLink" placeholder="https://..."></div>
     <div class="form-group">
       <label>💳 Payment Method</label>
-      <select id="orderPaymentMethod" onchange="togglePaymentMethod()" style="width:100%;padding:13px;background:#ffffff;border:2px solid #b2ebf2;border-radius:12px;color:#00363a;font-size:14px;font-family:inherit;outline: none;">
+      <select id="orderPaymentMethod" onchange="togglePaymentMethod()" style="width:100%;padding:13px;background:#ffffff;border:2px solid #b2ebf2;border-radius:12px;color:#00363a;font-size:14px;font-family:inherit;outline:none;">
         <option value="wallet">💰 Wallet Balance থেকে</option>
         <option value="bkash">📱 Bkash / Nagad</option>
       </select>
@@ -754,12 +648,6 @@ body {
 <script>
 // ============ CONFIG ============
 var DB_URL = "https://atik-8be75-default-rtdb.asia-southeast1.firebasedatabase.app";
-var AD_CODES = {
-  ad1: '<div id="ad1-container" style="width:100%;min-height:250px;display:flex;justify-content:center;align-items:center;"></div>',
-  ad2: '<div id="ad2-container" style="width:100%;min-height:90px;display:flex;justify-content:center;align-items:center;"></div>',
-  ad3: '<div id="ad3-container" style="width:100%;min-height:50px;display:flex;justify-content:center;align-items:center;"></div>'
-};
-var AD_LIST = ['ad1','ad2','ad3'];
 var SETTINGS = { adsReward:0.10, jobReward:0.20, mathReward:0.04, adsTimer:8, minDeposit:100, minWithdraw:110, withdrawFee:10, premiumPrice:90, bkashNumber:'01988891195' };
 var SERVICES = {
   facebook:[{name:'Facebook ID Followers',price:50},{name:'Facebook ID Likes',price:50},{name:'Facebook Page Followers',price:70},{name:'Facebook Page Likes',price:80},{name:'Facebook Video Views',price:40},{name:'Facebook Post Reactions',price:40},{name:'Facebook Post Comments',price:60},{name:'Facebook Group Members',price:100}],
@@ -769,6 +657,13 @@ var SERVICES = {
   telegram:[{name:'Telegram Channel Members',price:150},{name:'Telegram Group Members',price:130},{name:'Telegram Post Views',price:30},{name:'Telegram Post Reactions',price:60},{name:'Telegram Poll Votes',price:70}]
 };
 
+// Ad keys (HighRevenueFormat) for different sizes
+var AD_KEYS = {
+  small: {key:'22e82538f1de9118ba07f9a995a692d4', w:320, h:50},
+  medium: {key:'fa90bcf6b604ee93575cf3bf5161abce', w:728, h:90},
+  large: {key:'f7b5fb1e6fc33ea203f08bdd042e987c', w:300, h:250}
+};
+
 // ============ DB HELPERS ============
 function dbGet(p){return fetch(DB_URL+p+'.json').then(function(r){return r.json();});}
 function dbSet(p,d){return fetch(DB_URL+p+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)}).then(function(r){return r.json();});}
@@ -776,7 +671,7 @@ function dbUpdate(p,d){return fetch(DB_URL+p+'.json',{method:'PATCH',headers:{'C
 function dbPush(p,d){return fetch(DB_URL+p+'.json',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)}).then(function(r){return r.json();});}
 function userKey(email){return email.replace(/[.#$\[\]]/g,'_');}
 
-// ============ LOAD SETTINGS FROM FIREBASE ============
+// ============ LOAD SETTINGS ============
 function loadFirebaseSettings(callback){
   dbGet('/settings').then(function(s){
     if(s){
@@ -794,46 +689,68 @@ function loadFirebaseSettings(callback){
     if(callback) callback();
   }).catch(function(){ applySettingsToUI(); if(callback) callback(); });
 }
-
 function applySettingsToUI(){
   var el = document.getElementById('bkashNum'); if(el) el.textContent = SETTINGS.bkashNumber;
   var el2 = document.getElementById('premiumPrice'); if(el2) el2.textContent = SETTINGS.premiumPrice;
   var el3 = document.getElementById('premPrice'); if(el3) el3.textContent = SETTINGS.premiumPrice;
 }
 
-// ============ AD SYSTEM (শুধু নিচের স্লটের জন্য) ============
-function injectAdIntoSlot(slot, code){
+// ============ AD SYSTEM - ALL PANELS ============
+// HighRevenueFormat এড iframe দিয়ে লোড
+function loadHRFAd(slot, adType){
   if(!slot) return;
+  var ad = AD_KEYS[adType] || AD_KEYS.medium;
   slot.innerHTML = '';
-  var tempDiv = document.createElement('div');
-  tempDiv.innerHTML = code;
-  while(tempDiv.firstChild){
-    slot.appendChild(tempDiv.firstChild);
-  }
+  var iframe = document.createElement('iframe');
+  iframe.style.width = '100%';
+  iframe.style.maxWidth = ad.w + 'px';
+  iframe.style.height = ad.h + 'px';
+  iframe.style.border = 'none';
+  iframe.style.display = 'block';
+  iframe.style.margin = '0 auto';
+  iframe.setAttribute('scrolling', 'no');
+  iframe.srcdoc = '<html><head><style>body{margin:0;display:flex;justify-content:center;align-items:center;background:transparent;overflow:hidden;}</style></head><body><script type="text/javascript">atOptions={"key":"'+ad.key+'","format":"iframe","height":'+ad.h+',"width":'+ad.w+',"params":{}};<\/script><script src="https://www.highrevenueformat.com/'+ad.key+'/invoke.js"><\/script></body></html>';
+  slot.appendChild(iframe);
 }
 
-// ============ ২৪ ঘন্টা অটো এড রোটেশন ============
+// সব প্যানেলের এড স্লট লোড
+function loadAllPanelAds(){
+  var slots = document.querySelectorAll('.ad-slot[data-ad-panel]');
+  slots.forEach(function(slot, index){
+    // rotate ad types
+    var adTypes = ['large','medium','small'];
+    var type = adTypes[index % adTypes.length];
+    loadHRFAd(slot, type);
+  });
+}
+
+// ২৪ ঘন্টা অটো এড রোটেশন (সব স্লট)
 function startAutoAdRotation(){
+  // initial load (2 sec delay for HRF script)
   setTimeout(function(){
-    var b1=document.getElementById('bottomAdSpace');
-    if(b1) injectAdIntoSlot(b1, AD_CODES.ad3);
+    loadAllPanelAds();
   }, 2000);
 
-  var counter = 0;
+  // প্রতি ৩০ সেকেন্ডে সব স্লটে এড পরিবর্তন
   setInterval(function(){
-    var b=document.getElementById('bottomAdSpace');
-    counter++;
-    if(b) injectAdIntoSlot(b, counter % 2 === 0 ? AD_CODES.ad3 : AD_CODES.ad1);
+    var slots = document.querySelectorAll('.ad-slot[data-ad-panel]');
+    var adTypes = ['large','medium','small'];
+    slots.forEach(function(slot, index){
+      // ঘুরিয়ে ঘুরিয়ে এড আসবে
+      var randomType = adTypes[Math.floor(Math.random() * adTypes.length)];
+      loadHRFAd(slot, randomType);
+    });
   }, 30000);
 }
 
+// Ad Overlay (জোর করে এড দেখানোর জন্য)
 var adOverlayCallback=null, adOverlayInterval=null;
 function showAdOverlay(cb){
   var overlay=document.getElementById('adOverlay');
   var slot=document.getElementById('adOverlaySlot');
   var td=document.getElementById('adTimerDisplay'), tt=document.getElementById('adTimerText');
   var cbtn=document.getElementById('adCloseBtn'), pb=document.getElementById('adProgressBar');
-  injectAdIntoSlot(slot, AD_CODES.ad1);
+  loadHRFAd(slot, 'large');
   var t=SETTINGS.adsTimer||8;
   td.textContent=t; tt.textContent=t; cbtn.disabled=true; cbtn.textContent='⏳ অপেক্ষা করুন...'; pb.style.width='0%';
   overlay.classList.add('active'); adOverlayCallback=cb;
@@ -853,7 +770,7 @@ function closeAdOverlay(){
 }
 function withAd(cb){showAdOverlay(cb);}
 
-// ============ সব বাটনে এড ============
+// সব বাটনে এড (Add Money, Withdraw, Submit, Claim)
 function showAdAndGo(panelName){ showAdOverlay(function(){ goPanel(panelName); }); }
 function showAdAndDeposit(){ showAdOverlay(function(){ doDeposit(); }); }
 function showAdAndWithdraw(){ showAdOverlay(function(){ doWithdraw(); }); }
@@ -887,7 +804,6 @@ function saveUsers(u){localStorage.setItem('atik_users',JSON.stringify(u));}
 function getCurrentEmail(){return localStorage.getItem('atik_logged_in');}
 function getCurrentUser(){var e=getCurrentEmail();return e?getUsers()[e]:null;}
 function saveCurrentUser(u){var us=getUsers();us[u.email]=u;saveUsers(us);dbSet('/users/'+userKey(u.email),u).catch(function(){});}
-
 function showToast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},3000);}
 function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');}
 
@@ -956,6 +872,7 @@ function initUI(){
     else{badge.className='verified';badge.innerHTML='⚠️ অ্যাকাউন্ট ভেরিফাইড নয়! <span style="cursor:pointer;text-decoration:underline;margin-left:5px;" onclick="verifyAccount()">Verify</span>';}
     updateBalance();renderTxn(user);loadNotifications();loadServices();loadChat();loadJobsFromFirebase();
     setTimeout(initMathPage,200);
+    startAutoAdRotation(); // সব প্যানেলে এড লোড + ২৪ ঘণ্টা অটো রোটেশন
     setInterval(loadChat, 10000);
   } else {modal.classList.add('active');modal.style.display='flex';app.style.display='none';}
 }
@@ -991,22 +908,28 @@ document.querySelectorAll('.menu-item[data-panel]').forEach(function(item){
 });
 
 function goPanel(name){
-    document.querySelectorAll('.menu-item, .bottom-nav .nav-item').forEach(function(m){
-        m.classList.remove('active');
-    });
-    var t = document.querySelector('.menu-item[data-panel="'+name+'"]');
-    if(t) t.classList.add('active');
-    var b = document.querySelector('.bottom-nav .nav-item[data-panel="'+name+'"]');
-    if(b) b.classList.add('active');
-
-    document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
-    var p = document.getElementById(name); 
-    if(p) p.classList.add('active');
-    
-    window.scrollTo({top:0,behavior:'smooth'});
-    if(name==='math') setTimeout(initMathPage,100);
-    if(name==='wallet-history' || name==='add-funds' || name==='withdraw-money') renderHistories();
-    document.getElementById('sidebar').classList.remove('open');
+  document.querySelectorAll('.menu-item, .bottom-nav .nav-item').forEach(function(m){m.classList.remove('active');});
+  var t = document.querySelector('.menu-item[data-panel="'+name+'"]'); if(t) t.classList.add('active');
+  var b = document.querySelector('.bottom-nav .nav-item[data-panel="'+name+'"]'); if(b) b.classList.add('active');
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
+  var p = document.getElementById(name); if(p) p.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(name==='math') setTimeout(initMathPage,100);
+  if(name==='wallet-history' || name==='add-funds' || name==='withdraw-money') renderHistories();
+  document.getElementById('sidebar').classList.remove('open');
+  // প্যানেলে ঢোকার পর এড লোড
+  setTimeout(function(){
+    var activePanel = document.querySelector('.panel.active');
+    if(activePanel){
+      var slots = activePanel.querySelectorAll('.ad-slot[data-ad-panel]');
+      slots.forEach(function(slot, index){
+        if(!slot.innerHTML.trim()){
+          var adTypes = ['large','medium','small'];
+          loadHRFAd(slot, adTypes[index % adTypes.length]);
+        }
+      });
+    }
+  }, 500);
 }
 
 function renderHistories(){
@@ -1222,15 +1145,13 @@ function submitOrder(){
   });
 }
 
-// ============ চ্যাট ফাংশন (Firebase-এর সাথে যুক্ত) ============
+// ============ চ্যাট ফাংশন ============
 function loadChat(){
   var u=getCurrentUser();if(!u) return;
   var box=document.getElementById('chatMessages');if(!box) return;
   dbGet('/chats/'+userKey(u.email)).then(function(data){
     var msgs = [];
-    if(data){
-      Object.keys(data).forEach(function(k){ msgs.push(data[k]); });
-    }
+    if(data){ Object.keys(data).forEach(function(k){ msgs.push(data[k]); }); }
     msgs.sort(function(a,b){ return new Date(a.date)-new Date(b.date); });
     if(!msgs.length){
       box.innerHTML='<div class="chat-msg admin">👋 স্বাগতম! সমস্যা লিখুন।<span class="chat-time">এখনই</span></div>';
@@ -1247,7 +1168,6 @@ function loadChat(){
     box.scrollTop=box.scrollHeight;
   });
 }
-
 function sendChat(){
   var u=getCurrentUser();if(!u) return;
   var inp=document.getElementById('chatInput');

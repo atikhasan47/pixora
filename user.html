@@ -916,32 +916,102 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 
 <script>
 /* ==================================================
-   AD CONFIGURATION — Adsterra Keys (আলাদা করে)
+   🔥 FIREBASE REALTIME DATABASE CONNECTION
+   ================================================== */
+var FIREBASE_URL = "https://atik-8be75-default-rtdb.asia-southeast1.firebasedatabase.app";
+
+var FB = {
+  get: function(path){ return fetch(FIREBASE_URL + path + '.json').then(function(r){ return r.json(); }); },
+  set: function(path, data){
+    return fetch(FIREBASE_URL + path + '.json', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    }).then(function(r){ return r.json(); });
+  },
+  update: function(path, data){
+    return fetch(FIREBASE_URL + path + '.json', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    }).then(function(r){ return r.json(); });
+  },
+  push: function(path, data){
+    return fetch(FIREBASE_URL + path + '.json', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    }).then(function(r){ return r.json(); });
+  }
+};
+
+function fbKey(email){ return (email || '').replace(/[.#$\[\]]/g, '_'); }
+
+// ইউজার ডাটা ফায়ারবেসে সেভ
+function fbSaveUser(user){
+  if(!user || !user.email) return;
+  var key = fbKey(user.email);
+  FB.set('/users/' + key, {
+    name: user.name || '',
+    email: user.email || '',
+    username: user.username || '',
+    password: user.password || '',
+    balance: parseFloat(user.balance) || 0,
+    totalEarned: parseFloat(user.totalEarned) || 0,
+    adsWatched: parseInt(user.adsWatched) || 0,
+    verified: user.verified || false,
+    premium: user.premium || false,
+    banned: user.banned || false,
+    referralCode: user.referralCode || '',
+    chat: user.chat || [],
+    lastUpdate: new Date().toISOString()
+  });
+}
+
+// ইউজারের ব্যালেন্স রিয়েল-টাইমে অ্যাডমিন থেকে আসা আপডেট চেক
+var fbListener = null;
+function fbStartListener(email){
+  if(!email) return;
+  if(fbListener) clearInterval(fbListener);
+  var key = fbKey(email);
+  fbListener = setInterval(function(){
+    FB.get('/users/' + key).then(function(data){
+      if(!data) return;
+      var localUser = getCurrentUser();
+      if(!localUser) return;
+      var changed = false;
+      var newBalance = parseFloat(data.balance) || 0;
+      var newEarned = parseFloat(data.totalEarned) || 0;
+      if(Math.abs((localUser.balance||0) - newBalance) > 0.001){ localUser.balance = newBalance; changed = true; }
+      if(Math.abs((localUser.totalEarned||0) - newEarned) > 0.001){ localUser.totalEarned = newEarned; changed = true; }
+      if((data.verified||false) !== (localUser.verified||false)){ localUser.verified = data.verified; changed = true; }
+      if((data.premium||false) !== (localUser.premium||false)){ localUser.premium = data.premium; changed = true; }
+      if((data.banned||false) !== (localUser.banned||false)){ localUser.banned = data.banned; changed = true; }
+      if(changed){
+        saveCurrentUser(localUser);
+        updateBalance();
+        initUI();
+      }
+    }).catch(function(){});
+  }, 4000);
+}
+
+/* ==================================================
+   AD CONFIGURATION
    ================================================== */
 var AD_CONFIG = [
   { key: "f7b5fb1e6fc33ea203f08bdd042e987c", width: 300, height: 250 },
   { key: "22e82538f1de9118ba07f9a995a692d4", width: 320, height: 50 },
   { key: "fa90bcf6b604ee93575cf3bf5161abce", width: 728, height: 90 }
 ];
-
-/* মোবাইলে ৭২৮x৯০ বাদ দিয়ে শুধু ৩০০x২৫০ আর ৩২০x৫০ ব্যবহার হবে */
-function getAvailableAds() {
-  if (window.innerWidth < 500) {
-    return AD_CONFIG.filter(function(a) { return a.width <= 320; });
-  }
+function getAvailableAds(){
+  if(window.innerWidth < 500) return AD_CONFIG.filter(function(a){ return a.width <= 320; });
   return AD_CONFIG;
 }
-
-/* ==================================================
-   AD INJECTION — Adsterra এর সঠিক পদ্ধতি
-   ================================================== */
 var adLoadCounter = 0;
-
-function injectAdIntoSlot(slotElement, adObj) {
-  if (!slotElement) return;
+function injectAdIntoSlot(slotElement, adObj){
+  if(!slotElement) return;
   slotElement.innerHTML = '';
-  
-  // একটি ইউনিক কন্টেইনার তৈরি করুন
   var container = document.createElement('div');
   container.style.width = adObj.width + 'px';
   container.style.height = adObj.height + 'px';
@@ -952,85 +1022,50 @@ function injectAdIntoSlot(slotElement, adObj) {
   container.style.alignItems = 'center';
   container.id = 'ad-container-' + (++adLoadCounter);
   slotElement.appendChild(container);
-  
-  // atOptions গ্লোবালি সেট করুন (একটি নির্দিষ্ট টাইমে)
-  window.atOptions = {
-    key: adObj.key,
-    format: 'iframe',
-    height: adObj.height,
-    width: adObj.width,
-    params: {}
-  };
-  
-  // invoke.js লোড করুন
+  window.atOptions = { key: adObj.key, format: 'iframe', height: adObj.height, width: adObj.width, params: {} };
   var script = document.createElement('script');
   script.type = 'text/javascript';
   script.async = true;
   script.src = 'https://www.highrevenueformat.com/' + adObj.key + '/invoke.js';
-  script.onerror = function() {
-    console.log('Ad failed: ' + adObj.key);
-  };
   container.appendChild(script);
 }
-
-/* ==================================================
-   AD ROTATION
-   ================================================== */
 var adSlotRotation = {};
-
-function loadAdInSlot(slotId, adIndex) {
+function loadAdInSlot(slotId, adIndex){
   var slot = document.getElementById(slotId);
-  if (!slot) return;
-  
-  if (adSlotRotation[slotId] === undefined) adSlotRotation[slotId] = adIndex;
-  
+  if(!slot) return;
+  if(adSlotRotation[slotId] === undefined) adSlotRotation[slotId] = adIndex;
   var ads = getAvailableAds();
   var idx = adSlotRotation[slotId] % ads.length;
   adSlotRotation[slotId]++;
-  
   injectAdIntoSlot(slot, ads[idx]);
 }
-
-function loadAllAds() {
+function loadAllAds(){
   var slots = document.querySelectorAll('.ad-slot');
-  slots.forEach(function(slot, i) {
-    if (slot.id && slot.offsetParent !== null) {
-      loadAdInSlot(slot.id, i);
-    }
-  });
+  slots.forEach(function(slot, i){ if(slot.id && slot.offsetParent !== null) loadAdInSlot(slot.id, i); });
 }
-
 var autoRotationInterval = null;
-function startAutoAdRotation() {
+function startAutoAdRotation(){
   setTimeout(loadAllAds, 2500);
   setTimeout(loadAllAds, 6000);
   setTimeout(loadAllAds, 12000);
-  if (autoRotationInterval) clearInterval(autoRotationInterval);
-  autoRotationInterval = setInterval(function() { loadAllAds(); }, 90000);
+  if(autoRotationInterval) clearInterval(autoRotationInterval);
+  autoRotationInterval = setInterval(function(){ loadAllAds(); }, 90000);
 }
+document.addEventListener('visibilitychange', function(){ if(!document.hidden) setTimeout(loadAllAds, 1500); });
 
-document.addEventListener('visibilitychange', function() {
-  if (!document.hidden) setTimeout(loadAllAds, 1500);
-});
-
-/* ==================================================
-   AD OVERLAY
-   ================================================== */
+/* AD OVERLAY */
 var adOverlayCallback = null;
 var adOverlayInterval = null;
-
-function showAdOverlay(callback) {
+function showAdOverlay(callback){
   var overlay = document.getElementById('adOverlay');
   var slot = document.getElementById('adOverlaySlot');
   var timerDisplay = document.getElementById('adTimerDisplay');
   var timerText = document.getElementById('adTimerText');
   var closeBtn = document.getElementById('adCloseBtn');
   var progressBar = document.getElementById('adProgressBar');
-  
   var ads = getAvailableAds();
   var adObj = ads[Math.floor(Math.random() * ads.length)];
   injectAdIntoSlot(slot, adObj);
-  
   var time = 8;
   timerDisplay.textContent = time;
   timerText.textContent = time;
@@ -1040,15 +1075,14 @@ function showAdOverlay(callback) {
   overlay.classList.add('active');
   adOverlayCallback = callback;
   var elapsed = 0;
-  
-  if (adOverlayInterval) clearInterval(adOverlayInterval);
-  adOverlayInterval = setInterval(function() {
+  if(adOverlayInterval) clearInterval(adOverlayInterval);
+  adOverlayInterval = setInterval(function(){
     elapsed++;
     var remaining = time - elapsed;
     timerDisplay.textContent = remaining > 0 ? remaining : 0;
     timerText.textContent = remaining > 0 ? remaining : 0;
     progressBar.style.width = ((elapsed / time) * 100) + '%';
-    if (elapsed >= time) {
+    if(elapsed >= time){
       clearInterval(adOverlayInterval);
       closeBtn.disabled = false;
       closeBtn.textContent = '✅ Close & Continue';
@@ -1056,109 +1090,96 @@ function showAdOverlay(callback) {
     }
   }, 1000);
 }
-
-function closeAdOverlay() {
+function closeAdOverlay(){
   var closeBtn = document.getElementById('adCloseBtn');
-  if (closeBtn.disabled) return;
+  if(closeBtn.disabled) return;
   var overlay = document.getElementById('adOverlay');
   overlay.classList.remove('active');
-  if (adOverlayInterval) clearInterval(adOverlayInterval);
-  if (adOverlayCallback) {
+  if(adOverlayInterval) clearInterval(adOverlayInterval);
+  if(adOverlayCallback){
     var cb = adOverlayCallback;
     adOverlayCallback = null;
     setTimeout(cb, 100);
   }
 }
+function withAd(callback){ showAdOverlay(callback); }
 
-function withAd(callback) { showAdOverlay(callback); }
-
-/* ==================================================
-   LIVE ANIMATION
-   ================================================== */
-(function() {
-  const starsC = document.getElementById('stars');
-  for (let i = 0; i < 80; i++) {
-    const s = document.createElement('div');
+/* LIVE ANIMATION */
+(function(){
+  var starsC = document.getElementById('stars');
+  for(var i=0;i<80;i++){
+    var s = document.createElement('div');
     s.className = 'star';
-    s.style.left = Math.random() * 100 + '%';
-    s.style.top = Math.random() * 100 + '%';
-    s.style.width = s.style.height = (1 + Math.random() * 2) + 'px';
-    s.style.animationDelay = Math.random() * 3 + 's';
-    s.style.animationDuration = (2 + Math.random() * 3) + 's';
+    s.style.left = Math.random()*100 + '%';
+    s.style.top = Math.random()*100 + '%';
+    s.style.width = s.style.height = (1+Math.random()*2) + 'px';
+    s.style.animationDelay = Math.random()*3 + 's';
+    s.style.animationDuration = (2+Math.random()*3) + 's';
     starsC.appendChild(s);
   }
-  const rainC = document.getElementById('rainContainer');
-  for (let i = 0; i < 100; i++) {
-    const r = document.createElement('div');
+  var rainC = document.getElementById('rainContainer');
+  for(var i=0;i<100;i++){
+    var r = document.createElement('div');
     r.className = 'raindrop';
-    r.style.left = Math.random() * 100 + '%';
-    r.style.animationDuration = (0.4 + Math.random() * 0.5) + 's';
-    r.style.animationDelay = Math.random() * 3 + 's';
-    r.style.height = (15 + Math.random() * 20) + 'px';
-    r.style.opacity = 0.4 + Math.random() * 0.5;
+    r.style.left = Math.random()*100 + '%';
+    r.style.animationDuration = (0.4+Math.random()*0.5) + 's';
+    r.style.animationDelay = Math.random()*3 + 's';
+    r.style.height = (15+Math.random()*20) + 'px';
+    r.style.opacity = 0.4 + Math.random()*0.5;
     rainC.appendChild(r);
   }
-  const leafC = document.getElementById('leafContainer');
-  for (let i = 0; i < 35; i++) {
-    const l = document.createElement('div');
+  var leafC = document.getElementById('leafContainer');
+  for(var i=0;i<35;i++){
+    var l = document.createElement('div');
     l.className = 'leaf';
-    l.style.left = Math.random() * 100 + '%';
-    l.style.animationDuration = (6 + Math.random() * 6) + 's';
-    l.style.animationDelay = Math.random() * 8 + 's';
-    l.style.background = ['#8BC34A','#33691E','#FF9800','#FDD835','#4CAF50','#E91E63'][Math.floor(Math.random() * 6)];
-    l.style.width = l.style.height = (10 + Math.random() * 10) + 'px';
+    l.style.left = Math.random()*100 + '%';
+    l.style.animationDuration = (6+Math.random()*6) + 's';
+    l.style.animationDelay = Math.random()*8 + 's';
+    l.style.background = ['#8BC34A','#33691E','#FF9800','#FDD835','#4CAF50','#E91E63'][Math.floor(Math.random()*6)];
+    l.style.width = l.style.height = (10+Math.random()*10) + 'px';
     leafC.appendChild(l);
   }
-  const fireflyC = document.getElementById('fireflyContainer');
-  for (var i = 0; i < 15; i++) {
-    const f = document.createElement('div');
+  var fireflyC = document.getElementById('fireflyContainer');
+  for(var i=0;i<15;i++){
+    var f = document.createElement('div');
     f.className = 'firefly';
-    f.style.left = (Math.random() * 100) + '%';
-    f.style.bottom = (5 + Math.random() * 30) + '%';
-    f.style.animationDuration = (6 + Math.random() * 8) + 's';
-    f.style.animationDelay = Math.random() * 6 + 's';
+    f.style.left = (Math.random()*100) + '%';
+    f.style.bottom = (5+Math.random()*30) + '%';
+    f.style.animationDuration = (6+Math.random()*8) + 's';
+    f.style.animationDelay = Math.random()*6 + 's';
     fireflyC.appendChild(f);
   }
 })();
 
-setTimeout(function() {
+setTimeout(function(){
   document.getElementById('splash').classList.add('hide');
-  setTimeout(function() {
+  setTimeout(function(){
     document.getElementById('splash').style.display = 'none';
     document.getElementById('authModal').classList.add('active');
   }, 1000);
 }, 4500);
 
-/* ==================================================
-   STORAGE
-   ================================================== */
-function getUsers() { return JSON.parse(localStorage.getItem('atik_users') || '{}'); }
-function saveUsers(u) { localStorage.setItem('atik_users', JSON.stringify(u)); }
-function getCurrentEmail() { return localStorage.getItem('atik_logged_in'); }
-function getCurrentUser() {
-  const e = getCurrentEmail();
-  return e ? getUsers()[e] : null;
-}
-function saveCurrentUser(u) {
-  const us = getUsers();
-  us[u.email] = u;
-  saveUsers(us);
-}
+/* STORAGE */
+function getUsers(){ return JSON.parse(localStorage.getItem('atik_users') || '{}'); }
+function saveUsers(u){ localStorage.setItem('atik_users', JSON.stringify(u)); }
+function getCurrentEmail(){ return localStorage.getItem('atik_logged_in'); }
+function getCurrentUser(){ var e = getCurrentEmail(); return e ? getUsers()[e] : null; }
+function saveCurrentUser(u){ var us = getUsers(); us[u.email] = u; saveUsers(us); }
 
-(function() {
+(function(){
   var u = getUsers();
-  if (!u['user@demo.com']) {
+  if(!u['user@demo.com']){
     u['user@demo.com'] = {
-      name: 'Atik Hasan', username: 'atikhasan', email: 'user@demo.com', password: '1234',
-      balance: 100, totalEarned: 0, adsWatched: 0,
-      referralCode: 'ATIK' + Math.floor(1000 + Math.random() * 9000),
-      status: 'active', verified: false,
-      deposits: [], withdraws: [], adLog: [], jobProofs: [], referrals: [], chat: [], orders: [],
-      mathCorrect: 0, mathWrong: 0, mathEarn: 0
+      name:'Atik Hasan',username:'atikhasan',email:'user@demo.com',password:'1234',
+      balance:100,totalEarned:0,adsWatched:0,
+      referralCode:'ATIK'+Math.floor(1000+Math.random()*9000),
+      status:'active',verified:false,
+      deposits:[],withdraws:[],adLog:[],jobProofs:[],referrals:[],chat:[],orders:[],
+      mathCorrect:0,mathWrong:0,mathEarn:0
     };
     saveUsers(u);
   }
-  if (!localStorage.getItem('atik_notifications')) {
+  if(!localStorage.getItem('atik_notifications')){
     localStorage.setItem('atik_notifications', JSON.stringify([
       { date: new Date().toISOString(), icon: '🎉', title: 'স্বাগতম Atik Daily Earning এ!', read: false },
       { date: new Date().toISOString(), icon: '💰', title: 'Ads দেখে ৳0.10 আয় করুন!', read: false },
@@ -1167,23 +1188,19 @@ function saveCurrentUser(u) {
   }
 })();
 
-function showToast(m) {
+function showToast(m){
   var t = document.getElementById('toast');
   t.textContent = m;
   t.classList.add('show');
-  setTimeout(function() { t.classList.remove('show'); }, 3000);
+  setTimeout(function(){ t.classList.remove('show'); }, 3000);
 }
-function toggleSidebar() {
-  document.getElementById('sidebar').classList.toggle('open');
-}
+function toggleSidebar(){ document.getElementById('sidebar').classList.toggle('open'); }
 
-/* ==================================================
-   AUTH
-   ================================================== */
-function switchAuth(type) {
+/* AUTH */
+function switchAuth(type){
   document.getElementById('loginError').classList.remove('show');
   document.getElementById('signupError').classList.remove('show');
-  if (type === 'login') {
+  if(type === 'login'){
     document.getElementById('loginForm').style.display = 'block';
     document.getElementById('signupForm').style.display = 'none';
     document.getElementById('tabLogin').classList.add('active');
@@ -1195,79 +1212,84 @@ function switchAuth(type) {
     document.getElementById('tabLogin').classList.remove('active');
   }
 }
-function togglePass(id, i) {
+function togglePass(id, i){
   var p = document.getElementById(id), ic = document.getElementById(i);
-  if (p.type === 'password') { p.type = 'text'; ic.textContent = '🙈'; }
+  if(p.type === 'password'){ p.type = 'text'; ic.textContent = '🙈'; }
   else { p.type = 'password'; ic.textContent = '👁️'; }
 }
-function showErr(id, m) {
+function showErr(id, m){
   var b = document.getElementById(id);
   b.textContent = m;
   b.classList.add('show');
 }
 
-function doSignup() {
+function doSignup(){
   var name = document.getElementById('signupName').value.trim();
   var email = document.getElementById('signupEmail').value.trim().toLowerCase();
   var username = document.getElementById('signupUser').value.trim().toLowerCase();
   var pass = document.getElementById('signupPass').value;
   var pass2 = document.getElementById('signupPass2').value;
   document.getElementById('signupError').classList.remove('show');
-  if (!name || !email || !username || !pass || !pass2) return showErr('signupError', '⚠️ সব ঘর পূরণ করুন!');
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showErr('signupError', '⚠️ সঠিক Email দিন!');
-  if (username.length < 3) return showErr('signupError', '⚠️ Username কমপক্ষে ৩ অক্ষর!');
-  if (pass.length < 4) return showErr('signupError', '⚠️ Password কমপক্ষে ৪ অক্ষর!');
-  if (pass !== pass2) return showErr('signupError', '⚠️ Password মিলছে না!');
+  if(!name || !email || !username || !pass || !pass2) return showErr('signupError', '⚠️ সব ঘর পূরণ করুন!');
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showErr('signupError', '⚠️ সঠিক Email দিন!');
+  if(username.length < 3) return showErr('signupError', '⚠️ Username কমপক্ষে ৩ অক্ষর!');
+  if(pass.length < 4) return showErr('signupError', '⚠️ Password কমপক্ষে ৪ অক্ষর!');
+  if(pass !== pass2) return showErr('signupError', '⚠️ Password মিলছে না!');
   var users = getUsers();
-  if (users[email]) return showErr('signupError', '❌ এই Email আগে থেকে আছে!');
-  if (Object.values(users).find(function(u) { return u.username === username; })) return showErr('signupError', '❌ এই Username আগে থেকে আছে!');
+  if(users[email]) return showErr('signupError', '❌ এই Email আগে থেকে আছে!');
+  if(Object.values(users).find(function(u){ return u.username === username; })) return showErr('signupError', '❌ এই Username আগে থেকে আছে!');
   users[email] = {
-    name: name, username: username, email: email, password: pass,
-    balance: 0, totalEarned: 0, adsWatched: 0,
-    referralCode: username.substring(0, 4).toUpperCase() + Math.floor(1000 + Math.random() * 9000),
-    status: 'active', verified: false,
-    deposits: [], withdraws: [], adLog: [], jobProofs: [], referrals: [], chat: [], orders: [],
-    mathCorrect: 0, mathWrong: 0, mathEarn: 0
+    name:name,username:username,email:email,password:pass,
+    balance:0,totalEarned:0,adsWatched:0,
+    referralCode:username.substring(0,4).toUpperCase()+Math.floor(1000+Math.random()*9000),
+    status:'active',verified:false,
+    deposits:[],withdraws:[],adLog:[],jobProofs:[],referrals:[],chat:[],orders:[],
+    mathCorrect:0,mathWrong:0,mathEarn:0
   };
   saveUsers(users);
+  // 🔥 Firebase এ পাঠান
+  fbSaveUser(users[email]);
   showToast('✅ একাউন্ট তৈরি!');
-  setTimeout(function() {
+  setTimeout(function(){
     switchAuth('login');
     document.getElementById('loginEmail').value = email;
     document.getElementById('loginPass').value = '';
   }, 1200);
 }
 
-function doLogin() {
+function doLogin(){
   var email = document.getElementById('loginEmail').value.trim().toLowerCase();
   var pass = document.getElementById('loginPass').value;
   document.getElementById('loginError').classList.remove('show');
-  if (!email || !pass) return showErr('loginError', '⚠️ দুটো ঘর পূরণ করুন!');
+  if(!email || !pass) return showErr('loginError', '⚠️ দুটো ঘর পূরণ করুন!');
   var users = getUsers();
   var user = users[email];
-  if (!user) return showErr('loginError', '❌ এই Email দিয়ে একাউন্ট নেই!');
-  if (user.password !== pass) {
+  if(!user) return showErr('loginError', '❌ এই Email দিয়ে একাউন্ট নেই!');
+  if(user.password !== pass){
     document.getElementById('loginPass').value = '';
     return showErr('loginError', '❌ Password ভুল!');
   }
-  if (user.status === 'banned') return showErr('loginError', '🚫 একাউন্ট ব্যান!');
+  if(user.banned) return showErr('loginError', '🚫 একাউন্ট ব্যান!');
   localStorage.setItem('atik_logged_in', email);
+  // 🔥 Firebase এ সেভ + লিসেন শুরু
+  fbSaveUser(user);
+  fbStartListener(user.email);
   showToast('✅ স্বাগতম ' + user.name);
   setTimeout(initUI, 400);
 }
 
-function doLogout() {
-  if (confirm('লগআউট করবেন?')) {
+function doLogout(){
+  if(confirm('লগআউট করবেন?')){
     localStorage.removeItem('atik_logged_in');
     location.reload();
   }
 }
 
-function initUI() {
+function initUI(){
   var user = getCurrentUser();
   var modal = document.getElementById('authModal');
   var app = document.getElementById('appLayout');
-  if (user) {
+  if(user){
     modal.classList.remove('active');
     modal.style.display = 'none';
     app.style.display = 'flex';
@@ -1278,7 +1300,7 @@ function initUI() {
     document.getElementById('sideStatus').style.color = user.verified ? '#00E676' : '#FF9800';
     document.getElementById('welcomeName').textContent = user.name;
     var badge = document.getElementById('verifyBadge');
-    if (user.verified) {
+    if(user.verified){
       badge.className = 'verified verified-yes';
       badge.innerHTML = '✅ অ্যাকাউন্ট ভেরিফাইড';
     } else {
@@ -1291,6 +1313,9 @@ function initUI() {
     loadServices();
     loadChat();
     startAutoAdRotation();
+    // 🔥 Firebase এ সেভ + লিসেন শুরু
+    fbSaveUser(user);
+    fbStartListener(user.email);
   } else {
     modal.classList.add('active');
     modal.style.display = 'flex';
@@ -1298,9 +1323,9 @@ function initUI() {
   }
 }
 
-function updateBalance() {
+function updateBalance(){
   var u = getCurrentUser();
-  if (!u) return;
+  if(!u) return;
   document.getElementById('mainBalance').textContent = (u.balance || 0).toFixed(2);
   document.getElementById('walletBalance').textContent = (u.balance || 0).toFixed(2);
   document.getElementById('totalEarned').textContent = (u.totalEarned || 0).toFixed(2);
@@ -1309,300 +1334,276 @@ function updateBalance() {
   document.getElementById('refLink').textContent = location.origin + location.pathname + '?ref=' + (u.referralCode || '');
   var today = new Date().toISOString().split('T')[0];
   var logs = u.adLog || [];
-  var todaySum = logs.filter(function(l) { return l.date.startsWith(today); }).reduce(function(s, l) { return s + (l.reward || 0) + (l.math || 0); }, 0);
+  var todaySum = logs.filter(function(l){ return l.date.startsWith(today); }).reduce(function(s, l){ return s + (l.reward||0) + (l.math||0); }, 0);
   document.getElementById('todayIncome').textContent = todaySum.toFixed(2);
-  var el = document.getElementById('mathCorrect'); if (el) el.textContent = u.mathCorrect || 0;
-  var el2 = document.getElementById('mathWrong'); if (el2) el2.textContent = u.mathWrong || 0;
-  var el3 = document.getElementById('mathEarnTotal'); if (el3) el3.textContent = (u.mathEarn || 0).toFixed(2);
+  var el = document.getElementById('mathCorrect'); if(el) el.textContent = u.mathCorrect || 0;
+  var el2 = document.getElementById('mathWrong'); if(el2) el2.textContent = u.mathWrong || 0;
+  var el3 = document.getElementById('mathEarnTotal'); if(el3) el3.textContent = (u.mathEarn || 0).toFixed(2);
 }
 
-function renderAll() {
-  var u = getCurrentUser();
-  if (!u) return;
-  renderTxn(u);
-  updateAdStats();
-  renderLeaderboard();
-}
-
-function updateAdStats() {
-  var u = getCurrentUser();
-  if (!u) return;
+function renderAll(){ var u = getCurrentUser(); if(!u) return; renderTxn(u); updateAdStats(); renderLeaderboard(); }
+function updateAdStats(){
+  var u = getCurrentUser(); if(!u) return;
   var today = new Date().toISOString().split('T')[0];
-  var logs = (u.adLog || []).filter(function(l) { return l.date.startsWith(today) && l.platform !== 'MathPage'; });
-  var el = document.getElementById('completedToday'); if (el) el.textContent = logs.length;
-  var el2 = document.getElementById('todayAdEarn'); if (el2) el2.textContent = logs.reduce(function(s, l) { return s + (l.reward || 0) + (l.math || 0); }, 0).toFixed(2);
+  var logs = (u.adLog || []).filter(function(l){ return l.date.startsWith(today) && l.platform !== 'MathPage'; });
+  var el = document.getElementById('completedToday'); if(el) el.textContent = logs.length;
+  var el2 = document.getElementById('todayAdEarn'); if(el2) el2.textContent = logs.reduce(function(s, l){ return s + (l.reward||0) + (l.math||0); }, 0).toFixed(2);
 }
-
-function renderTxn(u) {
+function renderTxn(u){
   var t = document.getElementById('txnTable');
-  if (!t) return;
+  if(!t) return;
   var all = [];
-  (u.deposits || []).forEach(function(d) { all.push({ date: d.date, type: '💵 Deposit', amount: d.amount, status: d.status }); });
-  (u.withdraws || []).forEach(function(w) { all.push({ date: w.date, type: '🏧 Withdraw', amount: w.amount, status: w.status }); });
-  (u.adLog || []).forEach(function(a) { all.push({ date: a.date, type: '📺 ' + (a.platform || 'Ads'), amount: (a.reward || 0) + (a.math || 0), status: 'completed' }); });
-  (u.jobProofs || []).forEach(function(j) { all.push({ date: j.date, type: '📅 ' + j.job, amount: j.reward, status: j.status }); });
-  (u.orders || []).forEach(function(o) { all.push({ date: o.date, type: '🛒 ' + o.service, amount: o.price, status: o.status }); });
-  all.sort(function(a, b) { return new Date(b.date) - new Date(a.date); });
-  if (!all.length) {
-    t.innerHTML = '<tr><td colspan="4" class="history-empty">কোনো লেনদেন নেই</td></tr>';
-    return;
-  }
-  t.innerHTML = all.slice(0, 30).map(function(x) {
-    return '<tr><td>' + new Date(x.date).toLocaleDateString('bn-BD') + '</td><td>' + x.type + '</td><td style="color:#00E676;font-weight:bold;">৳ ' + (x.amount || 0).toFixed(2) + '</td><td style="color:' + (x.status === 'approved' || x.status === 'paid' || x.status === 'completed' ? '#00E676' : x.status === 'pending' ? '#FF9800' : '#FF1744') + ';font-weight:bold;">' + x.status + '</td></tr>';
+  (u.deposits||[]).forEach(function(d){ all.push({ date:d.date, type:'💵 Deposit', amount:d.amount, status:d.status }); });
+  (u.withdraws||[]).forEach(function(w){ all.push({ date:w.date, type:'🏧 Withdraw', amount:w.amount, status:w.status }); });
+  (u.adLog||[]).forEach(function(a){ all.push({ date:a.date, type:'📺 '+(a.platform||'Ads'), amount:(a.reward||0)+(a.math||0), status:'completed' }); });
+  (u.jobProofs||[]).forEach(function(j){ all.push({ date:j.date, type:'📅 '+j.job, amount:j.reward, status:j.status }); });
+  (u.orders||[]).forEach(function(o){ all.push({ date:o.date, type:'🛒 '+o.service, amount:o.price, status:o.status }); });
+  all.sort(function(a, b){ return new Date(b.date) - new Date(a.date); });
+  if(!all.length){ t.innerHTML = '<tr><td colspan="4" class="history-empty">কোনো লেনদেন নেই</td></tr>'; return; }
+  t.innerHTML = all.slice(0, 30).map(function(x){
+    return '<tr><td>'+new Date(x.date).toLocaleDateString('bn-BD')+'</td><td>'+x.type+'</td><td style="color:#00E676;font-weight:bold;">৳ '+(x.amount||0).toFixed(2)+'</td><td style="color:'+(x.status==='approved'||x.status==='paid'||x.status==='completed'?'#00E676':x.status==='pending'?'#FF9800':'#FF1744')+';font-weight:bold;">'+x.status+'</td></tr>';
   }).join('');
 }
 
 var FAKE_NAMES = ['Atik Hasan','Rahim Khan','Karim Ali','Sabbir Hossain','Nusrat Jahan','Tanvir Ahmed','Mehedi Hasan','Farhan Rahman','Sakib Al Hasan','Rakib Islam','Ayesha Siddika','Sumaiya Akter','Jannatul Ferdous','Mim Akter','Rubel Mia','Shakil Ahmed','Nazmul Hasan','Rifat Hossain','Jisan Ahmed','Tania Islam'];
-
-function renderLeaderboard() {
+function renderLeaderboard(){
   var fake = [];
-  fake.push({ name: 'Atik Hasan', balance: 85420, tag: '👑 Founder' });
-  fake.push({ name: 'Rahim Khan', balance: 65230, tag: '💎 Diamond' });
-  fake.push({ name: 'Karim Ali', balance: 52100, tag: '🥇 Gold' });
-  for (var i = 0; i < 20; i++) {
-    var nm = FAKE_NAMES[i % FAKE_NAMES.length] + (i > 10 ? ' ' + (i + 1) : '');
-    fake.push({ name: nm, balance: Math.max(100, 50000 - i * 1500 - Math.random() * 200), tag: '⭐ Active' });
+  fake.push({ name:'Atik Hasan', balance:85420, tag:'👑 Founder' });
+  fake.push({ name:'Rahim Khan', balance:65230, tag:'💎 Diamond' });
+  fake.push({ name:'Karim Ali', balance:52100, tag:'🥇 Gold' });
+  for(var i=0;i<20;i++){
+    var nm = FAKE_NAMES[i % FAKE_NAMES.length] + (i > 10 ? ' '+(i+1) : '');
+    fake.push({ name:nm, balance:Math.max(100, 50000 - i*1500 - Math.random()*200), tag:'⭐ Active' });
   }
   var medals = ['🥇','🥈','🥉'];
-  var html = fake.map(function(u, i) {
-    var medal = i < 3 ? medals[i] : '#' + (i + 1);
-    return '<div style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:rgba(255,255,255,.04);border-radius:14px;border-left:4px solid ' + (i < 3 ? ['#FFD700','#C0C0C0','#CD7F32'][i] : '#6b7d94') + ';margin-bottom:8px;"><div style="font-size:18px;font-weight:900;color:#FFD700;width:35px;text-align:center;">' + medal + '</div><div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#FFD700,#FF9800);display:flex;align-items:center;justify-content:center;font-weight:900;color:#000;">' + (u.name || 'U')[0].toUpperCase() + '</div><div style="flex:1;"><div style="font-size:14px;font-weight:700;color:#fff;">' + u.name + '</div><div style="font-size:11px;color:#8fa8c4;">' + u.tag + '</div></div><div style="font-size:16px;font-weight:900;color:#00E676;font-family:\'Courier New\',monospace;">৳ ' + (u.balance || 0).toFixed(0) + '</div></div>';
+  var html = fake.map(function(u, i){
+    var medal = i < 3 ? medals[i] : '#'+(i+1);
+    return '<div style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:rgba(255,255,255,.04);border-radius:14px;border-left:4px solid '+(i<3?['#FFD700','#C0C0C0','#CD7F32'][i]:'#6b7d94')+';margin-bottom:8px;"><div style="font-size:18px;font-weight:900;color:#FFD700;width:35px;text-align:center;">'+medal+'</div><div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#FFD700,#FF9800);display:flex;align-items:center;justify-content:center;font-weight:900;color:#000;">'+(u.name||'U')[0].toUpperCase()+'</div><div style="flex:1;"><div style="font-size:14px;font-weight:700;color:#fff;">'+u.name+'</div><div style="font-size:11px;color:#8fa8c4;">'+u.tag+'</div></div><div style="font-size:16px;font-weight:900;color:#00E676;font-family:\'Courier New\',monospace;">৳ '+(u.balance||0).toFixed(0)+'</div></div>';
   }).join('');
-  var el = document.getElementById('leaderBoard'); if (el) el.innerHTML = html;
+  var el = document.getElementById('leaderBoard'); if(el) el.innerHTML = html;
   var el2 = document.getElementById('leaderBoardDash');
-  if (el2) el2.innerHTML = fake.slice(0, 5).map(function(u, i) {
-    return '<div style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:rgba(255,255,255,.04);border-radius:14px;border-left:4px solid ' + (i < 3 ? ['#FFD700','#C0C0C0','#CD7F32'][i] : '#6b7d94') + ';margin-bottom:8px;"><div style="font-size:18px;font-weight:900;color:#FFD700;width:35px;text-align:center;">' + medals[i] + '</div><div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#FFD700,#FF9800);display:flex;align-items:center;justify-content:center;font-weight:900;color:#000;">' + (u.name || 'U')[0].toUpperCase() + '</div><div style="flex:1;"><div style="font-size:14px;font-weight:700;color:#fff;">' + u.name + '</div><div style="font-size:11px;color:#8fa8c4;">' + u.tag + '</div></div><div style="font-size:16px;font-weight:900;color:#00E676;font-family:\'Courier New\',monospace;">৳ ' + (u.balance || 0).toFixed(0) + '</div></div>';
+  if(el2) el2.innerHTML = fake.slice(0, 5).map(function(u, i){
+    return '<div style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:rgba(255,255,255,.04);border-radius:14px;border-left:4px solid '+(i<3?['#FFD700','#C0C0C0','#CD7F32'][i]:'#6b7d94')+';margin-bottom:8px;"><div style="font-size:18px;font-weight:900;color:#FFD700;width:35px;text-align:center;">'+medals[i]+'</div><div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#FFD700,#FF9800);display:flex;align-items:center;justify-content:center;font-weight:900;color:#000;">'+(u.name||'U')[0].toUpperCase()+'</div><div style="flex:1;"><div style="font-size:14px;font-weight:700;color:#fff;">'+u.name+'</div><div style="font-size:11px;color:#8fa8c4;">'+u.tag+'</div></div><div style="font-size:16px;font-weight:900;color:#00E676;font-family:\'Courier New\',monospace;">৳ '+(u.balance||0).toFixed(0)+'</div></div>';
   }).join('');
 }
 
-document.querySelectorAll('.menu-item[data-panel]').forEach(function(item) {
-  item.addEventListener('click', function() {
+document.querySelectorAll('.menu-item[data-panel]').forEach(function(item){
+  item.addEventListener('click', function(){
     goPanel(item.dataset.panel);
     document.getElementById('sidebar').classList.remove('open');
   });
 });
-
-function goPanel(name) {
-  document.querySelectorAll('.menu-item').forEach(function(m) { m.classList.remove('active'); });
-  var target = document.querySelector('.menu-item[data-panel="' + name + '"]');
-  if (target) target.classList.add('active');
-  document.querySelectorAll('.panel').forEach(function(p) { p.classList.remove('active'); });
+function goPanel(name){
+  document.querySelectorAll('.menu-item').forEach(function(m){ m.classList.remove('active'); });
+  var target = document.querySelector('.menu-item[data-panel="'+name+'"]');
+  if(target) target.classList.add('active');
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
   var panel = document.getElementById(name);
-  if (panel) panel.classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-  if (name === 'math') { setTimeout(initMathPage, 100); }
-  if (name === 'chat') { setTimeout(loadChat, 100); }
-  setTimeout(function() {
+  if(panel) panel.classList.add('active');
+  window.scrollTo({ top:0, behavior:'smooth' });
+  if(name === 'math') setTimeout(initMathPage, 100);
+  if(name === 'chat') setTimeout(loadChat, 100);
+  setTimeout(function(){
     var activePanel = document.querySelector('.panel.active');
-    if (activePanel) {
+    if(activePanel){
       var slots = activePanel.querySelectorAll('.ad-slot');
-      slots.forEach(function(slot, i) {
-        if (slot.id) loadAdInSlot(slot.id, i);
-      });
+      slots.forEach(function(slot, i){ if(slot.id) loadAdInSlot(slot.id, i); });
     }
   }, 1500);
 }
 
-/* ==================================================
-   VERIFY WITH AD
-   ================================================== */
-function verifyAccount() {
+/* VERIFY */
+function verifyAccount(){
   var u = getCurrentUser();
-  if (!u) return;
-  if (u.verified) { showToast('✅ ইতিমধ্যে verified!'); return; }
+  if(!u) return;
+  if(u.verified){ showToast('✅ ইতিমধ্যে verified!'); return; }
   showToast('📺 Ad দেখলে Verified হবেন...');
-  withAd(function() {
+  withAd(function(){
     u.verified = true;
     saveCurrentUser(u);
+    fbSaveUser(u);
     initUI();
     showToast('✅ ভেরিফাইড!');
   });
 }
 
-/* ==================================================
-   DEPOSIT / WITHDRAW
-   ================================================== */
-function doDeposit() {
+/* DEPOSIT */
+function doDeposit(){
   var u = getCurrentUser();
-  if (!u) return;
+  if(!u) return;
   var amt = parseFloat(document.getElementById('depositAmt').value);
   var sender = document.getElementById('depositSender').value.trim();
   var txn = document.getElementById('depositTxn').value.trim();
   var screenshotFile = document.getElementById('depositScreenshot').files[0];
-  if (!amt || amt < 100) return showToast('❌ মিনিমাম ৳100');
-  if (!sender || !txn) return showToast('❌ সব ঘর পূরণ!');
+  if(!amt || amt < 100) return showToast('❌ মিনিমাম ৳100');
+  if(!sender || !txn) return showToast('❌ সব ঘর পূরণ!');
   showToast('📺 Ad দেখুন তারপর সাবমিট হবে...');
-  withAd(function() {
-    var doSave = function(ssData) {
+  withAd(function(){
+    var doSave = function(ssData){
+      var newDep = { date: new Date().toISOString(), amount: amt, sender: sender, txn: txn, screenshot: ssData || '', method:'Bkash', status:'pending', email:u.email, name:u.name };
       u.deposits = u.deposits || [];
-      u.deposits.push({ date: new Date().toISOString(), amount: amt, sender: sender, txn: txn, screenshot: ssData, method: 'Bkash', status: 'pending', email: u.email, name: u.name });
+      u.deposits.push(newDep);
       saveCurrentUser(u);
       renderTxn(u);
+      // 🔥 Firebase এ ডিপোজিট পাঠান
+      var depKey = Date.now() + '_' + fbKey(u.email);
+      FB.set('/deposits/' + depKey, newDep);
       showToast('✅ ডিপোজিট রিকোয়েস্ট!');
       document.getElementById('depositAmt').value = '';
       document.getElementById('depositSender').value = '';
       document.getElementById('depositTxn').value = '';
       document.getElementById('depositScreenshot').value = '';
     };
-    if (screenshotFile) {
+    if(screenshotFile){
       var r = new FileReader();
-      r.onload = function(e) { doSave(e.target.result); };
+      r.onload = function(e){ doSave(e.target.result); };
       r.readAsDataURL(screenshotFile);
-    } else { doSave(null); }
+    } else doSave(null);
   });
 }
 
-function doWithdraw() {
+/* WITHDRAW */
+function doWithdraw(){
   var u = getCurrentUser();
-  if (!u) return;
+  if(!u) return;
   var amt = parseFloat(document.getElementById('withdrawAmt').value);
   var acc = document.getElementById('withdrawAcc').value.trim();
   var screenshotFile = document.getElementById('withdrawScreenshot').files[0];
-  if (!amt || amt < 110) return showToast('❌ মিনিমাম ৳110');
-  if (!acc) return showToast('❌ Account দিন!');
-  if ((u.balance || 0) < amt + 10) return showToast('❌ পর্যাপ্ত নেই!');
+  if(!amt || amt < 110) return showToast('❌ মিনিমাম ৳110');
+  if(!acc) return showToast('❌ Account দিন!');
+  if((u.balance || 0) < amt + 10) return showToast('❌ পর্যাপ্ত নেই!');
   showToast('📺 Ad দেখুন তারপর উইথড্র হবে...');
-  withAd(function() {
-    var doSave = function(ssData) {
+  withAd(function(){
+    var doSave = function(ssData){
       u.balance -= amt + 10;
+      var newWd = { date: new Date().toISOString(), amount: amt, fee: 10, account: acc, screenshot: ssData || '', status:'pending', email:u.email, name:u.name };
       u.withdraws = u.withdraws || [];
-      u.withdraws.push({ date: new Date().toISOString(), amount: amt, fee: 10, account: acc, screenshot: ssData, status: 'pending', email: u.email, name: u.name });
+      u.withdraws.push(newWd);
       saveCurrentUser(u);
       updateBalance();
       renderTxn(u);
+      fbSaveUser(u);
+      // 🔥 Firebase এ উইথড্র পাঠান
+      var wdKey = Date.now() + '_' + fbKey(u.email);
+      FB.set('/withdraws/' + wdKey, newWd);
       showToast('✅ Withdraw রিকোয়েস্ট!');
       document.getElementById('withdrawAmt').value = '';
       document.getElementById('withdrawAcc').value = '';
       document.getElementById('withdrawScreenshot').value = '';
     };
-    if (screenshotFile) {
+    if(screenshotFile){
       var r = new FileReader();
-      r.onload = function(e) { doSave(e.target.result); };
+      r.onload = function(e){ doSave(e.target.result); };
       r.readAsDataURL(screenshotFile);
-    } else { doSave(null); }
+    } else doSave(null);
   });
 }
 
-function copyRef() {
-  var u = getCurrentUser();
-  if (!u) return;
+function copyRef(){
+  var u = getCurrentUser(); if(!u) return;
   navigator.clipboard.writeText(location.origin + location.pathname + '?ref=' + u.referralCode);
   showToast('📋 কপি!');
 }
-function shareRef() {
-  var u = getCurrentUser();
-  if (!u) return;
+function shareRef(){
+  var u = getCurrentUser(); if(!u) return;
   var link = location.origin + location.pathname + '?ref=' + u.referralCode;
-  if (navigator.share) {
-    navigator.share({ title: 'Atik Daily Earning', text: 'রেফারেল:', url: link });
-  } else {
-    navigator.clipboard.writeText(link);
-    showToast('📋 কপি!');
-  }
+  if(navigator.share) navigator.share({ title:'Atik Daily Earning', text:'রেফারেল:', url:link });
+  else { navigator.clipboard.writeText(link); showToast('📋 কপি!'); }
 }
 
-/* ==================================================
-   PREMIUM
-   ================================================== */
-function buyPremium() {
-  var u = getCurrentUser();
-  if (!u) return;
+/* PREMIUM */
+function buyPremium(){
+  var u = getCurrentUser(); if(!u) return;
   showToast('📺 Ad দেখুন...');
-  withAd(function() {
+  withAd(function(){
     var modal = document.createElement('div');
     modal.className = 'modal-overlay active';
     modal.id = 'premiumPayModal';
-    modal.innerHTML = '<div class="login-box" style="max-width:500px;">' +
-      '<h2 style="color:#FFD700;">👑 Premium Payment</h2>' +
-      '<div style="background:rgba(0,230,118,.1);border:2px solid #00E676;border-radius:12px;padding:16px;margin-bottom:18px;text-align:center;">' +
-      '<div style="color:#8fa8c4;font-size:12px;">Send ৳90 to Bkash/Nagad</div>' +
-      '<div style="color:#00E676;font-size:24px;font-weight:900;margin-top:6px;">01988891195</div>' +
-      '</div>' +
-      '<div class="form-group"><label>📱 Sender Number</label><input type="text" id="premiumSender" placeholder="01XXXXXXXXX"></div>' +
-      '<div class="form-group"><label>📝 Transaction ID</label><input type="text" id="premiumTxn" placeholder="TrxID"></div>' +
-      '<div class="form-group"><label>📸 Screenshot Proof</label><input type="file" id="premiumScreenshot" accept="image/*" style="padding:10px;"></div>' +
-      '<div style="display:flex;gap:10px;flex-wrap:wrap;">' +
-      '<button class="btn btn-green" style="flex:1;justify-content:center;" onclick="submitPremiumRequest()">Submit</button>' +
-      '<button class="btn btn-red" onclick="document.getElementById(\'premiumPayModal\').remove()">Cancel</button>' +
-      '</div>' +
-      '</div>';
+    modal.innerHTML = '<div class="login-box" style="max-width:500px;">'+
+      '<h2 style="color:#FFD700;">👑 Premium Payment</h2>'+
+      '<div style="background:rgba(0,230,118,.1);border:2px solid #00E676;border-radius:12px;padding:16px;margin-bottom:18px;text-align:center;">'+
+      '<div style="color:#8fa8c4;font-size:12px;">Send ৳90 to Bkash/Nagad</div>'+
+      '<div style="color:#00E676;font-size:24px;font-weight:900;margin-top:6px;">01988891195</div></div>'+
+      '<div class="form-group"><label>📱 Sender Number</label><input type="text" id="premiumSender" placeholder="01XXXXXXXXX"></div>'+
+      '<div class="form-group"><label>📝 Transaction ID</label><input type="text" id="premiumTxn" placeholder="TrxID"></div>'+
+      '<div class="form-group"><label>📸 Screenshot Proof</label><input type="file" id="premiumScreenshot" accept="image/*" style="padding:10px;"></div>'+
+      '<div style="display:flex;gap:10px;flex-wrap:wrap;">'+
+      '<button class="btn btn-green" style="flex:1;justify-content:center;" onclick="submitPremiumRequest()">Submit</button>'+
+      '<button class="btn btn-red" onclick="document.getElementById(\'premiumPayModal\').remove()">Cancel</button></div></div>';
     document.body.appendChild(modal);
   });
 }
-
-function submitPremiumRequest() {
-  var u = getCurrentUser();
-  if (!u) return;
+function submitPremiumRequest(){
+  var u = getCurrentUser(); if(!u) return;
   var sender = document.getElementById('premiumSender').value.trim();
   var txn = document.getElementById('premiumTxn').value.trim();
   var ssFile = document.getElementById('premiumScreenshot').files[0];
-  if (!sender || !txn) return showToast('❌ সব ঘর পূরণ!');
+  if(!sender || !txn) return showToast('❌ সব ঘর পূরণ!');
   showToast('📺 Ad দেখুন...');
-  withAd(function() {
-    var doSave = function(ssData) {
+  withAd(function(){
+    var doSave = function(ssData){
+      var newPrem = { date: new Date().toISOString(), email:u.email, name:u.name, sender:sender, txn:txn, screenshot:ssData||'', amount:90, status:'pending' };
       var premiumRequests = JSON.parse(localStorage.getItem('atik_premium_requests') || '[]');
-      premiumRequests.push({ date: new Date().toISOString(), email: u.email, name: u.name, sender: sender, txn: txn, screenshot: ssData, amount: 90, status: 'pending' });
+      premiumRequests.push(newPrem);
       localStorage.setItem('atik_premium_requests', JSON.stringify(premiumRequests));
+      // 🔥 Firebase এ প্রিমিয়াম পাঠান
+      var premKey = Date.now() + '_' + fbKey(u.email);
+      FB.set('/premium_requests/' + premKey, newPrem);
       showToast('✅ Premium রিকোয়েস্ট পাঠানো!');
       var m = document.getElementById('premiumPayModal');
-      if (m) m.remove();
+      if(m) m.remove();
     };
-    if (ssFile) {
+    if(ssFile){
       var r = new FileReader();
-      r.onload = function(e) { doSave(e.target.result); };
+      r.onload = function(e){ doSave(e.target.result); };
       r.readAsDataURL(ssFile);
-    } else { doSave(null); }
+    } else doSave(null);
   });
 }
 
-/* ==================================================
-   COUNTDOWN
-   ================================================== */
-(function() {
+/* COUNTDOWN */
+(function(){
   var target = localStorage.getItem('atik_countdown_target');
-  if (!target) {
+  if(!target){
     var t = new Date();
     t.setDate(t.getDate() + 144);
     t.setHours(t.getHours() + 9);
     t.setMinutes(t.getMinutes() + 59);
     target = t.getTime();
     localStorage.setItem('atik_countdown_target', target);
-  } else { target = parseInt(target); }
-  function tick() {
+  } else target = parseInt(target);
+  function tick(){
     var now = Date.now();
     var diff = Math.max(0, target - now);
     var days = Math.floor(diff / 86400000); diff %= 86400000;
     var hours = Math.floor(diff / 3600000); diff %= 3600000;
     var mins = Math.floor(diff / 60000); diff %= 60000;
     var secs = Math.floor(diff / 1000);
-    var d = document.getElementById('cdDays'); if (d) d.textContent = String(days).padStart(2, '0');
-    var h = document.getElementById('cdHours'); if (h) h.textContent = String(hours).padStart(2, '0');
-    var m = document.getElementById('cdMins'); if (m) m.textContent = String(mins).padStart(2, '0');
-    var s = document.getElementById('cdSecs'); if (s) s.textContent = String(secs).padStart(2, '0');
+    var d = document.getElementById('cdDays'); if(d) d.textContent = String(days).padStart(2, '0');
+    var h = document.getElementById('cdHours'); if(h) h.textContent = String(hours).padStart(2, '0');
+    var m = document.getElementById('cdMins'); if(m) m.textContent = String(mins).padStart(2, '0');
+    var s = document.getElementById('cdSecs'); if(s) s.textContent = String(secs).padStart(2, '0');
   }
   tick();
   setInterval(tick, 1000);
 })();
 
-/* ==================================================
-   WATCH ADS FLOW
-   ================================================== */
+/* WATCH ADS FLOW */
 var currentMathAnswer = 0, adsTimerInterval = null;
-function startAdFlow() {
-  var u = getCurrentUser();
-  if (!u) return;
+function startAdFlow(){
+  var u = getCurrentUser(); if(!u) return;
   showToast('📺 Ad দেখুন তারপর Math আসবে...');
-  withAd(function() {
+  withAd(function(){
     document.getElementById('adDisplayBox').style.display = 'none';
     document.getElementById('startAdBtn').style.display = 'none';
     document.getElementById('adBigTimer').style.display = 'block';
     var time = 8;
     document.getElementById('adsBigTimerValue').textContent = time;
-    if (adsTimerInterval) clearInterval(adsTimerInterval);
-    adsTimerInterval = setInterval(function() {
+    if(adsTimerInterval) clearInterval(adsTimerInterval);
+    adsTimerInterval = setInterval(function(){
       time--;
       document.getElementById('adsBigTimerValue').textContent = time;
-      if (time <= 0) {
+      if(time <= 0){
         clearInterval(adsTimerInterval);
         document.getElementById('adBigTimer').style.display = 'none';
         document.getElementById('adMathCard').style.display = 'block';
@@ -1611,33 +1612,29 @@ function startAdFlow() {
     }, 1000);
   });
 }
-function generateMathProblem() {
-  var a = Math.floor(Math.random() * 20) + 5, b = Math.floor(Math.random() * 20) + 5;
+function generateMathProblem(){
+  var a = Math.floor(Math.random()*20)+5, b = Math.floor(Math.random()*20)+5;
   var op = Math.random() > 0.5 ? '+' : '-';
-  if (op === '+') { currentMathAnswer = a + b; document.getElementById('mathQuestion').textContent = a + ' + ' + b + ' = ?'; }
-  else {
-    var big = Math.max(a, b), small = Math.min(a, b);
-    currentMathAnswer = big - small;
-    document.getElementById('mathQuestion').textContent = big + ' - ' + small + ' = ?';
-  }
+  if(op === '+'){ currentMathAnswer = a+b; document.getElementById('mathQuestion').textContent = a+' + '+b+' = ?'; }
+  else { var big = Math.max(a,b), small = Math.min(a,b); currentMathAnswer = big-small; document.getElementById('mathQuestion').textContent = big+' - '+small+' = ?'; }
   document.getElementById('mathAnswer').value = '';
   document.getElementById('mathFeedback').textContent = '';
 }
-function submitMath() {
-  var u = getCurrentUser();
-  if (!u) return;
+function submitMath(){
+  var u = getCurrentUser(); if(!u) return;
   var ans = parseInt(document.getElementById('mathAnswer').value);
   var fb = document.getElementById('mathFeedback');
-  if (isNaN(ans)) { fb.textContent = '⚠️ উত্তর লিখুন!'; fb.className = 'math-feedback error'; return; }
-  if (ans === currentMathAnswer) {
-    u.balance = (u.balance || 0) + 0.10;
-    u.totalEarned = (u.totalEarned || 0) + 0.10;
-    u.adsWatched = (u.adsWatched || 0) + 1;
+  if(isNaN(ans)){ fb.textContent = '⚠️ উত্তর লিখুন!'; fb.className = 'math-feedback error'; return; }
+  if(ans === currentMathAnswer){
+    u.balance = (u.balance||0) + 0.10;
+    u.totalEarned = (u.totalEarned||0) + 0.10;
+    u.adsWatched = (u.adsWatched||0) + 1;
     u.adLog = u.adLog || [];
-    u.adLog.push({ date: new Date().toISOString(), reward: 0.06, math: 0.04, platform: 'Ads' });
+    u.adLog.push({ date: new Date().toISOString(), reward: 0.06, math: 0.04, platform:'Ads' });
     saveCurrentUser(u);
     updateBalance();
     updateAdStats();
+    fbSaveUser(u);
     showToast('🎉 ৳0.10 যোগ!');
     document.getElementById('adMathCard').style.display = 'none';
     document.getElementById('adDisplayBox').style.display = 'flex';
@@ -1649,165 +1646,154 @@ function submitMath() {
   }
 }
 
-/* ==================================================
-   MATH PAGE
-   ================================================== */
+/* MATH PAGE */
 var mathPageAnswer = 0;
-function initMathPage() { generateMathPageProblem(); updateBalance(); }
-function generateMathPageProblem() {
-  var a = Math.floor(Math.random() * 20) + 5, b = Math.floor(Math.random() * 20) + 5;
+function initMathPage(){ generateMathPageProblem(); updateBalance(); }
+function generateMathPageProblem(){
+  var a = Math.floor(Math.random()*20)+5, b = Math.floor(Math.random()*20)+5;
   var op = Math.random() > 0.5 ? '+' : '-';
-  if (op === '+') { mathPageAnswer = a + b; document.getElementById('mathPageQuestion').textContent = a + ' + ' + b + ' = ?'; }
-  else {
-    var big = Math.max(a, b), small = Math.min(a, b);
-    mathPageAnswer = big - small;
-    document.getElementById('mathPageQuestion').textContent = big + ' - ' + small + ' = ?';
-  }
+  if(op === '+'){ mathPageAnswer = a+b; document.getElementById('mathPageQuestion').textContent = a+' + '+b+' = ?'; }
+  else { var big = Math.max(a,b), small = Math.min(a,b); mathPageAnswer = big-small; document.getElementById('mathPageQuestion').textContent = big+' - '+small+' = ?'; }
   document.getElementById('mathPageAnswer').value = '';
   document.getElementById('mathPageFeedback').textContent = '';
   document.getElementById('mathPageFeedback').className = 'math-feedback';
 }
-function submitMathPage() {
-  var u = getCurrentUser();
-  if (!u) return;
+function submitMathPage(){
+  var u = getCurrentUser(); if(!u) return;
   var ans = parseInt(document.getElementById('mathPageAnswer').value);
   var fb = document.getElementById('mathPageFeedback');
-  if (isNaN(ans)) { fb.textContent = '⚠️ উত্তর লিখুন!'; fb.className = 'math-feedback error'; return; }
-  if (ans === mathPageAnswer) {
+  if(isNaN(ans)){ fb.textContent = '⚠️ উত্তর লিখুন!'; fb.className = 'math-feedback error'; return; }
+  if(ans === mathPageAnswer){
     showToast('📺 Ad দেখুন...');
-    withAd(function() {
-      u.balance = (u.balance || 0) + 0.04;
-      u.totalEarned = (u.totalEarned || 0) + 0.04;
-      u.mathCorrect = (u.mathCorrect || 0) + 1;
-      u.mathEarn = (u.mathEarn || 0) + 0.04;
+    withAd(function(){
+      u.balance = (u.balance||0) + 0.04;
+      u.totalEarned = (u.totalEarned||0) + 0.04;
+      u.mathCorrect = (u.mathCorrect||0) + 1;
+      u.mathEarn = (u.mathEarn||0) + 0.04;
       u.adLog = u.adLog || [];
-      u.adLog.push({ date: new Date().toISOString(), reward: 0, math: 0.04, platform: 'MathPage' });
+      u.adLog.push({ date: new Date().toISOString(), reward: 0, math: 0.04, platform:'MathPage' });
       saveCurrentUser(u);
       fb.textContent = '✅ সঠিক! ৳0.04!';
       fb.className = 'math-feedback';
       fb.style.color = '#00E676';
       updateBalance();
+      fbSaveUser(u);
       showToast('🎉 ৳0.04!');
       setTimeout(generateMathPageProblem, 1500);
     });
   } else {
-    u.mathWrong = (u.mathWrong || 0) + 1;
+    u.mathWrong = (u.mathWrong||0) + 1;
     saveCurrentUser(u);
-    fb.textContent = '❌ ভুল! সঠিক: ' + mathPageAnswer;
+    fb.textContent = '❌ ভুল! সঠিক: '+mathPageAnswer;
     fb.className = 'math-feedback error';
     updateBalance();
     setTimeout(generateMathPageProblem, 1500);
   }
 }
 
-/* ==================================================
-   JOB PROOF
-   ================================================== */
-var currentJob = { name: '', reward: 0 }, proofImg1Data = null, proofImg2Data = null;
-function openJobProof(jobName, reward) {
-  currentJob = { name: jobName, reward: reward };
+/* JOB PROOF */
+var currentJob = { name:'', reward:0 }, proofImg1Data = null, proofImg2Data = null;
+function openJobProof(jobName, reward){
+  currentJob = { name:jobName, reward:reward };
   document.getElementById('proofJobName').textContent = jobName;
   document.getElementById('proofJobReward').textContent = '৳' + reward.toFixed(2);
   document.getElementById('proofBio').value = '';
   document.getElementById('proofImg1Preview').style.display = 'none';
   document.getElementById('proofImg2Preview').style.display = 'none';
-  proofImg1Data = null;
-  proofImg2Data = null;
+  proofImg1Data = null; proofImg2Data = null;
   document.getElementById('jobProofPanel').style.display = 'block';
-  document.getElementById('jobProofPanel').scrollIntoView({ behavior: 'smooth' });
+  document.getElementById('jobProofPanel').scrollIntoView({ behavior:'smooth' });
 }
-function closeJobProof() { document.getElementById('jobProofPanel').style.display = 'none'; }
-function previewProof(n, e) {
-  var file = e.target.files[0];
-  if (!file) return;
+function closeJobProof(){ document.getElementById('jobProofPanel').style.display = 'none'; }
+function previewProof(n, e){
+  var file = e.target.files[0]; if(!file) return;
   var reader = new FileReader();
-  reader.onload = function(ev) {
-    var img = document.getElementById('proofImg' + n + 'Preview');
+  reader.onload = function(ev){
+    var img = document.getElementById('proofImg'+n+'Preview');
     img.src = ev.target.result;
     img.style.display = 'block';
-    if (n === 1) proofImg1Data = ev.target.result;
-    if (n === 2) proofImg2Data = ev.target.result;
+    if(n === 1) proofImg1Data = ev.target.result;
+    if(n === 2) proofImg2Data = ev.target.result;
   };
   reader.readAsDataURL(file);
 }
-function submitJobProof() {
-  var u = getCurrentUser();
-  if (!u) return;
+function submitJobProof(){
+  var u = getCurrentUser(); if(!u) return;
   var bio = document.getElementById('proofBio').value.trim();
-  if (!bio) return showToast('❌ Bio লিখুন!');
-  if (!proofImg1Data || !proofImg2Data) return showToast('❌ ২টি Screenshot দিন!');
+  if(!bio) return showToast('❌ Bio লিখুন!');
+  if(!proofImg1Data || !proofImg2Data) return showToast('❌ ২টি Screenshot দিন!');
   showToast('📺 Ad দেখুন...');
-  withAd(function() {
+  withAd(function(){
+    var newProof = { date: new Date().toISOString(), job:currentJob.name, reward:currentJob.reward, bio:bio, img1:proofImg1Data, img2:proofImg2Data, email:u.email, name:u.name, status:'pending' };
     u.jobProofs = u.jobProofs || [];
-    u.jobProofs.push({ date: new Date().toISOString(), job: currentJob.name, reward: currentJob.reward, bio: bio, img1: proofImg1Data, img2: proofImg2Data, email: u.email, name: u.name, status: 'pending' });
+    u.jobProofs.push(newProof);
     saveCurrentUser(u);
+    // 🔥 Firebase এ জব প্রুফ পাঠান
+    var proofKey = Date.now() + '_' + fbKey(u.email);
+    FB.set('/job_proofs/' + proofKey, newProof);
     showToast('✅ Admin কে পাঠানো!');
     closeJobProof();
   });
 }
 
-/* ==================================================
-   SERVICES + ORDER
-   ================================================== */
+/* SERVICES + ORDER */
 var SERVICES = {
   facebook: [
-    { name: 'Facebook ID Followers', price: 50 }, { name: 'Facebook ID Likes', price: 50 },
-    { name: 'Facebook Page Followers', price: 70 }, { name: 'Facebook Page Likes', price: 80 },
-    { name: 'Facebook Video Views', price: 40 }, { name: 'Facebook Reels Views', price: 50 },
-    { name: 'Facebook Post Reactions', price: 40 }, { name: 'Facebook Post Comments', price: 60 },
-    { name: 'Facebook Group Members', price: 100 }, { name: 'Facebook Watch Time (60K Min)', price: 250 }
+    { name:'Facebook ID Followers', price:50 }, { name:'Facebook ID Likes', price:50 },
+    { name:'Facebook Page Followers', price:70 }, { name:'Facebook Page Likes', price:80 },
+    { name:'Facebook Video Views', price:40 }, { name:'Facebook Reels Views', price:50 },
+    { name:'Facebook Post Reactions', price:40 }, { name:'Facebook Post Comments', price:60 },
+    { name:'Facebook Group Members', price:100 }, { name:'Facebook Watch Time (60K Min)', price:250 }
   ],
   youtube: [
-    { name: 'YouTube Channel Subscribers', price: 300 }, { name: 'YouTube Video Views', price: 60 },
-    { name: 'YouTube Shorts Views', price: 50 }, { name: 'YouTube Video Likes', price: 70 },
-    { name: 'YouTube Comments', price: 100 }, { name: 'YouTube Watch Time (4K Hours)', price: 400 }
+    { name:'YouTube Channel Subscribers', price:300 }, { name:'YouTube Video Views', price:60 },
+    { name:'YouTube Shorts Views', price:50 }, { name:'YouTube Video Likes', price:70 },
+    { name:'YouTube Comments', price:100 }, { name:'YouTube Watch Time (4K Hours)', price:400 }
   ],
   tiktok: [
-    { name: 'TikTok Profile Followers', price: 120 }, { name: 'TikTok Video Likes', price: 60 },
-    { name: 'TikTok Video Views', price: 40 }, { name: 'TikTok Shares', price: 50 },
-    { name: 'TikTok Saves', price: 55 }, { name: 'TikTok Comments', price: 80 }
+    { name:'TikTok Profile Followers', price:120 }, { name:'TikTok Video Likes', price:60 },
+    { name:'TikTok Video Views', price:40 }, { name:'TikTok Shares', price:50 },
+    { name:'TikTok Saves', price:55 }, { name:'TikTok Comments', price:80 }
   ],
   instagram: [
-    { name: 'Instagram Profile Followers', price: 130 }, { name: 'Instagram Photo Likes', price: 60 },
-    { name: 'Instagram Video Views', price: 50 }, { name: 'Instagram Reels Views', price: 55 },
-    { name: 'Instagram Story Views', price: 45 }, { name: 'Instagram Comments', price: 90 }
+    { name:'Instagram Profile Followers', price:130 }, { name:'Instagram Photo Likes', price:60 },
+    { name:'Instagram Video Views', price:50 }, { name:'Instagram Reels Views', price:55 },
+    { name:'Instagram Story Views', price:45 }, { name:'Instagram Comments', price:90 }
   ],
   telegram: [
-    { name: 'Telegram Channel Members', price: 150 }, { name: 'Telegram Group Members', price: 130 },
-    { name: 'Telegram Post Views', price: 30 }, { name: 'Telegram Post Reactions', price: 60 },
-    { name: 'Telegram Poll Votes', price: 70 }
+    { name:'Telegram Channel Members', price:150 }, { name:'Telegram Group Members', price:130 },
+    { name:'Telegram Post Views', price:30 }, { name:'Telegram Post Reactions', price:60 },
+    { name:'Telegram Poll Votes', price:70 }
   ]
 };
-function loadServices() { switchSocial('facebook', document.querySelector('.social-tab.active')); }
-function switchSocial(cat, btn) {
-  document.querySelectorAll('.social-tab').forEach(function(b) { b.classList.remove('active'); });
-  if (btn) btn.classList.add('active');
-  var list = document.getElementById('serviceList');
-  if (!list) return;
+function loadServices(){ switchSocial('facebook', document.querySelector('.social-tab.active')); }
+function switchSocial(cat, btn){
+  document.querySelectorAll('.social-tab').forEach(function(b){ b.classList.remove('active'); });
+  if(btn) btn.classList.add('active');
+  var list = document.getElementById('serviceList'); if(!list) return;
   var items = SERVICES[cat] || [];
-  list.innerHTML = items.map(function(s) {
-    return '<div class="service-item"><div class="s-name">' + s.name + '</div><div class="s-price">৳ ' + s.price + '<small>প্রতি 1K</small></div><button class="s-btn" onclick="orderService(\'' + s.name.replace(/'/g, "\\'") + '\',' + s.price + ')">Order</button></div>';
+  list.innerHTML = items.map(function(s){
+    return '<div class="service-item"><div class="s-name">'+s.name+'</div><div class="s-price">৳ '+s.price+'<small>প্রতি 1K</small></div><button class="s-btn" onclick="orderService(\''+s.name.replace(/'/g, "\\'")+'\','+s.price+')">Order</button></div>';
   }).join('');
 }
 
-var currentOrder = { name: '', price: 0 };
-function orderService(name, price) {
-  var u = getCurrentUser();
-  if (!u) return;
-  currentOrder = { name: name, price: price };
+var currentOrder = { name:'', price:0 };
+function orderService(name, price){
+  var u = getCurrentUser(); if(!u) return;
+  currentOrder = { name:name, price:price };
   document.getElementById('orderServiceName').textContent = name;
   document.getElementById('orderServicePrice').textContent = price;
-  document.getElementById('orderWalletBalance').textContent = (u.balance || 0).toFixed(2);
+  document.getElementById('orderWalletBalance').textContent = (u.balance||0).toFixed(2);
   document.getElementById('orderLink').value = '';
   document.getElementById('orderTxn').value = '';
   document.getElementById('orderPaymentMethod').value = 'wallet';
   togglePaymentMethod();
   document.getElementById('orderModal').classList.add('active');
 }
-function closeOrderModal() { document.getElementById('orderModal').classList.remove('active'); }
-function togglePaymentMethod() {
+function closeOrderModal(){ document.getElementById('orderModal').classList.remove('active'); }
+function togglePaymentMethod(){
   var method = document.getElementById('orderPaymentMethod').value;
-  if (method === 'wallet') {
+  if(method === 'wallet'){
     document.getElementById('walletPaymentBox').style.display = 'block';
     document.getElementById('bkashPaymentBox').style.display = 'none';
   } else {
@@ -1815,103 +1801,98 @@ function togglePaymentMethod() {
     document.getElementById('bkashPaymentBox').style.display = 'block';
   }
 }
-function submitOrder() {
-  var u = getCurrentUser();
-  if (!u) return;
+function submitOrder(){
+  var u = getCurrentUser(); if(!u) return;
   var link = document.getElementById('orderLink').value.trim();
   var method = document.getElementById('orderPaymentMethod').value;
-  if (!link) return showToast('❌ Service Link দিন!');
+  if(!link) return showToast('❌ Service Link দিন!');
   showToast('📺 Ad দেখুন...');
-  withAd(function() {
-    if (method === 'wallet') {
-      if ((u.balance || 0) < currentOrder.price) return showToast('❌ পর্যাপ্ত Balance নেই!');
+  withAd(function(){
+    var newOrder;
+    if(method === 'wallet'){
+      if((u.balance||0) < currentOrder.price) return showToast('❌ পর্যাপ্ত Balance নেই!');
       u.balance -= currentOrder.price;
+      newOrder = { date: new Date().toISOString(), service:currentOrder.name, price:currentOrder.price, link:link, method:'Wallet', status:'pending', userEmail:u.email, userName:u.name };
       u.orders = u.orders || [];
-      u.orders.push({ date: new Date().toISOString(), service: currentOrder.name, price: currentOrder.price, link: link, method: 'Wallet', status: 'pending', email: u.email, name: u.name });
+      u.orders.push(newOrder);
       saveCurrentUser(u);
       updateBalance();
-      showToast('✅ Order সফল!');
-      closeOrderModal();
+      fbSaveUser(u);
     } else {
       var txn = document.getElementById('orderTxn').value.trim();
-      if (!txn) return showToast('❌ TrxID দিন!');
+      if(!txn) return showToast('❌ TrxID দিন!');
+      newOrder = { date: new Date().toISOString(), service:currentOrder.name, price:currentOrder.price, link:link, method:'Bkash', txn:txn, status:'pending', userEmail:u.email, userName:u.name };
       u.orders = u.orders || [];
-      u.orders.push({ date: new Date().toISOString(), service: currentOrder.name, price: currentOrder.price, link: link, method: 'Bkash', txn: txn, status: 'pending', email: u.email, name: u.name });
+      u.orders.push(newOrder);
       saveCurrentUser(u);
-      showToast('✅ Order পাঠানো!');
-      closeOrderModal();
     }
+    // 🔥 Firebase এ অর্ডার পাঠান
+    var orderKey = Date.now() + '_' + fbKey(u.email);
+    FB.set('/orders/' + orderKey, newOrder);
+    showToast('✅ Order সফল!');
+    closeOrderModal();
   });
 }
 
-/* ==================================================
-   CHAT
-   ================================================== */
-function loadChat() {
-  var u = getCurrentUser();
-  if (!u) return;
+/* CHAT */
+function loadChat(){
+  var u = getCurrentUser(); if(!u) return;
   var msgs = u.chat || [];
-  var box = document.getElementById('chatMessages');
-  if (!box) return;
-  if (!msgs.length) {
+  var box = document.getElementById('chatMessages'); if(!box) return;
+  if(!msgs.length){
     box.innerHTML = '<div class="chat-msg admin">👋 স্বাগতম! যেকোনো সমস্যায় আমাদের লিখুন।<span class="chat-time">এখনই</span></div>';
     return;
   }
-  box.innerHTML = msgs.map(function(m) {
-    return '<div class="chat-msg ' + m.from + '">' + m.text + '<span class="chat-time">' + new Date(m.date).toLocaleString('bn-BD') + '</span></div>';
+  box.innerHTML = msgs.map(function(m){
+    return '<div class="chat-msg '+(m.from==='admin'?'admin':'user')+'">'+m.text+'<span class="chat-time">'+new Date(m.date).toLocaleString('bn-BD')+'</span></div>';
   }).join('');
   box.scrollTop = box.scrollHeight;
 }
-function sendChat() {
-  var u = getCurrentUser();
-  if (!u) return;
+function sendChat(){
+  var u = getCurrentUser(); if(!u) return;
   var inp = document.getElementById('chatInput');
-  var text = inp.value.trim();
-  if (!text) return;
+  var text = inp.value.trim(); if(!text) return;
   u.chat = u.chat || [];
-  u.chat.push({ from: 'user', text: text, date: new Date().toISOString() });
+  u.chat.push({ from:'user', text:text, date:new Date().toISOString(), read:false });
   saveCurrentUser(u);
   inp.value = '';
   loadChat();
-  var inbox = JSON.parse(localStorage.getItem('atik_chat_inbox') || '[]');
-  inbox.push({ user: u.name, email: u.email, text: text, date: new Date().toISOString(), replied: false });
-  localStorage.setItem('atik_chat_inbox', JSON.stringify(inbox));
+  fbSaveUser(u);
   showToast('✅ মেসেজ পাঠানো!');
 }
 
-function loadNotifications() {
+function loadNotifications(){
   var notifs = JSON.parse(localStorage.getItem('atik_notifications') || '[]');
-  var unread = notifs.filter(function(n) { return !n.read; }).length;
+  var unread = notifs.filter(function(n){ return !n.read; }).length;
   var badge = document.getElementById('notifBadge');
-  if (badge) badge.textContent = unread;
+  if(badge) badge.textContent = unread;
 }
-function toggleNotifications() {
+function toggleNotifications(){
   var notifs = JSON.parse(localStorage.getItem('atik_notifications') || '[]');
   var badge = document.getElementById('notifBadge');
-  if (badge) badge.textContent = 0;
-  var updated = notifs.map(function(n) { return Object.assign({}, n, { read: true }); });
+  if(badge) badge.textContent = 0;
+  var updated = notifs.map(function(n){ return Object.assign({}, n, { read:true }); });
   localStorage.setItem('atik_notifications', JSON.stringify(updated));
-  if (!notifs.length) { showToast('🔔 নতুন নেই'); return; }
+  if(!notifs.length){ showToast('🔔 নতুন নেই'); return; }
   var msg = '';
-  notifs.slice(0, 5).forEach(function(n) { msg += n.icon + ' ' + n.title + '\n'; });
+  notifs.slice(0, 5).forEach(function(n){ msg += n.icon + ' ' + n.title + '\n'; });
   alert('🔔 Notifications:\n\n' + msg);
 }
 
-document.addEventListener('keypress', function(e) {
-  if (e.key !== 'Enter') return;
+document.addEventListener('keypress', function(e){
+  if(e.key !== 'Enter') return;
   var m = document.getElementById('authModal');
-  if (!m || !m.classList.contains('active')) return;
+  if(!m || !m.classList.contains('active')) return;
   var lv = document.getElementById('loginForm').style.display !== 'none';
-  if (lv) doLogin();
-  else doSignup();
+  if(lv) doLogin(); else doSignup();
 });
 
-window.addEventListener('load', function() {
-  setTimeout(function() {
+window.addEventListener('load', function(){
+  setTimeout(function(){
     var user = getCurrentUser();
-    if (user) {
+    if(user){
       document.getElementById('splash').classList.add('hide');
-      setTimeout(function() {
+      setTimeout(function(){
         document.getElementById('splash').style.display = 'none';
         initUI();
       }, 500);

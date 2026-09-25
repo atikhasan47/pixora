@@ -1574,8 +1574,9 @@ function initUI(){
     startAutoAdRotation();
     updatePremStats();
     fbSaveUser(user);
-    fbStartListener(user.email);
-  } else {
+fbStartListener(user.email);
+loadUserDesignFromFirebase();
+} else {
     modal.classList.add('active');
     modal.style.display = 'flex';
     app.style.display = 'none';
@@ -2243,6 +2244,118 @@ setInterval(function(){
 })();
 
 window.addEventListener('resize', function(){ loadAllAds(); });
+
+/* 🎨 Design Load - Firebase থেকে */
+function loadUserDesignFromFirebase(){
+  FB.get('/settings/designs').then(function(d){
+    if(!d) return;
+    var dashDesign = d.dashboard || 'night-village';
+    var layer = document.getElementById('villageBg');
+    if(!layer) return;
+    var bgStyle = '';
+    if(dashDesign === 'snowfall'){
+      bgStyle = 'linear-gradient(180deg,#1a2332,#2c3e50,#415a77)';
+    } else if(dashDesign === 'ocean-wave'){
+      bgStyle = 'linear-gradient(180deg,#0a0f1e,#1a237e,#0277BD)';
+    } else if(dashDesign === 'aurora'){
+      bgStyle = 'radial-gradient(ellipse at top,#0a0f1e 0%,#1a0b2e 50%,#0a0f1e 100%)';
+    } else if(dashDesign === 'autumn' || dashDesign === 'autumn-leaves'){
+      bgStyle = 'linear-gradient(180deg,#FFB347,#E65100,#8B4513)';
+    } else if(dashDesign === 'starry-galaxy'){
+      bgStyle = 'radial-gradient(ellipse at center,#1a0b2e 0%,#0a0f1e 70%)';
+    } else if(dashDesign === 'fireflies'){
+      bgStyle = 'linear-gradient(180deg,#0a0f1e,#0f172a,#0d3a1f)';
+    } else if(dashDesign === 'golden-sunset'){
+      bgStyle = 'linear-gradient(180deg,#FF6B35 0%,#F7931E 30%,#FDC830 60%,#F37335 100%)';
+    } else if(dashDesign === 'green-forest'){
+      bgStyle = 'linear-gradient(180deg,#0a1f0a,#0f3a0f,#1e5c1e)';
+    } else if(dashDesign === 'cherry'){
+      bgStyle = 'linear-gradient(180deg,#FFF0F5,#FFD1DC,#FFB6C1)';
+    } else if(dashDesign === 'lightning'){
+      bgStyle = 'linear-gradient(180deg,#0a0f1e,#1a1a2e,#16213e)';
+    } else if(dashDesign === 'rainbow'){
+      bgStyle = 'linear-gradient(180deg,#87CEEB,#B0E0E6,#E0F7FA)';
+    } else if(dashDesign === 'butterflies'){
+      bgStyle = 'linear-gradient(180deg,#FFF0F5,#B2EBF2,#80DEEA)';
+    } else if(dashDesign === 'tropical'){
+      bgStyle = 'linear-gradient(180deg,#4FC3F7,#0288D1,#0277BD)';
+    } else if(dashDesign === 'mountain'){
+      bgStyle = 'linear-gradient(180deg,#FF6B6B,#FFB347,#FFD93D)';
+    } else if(dashDesign === 'city'){
+      bgStyle = 'linear-gradient(180deg,#0a0f1e,#1a1a2e,#2c1810)';
+    } else if(dashDesign === 'waterfall'){
+      bgStyle = 'linear-gradient(180deg,#1a2332,#0a0f1e)';
+    } else if(dashDesign === 'fullmoon'){
+      bgStyle = 'radial-gradient(ellipse at center,#1a2332 0%,#0a0f1e 100%)';
+    } else if(dashDesign === 'fireworks'){
+      bgStyle = 'radial-gradient(ellipse at center,#0a0f1e,#000)';
+    } else if(dashDesign === 'rainy-night'){
+      bgStyle = 'linear-gradient(180deg,#0a0f1e,#1a2332,#2c3e50)';
+    } else {
+      bgStyle = 'linear-gradient(180deg,#0a0f1e 0%,#0f172a 30%,#1a2332 60%,#1e3a2e 100%)';
+    }
+    layer.innerHTML = '<div style="position:absolute;inset:0;background:' + bgStyle + ';"></div>';
+    
+    if(dashDesign === 'night-village' || dashDesign === 'starry-galaxy' || dashDesign === 'aurora' || dashDesign === 'fullmoon'){
+      for(var i=0;i<80;i++){
+        var s = document.createElement('div');
+        s.className = 'star';
+        s.style.left = Math.random()*100 + '%';
+        s.style.top = Math.random()*70 + '%';
+        s.style.width = s.style.height = (1+Math.random()*2) + 'px';
+        s.style.animationDelay = Math.random()*3 + 's';
+        layer.appendChild(s);
+      }
+    }
+    
+    if(dashDesign === 'rainy-night'){
+      for(var i=0;i<80;i++){
+        var r = document.createElement('div');
+        r.className = 'raindrop';
+        r.style.left = Math.random()*100 + '%';
+        r.style.animationDuration = (0.4+Math.random()*0.5) + 's';
+        r.style.animationDelay = Math.random()*3 + 's';
+        layer.appendChild(r);
+      }
+    }
+    
+    if(dashDesign === 'snowfall'){
+      for(var i=0;i<50;i++){
+        var f = document.createElement('div');
+        f.style.cssText = 'position:absolute;top:-10px;color:#fff;font-size:' + (10+Math.random()*10) + 'px;animation:leafFall linear infinite;animation-duration:' + (6+Math.random()*6) + 's;animation-delay:' + (Math.random()*6) + 's;left:' + (Math.random()*100) + '%;';
+        f.textContent = '❄';
+        layer.appendChild(f);
+      }
+    }
+    
+    if(dashDesign === 'autumn' || dashDesign === 'autumn-leaves'){
+      var leaves = ['🍂','🍁','🍃'];
+      for(var i=0;i<40;i++){
+        var lf = document.createElement('div');
+        lf.style.cssText = 'position:absolute;top:-20px;font-size:24px;animation:leafFall linear infinite;animation-duration:' + (6+Math.random()*6) + 's;animation-delay:' + (Math.random()*8) + 's;left:' + (Math.random()*100) + '%;';
+        lf.textContent = leaves[i % leaves.length];
+        layer.appendChild(lf);
+      }
+    }
+    
+    if(dashDesign === 'fireflies'){
+      for(var i=0;i<25;i++){
+        var fd = document.createElement('div');
+        fd.className = 'firefly';
+        fd.style.left = Math.random()*100 + '%';
+        fd.style.bottom = (5+Math.random()*40) + '%';
+        fd.style.animationDuration = (6+Math.random()*8) + 's';
+        fd.style.animationDelay = Math.random()*6 + 's';
+        layer.appendChild(fd);
+      }
+    }
+  }).catch(function(e){ console.log('Design load err:', e); });
+}
+
+setInterval(function(){
+  var u = getCurrentUser();
+  if(u) loadUserDesignFromFirebase();
+}, 10000);
 </script>
 </body>
 </html>

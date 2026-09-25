@@ -52,7 +52,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;justify-content:center;align-items:center;z-index:1000;padding:15px;overflow-y:auto;backdrop-filter:blur(10px);}
 .modal-overlay.active{display:flex;animation:modalFadeIn .6s ease;}
 @keyframes modalFadeIn{from{opacity:0;}to{opacity:1;}}
-.login-box{background:linear-gradient(135deg,rgba(13,27,42,.98),rgba(27,38,59,.98));backdrop-filter:blur(20px);padding:38px 32px;border-radius:22px;width:100%;max-width:430px;border:3px solid #FFD700;box-shadow:0 0 80px rgba(255,215,0,.6);margin:auto;animation:loginSlideIn .7s cubic-bezier(.68,-.55,.27,1.55);}
+.login-box{background:linear-gradient(135deg,rgba(13,27,42,.98),rgba(27,38,59,.98));backdrop-filter:blur(20px);padding:38px 32px;border-radius:22px;width:100%;max-width:430px;border:3px solid #FFD700;box-shadow:0 0 80px rgba(255,215,0,.6);margin:auto;animation:loginSlideIn .7s cubic-bezier(.68,-.55,.27,1.55);transition:background .6s ease,border-color .6s ease,box-shadow .6s ease;}
 @keyframes loginSlideIn{from{opacity:0;transform:translateY(60px) scale(.9);}to{opacity:1;transform:translateY(0) scale(1);}}
 .login-logo-top{width:80px;height:80px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 15px;border:3px solid #FFD700;box-shadow:0 0 30px #FFD700;animation:logoPulse 2.5s infinite;}
 .login-box h2{color:#FFD700;text-align:center;margin-bottom:22px;font-size:22px;font-family:'Montserrat',sans-serif;}
@@ -353,7 +353,8 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 </style>
 </head>
 <body>
-  <div class="village-bg" id="villageBg">
+
+<div class="village-bg" id="villageBg">
   <div class="sky-night"></div>
   <div class="stars" id="stars"></div>
   <div class="moon"></div>
@@ -913,7 +914,6 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 </div>
 
 <div class="toast" id="toast"></div>
-
 <script>
 /* ==================================================
    🔥 FIREBASE REALTIME DATABASE CONNECTION
@@ -1468,8 +1468,7 @@ function doDeposit(){
     r.onload = function(e){
       u.deposits[u.deposits.length-1].screenshot = e.target.result;
       saveCurrentUser(u);
-      var upd = {}; upd['screenshot'] = e.target.result;
-      FB.update('/deposits/' + depKey, upd);
+      FB.update('/deposits/' + depKey, { screenshot: e.target.result });
     };
     r.readAsDataURL(screenshotFile);
   }
@@ -1506,8 +1505,7 @@ function doWithdraw(){
     r.onload = function(e){
       u.withdraws[u.withdraws.length-1].screenshot = e.target.result;
       saveCurrentUser(u);
-      var upd = {}; upd['screenshot'] = e.target.result;
-      FB.update('/withdraws/' + wdKey, upd);
+      FB.update('/withdraws/' + wdKey, { screenshot: e.target.result });
     };
     r.readAsDataURL(screenshotFile);
   }
@@ -1567,8 +1565,7 @@ function submitPremiumRequest(){
   if(ssFile){
     var r = new FileReader();
     r.onload = function(e){
-      var upd = {}; upd['screenshot'] = e.target.result;
-      FB.update('/premium_requests/' + premKey, upd);
+      FB.update('/premium_requests/' + premKey, { screenshot: e.target.result });
     };
     r.readAsDataURL(ssFile);
   }
@@ -1909,6 +1906,183 @@ window.addEventListener('load', function(){
     }
   }, 100);
 });
+
+/* ==================================================
+   🔥 ADMIN → USER SYNC
+   Chat, Design, Jobs, Promote Prices, Leaderboard, Notifications
+   ================================================== */
+(function() {
+  'use strict';
+  function fbGet(path) { return fetch(FIREBASE_URL + path + '.json').then(function(r){ return r.json(); }); }
+
+  /* ১. CHAT SYNC */
+  function syncChat() {
+    var email = localStorage.getItem('atik_logged_in');
+    if(!email) return;
+    var key = fbKey(email);
+    fbGet('/users/' + key + '/chat').then(function(chat){
+      if(!chat) return;
+      var arr = Array.isArray(chat) ? chat : Object.keys(chat).map(function(k){ return chat[k]; });
+      var users = JSON.parse(localStorage.getItem('atik_users') || '{}');
+      if(users[email]){
+        var oldLen = (users[email].chat || []).length;
+        users[email].chat = arr;
+        localStorage.setItem('atik_users', JSON.stringify(users));
+        if(arr.length !== oldLen && typeof loadChat === 'function') loadChat();
+      }
+    }).catch(function(){});
+  }
+
+  /* ২. DESIGN SYNC */
+  function syncDesign() {
+    fbGet('/settings/designs').then(function(d){
+      if(!d) return;
+      if(d.login){
+        var loginBox = document.querySelector('.login-box');
+        if(loginBox){
+          var loginStyles = {
+            'night-village': { bg: 'linear-gradient(135deg, rgba(13,27,42,.98), rgba(27,38,59,.98))', border: '#FFD700', shadow: 'rgba(255,215,0,.6)' },
+            'rainy-night':   { bg: 'linear-gradient(135deg, rgba(20,30,60,.98), rgba(40,60,100,.98))', border: '#4A90E2', shadow: 'rgba(74,144,226,.6)' },
+            'golden-sunset': { bg: 'linear-gradient(135deg, rgba(80,30,10,.98), rgba(150,60,20,.98))', border: '#FFB300', shadow: 'rgba(255,179,0,.6)' },
+            'snowfall':      { bg: 'linear-gradient(135deg, rgba(220,240,255,.98), rgba(180,210,240,.98))', border: '#90CAF9', shadow: 'rgba(144,202,249,.7)' },
+            'starry-galaxy': { bg: 'linear-gradient(135deg, rgba(20,5,50,.98), rgba(60,20,120,.98))', border: '#BA68C8', shadow: 'rgba(186,104,200,.6)' }
+          };
+          var s = loginStyles[d.login] || loginStyles['night-village'];
+          loginBox.style.background = s.bg;
+          loginBox.style.borderColor = s.border;
+          loginBox.style.boxShadow = '0 0 80px ' + s.shadow;
+        }
+      }
+      if(d.dashboard){
+        var sky = document.querySelector('.sky-night');
+        if(sky){
+          var skyStyles = {
+            'night-village': 'linear-gradient(180deg,#0a0f1e 0%,#0f172a 30%,#1a2332 60%,#1e3a2e 100%)',
+            'rainy-night':   'linear-gradient(180deg, #1a1e30 0%, #2a3245 40%, #3a4458 70%, #4a5568 100%)',
+            'golden-sunset': 'linear-gradient(180deg, #FF6F00 0%, #FF8F00 30%, #FFB300 60%, #4E342E 100%)',
+            'green-forest':  'linear-gradient(180deg, #1B5E20 0%, #2E7D32 40%, #388E3C 70%, #0d3a1f 100%)',
+            'ocean-wave':    'linear-gradient(180deg, #01579B 0%, #0277BD 30%, #0288D1 60%, #01579B 100%)'
+          };
+          sky.style.background = skyStyles[d.dashboard] || skyStyles['night-village'];
+        }
+      }
+    }).catch(function(){});
+  }
+
+  /* ৩. JOBS SYNC */
+  function syncJobs() {
+    fbGet('/jobs').then(function(jobs){
+      if(!jobs) return;
+      var arr = Array.isArray(jobs) ? jobs : Object.keys(jobs).map(function(k){ return jobs[k]; });
+      if(!arr.length) return;
+      var jobGrid = document.querySelector('.job-grid');
+      if(!jobGrid) return;
+      var cur = jobGrid.getAttribute('data-count') || '';
+      if(cur === String(arr.length)) return;
+      jobGrid.setAttribute('data-count', arr.length);
+      jobGrid.innerHTML = arr.map(function(j){
+        var icon = j.icon || '📌';
+        var name = (j.name || 'Job').replace(/'/g, "\\'");
+        var link = j.link || '#';
+        var reward = parseFloat(j.reward) || 0.20;
+        return '<div class="job-card">' +
+          '<span class="jc-icon">' + icon + '</span>' +
+          '<h4>' + j.name + '</h4>' +
+          '<p>কাজ করুন, প্রুফ দিন</p>' +
+          '<div class="jc-pay">৳ ' + reward.toFixed(2) + '</div>' +
+          '<a href="' + link + '" target="_blank" rel="noopener noreferrer" class="btn btn-gold" style="width:100%;justify-content:center;margin-bottom:8px;">Open Link</a>' +
+          '<button class="btn btn-green" style="width:100%;justify-content:center;" onclick="openJobProof(\'' + name + '\',' + reward + ')">Submit Proof</button>' +
+        '</div>';
+      }).join('');
+    }).catch(function(){});
+  }
+
+  /* ৪. PROMOTE PRICES SYNC */
+  function syncPromotePrices() {
+    fbGet('/promote_prices').then(function(prices){
+      if(!prices || typeof SERVICES === 'undefined') return;
+      Object.keys(SERVICES).forEach(function(cat){
+        SERVICES[cat].forEach(function(svc){
+          var key = svc.name.replace(/\s+/g, '_').toLowerCase();
+          if(prices[key] !== undefined) svc.price = parseFloat(prices[key]) || svc.price;
+        });
+      });
+      var activeTab = document.querySelector('.social-tab.active');
+      if(activeTab && typeof switchSocial === 'function'){
+        var cat = 'facebook';
+        var txt = activeTab.textContent.toLowerCase();
+        if(txt.indexOf('youtube') >= 0) cat = 'youtube';
+        else if(txt.indexOf('tiktok') >= 0) cat = 'tiktok';
+        else if(txt.indexOf('instagram') >= 0) cat = 'instagram';
+        else if(txt.indexOf('telegram') >= 0) cat = 'telegram';
+        switchSocial(cat, activeTab);
+      }
+    }).catch(function(){});
+  }
+
+  /* ৫. LEADERBOARD SYNC */
+  function syncLeaderboard() {
+    fbGet('/leaderboard_users').then(function(data){
+      if(!data) return;
+      var arr = Object.keys(data).map(function(k){ return Object.assign({id:k}, data[k]); });
+      if(!arr.length) return;
+      arr.sort(function(a,b){ return (b.balance||0) - (a.balance||0); });
+      var medals = ['🥇','🥈','🥉'];
+      var html = arr.slice(0, 30).map(function(u, i){
+        var medal = i < 3 ? medals[i] : '#'+(i+1);
+        return '<div style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:rgba(255,255,255,.04);border-radius:14px;border-left:4px solid '+(i<3?['#FFD700','#C0C0C0','#CD7F32'][i]:'#6b7d94')+';margin-bottom:8px;">' +
+          '<div style="font-size:18px;font-weight:900;color:#FFD700;width:35px;text-align:center;">'+medal+'</div>' +
+          '<div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#FFD700,#FF9800);display:flex;align-items:center;justify-content:center;font-weight:900;color:#000;">'+(u.name||'U')[0].toUpperCase()+'</div>' +
+          '<div style="flex:1;"><div style="font-size:14px;font-weight:700;color:#fff;">'+(u.name||'Unknown')+'</div>' +
+          '<div style="font-size:11px;color:#8fa8c4;">'+(u.tag||'⭐ Active')+'</div></div>' +
+          '<div style="font-size:16px;font-weight:900;color:#00E676;font-family:\'Courier New\',monospace;">৳ '+(u.balance||0)+'</div></div>';
+      }).join('');
+      var el = document.getElementById('leaderBoard'); if(el) el.innerHTML = html;
+      var el2 = document.getElementById('leaderBoardDash');
+      if(el2) el2.innerHTML = arr.slice(0, 5).map(function(u, i){
+        return '<div style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:rgba(255,255,255,.04);border-radius:14px;border-left:4px solid '+(i<3?['#FFD700','#C0C0C0','#CD7F32'][i]:'#6b7d94')+';margin-bottom:8px;">' +
+          '<div style="font-size:18px;font-weight:900;color:#FFD700;width:35px;text-align:center;">'+medals[i]+'</div>' +
+          '<div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#FFD700,#FF9800);display:flex;align-items:center;justify-content:center;font-weight:900;color:#000;">'+(u.name||'U')[0].toUpperCase()+'</div>' +
+          '<div style="flex:1;"><div style="font-size:14px;font-weight:700;color:#fff;">'+(u.name||'Unknown')+'</div>' +
+          '<div style="font-size:11px;color:#8fa8c4;">'+(u.tag||'⭐ Active')+'</div></div>' +
+          '<div style="font-size:16px;font-weight:900;color:#00E676;font-family:\'Courier New\',monospace;">৳ '+(u.balance||0)+'</div></div>';
+      }).join('');
+    }).catch(function(){});
+  }
+
+  /* ৬. NOTIFICATIONS SYNC */
+  function syncNotifications() {
+    var email = localStorage.getItem('atik_logged_in');
+    if(!email) return;
+    fbGet('/notifications').then(function(data){
+      if(!data) return;
+      var seen = JSON.parse(localStorage.getItem('atik_seen_notifs') || '[]');
+      var newOnes = [];
+      Object.keys(data).forEach(function(k){
+        if(seen.indexOf(k) >= 0) return;
+        var n = data[k];
+        if(n.target === 'all' || n.target === email){
+          newOnes.push({ id: k, notif: n });
+          seen.push(k);
+        }
+      });
+      if(newOnes.length){
+        localStorage.setItem('atik_seen_notifs', JSON.stringify(seen));
+        newOnes.forEach(function(item){
+          if(typeof showToast === 'function') showToast(item.notif.icon + ' ' + item.notif.title);
+        });
+      }
+    }).catch(function(){});
+  }
+
+  /* START SYNC */
+  setTimeout(function() {
+    syncDesign(); syncJobs(); syncPromotePrices(); syncLeaderboard(); syncChat(); syncNotifications();
+  }, 2000);
+  setInterval(function() { syncChat(); syncJobs(); syncNotifications(); }, 5000);
+  setInterval(function() { syncDesign(); syncPromotePrices(); syncLeaderboard(); }, 15000);
+  console.log('✅ Admin-User Sync Loaded');
+})();
 </script>
 </body>
-            </html>
+</html>

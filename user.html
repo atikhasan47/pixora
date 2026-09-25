@@ -1739,20 +1739,31 @@ function submitJobProof(){
   if(!bio) return showToast('❌ Bio লিখুন!');
   if(!proofImg1Data || !proofImg2Data) return showToast('❌ ২টি Screenshot দিন!');
   
-  // 🔥 প্রথমে Firebase এ পাঠান
-  var newProof = { date: new Date().toISOString(), job:currentJob.name, reward:currentJob.reward, bio:bio, img1:proofImg1Data, img2:proofImg2Data, email:u.email, name:u.name, status:'pending' };
+  // ১. ফায়ারবেসে পাঠান
+  var newProof = {
+    date: new Date().toISOString(),
+    job: currentJob.name,
+    reward: currentJob.reward,
+    bio: bio,
+    img1: proofImg1Data,
+    img2: proofImg2Data,
+    email: u.email,
+    name: u.name,
+    status: 'pending'
+  };
   u.jobProofs = u.jobProofs || [];
   u.jobProofs.push(newProof);
   saveCurrentUser(u);
+  
   var proofKey = Date.now() + '_' + fbKey(u.email);
   FB.set('/job_proofs/' + proofKey, newProof);
   
-  // ✅ সফল বার্তা সাথে সাথে দেখান
+  // ২. সাথে সাথে সফল মেসেজ
   showToast('✅ Admin কে পাঠানো হয়েছে!');
   closeJobProof();
   
-  // 📺 Ad দেখান (শুধু দেখানোর জন্য, কাজ আগেই হয়ে গেছে)
-  setTimeout(function(){ withAd(function(){}); }, 1200);
+  // ৩. Ad দেখান (একটু দেরিতে, যাতে মেসেজ আগে দেখা যায়)
+  setTimeout(function(){ withAd(function(){}); }, 1500);
 }
 
 /* SERVICES + ORDER */

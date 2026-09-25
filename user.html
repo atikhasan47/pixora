@@ -1553,15 +1553,14 @@ function submitPremiumRequest(){
   var txn = document.getElementById('premiumTxn').value.trim();
   var ssFile = document.getElementById('premiumScreenshot').files[0];
   if(!sender || !txn) return showToast('❌ সব ঘর পূরণ!');
+  
   var newPrem = { date: new Date().toISOString(), email:u.email, name:u.name, sender:sender, txn:txn, screenshot:'', amount:90, status:'pending' };
   var premiumRequests = JSON.parse(localStorage.getItem('atik_premium_requests') || '[]');
   premiumRequests.push(newPrem);
   localStorage.setItem('atik_premium_requests', JSON.stringify(premiumRequests));
   var premKey = Date.now() + '_' + fbKey(u.email);
   FB.set('/premium_requests/' + premKey, newPrem);
-  showToast('✅ Premium রিকোয়েস্ট পাঠানো!');
-  var m = document.getElementById('premiumPayModal');
-  if(m) m.remove();
+  
   if(ssFile){
     var r = new FileReader();
     r.onload = function(e){
@@ -1569,8 +1568,14 @@ function submitPremiumRequest(){
     };
     r.readAsDataURL(ssFile);
   }
-  showToast('📺 Ad দেখুন...');
-  withAd(function(){});
+  
+  // ✅ সাথে সাথে সফল বার্তা
+  showToast('✅ Premium রিকোয়েস্ট পাঠানো!');
+  var m = document.getElementById('premiumPayModal');
+  if(m) m.remove();
+  
+  // 📺 Ad দেখান
+  setTimeout(function(){ withAd(function(){}); }, 1200);
 }
 
 /* COUNTDOWN */
@@ -1733,16 +1738,21 @@ function submitJobProof(){
   var bio = document.getElementById('proofBio').value.trim();
   if(!bio) return showToast('❌ Bio লিখুন!');
   if(!proofImg1Data || !proofImg2Data) return showToast('❌ ২টি Screenshot দিন!');
+  
+  // 🔥 প্রথমে Firebase এ পাঠান
   var newProof = { date: new Date().toISOString(), job:currentJob.name, reward:currentJob.reward, bio:bio, img1:proofImg1Data, img2:proofImg2Data, email:u.email, name:u.name, status:'pending' };
   u.jobProofs = u.jobProofs || [];
   u.jobProofs.push(newProof);
   saveCurrentUser(u);
   var proofKey = Date.now() + '_' + fbKey(u.email);
   FB.set('/job_proofs/' + proofKey, newProof);
-  showToast('✅ Admin কে পাঠানো!');
+  
+  // ✅ সফল বার্তা সাথে সাথে দেখান
+  showToast('✅ Admin কে পাঠানো হয়েছে!');
   closeJobProof();
-  showToast('📺 Ad দেখুন...');
-  withAd(function(){});
+  
+  // 📺 Ad দেখান (শুধু দেখানোর জন্য, কাজ আগেই হয়ে গেছে)
+  setTimeout(function(){ withAd(function(){}); }, 1200);
 }
 
 /* SERVICES + ORDER */
@@ -1835,10 +1845,13 @@ function submitOrder(){
   }
   var orderKey = Date.now() + '_' + fbKey(u.email);
   FB.set('/orders/' + orderKey, newOrder);
-  showToast('✅ Order সফল!');
+  
+  // ✅ সাথে সাথে সফল বার্তা
+  showToast('✅ Order পাঠানো হয়েছে!');
   closeOrderModal();
-  showToast('📺 Ad দেখুন...');
-  withAd(function(){});
+  
+  // 📺 Ad দেখান
+  setTimeout(function(){ withAd(function(){}); }, 1200);
 }
 
 /* CHAT */

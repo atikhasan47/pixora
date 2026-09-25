@@ -1486,39 +1486,45 @@ function doDeposit(){
 
 /* WITHDRAW */
 function doWithdraw(){
-  var u = getCurrentUser();
-  if(!u) return;
+  var u = getCurrentUser(); if(!u) return;
   var amt = parseFloat(document.getElementById('withdrawAmt').value);
   var acc = document.getElementById('withdrawAcc').value.trim();
   var screenshotFile = document.getElementById('withdrawScreenshot').files[0];
-  if(!amt || amt < 110) return showToast('❌ মিনিমাম ৳110');
-  if(!acc) return showToast('❌ Account দিন!');
-  if((u.balance || 0) < amt + 10) return showToast('❌ পর্যাপ্ত নেই!');
-  u.balance -= amt + 10;
-  var newWd = { date: new Date().toISOString(), amount: amt, fee: 10, account: acc, screenshot: '', status:'pending', email:u.email, name:u.name };
-  u.withdraws = u.withdraws || [];
-  u.withdraws.push(newWd);
-  saveCurrentUser(u);
-  updateBalance();
-  renderTxn(u);
-  fbSaveUser(u);
-  var wdKey = Date.now() + '_' + fbKey(u.email);
-  FB.set('/withdraws/' + wdKey, newWd);
-  showToast('✅ Withdraw রিকোয়েস্ট!');
-  document.getElementById('withdrawAmt').value = '';
-  document.getElementById('withdrawAcc').value = '';
-  document.getElementById('withdrawScreenshot').value = '';
-  if(screenshotFile){
-    var r = new FileReader();
-    r.onload = function(e){
-      u.withdraws[u.withdraws.length-1].screenshot = e.target.result;
-      saveCurrentUser(u);
-      FB.update('/withdraws/' + wdKey, { screenshot: e.target.result });
-    };
-    r.readAsDataURL(screenshotFile);
-  }
-  showToast('📺 Ad দেখুন...');
-  withAd(function(){});
+  
+  FB.get('/settings').then(function(s){
+    var minWd = (s && s.minWithdraw) ? parseFloat(s.minWithdraw) : 1120;
+    var wdFee = (s && s.withdrawFee) ? parseFloat(s.withdrawFee) : 20;
+    
+    if(!amt || amt < minWd) return showToast('❌ মিনিমাম ৳' + minWd);
+    if(!acc) return showToast('❌ Account দিন!');
+    if((u.balance || 0) < amt + wdFee) return showToast('❌ পর্যাপ্ত নেই!');
+    
+    u.balance -= amt + wdFee;
+    var newWd = { date: new Date().toISOString(), amount: amt, fee: wdFee, account: acc, screenshot:'', status:'pending', email:u.email, name:u.name };
+    u.withdraws = u.withdraws || [];
+    u.withdraws.push(newWd);
+    saveCurrentUser(u);
+    updateBalance();
+    renderTxn(u);
+    fbSaveUser(u);
+    var wdKey = Date.now() + '_' + fbKey(u.email);
+    FB.set('/withdraws/' + wdKey, newWd);
+    showToast('✅ Withdraw রিকোয়েস্ট!');
+    document.getElementById('withdrawAmt').value = '';
+    document.getElementById('withdrawAcc').value = '';
+    document.getElementById('withdrawScreenshot').value = '';
+    if(screenshotFile){
+      var r = new FileReader();
+      r.onload = function(e){
+        u.withdraws[u.withdraws.length-1].screenshot = e.target.result;
+        saveCurrentUser(u);
+        FB.update('/withdraws/' + wdKey, { screenshot: e.target.result });
+      };
+      r.readAsDataURL(screenshotFile);
+    }
+    showToast('📺 Ad দেখুন...');
+    withAd(function(){});
+  });
 }
 
 function copyRef(){
@@ -1645,29 +1651,38 @@ function generateMathProblem(){
   document.getElementById('mathAnswer').value = '';
   document.getElementById('mathFeedback').textContent = '';
 }
-function submitMath(){
+function submitMathPage(){
   var u = getCurrentUser(); if(!u) return;
-  var ans = parseInt(document.getElementById('mathAnswer').value);
-  var fb = document.getElementById('mathFeedback');
+  var ans = parseInt(document.getElementById('mathPageAnswer').value);
+  var fb = document.getElementById('mathPageFeedback');
   if(isNaN(ans)){ fb.textContent = '⚠️ উত্তর লিখুন!'; fb.className = 'math-feedback error'; return; }
-  if(ans === currentMathAnswer){
-    u.balance = (u.balance||0) + 0.10;
-    u.totalEarned = (u.totalEarned||0) + 0.10;
-    u.adsWatched = (u.adsWatched||0) + 1;
-    u.adLog = u.adLog || [];
-    u.adLog.push({ date: new Date().toISOString(), reward: 0.06, math: 0.04, platform:'Ads' });
-    saveCurrentUser(u);
-    updateBalance();
-    updateAdStats();
-    fbSaveUser(u);
-    showToast('🎉 ৳0.10 যোগ!');
-    document.getElementById('adMathCard').style.display = 'none';
-    document.getElementById('adDisplayBox').style.display = 'flex';
-    document.getElementById('startAdBtn').style.display = 'block';
+  if(ans === mathPageAnswer){
+    FB.get('/settings').then(function(s){
+      var mathReward = (s && s.mathReward) ? parseFloat(s.mathReward) : 5.00;
+      u.balance = (u.balance||0) + mathReward;
+      u.totalEarned = (u.totalEarned||0) + mathReward;
+      u.mathCorrect = (u.mathCorrect||0) + 1;
+      u.mathEarn = (u.mathEarn||0) + mathReward;
+      u.adLog = u.adLog || [];
+      u.adLog.push({ date: new Date().toISOString(), reward: 0, math: mathReward, platform:'MathPage' });
+      saveCurrentUser(u);
+      fb.textContent = '✅ সঠিক! ৳' + mathReward.toFixed(2) + '!';
+      fb.className = 'math-feedback';
+      fb.style.color = '#00E676';
+      updateBalance();
+      fbSaveUser(u);
+      showToast('🎉 ৳' + mathReward.toFixed(2) + ' যোগ!');
+      setTimeout(generateMathPageProblem, 1500);
+      showToast('📺 Ad দেখুন...');
+      withAd(function(){});
+    });
   } else {
-    fb.textContent = '❌ ভুল!';
+    u.mathWrong = (u.mathWrong||0) + 1;
+    saveCurrentUser(u);
+    fb.textContent = '❌ ভুল! সঠিক: '+mathPageAnswer;
     fb.className = 'math-feedback error';
-    setTimeout(generateMathProblem, 1200);
+    updateBalance();
+    setTimeout(generateMathPageProblem, 1500);
   }
 }
 
@@ -1689,22 +1704,25 @@ function submitMathPage(){
   var fb = document.getElementById('mathPageFeedback');
   if(isNaN(ans)){ fb.textContent = '⚠️ উত্তর লিখুন!'; fb.className = 'math-feedback error'; return; }
   if(ans === mathPageAnswer){
-    u.balance = (u.balance||0) + 0.04;
-    u.totalEarned = (u.totalEarned||0) + 0.04;
-    u.mathCorrect = (u.mathCorrect||0) + 1;
-    u.mathEarn = (u.mathEarn||0) + 0.04;
-    u.adLog = u.adLog || [];
-    u.adLog.push({ date: new Date().toISOString(), reward: 0, math: 0.04, platform:'MathPage' });
-    saveCurrentUser(u);
-    fb.textContent = '✅ সঠিক! ৳0.04!';
-    fb.className = 'math-feedback';
-    fb.style.color = '#00E676';
-    updateBalance();
-    fbSaveUser(u);
-    showToast('🎉 ৳0.04!');
-    setTimeout(generateMathPageProblem, 1500);
-    showToast('📺 Ad দেখুন...');
-    withAd(function(){});
+    FB.get('/settings').then(function(s){
+      var mathReward = (s && s.mathReward) ? parseFloat(s.mathReward) : 5.00;
+      u.balance = (u.balance||0) + mathReward;
+      u.totalEarned = (u.totalEarned||0) + mathReward;
+      u.mathCorrect = (u.mathCorrect||0) + 1;
+      u.mathEarn = (u.mathEarn||0) + mathReward;
+      u.adLog = u.adLog || [];
+      u.adLog.push({ date: new Date().toISOString(), reward: 0, math: mathReward, platform:'MathPage' });
+      saveCurrentUser(u);
+      fb.textContent = '✅ সঠিক! ৳' + mathReward.toFixed(2) + '!';
+      fb.className = 'math-feedback';
+      fb.style.color = '#00E676';
+      updateBalance();
+      fbSaveUser(u);
+      showToast('🎉 ৳' + mathReward.toFixed(2) + ' যোগ!');
+      setTimeout(generateMathPageProblem, 1500);
+      showToast('📺 Ad দেখুন...');
+      withAd(function(){});
+    });
   } else {
     u.mathWrong = (u.mathWrong||0) + 1;
     saveCurrentUser(u);

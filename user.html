@@ -567,7 +567,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
         </div>
       </div>
 
-      <!-- 📢 NOTICE BOARD — সম্পূর্ণ নতুন -->
+      <!-- 📢 NOTICE BOARD -->
       <div class="section">
         <div class="section-title">📢 গুরুত্বপূর্ণ নোটিশ <span class="count">সবার জন্য</span></div>
         <div style="background:linear-gradient(135deg,rgba(255,215,0,.1),rgba(255,152,0,.05));border:2px solid #FFD700;border-radius:20px;padding:25px;box-shadow:0 0 40px rgba(255,215,0,.3);">
@@ -694,9 +694,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       </div>
     </div>
 
-    <!-- ==============================================
-         PANEL: WATCH SHORT ADS (15 সেকেন্ড / ৳7.00)
-         ============================================== -->
+    <!-- WATCH SHORT ADS -->
     <div class="panel" id="watch-ads">
       <div class="topbar"><h2>📺 Watch Short Ads <span>১৫ সেকেন্ডে ৳7.00</span></h2></div>
       <div class="ads-hero">
@@ -747,46 +745,36 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" id="adSlot3"></div></div>
     </div>
 
-    <!-- ==============================================
-         PANEL: PREMIUM (BIG) ADS (90 সেকেন্ড / ৳26.50)
-         ============================================== -->
+    <!-- PREMIUM ADS -->
     <div class="panel" id="premium-ads">
       <div class="topbar"><h2>💎 Premium Big Ads <span>৯০ সেকেন্ডে ৳26.50</span></h2></div>
-
       <div class="ads-hero" style="border-color:#FFD700;background:linear-gradient(135deg,rgba(60,40,10,.95),rgba(150,80,10,.95));box-shadow:0 0 60px rgba(255,215,0,.6);">
         <div class="ads-icon">💎</div>
         <h2 style="color:#FFD700;">Premium Big Ad</h2>
         <p style="color:#FFE082;">প্রতি Ad দেখতে হবে <strong>৯০ সেকেন্ড</strong> — পাবেন <strong>৳26.50</strong></p>
         <div class="reward-big" style="color:#FFD700;">৳ 26.50</div>
       </div>
-
       <div class="ads-stats-bar">
         <div class="asb-item"><div class="asb-icon">🎯</div><div class="asb-info"><div class="asb-label">আজকের লিমিট</div><div class="asb-value"><span id="premTodayLimit">20</span> টি</div></div></div>
         <div class="asb-item"><div class="asb-icon">✅</div><div class="asb-info"><div class="asb-label">আজ দেখেছেন</div><div class="asb-value"><span id="premTodayCompleted">0</span> টি</div></div></div>
         <div class="asb-item"><div class="asb-icon">💰</div><div class="asb-info"><div class="asb-label">আজকের আয়</div><div class="asb-value">৳ <span id="premTodayEarn">0.00</span></div></div></div>
         <div class="asb-item"><div class="asb-icon">⏱️</div><div class="asb-info"><div class="asb-label">টাইমার</div><div class="asb-value">90s</div></div></div>
       </div>
-
       <div class="ad-display-box" id="premAdBox" style="border-color:#FFD700;background:linear-gradient(135deg,#2a1a05,#1a0f0a);">
         <div class="adb-icon" style="font-size:80px;">💎</div>
         <div class="adb-title" style="color:#FFD700;font-size:22px;">Premium Big Ad দেখুন</div>
         <div class="adb-sub" style="color:#FFE082;font-size:14px;line-height:1.6;">একটি বড় Ad আসবে — <strong style="color:#FFD700;">৯০ সেকেন্ড</strong> দেখতে হবে<br>তারপর <strong style="color:#00E676;">৳26.50</strong> আপনার Balance এ যোগ হবে</div>
       </div>
-
       <div class="ad-big-timer" id="premBigTimer" style="display:none;">
         <div class="abt-label">PREMIUM ADS চলছে</div>
         <div class="abt-value" id="premBigTimerValue">90</div>
         <div class="abt-hint">অপেক্ষা করুন...</div>
       </div>
-
       <button class="awc-action-btn" style="max-width:100%;margin-bottom:20px;background:linear-gradient(90deg,#FFD700,#FF9800);color:#000;font-size:18px;padding:18px 24px;" onclick="startPremiumAd()" id="startPremBtn">💎 Premium Big Ad দেখা শুরু করুন</button>
-
       <div class="ad-space"><div class="ad-slot" id="adSlotPremium"></div></div>
     </div>
 
-    <!-- ==============================================
-         PANEL: MATH EARN (৳3.00 / ২০টি)
-         ============================================== -->
+    <!-- MATH EARN -->
     <div class="panel" id="math">
       <div class="topbar"><h2>🧮 Math Earn <span>প্রতি সঠিক উত্তরে ৳3.00</span></h2></div>
       <div class="math-hero">
@@ -812,9 +800,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       <div class="ad-space" style="margin-top:22px;"><div class="ad-slot" id="adSlot4"></div></div>
     </div>
 
-    <!-- ==============================================
-         PANEL: DAILY JOB (৳10.00)
-         ============================================== -->
+    <!-- DAILY JOB -->
     <div class="panel" id="job">
       <div class="topbar"><h2>📅 Daily Job <span>কাজ করে প্রুফ দিন — ৳10.00</span></h2></div>
       <div class="job-hero">
@@ -846,9 +832,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       <div class="ad-space" style="margin-top:22px;"><div class="ad-slot" id="adSlot5"></div></div>
     </div>
 
-    <!-- ==============================================
-         PANEL: SOCIAL PROMOTE
-         ============================================== -->
+    <!-- SOCIAL PROMOTE -->
     <div class="panel" id="social">
       <div class="topbar"><h2>🛒 Social Media Promote <span>সব Platform এর Service</span></h2></div>
       <div class="social-tabs">
@@ -862,9 +846,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       <div class="ad-space" style="margin-top:22px;"><div class="ad-slot" id="adSlot6"></div></div>
     </div>
 
-    <!-- ==============================================
-         PANEL: WALLET HISTORY
-         ============================================== -->
+    <!-- WALLET HISTORY -->
     <div class="panel" id="wallet-history">
       <div class="topbar"><h2>📜 Wallet & History</h2></div>
       <div class="ad-space ad-space-inline"><div class="ad-slot" id="adSlot7"></div></div>
@@ -883,9 +865,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       <div class="ad-space" style="margin-top:22px;"><div class="ad-slot" id="adSlot8"></div></div>
     </div>
 
-    <!-- ==============================================
-         PANEL: ADD FUNDS
-         ============================================== -->
+    <!-- ADD FUNDS -->
     <div class="panel" id="add-funds">
       <div class="topbar"><h2>💵 Add Money</h2></div>
       <div class="ad-space ad-space-inline"><div class="ad-slot" id="adSlot9"></div></div>
@@ -905,9 +885,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       <div class="ad-space" style="margin-top:22px;"><div class="ad-slot" id="adSlot10"></div></div>
     </div>
 
-    <!-- ==============================================
-         PANEL: WITHDRAW (Min ৳2780 / Fee ৳40 / 5 দিনে একবার)
-         ============================================== -->
+    <!-- WITHDRAW -->
     <div class="panel" id="withdraw-money">
       <div class="topbar"><h2>🏧 Withdraw <span>Min ৳2780 | Fee ৳40 | ৫ দিনে একবার</span></h2></div>
       <div class="ad-space ad-space-inline"><div class="ad-slot" id="adSlot11"></div></div>
@@ -926,9 +904,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       <div class="ad-space" style="margin-top:22px;"><div class="ad-slot" id="adSlot12"></div></div>
     </div>
 
-    <!-- ==============================================
-         PANEL: PREMIUM
-         ============================================== -->
+    <!-- PREMIUM -->
     <div class="panel" id="premium">
       <div class="topbar"><h2>👑 Get Premium</h2></div>
       <div class="ad-space ad-space-inline"><div class="ad-slot" id="adSlot13"></div></div>
@@ -951,9 +927,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       <div class="ad-space" style="margin-top:22px;"><div class="ad-slot" id="adSlot14"></div></div>
     </div>
 
-    <!-- ==============================================
-         PANEL: REFER EARN
-         ============================================== -->
+    <!-- REFER EARN -->
     <div class="panel" id="refer-earn">
       <div class="topbar"><h2>🎁 Refer & Earn</h2></div>
       <div style="background:linear-gradient(135deg,rgba(27,38,59,.95),rgba(13,27,42,.95));border:2px dashed #FFD700;border-radius:18px;padding:25px;text-align:center;">
@@ -968,27 +942,21 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       <div class="ad-space" style="margin-top:22px;"><div class="ad-slot" id="adSlot15"></div></div>
     </div>
 
-    <!-- ==============================================
-         PANEL: LEADERBOARD
-         ============================================== -->
+    <!-- LEADERBOARD -->
     <div class="panel" id="leaderboard">
       <div class="topbar"><h2>🏆 Leadership Club <span>1,408 Members</span></h2></div>
       <div id="leaderBoard"></div>
       <div class="ad-space" style="margin-top:22px;"><div class="ad-slot" id="adSlot16"></div></div>
     </div>
 
-    <!-- ==============================================
-         PANEL: SUPPORT
-         ============================================== -->
+    <!-- SUPPORT -->
     <div class="panel" id="support">
       <div class="topbar"><h2>💬 Support</h2></div>
       <div class="ad-space ad-space-inline"><div class="ad-slot" id="adSlot17"></div></div>
-
       <div style="background:linear-gradient(135deg,rgba(255,215,0,.1),rgba(255,152,0,.05));border:2px solid #FFD700;border-radius:20px;padding:20px;margin-bottom:22px;">
         <div style="color:#FFD700;font-size:16px;font-weight:900;margin-bottom:12px;">📞 যোগাযোগ</div>
         <div style="color:#e0e0e0;font-size:13px;line-height:1.8;">উত্তোলন করতে বা ডিপোজিট করতে সমস্যা হলে <strong style="color:#00E5FF;">যোগাযোগ করুন</strong>। আমরা ২৪/৭ পাশে আছি।</div>
       </div>
-
       <div class="support-grid">
         <a class="support-card" href="https://t.me/atikbreand420" target="_blank" rel="noopener noreferrer"><span class="icon">✈️</span><h4>Telegram Channel</h4><p>২৪/৭ সাপোর্ট</p><div class="contact">@atikbreand420</div></a>
         <a class="support-card" href="https://t.me/AtikHasanPixoraBot" target="_blank" rel="noopener noreferrer"><span class="icon">🤖</span><h4>Telegram Bot</h4><p>অটো সাপোর্ট</p><div class="contact">@AtikHasanPixoraBot</div></a>
@@ -998,9 +966,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       <div class="ad-space" style="margin-top:22px;"><div class="ad-slot" id="adSlot18"></div></div>
     </div>
 
-    <!-- ==============================================
-         PANEL: CHAT
-         ============================================== -->
+    <!-- CHAT -->
     <div class="panel" id="chat">
       <div class="topbar"><h2>📨 Chat with Admin</h2></div>
       <div class="ad-space ad-space-inline"><div class="ad-slot" id="adSlot19"></div></div>
@@ -1892,12 +1858,15 @@ function submitMathPage(){
 setTimeout(function(){ newMathPageQuestion(); }, 2000);
 
 /* ==================================================
-   JOB PROOF
+   JOB PROOF — ✅ FIXED: Firebase-এ /job_proofs এ পাঠায়
    ================================================== */
 var currentJobName = '', currentJobReward = 0;
+var currentJobImg1 = '', currentJobImg2 = '';
 function openJobProof(name, reward){
   currentJobName = name;
   currentJobReward = reward;
+  currentJobImg1 = '';
+  currentJobImg2 = '';
   document.getElementById('proofJobName').textContent = name;
   document.getElementById('proofJobReward').textContent = '৳' + reward.toFixed(2);
   document.getElementById('proofBio').value = '';
@@ -1906,7 +1875,7 @@ function openJobProof(name, reward){
   document.getElementById('jobProofPanel').style.display = 'block';
   document.getElementById('jobProofPanel').scrollIntoView({ behavior: 'smooth' });
 }
-function closeJobProof(){ document.getElementById('jobProofPanel').style.display = 'none'; currentJobName = ''; currentJobReward = 0; }
+function closeJobProof(){ document.getElementById('jobProofPanel').style.display = 'none'; currentJobName = ''; currentJobReward = 0; currentJobImg1 = ''; currentJobImg2 = ''; }
 function previewProof(n, e){
   var file = e.target.files[0];
   if(!file) return;
@@ -1915,6 +1884,8 @@ function previewProof(n, e){
     var img = document.getElementById('proofImg' + n + 'Preview');
     img.src = ev.target.result;
     img.style.display = 'block';
+    if(n === 1) currentJobImg1 = ev.target.result;
+    else currentJobImg2 = ev.target.result;
   };
   reader.readAsDataURL(file);
 }
@@ -1924,8 +1895,8 @@ function submitJobProof(){
   if(!currentJobName){ showToast('❌ কাজ নির্বাচন করুন!'); return; }
   var bio = document.getElementById('proofBio').value.trim();
   if(!bio){ showToast('⚠️ বিবরণ লিখুন!'); return; }
-  if(document.getElementById('proofImg1Preview').style.display === 'none'){ showToast('📸 Screenshot 1 দিন!'); return; }
-  if(document.getElementById('proofImg2Preview').style.display === 'none'){ showToast('📸 Screenshot 2 দিন!'); return; }
+  if(!currentJobImg1){ showToast('📸 Screenshot 1 দিন!'); return; }
+  if(!currentJobImg2){ showToast('📸 Screenshot 2 দিন!'); return; }
   var proof = {
     date: new Date().toISOString(),
     job: currentJobName,
@@ -1937,13 +1908,25 @@ function submitJobProof(){
   u.jobProofs.push(proof);
   saveCurrentUser(u);
   fbSaveUser(u);
+  // 🔗 Admin Panel-এ পাঠানো
+  FB.push('/job_proofs', {
+    email: u.email,
+    name: u.name,
+    job: currentJobName,
+    reward: currentJobReward,
+    bio: bio,
+    img1: currentJobImg1,
+    img2: currentJobImg2,
+    date: new Date().toISOString(),
+    status: 'pending'
+  });
   showToast('✅ Admin এর কাছে পাঠানো হয়েছে!');
   closeJobProof();
   renderTxn(u);
 }
 
 /* ==================================================
-   SOCIAL PROMOTE (Services)
+   SOCIAL PROMOTE
    ================================================== */
 var socialServices = {
   facebook: [
@@ -2007,6 +1990,7 @@ function togglePaymentMethod(){
   document.getElementById('walletPaymentBox').style.display = m === 'wallet' ? 'block' : 'none';
   document.getElementById('bkashPaymentBox').style.display = m === 'bkash' ? 'block' : 'none';
 }
+/* ✅ FIXED: Firebase-এ /orders এ পাঠায় */
 function submitOrder(){
   if(!orderService){ showToast('❌ Service নির্বাচন করুন!'); return; }
   var u = getCurrentUser();
@@ -2014,11 +1998,12 @@ function submitOrder(){
   var link = document.getElementById('orderLink').value.trim();
   if(!link){ showToast('⚠️ লিংক দিন!'); return; }
   var method = document.getElementById('orderPaymentMethod').value;
+  var txn = '';
   if(method === 'wallet'){
     if((u.balance || 0) < orderService.price){ showToast('❌ পর্যাপ্ত ব্যালেন্স নেই!'); return; }
     u.balance -= orderService.price;
   } else {
-    var txn = document.getElementById('orderTxn').value.trim();
+    txn = document.getElementById('orderTxn').value.trim();
     if(!txn){ showToast('⚠️ TrxID দিন!'); return; }
   }
   var order = {
@@ -2033,6 +2018,18 @@ function submitOrder(){
   u.orders.push(order);
   saveCurrentUser(u);
   fbSaveUser(u);
+  // 🔗 Admin Panel-এ পাঠানো
+  FB.push('/orders', {
+    email: u.email,
+    name: u.name,
+    service: orderService.name,
+    price: orderService.price,
+    link: link,
+    method: method,
+    txn: txn,
+    date: new Date().toISOString(),
+    status: 'pending'
+  });
   updateBalance();
   renderTxn(u);
   showToast('✅ Order পাঠানো হয়েছে!');
@@ -2040,7 +2037,7 @@ function submitOrder(){
 }
 
 /* ==================================================
-   DEPOSIT
+   DEPOSIT — ✅ FIXED: Firebase-এ /deposits এ পাঠায়
    ================================================== */
 function doDeposit(){
   var u = getCurrentUser();
@@ -2054,6 +2051,16 @@ function doDeposit(){
   u.deposits.push({ date: new Date().toISOString(), amount: amt, sender: sender, txn: txn, status: 'pending' });
   saveCurrentUser(u);
   fbSaveUser(u);
+  // 🔗 Admin Panel-এ পাঠানো
+  FB.push('/deposits', {
+    email: u.email,
+    name: u.name,
+    amount: amt,
+    sender: sender,
+    txn: txn,
+    date: new Date().toISOString(),
+    status: 'pending'
+  });
   showToast('✅ Deposit request পাঠানো হয়েছে!');
   document.getElementById('depositAmt').value = '';
   document.getElementById('depositSender').value = '';
@@ -2061,7 +2068,7 @@ function doDeposit(){
 }
 
 /* ==================================================
-   WITHDRAW (Min ৳2780 / Fee ৳40 / 5 দিনে একবার)
+   WITHDRAW — ✅ FIXED: Firebase-এ /withdraws এ পাঠায়
    ================================================== */
 function doWithdraw(){
   var u = getCurrentUser();
@@ -2087,6 +2094,17 @@ function doWithdraw(){
   u.lastWithdrawDate = new Date().toISOString();
   saveCurrentUser(u);
   fbSaveUser(u);
+  // 🔗 Admin Panel-এ পাঠানো
+  FB.push('/withdraws', {
+    email: u.email,
+    name: u.name,
+    amount: amt,
+    fee: fee,
+    payable: payable,
+    account: acc,
+    date: new Date().toISOString(),
+    status: 'pending'
+  });
   updateBalance();
   renderTxn(u);
   showToast('✅ Withdraw request পাঠানো হয়েছে!');
@@ -2095,7 +2113,7 @@ function doWithdraw(){
 }
 
 /* ==================================================
-   PREMIUM PURCHASE
+   PREMIUM PURCHASE — ✅ FIXED: Firebase-এ /premium_requests এ পাঠায়
    ================================================== */
 function buyPremium(){
   var u = getCurrentUser();
@@ -2107,6 +2125,16 @@ function buyPremium(){
   saveCurrentUser(u);
   fbSaveUser(u);
   updateBalance();
+  // 🔗 Admin Panel-এ পাঠানো
+  FB.push('/premium_requests', {
+    email: u.email,
+    name: u.name,
+    amount: 90,
+    sender: 'Wallet',
+    txn: 'Wallet Payment',
+    date: new Date().toISOString(),
+    status: 'approved'
+  });
   showToast('👑 Premium activated!');
 }
 
@@ -2137,7 +2165,7 @@ function shareRef(){
 }
 
 /* ==================================================
-   CHAT
+   CHAT — ✅ Firebase /users/{email}/chat এ সেভ হয়
    ================================================== */
 function loadChat(){
   var u = getCurrentUser();
@@ -2161,18 +2189,28 @@ function sendChat(){
   var msg = inp.value.trim();
   if(!msg) return;
   u.chat = u.chat || [];
-  u.chat.push({ from: 'user', text: msg, date: new Date().toISOString() });
+  u.chat.push({ from: 'user', text: msg, date: new Date().toISOString(), read: false });
   saveCurrentUser(u);
   fbSaveUser(u);
   inp.value = '';
   loadChat();
-  setTimeout(function(){
-    u.chat.push({ from: 'admin', text: '✅ আপনার মেসেজ পেয়েছি। শীঘ্রই রিপ্লাই দেওয়া হবে।', date: new Date().toISOString() });
-    saveCurrentUser(u);
-    fbSaveUser(u);
-    loadChat();
-  }, 1500);
 }
+
+/* চ্যাট মেসেজ লোড (Admin থেকে রিপ্লাই আসলে দেখাবে) */
+setInterval(function(){
+  var u = getCurrentUser();
+  if(!u) return;
+  FB.get('/users/' + fbKey(u.email)).then(function(data){
+    if(!data || !data.chat) return;
+    var local = getCurrentUser();
+    if(!local) return;
+    if(JSON.stringify(data.chat) !== JSON.stringify(local.chat)){
+      local.chat = data.chat;
+      saveCurrentUser(local);
+      loadChat();
+    }
+  }).catch(function(){});
+}, 6000);
 
 /* ==================================================
    COUNTDOWN

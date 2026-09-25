@@ -10,10 +10,11 @@
 body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-family:'Poppins','Segoe UI',sans-serif;}
 
 /* ==========================================
-   🎨 LOGIN SCREEN ANIMATION LAYERS (২০টি)
+   🎨 LOGIN SCREEN + APP BACKGROUND ANIMATION
    ========================================== */
 .login-screen{position:fixed;inset:0;z-index:9999;display:flex;justify-content:center;align-items:center;background:linear-gradient(135deg,#0a0f1e,#1b263b,#415a77);padding:20px;overflow:hidden;}
 .login-bg-layer{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;}
+.app-bg-layer{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;}
 .login-box{position:relative;z-index:10;background:linear-gradient(135deg,rgba(13,27,42,.98),rgba(27,38,59,.98));padding:40px 32px;border-radius:22px;width:100%;max-width:440px;border:3px solid #00E5FF;box-shadow:0 0 80px rgba(0,229,255,.6);}
 .login-box .logo{width:90px;height:90px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 18px;border:3px solid #00E5FF;box-shadow:0 0 30px #00E5FF;}
 .login-box h1{color:#00E5FF;text-align:center;font-size:24px;font-weight:900;margin-bottom:6px;font-family:'Montserrat',sans-serif;}
@@ -24,137 +25,52 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 .login-error{color:#FF1744;font-size:13px;font-weight:bold;text-align:center;padding:10px;margin-bottom:10px;background:rgba(255,23,68,.15);border-radius:10px;display:none;}
 .login-error.show{display:block;}
 
-/* === ANIMATION LAYER STYLES (Login + Dashboard উভয়ের জন্য) === */
-.anim-layer{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;}
-/* 🌙 Night Village */
-.anim-night-village .av-sky{position:absolute;inset:0;background:linear-gradient(180deg,#0a0f1e 0%,#0f172a 30%,#1a2332 60%,#1e3a2e 100%);}
-.anim-night-village .av-star{position:absolute;background:#fff;border-radius:50%;animation:avTwinkle 3s ease-in-out infinite;}
-@keyframes avTwinkle{0%,100%{opacity:.3;transform:scale(1);}50%{opacity:1;transform:scale(1.5);}}
-.anim-night-village .av-moon{position:absolute;top:8%;right:12%;width:70px;height:70px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#FFF9C4,#FFE082,#B0BEC5);box-shadow:0 0 60px #FFE082,0 0 120px rgba(255,224,130,.5);animation:avMoonGlow 5s ease-in-out infinite;}
-@keyframes avMoonGlow{0%,100%{box-shadow:0 0 60px #FFE082,0 0 120px rgba(255,224,130,.5);}50%{box-shadow:0 0 90px #FFF9C4,0 0 180px rgba(255,224,130,.9);}}
-.anim-night-village .av-ground{position:absolute;bottom:0;width:100%;height:30%;background:linear-gradient(180deg,#1e3a2e 0%,#0f2419 50%,#081210 100%);}
-.anim-night-village .av-tree{position:absolute;bottom:15%;transform-origin:bottom center;animation:avTreeSway 4s ease-in-out infinite;}
-.anim-night-village .av-tree::before{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:12px;height:70px;background:#3E2723;border-radius:4px;}
-.anim-night-village .av-tree::after{content:'';position:absolute;bottom:60px;left:50%;transform:translateX(-50%);width:90px;height:90px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#4CAF50,#2E7D32 50%,#0d3a1f);box-shadow:inset -10px -10px 25px rgba(0,0,0,.5),0 0 40px rgba(76,175,80,.4);}
-@keyframes avTreeSway{0%,100%{transform:rotate(0);}50%{transform:rotate(2deg);}}
-.anim-night-village .t1{left:5%;}.anim-night-village .t2{left:20%;transform:scale(1.3);}
-.anim-night-village .t3{right:5%;transform:scale(.9);}.anim-night-village .t4{right:25%;transform:scale(1.4);}
-
-/* 🌧️ Rainy Night */
-.anim-rainy-night .rn-sky{position:absolute;inset:0;background:linear-gradient(180deg,#0a0f1e,#1a2332,#2c3e50);}
-.anim-rainy-night .rn-cloud{position:absolute;top:5%;width:200px;height:60px;background:radial-gradient(circle,rgba(150,160,180,.5),transparent 70%);border-radius:50%;animation:rnCloudMove 20s linear infinite;}
-@keyframes rnCloudMove{0%{transform:translateX(-100%);}100%{transform:translateX(100vw);}}
-.anim-rainy-night .rn-drop{position:absolute;top:-20px;width:2px;height:20px;background:linear-gradient(180deg,transparent,rgba(174,194,224,.8));animation:rnDrop linear infinite;}
-@keyframes rnDrop{0%{transform:translateY(-20px);}100%{transform:translateY(105vh);}}
-.anim-rainy-night .rn-flash{position:absolute;inset:0;background:#fff;opacity:0;animation:rnFlash 7s ease-in-out infinite;}
-@keyframes rnFlash{0%,92%,100%{opacity:0;}94%{opacity:.6;}95%{opacity:0;}97%{opacity:.5;}98%{opacity:0;}}
-
-/* 🌅 Golden Sunset */
-.anim-golden-sunset .gs-sky{position:absolute;inset:0;background:linear-gradient(180deg,#FF6B35 0%,#F7931E 30%,#FDC830 60%,#F37335 100%);}
-.anim-golden-sunset .gs-sun{position:absolute;bottom:25%;left:50%;transform:translateX(-50%);width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,#FFF59D,#FFB300,#F57C00);box-shadow:0 0 100px #FFF59D,0 0 200px rgba(255,193,7,.8);animation:gsSunPulse 4s ease-in-out infinite;}
-@keyframes gsSunPulse{0%,100%{box-shadow:0 0 100px #FFF59D,0 0 200px rgba(255,193,7,.8);transform:translateX(-50%) scale(1);}50%{box-shadow:0 0 140px #FFF9C4,0 0 250px rgba(255,193,7,1);transform:translateX(-50%) scale(1.08);}}
-.anim-golden-sunset .gs-cloud{position:absolute;width:180px;height:50px;background:radial-gradient(circle,rgba(255,255,255,.4),transparent 70%);border-radius:50%;animation:rnCloudMove 25s linear infinite;}
-
-/* ❄️ Snowfall */
-.anim-snowfall .sn-sky{position:absolute;inset:0;background:linear-gradient(180deg,#1a2332,#2c3e50,#415a77);}
-.anim-snowfall .sn-flake{position:absolute;top:-10px;color:#fff;font-size:14px;opacity:.9;animation:snFall linear infinite;}
-@keyframes snFall{0%{transform:translateY(-10px) translateX(0) rotate(0);opacity:0;}10%{opacity:.9;}50%{transform:translateY(50vh) translateX(30px) rotate(180deg);}100%{transform:translateY(105vh) translateX(-20px) rotate(360deg);opacity:0;}}
-
-/* ✨ Starry Galaxy */
-.anim-starry-galaxy .sg-sky{position:absolute;inset:0;background:radial-gradient(ellipse at center,#1a0b2e 0%,#0a0f1e 70%);}
-.anim-starry-galaxy .sg-star{position:absolute;background:#fff;border-radius:50%;animation:avTwinkle 2s ease-in-out infinite;}
-.anim-starry-galaxy .sg-nebula{position:absolute;top:20%;left:30%;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(156,39,176,.3),rgba(103,58,183,.15),transparent 70%);filter:blur(40px);animation:sgNebula 8s ease-in-out infinite;}
-@keyframes sgNebula{0%,100%{transform:scale(1) rotate(0);opacity:.7;}50%{transform:scale(1.2) rotate(180deg);opacity:1;}}
-
-/* 🌊 Ocean Wave */
-.anim-ocean-wave .ow-sky{position:absolute;inset:0;background:linear-gradient(180deg,#0a0f1e,#1a237e,#0277BD);}
-.anim-ocean-wave .ow-wave{position:absolute;bottom:0;left:0;width:200%;height:150px;background:radial-gradient(ellipse at top,rgba(0,229,255,.4),transparent 60%);animation:owWaveMove 8s ease-in-out infinite;}
-.anim-ocean-wave .ow-wave2{position:absolute;bottom:0;left:0;width:200%;height:100px;background:radial-gradient(ellipse at top,rgba(0,229,255,.6),transparent 60%);animation:owWaveMove 6s ease-in-out infinite reverse;}
-@keyframes owWaveMove{0%,100%{transform:translateX(-10%);}50%{transform:translateX(-30%);}}
-
-/* 🌲 Green Forest */
-.anim-green-forest .gf-sky{position:absolute;inset:0;background:linear-gradient(180deg,#0a1f0a,#0f3a0f,#1e5c1e);}
-.anim-green-forest .gf-tree{position:absolute;bottom:0;font-size:60px;color:#2E7D32;text-shadow:0 0 30px rgba(76,175,80,.6);animation:gfTreeSway 3s ease-in-out infinite;}
-@keyframes gfTreeSway{0%,100%{transform:rotate(-1deg);}50%{transform:rotate(1deg);}}
-.anim-green-forest .gf-bird{position:absolute;color:#FFEB3B;font-size:20px;animation:gfBird 12s linear infinite;}
-@keyframes gfBird{0%{transform:translateX(-100px) translateY(0);}50%{transform:translateX(50vw) translateY(-30px);}100%{transform:translateX(110vw) translateY(0);}}
-
-/* 🔥 Fireflies Night */
-.anim-fireflies .ff-sky{position:absolute;inset:0;background:linear-gradient(180deg,#0a0f1e,#0f172a,#0d3a1f);}
-.anim-fireflies .ff-dot{position:absolute;width:6px;height:6px;background:#FFEB3B;border-radius:50%;box-shadow:0 0 15px #FFEB3B,0 0 30px #FFC107;animation:ffFloat 8s ease-in-out infinite;}
-@keyframes ffFloat{0%,100%{transform:translate(0,0);opacity:0;}10%{opacity:1;}50%{transform:translate(80px,-120px);}90%{opacity:1;}100%{transform:translate(-40px,-200px);opacity:0;}}
-
-/* 🌸 Cherry Blossom */
-.anim-cherry .ch-sky{position:absolute;inset:0;background:linear-gradient(180deg,#FFF0F5,#FFD1DC,#FFB6C1);}
-.anim-cherry .ch-petal{position:absolute;top:-20px;font-size:18px;color:#FF69B4;animation:chFall linear infinite;}
-@keyframes chFall{0%{transform:translateY(-20px) rotate(0);opacity:0;}10%{opacity:1;}100%{transform:translateY(105vh) rotate(720deg) translateX(60px);opacity:0;}}
-
-/* ⚡ Lightning Storm */
-.anim-lightning .lt-sky{position:absolute;inset:0;background:linear-gradient(180deg,#0a0f1e,#1a1a2e,#16213e);}
-.anim-lightning .lt-flash{position:absolute;inset:0;background:linear-gradient(180deg,#fff,transparent);opacity:0;animation:ltFlash 5s ease-in-out infinite;}
-@keyframes ltFlash{0%,88%,100%{opacity:0;}90%{opacity:.7;}91%{opacity:0;}93%{opacity:.5;}94%{opacity:0;}}
-.anim-lightning .lt-bolt{position:absolute;top:0;left:50%;transform:translateX(-50%);font-size:80px;color:#FFEB3B;opacity:0;animation:ltBolt 5s ease-in-out infinite;}
-@keyframes ltBolt{0%,88%,100%{opacity:0;}90%{opacity:1;}92%{opacity:0;}}
-
-/* 🌈 Rainbow Sky */
-.anim-rainbow .rb-sky{position:absolute;inset:0;background:linear-gradient(180deg,#87CEEB,#B0E0E6,#E0F7FA);}
-.anim-rainbow .rb-arc{position:absolute;bottom:10%;left:50%;transform:translateX(-50%);width:500px;height:500px;border-radius:50%;border:15px solid;border-color:#FF0000 #FF9800 #FFEB3B #4CAF50 #2196F3 #9C27B0 transparent transparent;border-top-color:#FF0000;border-right-color:#FF9800;border-bottom-color:#FFEB3B;border-left-color:#4CAF50;animation:rbArc 5s ease-in-out infinite;opacity:.7;}
-@keyframes rbArc{0%,100%{opacity:.5;}50%{opacity:.9;}}
-
-/* 🦋 Butterflies */
-.anim-butterflies .bf-sky{position:absolute;inset:0;background:linear-gradient(180deg,#FFF0F5,#B2EBF2,#80DEEA);}
-.anim-butterflies .bf-fly{position:absolute;font-size:24px;animation:bfFly 10s ease-in-out infinite;}
-@keyframes bfFly{0%{transform:translate(0,0) rotate(0);}25%{transform:translate(60px,-40px) rotate(15deg);}50%{transform:translate(120px,20px) rotate(-15deg);}75%{transform:translate(60px,60px) rotate(10deg);}100%{transform:translate(0,0) rotate(0);}}
-
-/* 🌺 Tropical Beach */
-.anim-tropical .tp-sky{position:absolute;inset:0;background:linear-gradient(180deg,#4FC3F7,#0288D1,#0277BD);}
-.anim-tropical .tp-sun{position:absolute;top:10%;right:15%;width:80px;height:80px;border-radius:50%;background:radial-gradient(circle,#FFF59D,#FFEB3B,#FFC107);box-shadow:0 0 80px #FFF59D;animation:gsSunPulse 4s ease-in-out infinite;}
-.anim-tropical .tp-water{position:absolute;bottom:0;width:100%;height:40%;background:linear-gradient(180deg,#0288D1,#01579B);}
-.anim-tropical .tp-palm{position:absolute;bottom:35%;font-size:70px;animation:avTreeSway 3s ease-in-out infinite;}
-
-/* 🏔️ Mountain Sunrise */
-.anim-mountain .mt-sky{position:absolute;inset:0;background:linear-gradient(180deg,#FF6B6B,#FFB347,#FFD93D);}
-.anim-mountain .mt-sun{position:absolute;bottom:40%;left:50%;transform:translateX(-50%);width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,#FFF59D,#FFC107);box-shadow:0 0 100px #FFF59D,0 0 200px rgba(255,193,7,.9);animation:gsSunPulse 5s ease-in-out infinite;}
-.anim-mountain .mt-range{position:absolute;bottom:0;width:100%;height:35%;background:linear-gradient(135deg,#1a2332 0%,#2c3e50 50%,#415a77 100%);clip-path:polygon(0 100%,15% 30%,30% 60%,50% 15%,70% 55%,85% 25%,100% 100%);}
-
-/* 🌌 Aurora Borealis */
-.anim-aurora .au-sky{position:absolute;inset:0;background:radial-gradient(ellipse at top,#0a0f1e 0%,#1a0b2e 50%,#0a0f1e 100%);}
-.anim-aurora .au-wave{position:absolute;top:0;left:0;width:100%;height:60%;background:linear-gradient(180deg,rgba(0,255,127,.4),rgba(0,255,255,.3),transparent);filter:blur(30px);animation:auWave 8s ease-in-out infinite;}
-.anim-aurora .au-wave2{position:absolute;top:0;left:0;width:100%;height:50%;background:linear-gradient(180deg,rgba(156,39,176,.3),rgba(0,229,255,.2),transparent);filter:blur(40px);animation:auWave 10s ease-in-out infinite reverse;}
-@keyframes auWave{0%,100%{transform:translateX(-10%) scaleY(1);opacity:.6;}50%{transform:translateX(10%) scaleY(1.3);opacity:1;}}
-
-/* 🎆 Fireworks */
-.anim-fireworks .fw-sky{position:absolute;inset:0;background:radial-gradient(ellipse at center,#0a0f1e,#000);}
-.anim-fireworks .fw-burst{position:absolute;width:6px;height:6px;border-radius:50%;animation:fwBurst 2s ease-out infinite;}
-@keyframes fwBurst{0%{transform:scale(0);opacity:1;box-shadow:0 0 20px currentColor;}50%{opacity:1;}100%{transform:scale(15);opacity:0;}}
-
-/* 🌃 City Lights */
-.anim-city .ct-sky{position:absolute;inset:0;background:linear-gradient(180deg,#0a0f1e,#1a1a2e,#2c1810);}
-.anim-city .ct-building{position:absolute;bottom:0;background:linear-gradient(180deg,#1a2332,#0a0f1e);border-top:2px solid #FFC107;}
-.anim-city .ct-window{position:absolute;width:4px;height:4px;background:#FFC107;box-shadow:0 0 6px #FFC107;animation:ctWindow 3s ease-in-out infinite;}
-@keyframes ctWindow{0%,100%{opacity:.3;}50%{opacity:1;}}
-
-/* 🍂 Autumn Leaves */
-.anim-autumn .at-sky{position:absolute;inset:0;background:linear-gradient(180deg,#FFB347,#E65100,#8B4513);}
-.anim-autumn .at-leaf{position:absolute;top:-20px;font-size:24px;animation:atFall linear infinite;}
-@keyframes atFall{0%{transform:translateY(-20px) rotate(0);opacity:0;}10%{opacity:1;}100%{transform:translateY(105vh) rotate(720deg) translateX(50px);opacity:0;}}
-
-/* 💧 Waterfall */
-.anim-waterfall .wf-sky{position:absolute;inset:0;background:linear-gradient(180deg,#1a2332,#0a0f1e);}
-.anim-waterfall .wf-rock{position:absolute;top:0;left:35%;width:30%;height:80%;background:linear-gradient(90deg,#2c3e50,#0a0f1e,#2c3e50);border-radius:0 0 30px 30px;}
-.anim-waterfall .wf-flow{position:absolute;top:0;left:40%;width:20%;height:100%;background:linear-gradient(180deg,rgba(135,206,250,.8),rgba(0,229,255,.6),rgba(0,229,255,.3));animation:wfFlow 1s linear infinite;}
-@keyframes wfFlow{0%{transform:translateY(-100%);}100%{transform:translateY(100%);}}
-
-/* 🌕 Full Moon Night */
-.anim-fullmoon .fm-sky{position:absolute;inset:0;background:radial-gradient(ellipse at center,#1a2332 0%,#0a0f1e 100%);}
-.anim-fullmoon .fm-moon{position:absolute;top:15%;left:50%;transform:translateX(-50%);width:140px;height:140px;border-radius:50%;background:radial-gradient(circle at 40% 40%,#FFF9C4,#FFE082,#FFC107);box-shadow:0 0 100px #FFF59D,0 0 200px rgba(255,193,7,.8),0 0 300px rgba(255,193,7,.4);animation:avMoonGlow 5s ease-in-out infinite;}
-.anim-fullmoon .fm-star{position:absolute;background:#fff;border-radius:50%;animation:avTwinkle 3s ease-in-out infinite;}
+/* ==========================================
+   🎨 ২৫টি ANIMATION-এর GENERIC STYLES
+   ========================================== */
+/* Star */
+.anim-star{position:absolute;background:#fff;border-radius:50%;animation:animTwinkle 3s ease-in-out infinite;}
+@keyframes animTwinkle{0%,100%{opacity:.3;transform:scale(1);}50%{opacity:1;transform:scale(1.5);}}
+/* Moon */
+.anim-moon{position:absolute;border-radius:50%;background:radial-gradient(circle at 35% 35%,#FFF9C4,#FFE082,#B0BEC5);box-shadow:0 0 60px #FFE082,0 0 120px rgba(255,224,130,.5);animation:animMoonGlow 5s ease-in-out infinite;}
+@keyframes animMoonGlow{0%,100%{box-shadow:0 0 60px #FFE082,0 0 120px rgba(255,224,130,.5);}50%{box-shadow:0 0 90px #FFF9C4,0 0 180px rgba(255,224,130,.9);}}
+/* Rain */
+.anim-raindrop{position:absolute;top:-20px;width:2px;height:20px;background:linear-gradient(180deg,transparent,rgba(174,194,224,.8));animation:animRainFall linear infinite;}
+@keyframes animRainFall{0%{transform:translateY(-20px);}100%{transform:translateY(105vh);}}
+/* Snow */
+.anim-snow{position:absolute;top:-10px;color:#fff;animation:animSnowFall linear infinite;}
+@keyframes animSnowFall{0%{transform:translateY(-10px) translateX(0) rotate(0);opacity:0;}10%{opacity:.9;}50%{transform:translateY(50vh) translateX(30px) rotate(180deg);}100%{transform:translateY(105vh) translateX(-20px) rotate(360deg);opacity:0;}}
+/* Leaf */
+.anim-leaf{position:absolute;top:-20px;font-size:24px;animation:animLeafFall linear infinite;}
+@keyframes animLeafFall{0%{transform:translateY(-20px) rotate(0);opacity:0;}10%{opacity:1;}100%{transform:translateY(105vh) rotate(720deg) translateX(50px);opacity:0;}}
+/* Firefly */
+.anim-firefly{position:absolute;width:6px;height:6px;background:#FFEB3B;border-radius:50%;box-shadow:0 0 15px #FFEB3B,0 0 30px #FFC107;animation:animFireflyFloat 8s ease-in-out infinite;}
+@keyframes animFireflyFloat{0%{transform:translate(0,0);opacity:0;}20%{opacity:1;}80%{opacity:1;}100%{transform:translate(100px,-200px);opacity:0;}}
+/* Wave */
+.anim-wave{position:absolute;bottom:0;left:-50%;width:200%;background:radial-gradient(ellipse at top,rgba(0,229,255,.4),transparent 70%);border-radius:50% 50% 0 0;animation:animWaveMove 6s ease-in-out infinite alternate;}
+@keyframes animWaveMove{0%{transform:translateX(0) scaleY(1);}100%{transform:translateX(-10%) scaleY(1.2);}}
+/* Bird */
+.anim-bird{position:absolute;font-size:22px;animation:animBird 12s linear infinite;}
+@keyframes animBird{0%{transform:translateX(-100px) translateY(0);}50%{transform:translateX(50vw) translateY(-30px);}100%{transform:translateX(110vw) translateY(0);}}
+/* Boat */
+.anim-boat{position:absolute;font-size:50px;animation:animBoat 8s ease-in-out infinite;}
+@keyframes animBoat{0%,100%{transform:translateX(0) rotate(-3deg);}50%{transform:translateX(30px) rotate(3deg);}}
+/* Fish */
+.anim-fish{position:absolute;font-size:28px;animation:animFish 10s linear infinite;}
+@keyframes animFish{0%{transform:translateX(-100px);}100%{transform:translateX(110vw);}}
+/* Bubble */
+.anim-bubble{position:absolute;border:2px solid rgba(255,255,255,.6);border-radius:50%;animation:animBubbleUp linear infinite;}
+@keyframes animBubbleUp{0%{transform:translateY(0) scale(1);opacity:.8;}100%{transform:translateY(-100vh) scale(1.5);opacity:0;}}
+/* Flash */
+.anim-flash{position:absolute;inset:0;background:#fff;opacity:0;animation:animFlash 7s ease-in-out infinite;}
+@keyframes animFlash{0%,92%,100%{opacity:0;}94%{opacity:.6;}95%{opacity:0;}97%{opacity:.5;}98%{opacity:0;}}
+/* Rainbow Arc */
+.anim-rainbow-arc{position:absolute;border-radius:50%;border-style:solid;border-color:#FF0000 #FF9800 #FFEB3B #4CAF50 #2196F3 #9C27B0 transparent transparent;opacity:.75;}
 
 /* ==========================================
-   🎨 ADMIN PANEL LAYOUT (আগের মতোই লক)
+   🎨 ADMIN PANEL LAYOUT
    ========================================== */
 .app-layout{display:flex;min-height:100vh;position:relative;z-index:1;}
-.app-bg-layer{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;}
 .sidebar{width:260px;background:linear-gradient(180deg,rgba(13,27,42,.97),rgba(27,38,59,.97));border-right:2px solid rgba(0,229,255,.2);padding:20px 0;position:sticky;top:0;height:100vh;overflow-y:auto;z-index:100;transition:.3s;}
 .sidebar-logo{display:flex;align-items:center;gap:12px;padding:0 20px 20px;border-bottom:1px solid rgba(0,229,255,.2);margin-bottom:15px;}
 .sidebar-logo img{height:50px;width:50px;border-radius:50%;box-shadow:0 0 20px #00E5FF;border:2px solid #00E5FF;object-fit:cover;}
@@ -249,11 +165,13 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 /* ==========================================
    🎨 DESIGN SETTINGS GRID
    ========================================== */
-.design-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;}
+.design-tabs{display:flex;gap:8px;margin-bottom:20px;background:rgba(255,255,255,.05);padding:6px;border-radius:14px;flex-wrap:wrap;}
+.design-tab{flex:1;min-width:140px;padding:12px 16px;background:transparent;border:none;color:#8fa8c4;font-size:12px;font-weight:700;border-radius:10px;cursor:pointer;transition:.3s;font-family:inherit;}
+.design-tab.active{background:linear-gradient(90deg,#00E5FF,#0288D1);color:#fff;}
+.design-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;}
 .design-card{background:linear-gradient(135deg,rgba(27,38,59,.95),rgba(13,27,42,.95));border:2px solid rgba(0,229,255,.3);border-radius:16px;padding:18px;cursor:pointer;transition:.3s;text-align:center;position:relative;overflow:hidden;}
 .design-card:hover{transform:translateY(-5px);box-shadow:0 15px 40px rgba(0,229,255,.3);}
 .design-card.selected{border-color:#00E5FF;background:linear-gradient(135deg,rgba(0,229,255,.15),rgba(2,136,209,.1));box-shadow:0 0 30px rgba(0,229,255,.5);}
-.design-card .design-preview{width:100%;height:70px;border-radius:10px;margin-bottom:10px;overflow:hidden;position:relative;}
 .design-card .design-name{font-size:13px;font-weight:800;color:#00E5FF;margin-bottom:4px;}
 .design-card .design-desc{font-size:10px;color:#8fa8c4;}
 .design-card .selected-mark{position:absolute;top:8px;right:8px;background:#00E676;color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;z-index:5;}
@@ -269,6 +187,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
   .chat-layout{grid-template-columns:1fr;height:auto;}
   .chat-users{max-height:200px;}
   .chat-box{height:500px;}
+  .design-tab{font-size:11px;padding:10px 12px;min-width:100px;}
 }
 </style>
 </head>
@@ -412,16 +331,23 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       <div id="premiumList"></div>
     </div>
 
+    <!-- ==============================================
+         🎨 DESIGN SETTINGS — ৪টি ট্যাব সহ
+         ============================================== -->
     <div class="panel" id="designs">
       <div class="section-title">🎨 Design Settings</div>
-      <p style="color:#8fa8c4;font-size:13px;margin-bottom:20px;">এখান থেকে ইউজার প্যানেলের ডিজাইন পরিবর্তন করুন। সিলেক্ট করলে সাথে সাথে সব ইউজারের অ্যাপে পরিবর্তন হবে।</p>
-      <div class="settings-card">
-        <div class="section-title" style="font-size:15px;">🔐 Login Page Animation <span style="font-size:11px;color:#8fa8c4;font-weight:400;margin-left:auto;">২০টি অপশন</span></div>
-        <div class="design-grid" id="loginDesigns"></div>
+      <p style="color:#8fa8c4;font-size:13px;margin-bottom:20px;">এখান থেকে ৪টি জায়গার Animation পরিবর্তন করুন। প্রতিটি সেটে ২৫টি Animation আছে।</p>
+      
+      <div class="design-tabs">
+        <button class="design-tab active" onclick="switchDesignTab('userLogin', this)">🔐 User Login</button>
+        <button class="design-tab" onclick="switchDesignTab('userDashboard', this)">📊 User Dashboard</button>
+        <button class="design-tab" onclick="switchDesignTab('adminLogin', this)">🔐 Admin Login</button>
+        <button class="design-tab" onclick="switchDesignTab('adminDashboard', this)">📊 Admin Dashboard</button>
       </div>
+      
       <div class="settings-card">
-        <div class="section-title" style="font-size:15px;">📊 Dashboard Animation <span style="font-size:11px;color:#8fa8c4;font-weight:400;margin-left:auto;">২০টি অপশন</span></div>
-        <div class="design-grid" id="dashboardDesigns"></div>
+        <div class="section-title" style="font-size:15px;" id="designTitle">🔐 User Login Animation <span style="font-size:11px;color:#8fa8c4;font-weight:400;margin-left:auto;">২৫টি অপশন</span></div>
+        <div class="design-grid" id="designGrid"></div>
       </div>
     </div>
 
@@ -433,8 +359,8 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
         <div class="form-group"><label>🧮 Math Reward (৳)</label><input type="number" step="0.01" id="sMathReward" placeholder="0.04"></div>
         <div class="form-group"><label>⏱️ Ads Timer (সেকেন্ড)</label><input type="number" id="sAdsTimer" placeholder="8"></div>
         <div class="form-group"><label>🎯 Daily Ad Limit</label><input type="number" id="sAdDailyLimit" placeholder="10"></div>
-        <div class="form-group"><label>⏰ Popunder Ad Interval (মিনিট)</label><input type="number" id="sPopunderInterval" placeholder="3"><small>ইউজার অ্যাপ খোলা রাখলে প্রতি কত মিনিটে Popunder Ad আসবে</small></div>
-        <div class="form-group"><label>🎬 Interstitial Ad Interval (মিনিট)</label><input type="number" id="sInterstitialInterval" placeholder="5"><small>ইউজার অ্যাপ খোলা রাখলে প্রতি কত মিনিটে Interstitial Ad আসবে</small></div>
+        <div class="form-group"><label>⏰ Popunder Ad Interval (মিনিট)</label><input type="number" id="sPopunderInterval" placeholder="3"></div>
+        <div class="form-group"><label>🎬 Interstitial Ad Interval (মিনিট)</label><input type="number" id="sInterstitialInterval" placeholder="5"></div>
         <div class="form-group"><label>💵 Min Deposit (৳)</label><input type="number" id="sMinDeposit" placeholder="100"></div>
         <div class="form-group"><label>🏧 Min Withdraw (৳)</label><input type="number" id="sMinWithdraw" placeholder="110"></div>
         <div class="form-group"><label>💸 Withdraw Fee (৳)</label><input type="number" id="sWithdrawFee" placeholder="10"></div>
@@ -512,7 +438,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 <div class="toast" id="toast"></div>
 <script>
 /* ==================================================
-   🔥 FIREBASE REALTIME DATABASE CONNECTION
+   🔥 FIREBASE REALTIME DATABASE
    ================================================== */
 var FIREBASE_URL = "https://atik-8be75-default-rtdb.asia-southeast1.firebasedatabase.app";
 var ADMIN_PASSWORD = "atik2024";
@@ -525,57 +451,37 @@ var allWithdraws = [];
 var allPremium = [];
 var selectedChatUser = null;
 var chatPolling = null;
+var currentDesignTab = 'userLogin';
 
 /* ==================================================
-   🎨 LOGIN DESIGNS (২০টি লাইভ এনিমেশন)
+   🎨 ২৫টি ANIMATION-এর ডেটা
    ================================================== */
-var LOGIN_DESIGNS = [
-  { id: 'night-village', name: '🌙 Night Village', desc: 'রাতের গ্রাম, তারা, চাঁদ, গাছ' },
-  { id: 'rainy-night', name: '🌧️ Rainy Night', desc: 'বৃষ্টি, মেঘ, বিদ্যুৎ চমক' },
-  { id: 'golden-sunset', name: '🌅 Golden Sunset', desc: 'সোনালী সূর্যাস্ত, কমলা আকাশ' },
-  { id: 'snowfall', name: '❄️ Snowfall', desc: 'তুষারপাত, সাদা পরিবেশ' },
-  { id: 'starry-galaxy', name: '✨ Starry Galaxy', desc: 'তারার গ্যালাক্সি, নীহারিকা' },
-  { id: 'ocean-wave', name: '🌊 Ocean Wave', desc: 'সমুদ্রের ঢেউ, নীল জল' },
-  { id: 'green-forest', name: '🌲 Green Forest', desc: 'সবুজ বন, পাখি' },
-  { id: 'fireflies', name: '🔥 Fireflies Night', desc: 'জোনাকির আলো, রাত' },
-  { id: 'cherry', name: '🌸 Cherry Blossom', desc: 'চেরি ফুল, গোলাপি আকাশ' },
-  { id: 'lightning', name: '⚡ Lightning Storm', desc: 'বজ্রপাত, ঝড়' },
-  { id: 'rainbow', name: '🌈 Rainbow Sky', desc: 'রংধনু, সাত রঙ' },
-  { id: 'butterflies', name: '🦋 Butterflies', desc: 'প্রজাপতি, ফুল' },
-  { id: 'tropical', name: '🌺 Tropical Beach', desc: 'সৈকত, নারকেল গাছ' },
-  { id: 'mountain', name: '🏔️ Mountain Sunrise', desc: 'পাহাড়, সূর্যোদয়' },
-  { id: 'aurora', name: '🌌 Aurora Borealis', desc: 'উত্তর আলো, সবুজ ঢেউ' },
-  { id: 'fireworks', name: '🎆 Fireworks', desc: 'আতশবাজি, রঙিন আলো' },
-  { id: 'city', name: '🌃 City Lights', desc: 'শহরের আলো, রাত' },
-  { id: 'autumn', name: '🍂 Autumn Leaves', desc: 'শরতের পাতা, কমলা রঙ' },
-  { id: 'waterfall', name: '💧 Waterfall', desc: 'ঝর্ণা, জলপ্রপাত' },
-  { id: 'fullmoon', name: '🌕 Full Moon Night', desc: 'পূর্ণিমা, উজ্জ্বল চাঁদ' }
-];
-
-/* ==================================================
-   📊 DASHBOARD DESIGNS (২০টি লাইভ এনিমেশন)
-   ================================================== */
-var DASHBOARD_DESIGNS = [
-  { id: 'night-village', name: '🌙 Night Village', desc: 'রাতের গ্রাম, তারা, চাঁদ' },
-  { id: 'rainy-night', name: '🌧️ Rainy Night', desc: 'বৃষ্টি, মেঘ, বিদ্যুৎ' },
-  { id: 'golden-sunset', name: '🌅 Golden Sunset', desc: 'সোনালী সূর্যাস্ত' },
-  { id: 'green-forest', name: '🌲 Green Forest', desc: 'সবুজ বন, পাখি' },
-  { id: 'ocean-wave', name: '🌊 Ocean Wave', desc: 'সমুদ্রের ঢেউ' },
-  { id: 'snowfall', name: '❄️ Snowfall', desc: 'তুষারপাত' },
-  { id: 'starry-galaxy', name: '✨ Starry Galaxy', desc: 'তারার গ্যালাক্সি' },
-  { id: 'fireflies', name: '🔥 Fireflies', desc: 'জোনাকির আলো' },
-  { id: 'fireworks', name: '🎆 Fireworks', desc: 'আতশবাজি' },
-  { id: 'cherry', name: '🌸 Cherry Blossom', desc: 'চেরি ফুল' },
-  { id: 'butterflies', name: '🦋 Butterflies', desc: 'প্রজাপতি' },
-  { id: 'autumn', name: '🍂 Autumn Leaves', desc: 'শরতের পাতা' },
-  { id: 'rainbow', name: '🌈 Rainbow', desc: 'রংধনু' },
-  { id: 'lightning', name: '⚡ Lightning', desc: 'বজ্রপাত' },
-  { id: 'aurora', name: '🌌 Aurora', desc: 'উত্তর আলো' },
-  { id: 'tropical', name: '🌺 Tropical', desc: 'সৈকত' },
-  { id: 'mountain', name: '🏔️ Mountain', desc: 'পাহাড়' },
-  { id: 'city', name: '🌃 City Lights', desc: 'শহরের আলো' },
-  { id: 'waterfall', name: '💧 Waterfall', desc: 'ঝর্ণা' },
-  { id: 'fullmoon', name: '🌕 Full Moon Night', desc: 'পূর্ণিমা' }
+var ANIMATIONS = [
+  { id: 'rainy-night',    name: '🌧️ Rainy Night',     desc: 'বৃষ্টি + ছাতা + মানুষ' },
+  { id: 'snowfall',       name: '❄️ Snowfall',         desc: 'তুষার + ঘর + হরিণ' },
+  { id: 'ocean-wave',     name: '🌊 Ocean Wave',       desc: 'ঢেউ + নৌকা + পাখি' },
+  { id: 'starry-galaxy',  name: '✨ Starry Galaxy',    desc: 'তারা + নীহারিকা + উল্কা' },
+  { id: 'autumn',         name: '🍂 Autumn',           desc: 'গাছ + পাতা + পাখি' },
+  { id: 'fireflies',      name: '🔥 Fireflies',        desc: 'ফায়ারফ্লাই + গাছ + নদী' },
+  { id: 'aurora',         name: '🌌 Aurora',           desc: 'অরোরা + পাহাড় + বরফ' },
+  { id: 'golden-sunset',  name: '🌅 Golden Sunset',    desc: 'সূর্য + মেঘ + সমুদ্র' },
+  { id: 'green-forest',   name: '🌲 Green Forest',     desc: 'গাছ + হরিণ + পাখি' },
+  { id: 'cherry',         name: '🌸 Cherry',           desc: 'ফুল বাগান + প্রজাপতি' },
+  { id: 'fireworks',      name: '🎆 Fireworks',        desc: 'আতশবাজি + শহর' },
+  { id: 'lightning',      name: '⚡ Lightning',        desc: 'বিদ্যুৎ + মেঘ + বৃষ্টি' },
+  { id: 'rainbow',        name: '🌈 Rainbow',          desc: 'রংধনু + মেঘ + মাঠ' },
+  { id: 'butterflies',    name: '🦋 Butterflies',      desc: 'প্রজাপতি + ফুল' },
+  { id: 'tropical',       name: '🌺 Tropical',         desc: 'নৌকা + সৈকত + সূর্য' },
+  { id: 'mountain',       name: '🏔️ Mountain',         desc: 'পাহাড় + পাখি + নদী' },
+  { id: 'city',           name: '🌃 City Lights',      desc: 'গাড়ি + রাস্তা + চাঁদ' },
+  { id: 'waterfall',      name: '💧 Waterfall',        desc: 'ঝর্ণা + পাখি + রংধনু' },
+  { id: 'fullmoon',       name: '🌕 Full Moon',        desc: 'চাঁদ + নৌকা + গাছ' },
+  { id: 'night-village',  name: '🌙 Night Village',    desc: 'গ্রাম + তারা + গাছ' },
+  { id: 'island',         name: '🏝️ Island',           desc: 'সৈকত + নৌকা + তালগাছ' },
+  { id: 'volcano',        name: '🌋 Volcano',          desc: 'পাহাড় + লাভা + ধোঁয়া' },
+  { id: 'amusement-park', name: '🎡 Amusement Park',   desc: 'ফেরিস হুইল + আলো' },
+  { id: 'space-rocket',   name: '🚀 Space Rocket',     desc: 'রকেট + তারা + গ্রহ' },
+  { id: 'underwater',     name: '🐠 Underwater',       desc: 'মাছ + কোরাল + বুদবুদ' }
 ];
 
 var DB = {
@@ -617,356 +523,363 @@ function showToast(msg){
 function toggleSidebar(){ document.getElementById('sidebar').classList.toggle('open'); }
 
 /* ==================================================
-   🎨 ANIMATION APPLY FUNCTIONS
+   🎨 ANIMATION APPLY FUNCTIONS (Generic)
    ================================================== */
-function applyLoginDesign(designId){
-  var layer = document.getElementById('loginBgLayer');
+function applyAnimationToLayer(layer, designId){
   if(!layer) return;
   layer.innerHTML = '';
-  layer.className = 'login-bg-layer anim-' + designId;
-  
-  // Animation-specific elements যোগ করা
-  if(designId === 'night-village'){
-    layer.innerHTML = '<div class="av-sky"></div><div class="av-moon"></div><div class="av-ground"></div><div class="av-tree t1"></div><div class="av-tree t2"></div><div class="av-tree t3"></div><div class="av-tree t4"></div>';
-    for(var i=0;i<50;i++) addStarToLayer(layer);
+  layer.className = layer.className.replace(/anim-\S+/g, '').trim() + ' anim-' + designId;
+
+  if(designId === 'rainy-night'){
+    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#0a0f1e 0%,#1a2332 40%,#2c3e50 80%,#1e3a2e 100%);"></div>';
+    for(var i=0;i<100;i++){
+      var r = document.createElement('div');
+      r.className = 'anim-raindrop';
+      r.style.left = Math.random()*100 + '%';
+      r.style.animationDuration = (0.4+Math.random()*0.5) + 's';
+      r.style.animationDelay = Math.random()*3 + 's';
+      r.style.height = (15+Math.random()*20) + 'px';
+      layer.appendChild(r);
+    }
+    var flash = document.createElement('div');
+    flash.className = 'anim-flash';
+    layer.appendChild(flash);
   }
-  else if(designId === 'rainy-night'){
-    layer.innerHTML = '<div class="rn-sky"></div><div class="rn-cloud" style="top:8%;"></div><div class="rn-cloud" style="top:20%;animation-delay:5s;"></div><div class="rn-flash"></div>';
+  else if(designId === 'snowfall'){
+    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#1a2332 0%,#2c3e50 50%,#415a77 100%);"></div>';
+    for(var i=0;i<70;i++){
+      var f = document.createElement('div');
+      f.className = 'anim-snow';
+      f.style.fontSize = (10+Math.random()*12) + 'px';
+      f.style.animationDuration = (6+Math.random()*6) + 's';
+      f.style.animationDelay = (Math.random()*8) + 's';
+      f.style.left = (Math.random()*100) + '%';
+      f.textContent = '❄';
+      layer.appendChild(f);
+    }
+    var house = document.createElement('div');
+    house.style.cssText = 'position:absolute;bottom:10%;left:15%;font-size:60px;opacity:.8;';
+    house.textContent = '🏠';
+    layer.appendChild(house);
+    var deer = document.createElement('div');
+    deer.style.cssText = 'position:absolute;bottom:12%;right:20%;font-size:50px;opacity:.85;';
+    deer.textContent = '🦌';
+    layer.appendChild(deer);
+  }
+  else if(designId === 'ocean-wave'){
+    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#0a0f1e 0%,#1a237e 50%,#0277BD 100%);"></div>';
+    for(var i=0;i<4;i++){
+      var w = document.createElement('div');
+      w.className = 'anim-wave';
+      w.style.height = (80+i*40) + 'px';
+      w.style.animationDuration = (5+i*1.5) + 's';
+      layer.appendChild(w);
+    }
+    var sun = document.createElement('div');
+    sun.style.cssText = 'position:absolute;top:15%;right:15%;width:80px;height:80px;border-radius:50%;background:radial-gradient(circle,#FFF59D,#FFEB3B,#FFC107);box-shadow:0 0 80px #FFF59D;';
+    layer.appendChild(sun);
+    var boat = document.createElement('div');
+    boat.className = 'anim-boat';
+    boat.style.cssText = 'position:absolute;bottom:35%;left:40%;font-size:50px;';
+    boat.textContent = '⛵';
+    layer.appendChild(boat);
+    var bird = document.createElement('div');
+    bird.className = 'anim-bird';
+    bird.style.top = '25%';
+    bird.textContent = '🕊️';
+    layer.appendChild(bird);
+  }
+  else if(designId === 'starry-galaxy'){
+    layer.innerHTML = '<div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,#1a0b2e 0%,#0a0f1e 60%,#000 100%);"></div>';
+    for(var i=0;i<120;i++){
+      var s = document.createElement('div');
+      s.className = 'anim-star';
+      s.style.left = Math.random()*100 + '%';
+      s.style.top = Math.random()*70 + '%';
+      s.style.width = s.style.height = (1+Math.random()*2.5) + 'px';
+      s.style.animationDelay = Math.random()*3 + 's';
+      layer.appendChild(s);
+    }
+    var nebula = document.createElement('div');
+    nebula.style.cssText = 'position:absolute;top:20%;left:30%;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(156,39,176,.35),rgba(103,58,183,.2),transparent 70%);filter:blur(50px);';
+    layer.appendChild(nebula);
+  }
+  else if(designId === 'autumn'){
+    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#FFB347 0%,#FF8C42 30%,#E65100 70%,#8B4513 100%);"></div>';
+    var leaves = ['🍂','🍁','🍃'];
+    for(var i=0;i<45;i++){
+      var lf = document.createElement('div');
+      lf.className = 'anim-leaf';
+      lf.style.fontSize = (20+Math.random()*16) + 'px';
+      lf.style.animationDuration = (5+Math.random()*7) + 's';
+      lf.style.animationDelay = (Math.random()*8) + 's';
+      lf.style.left = (Math.random()*100) + '%';
+      lf.textContent = leaves[i % leaves.length];
+      layer.appendChild(lf);
+    }
+    var bird2 = document.createElement('div');
+    bird2.className = 'anim-bird';
+    bird2.style.top = '20%';
+    bird2.textContent = '🦅';
+    layer.appendChild(bird2);
+  }
+  else if(designId === 'fireflies'){
+    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#0a0f1e 0%,#0f172a 40%,#0d3a1f 100%);"></div>';
+    for(var i=0;i<35;i++){
+      var fd = document.createElement('div');
+      fd.className = 'anim-firefly';
+      fd.style.left = Math.random()*100 + '%';
+      fd.style.bottom = (5+Math.random()*50) + '%';
+      fd.style.animationDuration = (6+Math.random()*8) + 's';
+      fd.style.animationDelay = Math.random()*6 + 's';
+      layer.appendChild(fd);
+    }
+    var m = document.createElement('div');
+    m.className = 'anim-moon';
+    m.style.cssText += 'top:10%;right:15%;width:80px;height:80px;';
+    layer.appendChild(m);
+  }
+  else if(designId === 'aurora'){
+    layer.innerHTML = '<div style="position:absolute;inset:0;background:radial-gradient(ellipse at top,#0a0f1e 0%,#1a0b2e 50%,#0a0f1e 100%);"></div><div style="position:absolute;top:0;left:0;width:100%;height:60%;background:linear-gradient(180deg,rgba(0,255,127,.5),rgba(0,255,255,.35),transparent);filter:blur(35px);animation:animMoonGlow 8s ease-in-out infinite;"></div><div style="position:absolute;top:0;left:0;width:100%;height:55%;background:linear-gradient(180deg,rgba(156,39,176,.4),rgba(0,229,255,.25),transparent);filter:blur(45px);animation:animMoonGlow 11s ease-in-out infinite reverse;"></div>';
     for(var i=0;i<80;i++){
-      var d = document.createElement('div');
-      d.className = 'rn-drop';
-      d.style.left = Math.random()*100 + '%';
-      d.style.animationDuration = (0.4+Math.random()*0.5) + 's';
-      d.style.animationDelay = Math.random()*3 + 's';
-      d.style.height = (15+Math.random()*20) + 'px';
-      layer.appendChild(d);
+      var s2 = document.createElement('div');
+      s2.className = 'anim-star';
+      s2.style.left = Math.random()*100 + '%';
+      s2.style.top = Math.random()*50 + '%';
+      s2.style.width = s2.style.height = (1+Math.random()*2) + 'px';
+      s2.style.animationDelay = Math.random()*3 + 's';
+      layer.appendChild(s2);
     }
   }
   else if(designId === 'golden-sunset'){
-    layer.innerHTML = '<div class="gs-sky"></div><div class="gs-sun"></div><div class="gs-cloud" style="top:15%;"></div><div class="gs-cloud" style="top:25%;animation-delay:8s;"></div>';
-  }
-  else if(designId === 'snowfall'){
-    layer.innerHTML = '<div class="sn-sky"></div>';
-    for(var i=0;i<60;i++){
-      var f = document.createElement('div');
-      f.className = 'sn-flake';
-      f.textContent = '❄';
-      f.style.left = Math.random()*100 + '%';
-      f.style.animationDuration = (5+Math.random()*5) + 's';
-      f.style.animationDelay = Math.random()*5 + 's';
-      f.style.fontSize = (8+Math.random()*12) + 'px';
-      layer.appendChild(f);
-    }
-  }
-  else if(designId === 'starry-galaxy'){
-    layer.innerHTML = '<div class="sg-sky"></div><div class="sg-nebula"></div>';
-    for(var i=0;i<80;i++) addStarToLayer(layer, 'sg-star');
-  }
-  else if(designId === 'ocean-wave'){
-    layer.innerHTML = '<div class="ow-sky"></div><div class="ow-wave"></div><div class="ow-wave2"></div>';
+    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#FF6B35 0%,#F7931E 30%,#FDC830 60%,#F37335 100%);"></div><div style="position:absolute;bottom:25%;left:50%;transform:translateX(-50%);width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,#FFF59D,#FFB300,#F57C00);box-shadow:0 0 120px #FFF59D,0 0 240px rgba(255,193,7,.8);animation:animMoonGlow 4s ease-in-out infinite;"></div>';
+    var cloud = document.createElement('div');
+    cloud.style.cssText = 'position:absolute;top:15%;left:20%;width:200px;height:60px;background:radial-gradient(circle,rgba(255,255,255,.5),transparent 70%);border-radius:50%;';
+    layer.appendChild(cloud);
+    var bird3 = document.createElement('div');
+    bird3.className = 'anim-bird';
+    bird3.style.top = '25%';
+    bird3.textContent = '🦅';
+    layer.appendChild(bird3);
   }
   else if(designId === 'green-forest'){
-    layer.innerHTML = '<div class="gf-sky"></div>';
-    for(var i=0;i<12;i++){
+    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#0a1f0a 0%,#0f3a0f 40%,#1e5c1e 100%);"></div>';
+    for(var i=0;i<14;i++){
       var t = document.createElement('div');
-      t.className = 'gf-tree';
+      t.style.cssText = 'position:absolute;bottom:0;font-size:' + (50+Math.random()*30) + 'px;left:' + (i*7) + '%;animation:animMoonGlow 3s ease-in-out infinite;animation-delay:' + (i*0.2) + 's;';
       t.textContent = '🌲';
-      t.style.left = (i*8) + '%';
-      t.style.animationDelay = (i*0.2) + 's';
       layer.appendChild(t);
     }
-    var b = document.createElement('div');
-    b.className = 'gf-bird';
-    b.textContent = '🐦';
-    b.style.top = '15%';
-    layer.appendChild(b);
-  }
-  else if(designId === 'fireflies'){
-    layer.innerHTML = '<div class="ff-sky"></div>';
-    for(var i=0;i<25;i++){
-      var fd = document.createElement('div');
-      fd.className = 'ff-dot';
-      fd.style.left = Math.random()*100 + '%';
-      fd.style.top = (30+Math.random()*60) + '%';
-      fd.style.animationDelay = Math.random()*8 + 's';
-      layer.appendChild(fd);
-    }
+    var deer2 = document.createElement('div');
+    deer2.style.cssText = 'position:absolute;bottom:8%;right:20%;font-size:40px;';
+    deer2.textContent = '🦌';
+    layer.appendChild(deer2);
   }
   else if(designId === 'cherry'){
-    layer.innerHTML = '<div class="ch-sky"></div>';
-    for(var i=0;i<40;i++){
+    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#FFF0F5 0%,#FFD1DC 40%,#FFB6C1 100%);"></div>';
+    for(var i=0;i<45;i++){
       var p = document.createElement('div');
-      p.className = 'ch-petal';
+      p.className = 'anim-leaf';
+      p.style.fontSize = (18+Math.random()*10) + 'px';
+      p.style.animationDuration = (5+Math.random()*7) + 's';
+      p.style.animationDelay = (Math.random()*8) + 's';
+      p.style.left = (Math.random()*100) + '%';
       p.textContent = '🌸';
-      p.style.left = Math.random()*100 + '%';
-      p.style.animationDuration = (6+Math.random()*6) + 's';
-      p.style.animationDelay = Math.random()*8 + 's';
       layer.appendChild(p);
     }
-  }
-  else if(designId === 'lightning'){
-    layer.innerHTML = '<div class="lt-sky"></div><div class="lt-flash"></div><div class="lt-bolt">⚡</div>';
-  }
-  else if(designId === 'rainbow'){
-    layer.innerHTML = '<div class="rb-sky"></div><div class="rb-arc"></div>';
-  }
-  else if(designId === 'butterflies'){
-    layer.innerHTML = '<div class="bf-sky"></div>';
-    for(var i=0;i<8;i++){
-      var bf = document.createElement('div');
-      bf.className = 'bf-fly';
-      bf.textContent = '🦋';
-      bf.style.left = (i*12+5) + '%';
-      bf.style.top = (20+Math.random()*50) + '%';
-      bf.style.animationDelay = (i*0.5) + 's';
-      layer.appendChild(bf);
+    for(var i=0;i<5;i++){
+      var bf2 = document.createElement('div');
+      bf2.style.cssText = 'position:absolute;font-size:28px;left:' + (i*18+10) + '%;top:' + (30+Math.random()*30) + '%;animation:animFireflyFloat 10s ease-in-out infinite;animation-delay:' + (i*0.5) + 's;';
+      bf2.textContent = '🦋';
+      layer.appendChild(bf2);
     }
   }
-  else if(designId === 'tropical'){
-    layer.innerHTML = '<div class="tp-sky"></div><div class="tp-sun"></div><div class="tp-water"></div><div class="tp-palm" style="left:10%;">🌴</div><div class="tp-palm" style="right:15%;">🌴</div>';
-  }
-  else if(designId === 'mountain'){
-    layer.innerHTML = '<div class="mt-sky"></div><div class="mt-sun"></div><div class="mt-range"></div>';
-  }
-  else if(designId === 'aurora'){
-    layer.innerHTML = '<div class="au-sky"></div><div class="au-wave"></div><div class="au-wave2"></div>';
-    for(var i=0;i<50;i++) addStarToLayer(layer, 'fm-star');
-  }
   else if(designId === 'fireworks'){
-    layer.innerHTML = '<div class="fw-sky"></div>';
+    layer.innerHTML = '<div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,#0a0f1e 0%,#000 100%);"></div>';
     var colors = ['#FF1744','#FFD700','#00E676','#00E5FF','#E1306C','#FF9800'];
-    for(var i=0;i<8;i++){
+    for(var i=0;i<10;i++){
       var burst = document.createElement('div');
-      burst.className = 'fw-burst';
-      burst.style.left = (10+Math.random()*80) + '%';
-      burst.style.top = (10+Math.random()*60) + '%';
-      burst.style.color = colors[i % colors.length];
-      burst.style.background = colors[i % colors.length];
-      burst.style.animationDelay = (i*0.4) + 's';
-      burst.style.animationDuration = (1.5+Math.random()*1.5) + 's';
+      burst.style.cssText = 'position:absolute;width:8px;height:8px;border-radius:50%;animation:animTwinkle 2s ease-out infinite;background:' + colors[i % colors.length] + ';box-shadow:0 0 25px ' + colors[i % colors.length] + ',0 0 50px ' + colors[i % colors.length] + ';left:' + (10+Math.random()*80) + '%;top:' + (10+Math.random()*70) + '%;animation-delay:' + (i*0.4) + 's;';
       layer.appendChild(burst);
     }
   }
+  else if(designId === 'lightning'){
+    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#0a0f1e 0%,#1a1a2e 50%,#16213e 100%);"></div><div class="anim-flash"></div>';
+    for(var i=0;i<60;i++){
+      var r2 = document.createElement('div');
+      r2.className = 'anim-raindrop';
+      r2.style.left = Math.random()*100 + '%';
+      r2.style.animationDuration = (0.3+Math.random()*0.4) + 's';
+      r2.style.animationDelay = Math.random()*3 + 's';
+      layer.appendChild(r2);
+    }
+  }
+  else if(designId === 'rainbow'){
+    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#87CEEB 0%,#B0E0E6 40%,#E0F7FA 100%);"></div>';
+    var rb = document.createElement('div');
+    rb.className = 'anim-rainbow-arc';
+    rb.style.cssText = 'bottom:15%;left:50%;transform:translateX(-50%);width:600px;height:600px;border-width:20px;';
+    layer.appendChild(rb);
+  }
+  else if(designId === 'butterflies'){
+    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#FFF0F5 0%,#B2EBF2 50%,#80DEEA 100%);"></div>';
+    for(var i=0;i<10;i++){
+      var bf3 = document.createElement('div');
+      bf3.style.cssText = 'position:absolute;font-size:30px;animation:animFireflyFloat 10s ease-in-out infinite;animation-delay:' + (i*0.5) + 's;left:' + (i*10+5) + '%;top:' + (20+Math.random()*50) + '%;';
+      bf3.textContent = '🦋';
+      layer.appendChild(bf3);
+    }
+    for(var i=0;i<15;i++){
+      var fl = document.createElement('div');
+      fl.style.cssText = 'position:absolute;font-size:24px;bottom:' + (Math.random()*30) + '%;left:' + (Math.random()*100) + '%;';
+      fl.textContent = ['🌻','🌷','🌺','🌼'][i % 4];
+      layer.appendChild(fl);
+    }
+  }
+  else if(designId === 'tropical'){
+    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#4FC3F7 0%,#0288D1 60%,#0277BD 100%);"></div><div style="position:absolute;top:10%;right:15%;width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,#FFF59D,#FFEB3B,#FFC107);box-shadow:0 0 100px #FFF59D;animation:animMoonGlow 4s ease-in-out infinite;"></div><div style="position:absolute;bottom:0;width:100%;height:40%;background:linear-gradient(180deg,#0288D1 0%,#01579B 100%);"></div><div style="position:absolute;bottom:35%;left:10%;font-size:70px;">🌴</div><div style="position:absolute;bottom:38%;right:15%;font-size:60px;">🌴</div><div style="position:absolute;bottom:20%;left:40%;font-size:50px;animation:animBoat 8s ease-in-out infinite;">⛵</div>';
+  }
+  else if(designId === 'mountain'){
+    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#FF6B6B 0%,#FFB347 50%,#FFD93D 100%);"></div><div style="position:absolute;bottom:38%;left:50%;transform:translateX(-50%);width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,#FFF59D,#FFC107);box-shadow:0 0 120px #FFF59D;animation:animMoonGlow 5s ease-in-out infinite;"></div><div style="position:absolute;bottom:0;width:100%;height:40%;background:linear-gradient(135deg,#1a2332 0%,#2c3e50 50%,#415a77 100%);clip-path:polygon(0 100%,15% 30%,30% 60%,50% 15%,70% 55%,85% 25%,100% 100%);"></div><div class="anim-bird" style="top:20%;">🦅</div>';
+  }
   else if(designId === 'city'){
-    layer.innerHTML = '<div class="ct-sky"></div>';
-    for(var i=0;i<12;i++){
+    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#0a0f1e 0%,#1a1a2e 50%,#2c1810 100%);"></div>';
+    for(var i=0;i<14;i++){
       var bd = document.createElement('div');
-      bd.className = 'ct-building';
-      bd.style.left = (i*8) + '%';
-      bd.style.width = (7+Math.random()*3) + '%';
-      bd.style.height = (20+Math.random()*40) + '%';
+      bd.style.cssText = 'position:absolute;bottom:0;background:linear-gradient(180deg,#1a2332,#0a0f1e);border-top:2px solid #FFC107;left:' + (i*7) + '%;width:' + (6+Math.random()*3) + '%;height:' + (25+Math.random()*45) + '%;';
       layer.appendChild(bd);
     }
-    for(var i=0;i<40;i++){
-      var w = document.createElement('div');
-      w.className = 'ct-window';
-      w.style.left = (Math.random()*100) + '%';
-      w.style.bottom = (5+Math.random()*50) + '%';
-      w.style.animationDelay = Math.random()*3 + 's';
-      layer.appendChild(w);
+    for(var i=0;i<50;i++){
+      var w2 = document.createElement('div');
+      w2.style.cssText = 'position:absolute;width:4px;height:4px;background:#FFC107;box-shadow:0 0 6px #FFC107;animation:animTwinkle 3s ease-in-out infinite;left:' + (Math.random()*100) + '%;bottom:' + (5+Math.random()*55) + '%;animation-delay:' + (Math.random()*3) + 's;';
+      layer.appendChild(w2);
     }
-  }
-  else if(designId === 'autumn'){
-    layer.innerHTML = '<div class="at-sky"></div>';
-    var leaves = ['🍂','🍁','🍃'];
-    for(var i=0;i<40;i++){
-      var lf = document.createElement('div');
-      lf.className = 'at-leaf';
-      lf.textContent = leaves[i % leaves.length];
-      lf.style.left = Math.random()*100 + '%';
-      lf.style.animationDuration = (6+Math.random()*6) + 's';
-      lf.style.animationDelay = Math.random()*8 + 's';
-      layer.appendChild(lf);
-    }
+    var m2 = document.createElement('div');
+    m2.className = 'anim-moon';
+    m2.style.cssText += 'top:10%;right:15%;width:70px;height:70px;';
+    layer.appendChild(m2);
   }
   else if(designId === 'waterfall'){
-    layer.innerHTML = '<div class="wf-sky"></div><div class="wf-rock"></div><div class="wf-flow"></div>';
+    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#1a2332 0%,#0a0f1e 100%);"></div><div style="position:absolute;top:0;left:30%;width:40%;height:85%;background:linear-gradient(90deg,#2c3e50,#0a0f1e,#2c3e50);border-radius:0 0 40px 40px;"></div><div style="position:absolute;top:0;left:42%;width:16%;height:100%;background:linear-gradient(180deg,rgba(135,206,250,.9),rgba(0,229,255,.5),rgba(0,229,255,.2));animation:animRainFall 1s linear infinite;"></div><div class="anim-bird" style="top:20%;">🕊️</div>';
   }
   else if(designId === 'fullmoon'){
-    layer.innerHTML = '<div class="fm-sky"></div><div class="fm-moon"></div>';
-    for(var i=0;i<60;i++) addStarToLayer(layer, 'fm-star');
+    layer.innerHTML = '<div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,#1a2332 0%,#0a0f1e 100%);"></div>';
+    var fm = document.createElement('div');
+    fm.className = 'anim-moon';
+    fm.style.cssText += 'top:15%;left:50%;transform:translateX(-50%);width:160px;height:160px;background:radial-gradient(circle at 40% 40%,#FFF9C4,#FFE082,#FFC107);';
+    layer.appendChild(fm);
+    for(var i=0;i<100;i++){
+      var s3 = document.createElement('div');
+      s3.className = 'anim-star';
+      s3.style.left = Math.random()*100 + '%';
+      s3.style.top = Math.random()*70 + '%';
+      s3.style.width = s3.style.height = (1+Math.random()*2) + 'px';
+      s3.style.animationDelay = Math.random()*3 + 's';
+      layer.appendChild(s3);
+    }
   }
-}
-
-function applyDashboardDesign(designId){
-  var layer = document.getElementById('appBgLayer');
-  if(!layer) return;
-  layer.innerHTML = '';
-  layer.className = 'app-bg-layer anim-' + designId;
-  
-  // একই Animation গুলোই Dashboard-এও ব্যবহার হবে (opacity কমিয়ে)
-  var tempLayer = document.createElement('div');
-  tempLayer.style.display = 'none';
-  document.body.appendChild(tempLayer);
-  
-  // Login design এর মতোই apply করা
-  var originalGetElement = document.getElementById;
-  var fakeLoginLayer = { innerHTML: '', className: '', appendChild: function(el){ tempLayer.appendChild(el); } };
-  
-  // সরাসরি loginLayer তৈরি করে clone করা
-  if(designId === 'night-village'){
-    layer.innerHTML = '<div class="av-sky"></div><div class="av-moon"></div><div class="av-ground"></div><div class="av-tree t1"></div><div class="av-tree t2"></div><div class="av-tree t3"></div><div class="av-tree t4"></div>';
-    for(var i=0;i<40;i++) addStarToLayer(layer);
+  else if(designId === 'night-village'){
+    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#0a0f1e 0%,#0f172a 30%,#1a2332 60%,#1e3a2e 100%);"></div>';
+    var nv = document.createElement('div');
+    nv.className = 'anim-moon';
+    nv.style.cssText += 'top:60px;right:90px;width:80px;height:80px;';
+    layer.appendChild(nv);
+    for(var i=0;i<80;i++){
+      var s4 = document.createElement('div');
+      s4.className = 'anim-star';
+      s4.style.left = Math.random()*100 + '%';
+      s4.style.top = Math.random()*60 + '%';
+      s4.style.width = s4.style.height = (1+Math.random()*2) + 'px';
+      s4.style.animationDelay = Math.random()*3 + 's';
+      layer.appendChild(s4);
+    }
+    for(var i=0;i<6;i++){
+      var tr = document.createElement('div');
+      tr.style.cssText = 'position:absolute;bottom:10%;font-size:60px;left:' + (i*15+5) + '%;';
+      tr.textContent = '🌳';
+      layer.appendChild(tr);
+    }
+    var grd = document.createElement('div');
+    grd.style.cssText = 'position:absolute;bottom:0;width:100%;height:30%;background:linear-gradient(180deg,#1e3a2e,#081210);';
+    layer.appendChild(grd);
   }
-  else if(designId === 'rainy-night'){
-    layer.innerHTML = '<div class="rn-sky"></div><div class="rn-cloud" style="top:8%;"></div><div class="rn-flash"></div>';
+  else if(designId === 'island'){
+    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#4FC3F7 0%,#0288D1 60%,#0277BD 100%);"></div><div style="position:absolute;bottom:0;width:100%;height:30%;background:linear-gradient(180deg,#0277BD,#01579B);"></div><div style="position:absolute;bottom:25%;left:20%;width:40%;height:15%;background:linear-gradient(180deg,#FFD54F,#FFB300);border-radius:50% 50% 0 0;"></div><div style="position:absolute;bottom:30%;left:35%;font-size:80px;">🌴</div><div style="position:absolute;bottom:20%;right:20%;font-size:50px;animation:animBoat 8s ease-in-out infinite;">⛵</div><div style="position:absolute;top:15%;right:15%;width:80px;height:80px;border-radius:50%;background:radial-gradient(circle,#FFF59D,#FFC107);box-shadow:0 0 80px #FFF59D;"></div>';
+  }
+  else if(designId === 'volcano'){
+    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#1a0a0a 0%,#4a1a0a 60%,#8B0000 100%);"></div><div style="position:absolute;bottom:0;width:100%;height:50%;background:linear-gradient(135deg,#2c1810 0%,#1a0f0a 50%,#000 100%);clip-path:polygon(0 100%,25% 20%,40% 40%,50% 5%,60% 40%,75% 25%,100% 100%);"></div><div style="position:absolute;bottom:60%;left:50%;transform:translateX(-50%);width:80px;height:80px;border-radius:50%;background:radial-gradient(circle,#FF6B00,#D32F2F);box-shadow:0 0 60px #FF6B00;animation:animMoonGlow 2s ease-in-out infinite;"></div>';
+  }
+  else if(designId === 'amusement-park'){
+    layer.innerHTML = '<div style="position:absolute;inset:0;background:radial-gradient(ellipse at top,#1a0b2e 0%,#0a0f1e 70%);"></div>';
+    var fw = document.createElement('div');
+    fw.style.cssText = 'position:absolute;bottom:20%;left:50%;transform:translateX(-50%);font-size:120px;animation:animMoonGlow 3s ease-in-out infinite;';
+    fw.textContent = '🎡';
+    layer.appendChild(fw);
+    for(var i=0;i<12;i++){
+      var l = document.createElement('div');
+      l.style.cssText = 'position:absolute;bottom:' + (10+Math.random()*60) + '%;left:' + (Math.random()*100) + '%;width:6px;height:6px;border-radius:50%;background:' + ['#FF1744','#FFD700','#00E676','#00E5FF','#E1306C','#FF9800'][i % 6] + ';box-shadow:0 0 15px currentColor;animation:animTwinkle 2s ease-in-out infinite;animation-delay:' + (i*0.2) + 's;';
+      layer.appendChild(l);
+    }
     for(var i=0;i<60;i++){
-      var d = document.createElement('div');
-      d.className = 'rn-drop';
-      d.style.left = Math.random()*100 + '%';
-      d.style.animationDuration = (0.4+Math.random()*0.5) + 's';
-      d.style.animationDelay = Math.random()*3 + 's';
-      layer.appendChild(d);
+      var s5 = document.createElement('div');
+      s5.className = 'anim-star';
+      s5.style.left = Math.random()*100 + '%';
+      s5.style.top = Math.random()*50 + '%';
+      s5.style.width = s5.style.height = (1+Math.random()*2) + 'px';
+      s5.style.animationDelay = Math.random()*3 + 's';
+      layer.appendChild(s5);
     }
   }
-  else if(designId === 'golden-sunset'){
-    layer.innerHTML = '<div class="gs-sky"></div><div class="gs-sun"></div>';
-  }
-  else if(designId === 'green-forest'){
-    layer.innerHTML = '<div class="gf-sky"></div>';
-    for(var i=0;i<10;i++){
-      var t = document.createElement('div');
-      t.className = 'gf-tree';
-      t.textContent = '🌲';
-      t.style.left = (i*10) + '%';
-      t.style.animationDelay = (i*0.2) + 's';
-      layer.appendChild(t);
+  else if(designId === 'space-rocket'){
+    layer.innerHTML = '<div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,#0a0f1e 0%,#1a0b2e 50%,#000 100%);"></div>';
+    for(var i=0;i<150;i++){
+      var s6 = document.createElement('div');
+      s6.className = 'anim-star';
+      s6.style.left = Math.random()*100 + '%';
+      s6.style.top = Math.random()*100 + '%';
+      s6.style.width = s6.style.height = (1+Math.random()*3) + 'px';
+      s6.style.animationDelay = Math.random()*3 + 's';
+      layer.appendChild(s6);
     }
+    var rocket = document.createElement('div');
+    rocket.style.cssText = 'position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:60px;animation:animFireflyFloat 6s ease-in-out infinite;';
+    rocket.textContent = '🚀';
+    layer.appendChild(rocket);
+    var planet = document.createElement('div');
+    planet.style.cssText = 'position:absolute;top:15%;right:15%;font-size:70px;';
+    planet.textContent = '🪐';
+    layer.appendChild(planet);
   }
-  else if(designId === 'ocean-wave'){
-    layer.innerHTML = '<div class="ow-sky"></div><div class="ow-wave"></div><div class="ow-wave2"></div>';
-  }
-  else if(designId === 'snowfall'){
-    layer.innerHTML = '<div class="sn-sky"></div>';
-    for(var i=0;i<40;i++){
-      var f = document.createElement('div');
-      f.className = 'sn-flake';
-      f.textContent = '❄';
-      f.style.left = Math.random()*100 + '%';
-      f.style.animationDuration = (5+Math.random()*5) + 's';
-      f.style.animationDelay = Math.random()*5 + 's';
-      layer.appendChild(f);
-    }
-  }
-  else if(designId === 'starry-galaxy'){
-    layer.innerHTML = '<div class="sg-sky"></div><div class="sg-nebula"></div>';
-    for(var i=0;i<60;i++) addStarToLayer(layer, 'sg-star');
-  }
-  else if(designId === 'fireflies'){
-    layer.innerHTML = '<div class="ff-sky"></div>';
+  else if(designId === 'underwater'){
+    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#0a2a4a 0%,#0277BD 50%,#01579B 100%);"></div>';
     for(var i=0;i<20;i++){
-      var fd = document.createElement('div');
-      fd.className = 'ff-dot';
-      fd.style.left = Math.random()*100 + '%';
-      fd.style.top = (30+Math.random()*60) + '%';
-      fd.style.animationDelay = Math.random()*8 + 's';
-      layer.appendChild(fd);
+      var b = document.createElement('div');
+      b.className = 'anim-bubble';
+      b.style.cssText += 'bottom:0;left:' + (Math.random()*100) + '%;width:' + (10+Math.random()*20) + 'px;height:' + (10+Math.random()*20) + 'px;animation-duration:' + (6+Math.random()*6) + 's;animation-delay:' + (Math.random()*5) + 's;';
+      layer.appendChild(b);
     }
-  }
-  else if(designId === 'fireworks'){
-    layer.innerHTML = '<div class="fw-sky"></div>';
-    var colors = ['#FF1744','#FFD700','#00E676','#00E5FF','#E1306C','#FF9800'];
-    for(var i=0;i<6;i++){
-      var burst = document.createElement('div');
-      burst.className = 'fw-burst';
-      burst.style.left = (10+Math.random()*80) + '%';
-      burst.style.top = (10+Math.random()*60) + '%';
-      burst.style.color = colors[i % colors.length];
-      burst.style.background = colors[i % colors.length];
-      burst.style.animationDelay = (i*0.5) + 's';
-      layer.appendChild(burst);
+    for(var i=0;i<8;i++){
+      var fish = document.createElement('div');
+      fish.className = 'anim-fish';
+      fish.style.top = (10+Math.random()*70) + '%';
+      fish.style.animationDuration = (8+Math.random()*6) + 's';
+      fish.style.animationDelay = (i*0.8) + 's';
+      fish.textContent = ['🐠','🐟','🐡','🦈','🐙'][i % 5];
+      layer.appendChild(fish);
     }
+    var coral = document.createElement('div');
+    coral.style.cssText = 'position:absolute;bottom:0;left:10%;font-size:80px;';
+    coral.textContent = '🪸';
+    layer.appendChild(coral);
+    var coral2 = document.createElement('div');
+    coral2.style.cssText = 'position:absolute;bottom:0;right:15%;font-size:80px;';
+    coral2.textContent = '🪸';
+    layer.appendChild(coral2);
   }
-  else if(designId === 'cherry'){
-    layer.innerHTML = '<div class="ch-sky"></div>';
-    for(var i=0;i<30;i++){
-      var p = document.createElement('div');
-      p.className = 'ch-petal';
-      p.textContent = '🌸';
-      p.style.left = Math.random()*100 + '%';
-      p.style.animationDuration = (6+Math.random()*6) + 's';
-      p.style.animationDelay = Math.random()*8 + 's';
-      layer.appendChild(p);
-    }
+  else {
+    // Default fallback
+    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#0a0f1e 0%,#0f172a 30%,#1a2332 60%,#1e3a2e 100%);"></div>';
   }
-  else if(designId === 'butterflies'){
-    layer.innerHTML = '<div class="bf-sky"></div>';
-    for(var i=0;i<6;i++){
-      var bf = document.createElement('div');
-      bf.className = 'bf-fly';
-      bf.textContent = '🦋';
-      bf.style.left = (i*15+5) + '%';
-      bf.style.top = (20+Math.random()*50) + '%';
-      bf.style.animationDelay = (i*0.6) + 's';
-      layer.appendChild(bf);
-    }
-  }
-  else if(designId === 'autumn'){
-    layer.innerHTML = '<div class="at-sky"></div>';
-    var leaves = ['🍂','🍁','🍃'];
-    for(var i=0;i<30;i++){
-      var lf = document.createElement('div');
-      lf.className = 'at-leaf';
-      lf.textContent = leaves[i % leaves.length];
-      lf.style.left = Math.random()*100 + '%';
-      lf.style.animationDuration = (6+Math.random()*6) + 's';
-      lf.style.animationDelay = Math.random()*8 + 's';
-      layer.appendChild(lf);
-    }
-  }
-  else if(designId === 'rainbow'){
-    layer.innerHTML = '<div class="rb-sky"></div><div class="rb-arc"></div>';
-  }
-  else if(designId === 'lightning'){
-    layer.innerHTML = '<div class="lt-sky"></div><div class="lt-flash"></div><div class="lt-bolt">⚡</div>';
-  }
-  else if(designId === 'aurora'){
-    layer.innerHTML = '<div class="au-sky"></div><div class="au-wave"></div><div class="au-wave2"></div>';
-  }
-  else if(designId === 'tropical'){
-    layer.innerHTML = '<div class="tp-sky"></div><div class="tp-sun"></div><div class="tp-water"></div><div class="tp-palm" style="left:8%;">🌴</div><div class="tp-palm" style="right:12%;">🌴</div>';
-  }
-  else if(designId === 'mountain'){
-    layer.innerHTML = '<div class="mt-sky"></div><div class="mt-sun"></div><div class="mt-range"></div>';
-  }
-  else if(designId === 'city'){
-    layer.innerHTML = '<div class="ct-sky"></div>';
-    for(var i=0;i<10;i++){
-      var bd = document.createElement('div');
-      bd.className = 'ct-building';
-      bd.style.left = (i*10) + '%';
-      bd.style.width = (8+Math.random()*3) + '%';
-      bd.style.height = (20+Math.random()*40) + '%';
-      layer.appendChild(bd);
-    }
-    for(var i=0;i<30;i++){
-      var w = document.createElement('div');
-      w.className = 'ct-window';
-      w.style.left = (Math.random()*100) + '%';
-      w.style.bottom = (5+Math.random()*50) + '%';
-      w.style.animationDelay = Math.random()*3 + 's';
-      layer.appendChild(w);
-    }
-  }
-  else if(designId === 'waterfall'){
-    layer.innerHTML = '<div class="wf-sky"></div><div class="wf-rock"></div><div class="wf-flow"></div>';
-  }
-  else if(designId === 'fullmoon'){
-    layer.innerHTML = '<div class="fm-sky"></div><div class="fm-moon"></div>';
-    for(var i=0;i<50;i++) addStarToLayer(layer, 'fm-star');
-  }
-}
-
-function addStarToLayer(layer, cls){
-  cls = cls || 'av-star';
-  var s = document.createElement('div');
-  s.className = cls;
-  s.style.left = Math.random()*100 + '%';
-  s.style.top = Math.random()*70 + '%';
-  s.style.width = s.style.height = (1+Math.random()*2.5) + 'px';
-  s.style.animationDelay = Math.random()*3 + 's';
-  s.style.animationDuration = (2+Math.random()*3) + 's';
-  layer.appendChild(s);
 }
 
 /* ==================================================
@@ -1027,66 +940,68 @@ function refreshData(){
 }
 
 /* ==================================================
-   🎨 DESIGN SETTINGS LOAD & RENDER
+   🎨 DESIGN SETTINGS
    ================================================== */
+function switchDesignTab(tabId, btn){
+  currentDesignTab = tabId;
+  document.querySelectorAll('.design-tab').forEach(function(t){ t.classList.remove('active'); });
+  if(btn) btn.classList.add('active');
+  var titles = {
+    userLogin: '🔐 User Login Animation',
+    userDashboard: '📊 User Dashboard Animation',
+    adminLogin: '🔐 Admin Login Animation',
+    adminDashboard: '📊 Admin Dashboard Animation'
+  };
+  document.getElementById('designTitle').innerHTML = titles[tabId] + ' <span style="font-size:11px;color:#8fa8c4;font-weight:400;margin-left:auto;">২৫টি অপশন</span>';
+  renderDesignGrid();
+}
+
 function loadDesigns(){
   DB.get('/settings/designs').then(function(d){
-    var loginDesign = (d && d.login) ? d.login : 'night-village';
-    var dashDesign = (d && d.dashboard) ? d.dashboard : 'night-village';
-    
-    // Admin Panel-এ Animation apply করা
-    applyLoginDesign(loginDesign);
-    applyDashboardDesign(dashDesign);
-    
-    renderLoginDesigns(loginDesign);
-    renderDashboardDesigns(dashDesign);
+    var designs = d || {};
+    var adminLoginDesign = designs.adminLogin || 'night-village';
+    var adminDashDesign = designs.adminDashboard || 'night-village';
+    // Admin Panel-এ Animation apply
+    applyAnimationToLayer(document.getElementById('loginBgLayer'), adminLoginDesign);
+    applyAnimationToLayer(document.getElementById('appBgLayer'), adminDashDesign);
+    renderDesignGrid();
   }).catch(function(){
-    applyLoginDesign('night-village');
-    applyDashboardDesign('night-village');
-    renderLoginDesigns('night-village');
-    renderDashboardDesigns('night-village');
+    applyAnimationToLayer(document.getElementById('loginBgLayer'), 'night-village');
+    applyAnimationToLayer(document.getElementById('appBgLayer'), 'night-village');
+    renderDesignGrid();
   });
 }
 
-function renderLoginDesigns(current){
-  var container = document.getElementById('loginDesigns');
+function renderDesignGrid(){
+  var container = document.getElementById('designGrid');
   if(!container) return;
-  container.innerHTML = LOGIN_DESIGNS.map(function(d){
-    var selected = d.id === current;
-    return '<div class="design-card' + (selected ? ' selected' : '') + '" onclick="selectLoginDesign(\'' + d.id + '\')">' +
-      (selected ? '<div class="selected-mark">✓</div>' : '') +
-      '<div class="design-name">' + d.name + '</div>' +
-      '<div class="design-desc">' + d.desc + '</div>' +
-    '</div>';
-  }).join('');
-}
-
-function renderDashboardDesigns(current){
-  var container = document.getElementById('dashboardDesigns');
-  if(!container) return;
-  container.innerHTML = DASHBOARD_DESIGNS.map(function(d){
-    var selected = d.id === current;
-    return '<div class="design-card' + (selected ? ' selected' : '') + '" onclick="selectDashboardDesign(\'' + d.id + '\')">' +
-      (selected ? '<div class="selected-mark">✓</div>' : '') +
-      '<div class="design-name">' + d.name + '</div>' +
-      '<div class="design-desc">' + d.desc + '</div>' +
-    '</div>';
-  }).join('');
-}
-
-function selectLoginDesign(id){
-  DB.update('/settings/designs', { login: id }).then(function(){
-    showToast('✅ Login design updated!');
-    applyLoginDesign(id);
-    renderLoginDesigns(id);
+  DB.get('/settings/designs').then(function(d){
+    var designs = d || {};
+    var current = designs[currentDesignTab] || 'night-village';
+    container.innerHTML = ANIMATIONS.map(function(a){
+      var selected = a.id === current;
+      return '<div class="design-card' + (selected ? ' selected' : '') + '" onclick="selectDesign(\'' + a.id + '\')">' +
+        (selected ? '<div class="selected-mark">✓</div>' : '') +
+        '<div class="design-name">' + a.name + '</div>' +
+        '<div class="design-desc">' + a.desc + '</div>' +
+      '</div>';
+    }).join('');
   });
 }
 
-function selectDashboardDesign(id){
-  DB.update('/settings/designs', { dashboard: id }).then(function(){
-    showToast('✅ Dashboard design updated!');
-    applyDashboardDesign(id);
-    renderDashboardDesigns(id);
+function selectDesign(id){
+  var update = {};
+  update[currentDesignTab] = id;
+  DB.update('/settings/designs', update).then(function(){
+    showToast('✅ Design updated!');
+    // Admin Panel-এ তৎক্ষণাৎ apply
+    if(currentDesignTab === 'adminLogin'){
+      applyAnimationToLayer(document.getElementById('loginBgLayer'), id);
+    }
+    if(currentDesignTab === 'adminDashboard'){
+      applyAnimationToLayer(document.getElementById('appBgLayer'), id);
+    }
+    renderDesignGrid();
   });
 }
 
@@ -1401,7 +1316,7 @@ function renderOrders(){
     var statusColor = o.status === 'approved' ? '#00E676' : o.status === 'rejected' ? '#FF1744' : '#FF9800';
     return '<div class="proof-card">' +
       '<div class="proof-header">' +
-        '<div><div class="proof-user">' + (o.userName || o.name || o.email || 'Unknown') + '</div>' +
+        '<div><div class="proof-user">' + (o.name || o.email || 'Unknown') + '</div>' +
         '<div class="proof-job">🛒 ' + (o.service || 'Service') + ' — ৳' + (parseFloat(o.price) || 0).toFixed(2) + '</div></div>' +
         '<div><div style="color:' + statusColor + ';font-weight:900;font-size:12px;">' + (o.status || 'pending').toUpperCase() + '</div>' +
         '<div class="proof-date">' + new Date(o.date).toLocaleString('bn-BD') + '</div></div>' +
@@ -1891,7 +1806,7 @@ document.querySelectorAll('.menu-item[data-panel]').forEach(function(item){
     if(panel === 'deposits') loadDeposits();
     if(panel === 'withdraws') loadWithdraws();
     if(panel === 'premium') loadPremium();
-    if(panel === 'designs') loadDesigns();
+    if(panel === 'designs') { loadDesigns(); switchDesignTab('userLogin', document.querySelectorAll('.design-tab')[0]); }
     if(panel === 'leaderboard') loadLeaderboardUsers();
     if(panel === 'jobs') loadJobs();
     if(panel === 'promote') loadPromoteSettings();

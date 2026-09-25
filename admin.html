@@ -10,11 +10,10 @@
 body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-family:'Poppins','Segoe UI',sans-serif;}
 
 /* ==========================================
-   🎨 LOGIN SCREEN + APP BACKGROUND ANIMATION
+   🎨 LOGIN SCREEN
    ========================================== */
 .login-screen{position:fixed;inset:0;z-index:9999;display:flex;justify-content:center;align-items:center;background:linear-gradient(135deg,#0a0f1e,#1b263b,#415a77);padding:20px;overflow:hidden;}
-.login-bg-layer{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;}
-.app-bg-layer{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;}
+#loginBgLayer{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;}
 .login-box{position:relative;z-index:10;background:linear-gradient(135deg,rgba(13,27,42,.98),rgba(27,38,59,.98));padding:40px 32px;border-radius:22px;width:100%;max-width:440px;border:3px solid #00E5FF;box-shadow:0 0 80px rgba(0,229,255,.6);}
 .login-box .logo{width:90px;height:90px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 18px;border:3px solid #00E5FF;box-shadow:0 0 30px #00E5FF;}
 .login-box h1{color:#00E5FF;text-align:center;font-size:24px;font-weight:900;margin-bottom:6px;font-family:'Montserrat',sans-serif;}
@@ -26,49 +25,41 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 .login-error.show{display:block;}
 
 /* ==========================================
-   🎨 ২৫টি ANIMATION-এর GENERIC STYLES
+   🎨 APP BACKGROUND LAYER
    ========================================== */
-/* Star */
+#appBgLayer{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;}
+
+/* ==========================================
+   🎨 ANIMATION GENERIC STYLES
+   ========================================== */
 .anim-star{position:absolute;background:#fff;border-radius:50%;animation:animTwinkle 3s ease-in-out infinite;}
 @keyframes animTwinkle{0%,100%{opacity:.3;transform:scale(1);}50%{opacity:1;transform:scale(1.5);}}
-/* Moon */
 .anim-moon{position:absolute;border-radius:50%;background:radial-gradient(circle at 35% 35%,#FFF9C4,#FFE082,#B0BEC5);box-shadow:0 0 60px #FFE082,0 0 120px rgba(255,224,130,.5);animation:animMoonGlow 5s ease-in-out infinite;}
 @keyframes animMoonGlow{0%,100%{box-shadow:0 0 60px #FFE082,0 0 120px rgba(255,224,130,.5);}50%{box-shadow:0 0 90px #FFF9C4,0 0 180px rgba(255,224,130,.9);}}
-/* Rain */
 .anim-raindrop{position:absolute;top:-20px;width:2px;height:20px;background:linear-gradient(180deg,transparent,rgba(174,194,224,.8));animation:animRainFall linear infinite;}
 @keyframes animRainFall{0%{transform:translateY(-20px);}100%{transform:translateY(105vh);}}
-/* Snow */
 .anim-snow{position:absolute;top:-10px;color:#fff;animation:animSnowFall linear infinite;}
-@keyframes animSnowFall{0%{transform:translateY(-10px) translateX(0) rotate(0);opacity:0;}10%{opacity:.9;}50%{transform:translateY(50vh) translateX(30px) rotate(180deg);}100%{transform:translateY(105vh) translateX(-20px) rotate(360deg);opacity:0;}}
-/* Leaf */
-.anim-leaf{position:absolute;top:-20px;font-size:24px;animation:animLeafFall linear infinite;}
+@keyframes animSnowFall{0%{transform:translateY(-10px) rotate(0);opacity:0;}10%{opacity:.9;}100%{transform:translateY(105vh) rotate(720deg);opacity:0;}}
+.anim-leaf{position:absolute;top:-20px;animation:animLeafFall linear infinite;}
 @keyframes animLeafFall{0%{transform:translateY(-20px) rotate(0);opacity:0;}10%{opacity:1;}100%{transform:translateY(105vh) rotate(720deg) translateX(50px);opacity:0;}}
-/* Firefly */
 .anim-firefly{position:absolute;width:6px;height:6px;background:#FFEB3B;border-radius:50%;box-shadow:0 0 15px #FFEB3B,0 0 30px #FFC107;animation:animFireflyFloat 8s ease-in-out infinite;}
 @keyframes animFireflyFloat{0%{transform:translate(0,0);opacity:0;}20%{opacity:1;}80%{opacity:1;}100%{transform:translate(100px,-200px);opacity:0;}}
-/* Wave */
 .anim-wave{position:absolute;bottom:0;left:-50%;width:200%;background:radial-gradient(ellipse at top,rgba(0,229,255,.4),transparent 70%);border-radius:50% 50% 0 0;animation:animWaveMove 6s ease-in-out infinite alternate;}
 @keyframes animWaveMove{0%{transform:translateX(0) scaleY(1);}100%{transform:translateX(-10%) scaleY(1.2);}}
-/* Bird */
 .anim-bird{position:absolute;font-size:22px;animation:animBird 12s linear infinite;}
-@keyframes animBird{0%{transform:translateX(-100px) translateY(0);}50%{transform:translateX(50vw) translateY(-30px);}100%{transform:translateX(110vw) translateY(0);}}
-/* Boat */
-.anim-boat{position:absolute;font-size:50px;animation:animBoat 8s ease-in-out infinite;}
+@keyframes animBird{0%{transform:translateX(-100px);}50%{transform:translateX(50vw) translateY(-30px);}100%{transform:translateX(110vw);}}
+.anim-boat{position:absolute;animation:animBoat 8s ease-in-out infinite;}
 @keyframes animBoat{0%,100%{transform:translateX(0) rotate(-3deg);}50%{transform:translateX(30px) rotate(3deg);}}
-/* Fish */
-.anim-fish{position:absolute;font-size:28px;animation:animFish 10s linear infinite;}
+.anim-fish{position:absolute;animation:animFish 10s linear infinite;}
 @keyframes animFish{0%{transform:translateX(-100px);}100%{transform:translateX(110vw);}}
-/* Bubble */
 .anim-bubble{position:absolute;border:2px solid rgba(255,255,255,.6);border-radius:50%;animation:animBubbleUp linear infinite;}
 @keyframes animBubbleUp{0%{transform:translateY(0) scale(1);opacity:.8;}100%{transform:translateY(-100vh) scale(1.5);opacity:0;}}
-/* Flash */
 .anim-flash{position:absolute;inset:0;background:#fff;opacity:0;animation:animFlash 7s ease-in-out infinite;}
 @keyframes animFlash{0%,92%,100%{opacity:0;}94%{opacity:.6;}95%{opacity:0;}97%{opacity:.5;}98%{opacity:0;}}
-/* Rainbow Arc */
 .anim-rainbow-arc{position:absolute;border-radius:50%;border-style:solid;border-color:#FF0000 #FF9800 #FFEB3B #4CAF50 #2196F3 #9C27B0 transparent transparent;opacity:.75;}
 
 /* ==========================================
-   🎨 ADMIN PANEL LAYOUT
+   🎨 LAYOUT
    ========================================== */
 .app-layout{display:flex;min-height:100vh;position:relative;z-index:1;}
 .sidebar{width:260px;background:linear-gradient(180deg,rgba(13,27,42,.97),rgba(27,38,59,.97));border-right:2px solid rgba(0,229,255,.2);padding:20px 0;position:sticky;top:0;height:100vh;overflow-y:auto;z-index:100;transition:.3s;}
@@ -108,14 +99,12 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 .btn-green{background:linear-gradient(90deg,#00C853,#00E676);color:#fff;}
 .btn-red{background:linear-gradient(90deg,#D32F2F,#FF1744);color:#fff;}
 .btn-cyan{background:linear-gradient(90deg,#00E5FF,#0288D1);color:#fff;}
-.btn-gold{background:linear-gradient(90deg,#FFD700,#FF9800);color:#000;}
 .btn-full{width:100%;justify-content:center;}
 .settings-card{background:linear-gradient(135deg,rgba(13,27,42,.95),rgba(27,38,59,.95));border:2px solid rgba(0,229,255,.3);border-radius:18px;padding:25px;margin-bottom:20px;}
 .search-box{width:100%;padding:12px 18px;background:rgba(255,255,255,.05);border:2px solid rgba(0,229,255,.3);border-radius:12px;color:#fff;font-size:14px;font-family:inherit;margin-bottom:15px;outline:none;}
 .user-table{width:100%;border-collapse:collapse;background:rgba(255,255,255,.03);border-radius:14px;overflow:hidden;}
 .user-table th{background:rgba(0,229,255,.12);color:#00E5FF;padding:12px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:1px;}
 .user-table td{padding:12px;font-size:12px;color:#ddd;border-bottom:1px solid rgba(255,255,255,.05);}
-.user-table tr:hover{background:rgba(0,229,255,.05);}
 .user-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#00E5FF,#0288D1);display:flex;align-items:center;justify-content:center;font-weight:900;color:#000;font-size:14px;}
 .status-badge{padding:4px 10px;border-radius:20px;font-size:10px;font-weight:800;display:inline-block;}
 .status-verified{background:rgba(0,230,118,.2);color:#00E676;}
@@ -124,7 +113,6 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 .status-pending{background:rgba(255,152,0,.2);color:#FF9800;}
 .status-approved{background:rgba(0,230,118,.2);color:#00E676;}
 .status-rejected{background:rgba(255,23,68,.2);color:#FF1744;}
-.status-paid{background:rgba(0,230,118,.2);color:#00E676;}
 .action-btn{padding:6px 12px;border:none;border-radius:8px;cursor:pointer;font-size:11px;font-weight:700;font-family:inherit;margin-right:4px;margin-bottom:4px;}
 .chat-layout{display:grid;grid-template-columns:300px 1fr;gap:15px;height:600px;}
 .chat-users{background:rgba(255,255,255,.03);border:2px solid rgba(0,229,255,.3);border-radius:14px;overflow-y:auto;padding:10px;}
@@ -163,10 +151,10 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 .job-item .job-info p{color:#8fa8c4;font-size:11px;word-break:break-all;}
 
 /* ==========================================
-   🎨 DESIGN SETTINGS GRID
+   🎨 DESIGN SETTINGS
    ========================================== */
 .design-tabs{display:flex;gap:8px;margin-bottom:20px;background:rgba(255,255,255,.05);padding:6px;border-radius:14px;flex-wrap:wrap;}
-.design-tab{flex:1;min-width:140px;padding:12px 16px;background:transparent;border:none;color:#8fa8c4;font-size:12px;font-weight:700;border-radius:10px;cursor:pointer;transition:.3s;font-family:inherit;}
+.design-tab{flex:1;min-width:130px;padding:12px 14px;background:transparent;border:none;color:#8fa8c4;font-size:12px;font-weight:700;border-radius:10px;cursor:pointer;transition:.3s;font-family:inherit;}
 .design-tab.active{background:linear-gradient(90deg,#00E5FF,#0288D1);color:#fff;}
 .design-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;}
 .design-card{background:linear-gradient(135deg,rgba(27,38,59,.95),rgba(13,27,42,.95));border:2px solid rgba(0,229,255,.3);border-radius:16px;padding:18px;cursor:pointer;transition:.3s;text-align:center;position:relative;overflow:hidden;}
@@ -193,9 +181,9 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 </head>
 <body>
 
-<!-- 🎨 LOGIN SCREEN with Animation Layer -->
+<!-- 🎨 LOGIN SCREEN -->
 <div class="login-screen" id="loginScreen">
-  <div class="login-bg-layer" id="loginBgLayer"></div>
+  <div id="loginBgLayer"></div>
   <div class="login-box">
     <img src="https://i.ibb.co.com/bgMN2Yv8/IMG-20260429-WA0011.jpg" class="logo" alt="Logo">
     <h1>ADMIN PANEL</h1>
@@ -206,9 +194,9 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
   </div>
 </div>
 
+<!-- 🎨 APP LAYOUT -->
 <div class="app-layout" id="appLayout" style="display:none;">
-  <!-- 🎨 APP BACKGROUND ANIMATION LAYER -->
-  <div class="app-bg-layer" id="appBgLayer"></div>
+  <div id="appBgLayer"></div>
 
   <button class="mobile-toggle" onclick="toggleSidebar()">☰</button>
   
@@ -332,17 +320,17 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
     </div>
 
     <!-- ==============================================
-         🎨 DESIGN SETTINGS — ৪টি ট্যাব সহ
+         🎨 DESIGN SETTINGS — ৪টি ট্যাব
          ============================================== -->
     <div class="panel" id="designs">
       <div class="section-title">🎨 Design Settings</div>
       <p style="color:#8fa8c4;font-size:13px;margin-bottom:20px;">এখান থেকে ৪টি জায়গার Animation পরিবর্তন করুন। প্রতিটি সেটে ২৫টি Animation আছে।</p>
       
       <div class="design-tabs">
-        <button class="design-tab active" onclick="switchDesignTab('userLogin', this)">🔐 User Login</button>
-        <button class="design-tab" onclick="switchDesignTab('userDashboard', this)">📊 User Dashboard</button>
-        <button class="design-tab" onclick="switchDesignTab('adminLogin', this)">🔐 Admin Login</button>
-        <button class="design-tab" onclick="switchDesignTab('adminDashboard', this)">📊 Admin Dashboard</button>
+        <button class="design-tab active" data-tab="userLogin" onclick="switchDesignTab('userLogin', this)">🔐 User Login</button>
+        <button class="design-tab" data-tab="userDashboard" onclick="switchDesignTab('userDashboard', this)">📊 User Dashboard</button>
+        <button class="design-tab" data-tab="adminLogin" onclick="switchDesignTab('adminLogin', this)">🔐 Admin Login</button>
+        <button class="design-tab" data-tab="adminDashboard" onclick="switchDesignTab('adminDashboard', this)">📊 Admin Dashboard</button>
       </div>
       
       <div class="settings-card">
@@ -359,11 +347,9 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
         <div class="form-group"><label>🧮 Math Reward (৳)</label><input type="number" step="0.01" id="sMathReward" placeholder="0.04"></div>
         <div class="form-group"><label>⏱️ Ads Timer (সেকেন্ড)</label><input type="number" id="sAdsTimer" placeholder="8"></div>
         <div class="form-group"><label>🎯 Daily Ad Limit</label><input type="number" id="sAdDailyLimit" placeholder="10"></div>
-        <div class="form-group"><label>⏰ Popunder Ad Interval (মিনিট)</label><input type="number" id="sPopunderInterval" placeholder="3"></div>
-        <div class="form-group"><label>🎬 Interstitial Ad Interval (মিনিট)</label><input type="number" id="sInterstitialInterval" placeholder="5"></div>
         <div class="form-group"><label>💵 Min Deposit (৳)</label><input type="number" id="sMinDeposit" placeholder="100"></div>
-        <div class="form-group"><label>🏧 Min Withdraw (৳)</label><input type="number" id="sMinWithdraw" placeholder="110"></div>
-        <div class="form-group"><label>💸 Withdraw Fee (৳)</label><input type="number" id="sWithdrawFee" placeholder="10"></div>
+        <div class="form-group"><label>🏧 Min Withdraw (৳)</label><input type="number" id="sMinWithdraw" placeholder="2780"></div>
+        <div class="form-group"><label>💸 Withdraw Fee (৳)</label><input type="number" id="sWithdrawFee" placeholder="40"></div>
         <div class="form-group"><label>💎 Premium Price (৳)</label><input type="number" id="sPremiumPrice" placeholder="90"></div>
         <button class="btn btn-cyan btn-full" onclick="saveRewardSettings()">💾 Save Settings</button>
       </div>
@@ -438,7 +424,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 <div class="toast" id="toast"></div>
 <script>
 /* ==================================================
-   🔥 FIREBASE REALTIME DATABASE
+   🔥 FIREBASE CONNECTION
    ================================================== */
 var FIREBASE_URL = "https://atik-8be75-default-rtdb.asia-southeast1.firebasedatabase.app";
 var ADMIN_PASSWORD = "atik2024";
@@ -454,36 +440,39 @@ var chatPolling = null;
 var currentDesignTab = 'userLogin';
 
 /* ==================================================
-   🎨 ২৫টি ANIMATION-এর ডেটা
+   🎨 ২৫টি ANIMATION
    ================================================== */
 var ANIMATIONS = [
   { id: 'rainy-night',    name: '🌧️ Rainy Night',     desc: 'বৃষ্টি + ছাতা + মানুষ' },
   { id: 'snowfall',       name: '❄️ Snowfall',         desc: 'তুষার + ঘর + হরিণ' },
   { id: 'ocean-wave',     name: '🌊 Ocean Wave',       desc: 'ঢেউ + নৌকা + পাখি' },
-  { id: 'starry-galaxy',  name: '✨ Starry Galaxy',    desc: 'তারা + নীহারিকা + উল্কা' },
+  { id: 'starry-galaxy',  name: '✨ Starry Galaxy',    desc: 'তারা + নীহারিকা' },
   { id: 'autumn',         name: '🍂 Autumn',           desc: 'গাছ + পাতা + পাখি' },
-  { id: 'fireflies',      name: '🔥 Fireflies',        desc: 'ফায়ারফ্লাই + গাছ + নদী' },
-  { id: 'aurora',         name: '🌌 Aurora',           desc: 'অরোরা + পাহাড় + বরফ' },
-  { id: 'golden-sunset',  name: '🌅 Golden Sunset',    desc: 'সূর্য + মেঘ + সমুদ্র' },
-  { id: 'green-forest',   name: '🌲 Green Forest',     desc: 'গাছ + হরিণ + পাখি' },
+  { id: 'fireflies',      name: '🔥 Fireflies',        desc: 'ফায়ারফ্লাই + চাঁদ' },
+  { id: 'aurora',         name: '🌌 Aurora',           desc: 'অরোরা + তারা' },
+  { id: 'golden-sunset',  name: '🌅 Golden Sunset',    desc: 'সূর্য + মেঘ' },
+  { id: 'green-forest',   name: '🌲 Green Forest',     desc: 'গাছ + হরিণ' },
   { id: 'cherry',         name: '🌸 Cherry',           desc: 'ফুল বাগান + প্রজাপতি' },
-  { id: 'fireworks',      name: '🎆 Fireworks',        desc: 'আতশবাজি + শহর' },
-  { id: 'lightning',      name: '⚡ Lightning',        desc: 'বিদ্যুৎ + মেঘ + বৃষ্টি' },
-  { id: 'rainbow',        name: '🌈 Rainbow',          desc: 'রংধনু + মেঘ + মাঠ' },
+  { id: 'fireworks',      name: '🎆 Fireworks',        desc: 'আতশবাজি' },
+  { id: 'lightning',      name: '⚡ Lightning',        desc: 'বিদ্যুৎ + বৃষ্টি' },
+  { id: 'rainbow',        name: '🌈 Rainbow',          desc: 'রংধনু + আকাশ' },
   { id: 'butterflies',    name: '🦋 Butterflies',      desc: 'প্রজাপতি + ফুল' },
   { id: 'tropical',       name: '🌺 Tropical',         desc: 'নৌকা + সৈকত + সূর্য' },
-  { id: 'mountain',       name: '🏔️ Mountain',         desc: 'পাহাড় + পাখি + নদী' },
-  { id: 'city',           name: '🌃 City Lights',      desc: 'গাড়ি + রাস্তা + চাঁদ' },
-  { id: 'waterfall',      name: '💧 Waterfall',        desc: 'ঝর্ণা + পাখি + রংধনু' },
-  { id: 'fullmoon',       name: '🌕 Full Moon',        desc: 'চাঁদ + নৌকা + গাছ' },
+  { id: 'mountain',       name: '🏔️ Mountain',         desc: 'পাহাড় + পাখি' },
+  { id: 'city',           name: '🌃 City Lights',      desc: 'গাড়ি + চাঁদ' },
+  { id: 'waterfall',      name: '💧 Waterfall',        desc: 'ঝর্ণা + পাখি' },
+  { id: 'fullmoon',       name: '🌕 Full Moon',        desc: 'চাঁদ + তারা' },
   { id: 'night-village',  name: '🌙 Night Village',    desc: 'গ্রাম + তারা + গাছ' },
   { id: 'island',         name: '🏝️ Island',           desc: 'সৈকত + নৌকা + তালগাছ' },
-  { id: 'volcano',        name: '🌋 Volcano',          desc: 'পাহাড় + লাভা + ধোঁয়া' },
+  { id: 'volcano',        name: '🌋 Volcano',          desc: 'পাহাড় + লাভা' },
   { id: 'amusement-park', name: '🎡 Amusement Park',   desc: 'ফেরিস হুইল + আলো' },
-  { id: 'space-rocket',   name: '🚀 Space Rocket',     desc: 'রকেট + তারা + গ্রহ' },
-  { id: 'underwater',     name: '🐠 Underwater',       desc: 'মাছ + কোরাল + বুদবুদ' }
+  { id: 'space-rocket',   name: '🚀 Space Rocket',     desc: 'রকেট + তারা' },
+  { id: 'underwater',     name: '🐠 Underwater',       desc: 'মাছ + কোরাল' }
 ];
 
+/* ==================================================
+   🔥 FIREBASE HELPERS
+   ================================================== */
 var DB = {
   get: function(path){ return fetch(FIREBASE_URL + path + '.json').then(function(r){ return r.json(); }); },
   set: function(path, data){
@@ -523,36 +512,81 @@ function showToast(msg){
 function toggleSidebar(){ document.getElementById('sidebar').classList.toggle('open'); }
 
 /* ==================================================
-   🎨 ANIMATION APPLY FUNCTIONS (Generic)
+   🎨 APPLY ANIMATION TO LAYER (সব ২৫টি Animation)
    ================================================== */
 function applyAnimationToLayer(layer, designId){
   if(!layer) return;
-layer.style.position = 'absolute';
-layer.style.inset = '0';
-layer.style.zIndex = '-1';
-layer.style.display = 'block';
-layer.style.overflow = 'hidden';
-layer.style.pointerEvents = 'none';
+  
+  // Force styles
+  layer.style.position = 'fixed';
+  layer.style.inset = '0';
+  layer.style.zIndex = (layer.id === 'loginBgLayer') ? '0' : '-1';
+  layer.style.display = 'block';
+  layer.style.overflow = 'hidden';
+  layer.style.pointerEvents = 'none';
+  
   layer.innerHTML = '';
-  layer.className = layer.className.replace(/anim-\S+/g, '').trim() + ' anim-' + designId;
-
-  if(designId === 'rainy-night'){
-    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#0a0f1e 0%,#1a2332 40%,#2c3e50 80%,#1e3a2e 100%);"></div>';
+  
+  // bgStyle
+  var bg = 'linear-gradient(180deg,#0a0f1e 0%,#0f172a 30%,#1a2332 60%,#1e3a2e 100%)';
+  if(designId === 'rainy-night') bg = 'linear-gradient(180deg,#0a0f1e 0%,#1a2332 40%,#2c3e50 80%,#1e3a2e 100%)';
+  else if(designId === 'snowfall') bg = 'linear-gradient(180deg,#1a2332 0%,#2c3e50 50%,#415a77 100%)';
+  else if(designId === 'ocean-wave') bg = 'linear-gradient(180deg,#0a0f1e 0%,#1a237e 50%,#0277BD 100%)';
+  else if(designId === 'starry-galaxy') bg = 'radial-gradient(ellipse at center,#1a0b2e 0%,#0a0f1e 60%,#000 100%)';
+  else if(designId === 'autumn') bg = 'linear-gradient(180deg,#FFB347 0%,#FF8C42 30%,#E65100 70%,#8B4513 100%)';
+  else if(designId === 'fireflies') bg = 'linear-gradient(180deg,#0a0f1e 0%,#0f172a 40%,#0d3a1f 100%)';
+  else if(designId === 'aurora') bg = 'radial-gradient(ellipse at top,#0a0f1e 0%,#1a0b2e 50%,#0a0f1e 100%)';
+  else if(designId === 'golden-sunset') bg = 'linear-gradient(180deg,#FF6B35 0%,#F7931E 30%,#FDC830 60%,#F37335 100%)';
+  else if(designId === 'green-forest') bg = 'linear-gradient(180deg,#0a1f0a 0%,#0f3a0f 40%,#1e5c1e 100%)';
+  else if(designId === 'cherry') bg = 'linear-gradient(180deg,#FFF0F5 0%,#FFD1DC 40%,#FFB6C1 100%)';
+  else if(designId === 'fireworks') bg = 'radial-gradient(ellipse at center,#0a0f1e 0%,#000 100%)';
+  else if(designId === 'lightning') bg = 'linear-gradient(180deg,#0a0f1e 0%,#1a1a2e 50%,#16213e 100%)';
+  else if(designId === 'rainbow') bg = 'linear-gradient(180deg,#87CEEB 0%,#B0E0E6 40%,#E0F7FA 100%)';
+  else if(designId === 'butterflies') bg = 'linear-gradient(180deg,#FFF0F5 0%,#B2EBF2 50%,#80DEEA 100%)';
+  else if(designId === 'tropical') bg = 'linear-gradient(180deg,#4FC3F7 0%,#0288D1 60%,#0277BD 100%)';
+  else if(designId === 'mountain') bg = 'linear-gradient(180deg,#FF6B6B 0%,#FFB347 50%,#FFD93D 100%)';
+  else if(designId === 'city') bg = 'linear-gradient(180deg,#0a0f1e 0%,#1a1a2e 50%,#2c1810 100%)';
+  else if(designId === 'waterfall') bg = 'linear-gradient(180deg,#1a2332 0%,#0a0f1e 100%)';
+  else if(designId === 'fullmoon') bg = 'radial-gradient(ellipse at center,#1a2332 0%,#0a0f1e 100%)';
+  else if(designId === 'island') bg = 'linear-gradient(180deg,#4FC3F7 0%,#0288D1 60%,#0277BD 100%)';
+  else if(designId === 'volcano') bg = 'linear-gradient(180deg,#1a0a0a 0%,#4a1a0a 60%,#8B0000 100%)';
+  else if(designId === 'amusement-park') bg = 'radial-gradient(ellipse at top,#1a0b2e 0%,#0a0f1e 70%)';
+  else if(designId === 'space-rocket') bg = 'radial-gradient(ellipse at center,#0a0f1e 0%,#1a0b2e 50%,#000 100%)';
+  else if(designId === 'underwater') bg = 'linear-gradient(180deg,#0a2a4a 0%,#0277BD 50%,#01579B 100%)';
+  
+  layer.innerHTML = '<div style="position:absolute;inset:0;background:' + bg + ';"></div>';
+  
+  // Stars
+  if(['night-village','starry-galaxy','aurora','fullmoon','space-rocket','fireflies','fireworks','amusement-park','city'].indexOf(designId) >= 0){
+    var cnt = (designId === 'space-rocket') ? 120 : 80;
+    for(var i=0;i<cnt;i++){
+      var s = document.createElement('div');
+      s.className = 'anim-star';
+      s.style.left = Math.random()*100 + '%';
+      s.style.top = Math.random()*70 + '%';
+      s.style.width = s.style.height = (1+Math.random()*2.5) + 'px';
+      s.style.animationDelay = Math.random()*3 + 's';
+      layer.appendChild(s);
+    }
+  }
+  
+  // Rain
+  if(designId === 'rainy-night' || designId === 'lightning'){
     for(var i=0;i<100;i++){
       var r = document.createElement('div');
       r.className = 'anim-raindrop';
       r.style.left = Math.random()*100 + '%';
       r.style.animationDuration = (0.4+Math.random()*0.5) + 's';
       r.style.animationDelay = Math.random()*3 + 's';
-      r.style.height = (15+Math.random()*20) + 'px';
       layer.appendChild(r);
     }
     var flash = document.createElement('div');
     flash.className = 'anim-flash';
     layer.appendChild(flash);
   }
-  else if(designId === 'snowfall'){
-    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#1a2332 0%,#2c3e50 50%,#415a77 100%);"></div>';
+  
+  // Snow
+  if(designId === 'snowfall'){
     for(var i=0;i<70;i++){
       var f = document.createElement('div');
       f.className = 'anim-snow';
@@ -563,56 +597,11 @@ layer.style.pointerEvents = 'none';
       f.textContent = '❄';
       layer.appendChild(f);
     }
-    var house = document.createElement('div');
-    house.style.cssText = 'position:absolute;bottom:10%;left:15%;font-size:60px;opacity:.8;';
-    house.textContent = '🏠';
-    layer.appendChild(house);
-    var deer = document.createElement('div');
-    deer.style.cssText = 'position:absolute;bottom:12%;right:20%;font-size:50px;opacity:.85;';
-    deer.textContent = '🦌';
-    layer.appendChild(deer);
   }
-  else if(designId === 'ocean-wave'){
-    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#0a0f1e 0%,#1a237e 50%,#0277BD 100%);"></div>';
-    for(var i=0;i<4;i++){
-      var w = document.createElement('div');
-      w.className = 'anim-wave';
-      w.style.height = (80+i*40) + 'px';
-      w.style.animationDuration = (5+i*1.5) + 's';
-      layer.appendChild(w);
-    }
-    var sun = document.createElement('div');
-    sun.style.cssText = 'position:absolute;top:15%;right:15%;width:80px;height:80px;border-radius:50%;background:radial-gradient(circle,#FFF59D,#FFEB3B,#FFC107);box-shadow:0 0 80px #FFF59D;';
-    layer.appendChild(sun);
-    var boat = document.createElement('div');
-    boat.className = 'anim-boat';
-    boat.style.cssText = 'position:absolute;bottom:35%;left:40%;font-size:50px;';
-    boat.textContent = '⛵';
-    layer.appendChild(boat);
-    var bird = document.createElement('div');
-    bird.className = 'anim-bird';
-    bird.style.top = '25%';
-    bird.textContent = '🕊️';
-    layer.appendChild(bird);
-  }
-  else if(designId === 'starry-galaxy'){
-    layer.innerHTML = '<div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,#1a0b2e 0%,#0a0f1e 60%,#000 100%);"></div>';
-    for(var i=0;i<120;i++){
-      var s = document.createElement('div');
-      s.className = 'anim-star';
-      s.style.left = Math.random()*100 + '%';
-      s.style.top = Math.random()*70 + '%';
-      s.style.width = s.style.height = (1+Math.random()*2.5) + 'px';
-      s.style.animationDelay = Math.random()*3 + 's';
-      layer.appendChild(s);
-    }
-    var nebula = document.createElement('div');
-    nebula.style.cssText = 'position:absolute;top:20%;left:30%;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(156,39,176,.35),rgba(103,58,183,.2),transparent 70%);filter:blur(50px);';
-    layer.appendChild(nebula);
-  }
-  else if(designId === 'autumn'){
-    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#FFB347 0%,#FF8C42 30%,#E65100 70%,#8B4513 100%);"></div>';
-    var leaves = ['🍂','🍁','🍃'];
+  
+  // Leaves / Cherry petals
+  if(designId === 'autumn' || designId === 'cherry'){
+    var leaves = (designId === 'autumn') ? ['🍂','🍁','🍃'] : ['🌸','🌸','🌸'];
     for(var i=0;i<45;i++){
       var lf = document.createElement('div');
       lf.className = 'anim-leaf';
@@ -623,14 +612,10 @@ layer.style.pointerEvents = 'none';
       lf.textContent = leaves[i % leaves.length];
       layer.appendChild(lf);
     }
-    var bird2 = document.createElement('div');
-    bird2.className = 'anim-bird';
-    bird2.style.top = '20%';
-    bird2.textContent = '🦅';
-    layer.appendChild(bird2);
   }
-  else if(designId === 'fireflies'){
-    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#0a0f1e 0%,#0f172a 40%,#0d3a1f 100%);"></div>';
+  
+  // Fireflies
+  if(designId === 'fireflies'){
     for(var i=0;i<35;i++){
       var fd = document.createElement('div');
       fd.className = 'anim-firefly';
@@ -640,116 +625,92 @@ layer.style.pointerEvents = 'none';
       fd.style.animationDelay = Math.random()*6 + 's';
       layer.appendChild(fd);
     }
-    var m = document.createElement('div');
-    m.className = 'anim-moon';
-    m.style.cssText += 'top:10%;right:15%;width:80px;height:80px;';
-    layer.appendChild(m);
   }
-  else if(designId === 'aurora'){
-    layer.innerHTML = '<div style="position:absolute;inset:0;background:radial-gradient(ellipse at top,#0a0f1e 0%,#1a0b2e 50%,#0a0f1e 100%);"></div><div style="position:absolute;top:0;left:0;width:100%;height:60%;background:linear-gradient(180deg,rgba(0,255,127,.5),rgba(0,255,255,.35),transparent);filter:blur(35px);animation:animMoonGlow 8s ease-in-out infinite;"></div><div style="position:absolute;top:0;left:0;width:100%;height:55%;background:linear-gradient(180deg,rgba(156,39,176,.4),rgba(0,229,255,.25),transparent);filter:blur(45px);animation:animMoonGlow 11s ease-in-out infinite reverse;"></div>';
-    for(var i=0;i<80;i++){
-      var s2 = document.createElement('div');
-      s2.className = 'anim-star';
-      s2.style.left = Math.random()*100 + '%';
-      s2.style.top = Math.random()*50 + '%';
-      s2.style.width = s2.style.height = (1+Math.random()*2) + 'px';
-      s2.style.animationDelay = Math.random()*3 + 's';
-      layer.appendChild(s2);
+  
+  // Waves
+  if(designId === 'ocean-wave'){
+    for(var i=0;i<4;i++){
+      var w = document.createElement('div');
+      w.className = 'anim-wave';
+      w.style.height = (80+i*40) + 'px';
+      w.style.animationDuration = (5+i*1.5) + 's';
+      layer.appendChild(w);
     }
   }
-  else if(designId === 'golden-sunset'){
-    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#FF6B35 0%,#F7931E 30%,#FDC830 60%,#F37335 100%);"></div><div style="position:absolute;bottom:25%;left:50%;transform:translateX(-50%);width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,#FFF59D,#FFB300,#F57C00);box-shadow:0 0 120px #FFF59D,0 0 240px rgba(255,193,7,.8);animation:animMoonGlow 4s ease-in-out infinite;"></div>';
-    var cloud = document.createElement('div');
-    cloud.style.cssText = 'position:absolute;top:15%;left:20%;width:200px;height:60px;background:radial-gradient(circle,rgba(255,255,255,.5),transparent 70%);border-radius:50%;';
-    layer.appendChild(cloud);
-    var bird3 = document.createElement('div');
-    bird3.className = 'anim-bird';
-    bird3.style.top = '25%';
-    bird3.textContent = '🦅';
-    layer.appendChild(bird3);
+  
+  // Moon
+  if(['night-village','fireflies','city','fullmoon'].indexOf(designId) >= 0){
+    var m = document.createElement('div');
+    m.className = 'anim-moon';
+    if(designId === 'fullmoon'){
+      m.style.cssText += 'top:15%;left:50%;transform:translateX(-50%);width:160px;height:160px;background:radial-gradient(circle at 40% 40%,#FFF9C4,#FFE082,#FFC107);';
+    } else {
+      m.style.cssText += 'top:60px;right:90px;width:80px;height:80px;';
+    }
+    layer.appendChild(m);
   }
-  else if(designId === 'green-forest'){
-    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#0a1f0a 0%,#0f3a0f 40%,#1e5c1e 100%);"></div>';
+  
+  // Sun
+  if(['ocean-wave','golden-sunset','mountain','tropical','island'].indexOf(designId) >= 0){
+    var sun = document.createElement('div');
+    sun.style.cssText = 'position:absolute;width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,#FFF59D,#FFEB3B,#FFC107);box-shadow:0 0 100px #FFF59D,0 0 200px rgba(255,235,59,.6);animation:animMoonGlow 4s ease-in-out infinite;';
+    if(designId === 'golden-sunset' || designId === 'mountain'){
+      sun.style.bottom = '30%';
+      sun.style.left = '50%';
+      sun.style.transform = 'translateX(-50%)';
+    } else {
+      sun.style.top = '12%';
+      sun.style.right = '15%';
+    }
+    layer.appendChild(sun);
+  }
+  
+  // Boat
+  if(['ocean-wave','tropical','island'].indexOf(designId) >= 0){
+    var boat = document.createElement('div');
+    boat.className = 'anim-boat';
+    boat.style.cssText = 'position:absolute;bottom:35%;left:40%;font-size:50px;';
+    boat.textContent = '⛵';
+    layer.appendChild(boat);
+  }
+  
+  // Bird
+  if(['ocean-wave','golden-sunset','mountain','autumn','waterfall'].indexOf(designId) >= 0){
+    var bird = document.createElement('div');
+    bird.className = 'anim-bird';
+    bird.style.top = '20%';
+    bird.textContent = '🕊️';
+    layer.appendChild(bird);
+  }
+  
+  // Trees
+  if(designId === 'green-forest'){
     for(var i=0;i<14;i++){
       var t = document.createElement('div');
-      t.style.cssText = 'position:absolute;bottom:0;font-size:' + (50+Math.random()*30) + 'px;left:' + (i*7) + '%;animation:animMoonGlow 3s ease-in-out infinite;animation-delay:' + (i*0.2) + 's;';
+      t.style.cssText = 'position:absolute;bottom:0;font-size:' + (50+Math.random()*30) + 'px;left:' + (i*7) + '%;';
       t.textContent = '🌲';
       layer.appendChild(t);
     }
-    var deer2 = document.createElement('div');
-    deer2.style.cssText = 'position:absolute;bottom:8%;right:20%;font-size:40px;';
-    deer2.textContent = '🦌';
-    layer.appendChild(deer2);
   }
-  else if(designId === 'cherry'){
-    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#FFF0F5 0%,#FFD1DC 40%,#FFB6C1 100%);"></div>';
-    for(var i=0;i<45;i++){
-      var p = document.createElement('div');
-      p.className = 'anim-leaf';
-      p.style.fontSize = (18+Math.random()*10) + 'px';
-      p.style.animationDuration = (5+Math.random()*7) + 's';
-      p.style.animationDelay = (Math.random()*8) + 's';
-      p.style.left = (Math.random()*100) + '%';
-      p.textContent = '🌸';
-      layer.appendChild(p);
-    }
-    for(var i=0;i<5;i++){
-      var bf2 = document.createElement('div');
-      bf2.style.cssText = 'position:absolute;font-size:28px;left:' + (i*18+10) + '%;top:' + (30+Math.random()*30) + '%;animation:animFireflyFloat 10s ease-in-out infinite;animation-delay:' + (i*0.5) + 's;';
-      bf2.textContent = '🦋';
-      layer.appendChild(bf2);
-    }
+  
+  // Deer
+  if(designId === 'snowfall' || designId === 'green-forest'){
+    var deer = document.createElement('div');
+    deer.style.cssText = 'position:absolute;bottom:10%;right:20%;font-size:50px;';
+    deer.textContent = '🦌';
+    layer.appendChild(deer);
   }
-  else if(designId === 'fireworks'){
-    layer.innerHTML = '<div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,#0a0f1e 0%,#000 100%);"></div>';
-    var colors = ['#FF1744','#FFD700','#00E676','#00E5FF','#E1306C','#FF9800'];
-    for(var i=0;i<10;i++){
-      var burst = document.createElement('div');
-      burst.style.cssText = 'position:absolute;width:8px;height:8px;border-radius:50%;animation:animTwinkle 2s ease-out infinite;background:' + colors[i % colors.length] + ';box-shadow:0 0 25px ' + colors[i % colors.length] + ',0 0 50px ' + colors[i % colors.length] + ';left:' + (10+Math.random()*80) + '%;top:' + (10+Math.random()*70) + '%;animation-delay:' + (i*0.4) + 's;';
-      layer.appendChild(burst);
-    }
+  
+  // House
+  if(designId === 'snowfall'){
+    var house = document.createElement('div');
+    house.style.cssText = 'position:absolute;bottom:10%;left:15%;font-size:60px;';
+    house.textContent = '🏠';
+    layer.appendChild(house);
   }
-  else if(designId === 'lightning'){
-    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#0a0f1e 0%,#1a1a2e 50%,#16213e 100%);"></div><div class="anim-flash"></div>';
-    for(var i=0;i<60;i++){
-      var r2 = document.createElement('div');
-      r2.className = 'anim-raindrop';
-      r2.style.left = Math.random()*100 + '%';
-      r2.style.animationDuration = (0.3+Math.random()*0.4) + 's';
-      r2.style.animationDelay = Math.random()*3 + 's';
-      layer.appendChild(r2);
-    }
-  }
-  else if(designId === 'rainbow'){
-    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#87CEEB 0%,#B0E0E6 40%,#E0F7FA 100%);"></div>';
-    var rb = document.createElement('div');
-    rb.className = 'anim-rainbow-arc';
-    rb.style.cssText = 'bottom:15%;left:50%;transform:translateX(-50%);width:600px;height:600px;border-width:20px;';
-    layer.appendChild(rb);
-  }
-  else if(designId === 'butterflies'){
-    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#FFF0F5 0%,#B2EBF2 50%,#80DEEA 100%);"></div>';
-    for(var i=0;i<10;i++){
-      var bf3 = document.createElement('div');
-      bf3.style.cssText = 'position:absolute;font-size:30px;animation:animFireflyFloat 10s ease-in-out infinite;animation-delay:' + (i*0.5) + 's;left:' + (i*10+5) + '%;top:' + (20+Math.random()*50) + '%;';
-      bf3.textContent = '🦋';
-      layer.appendChild(bf3);
-    }
-    for(var i=0;i<15;i++){
-      var fl = document.createElement('div');
-      fl.style.cssText = 'position:absolute;font-size:24px;bottom:' + (Math.random()*30) + '%;left:' + (Math.random()*100) + '%;';
-      fl.textContent = ['🌻','🌷','🌺','🌼'][i % 4];
-      layer.appendChild(fl);
-    }
-  }
-  else if(designId === 'tropical'){
-    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#4FC3F7 0%,#0288D1 60%,#0277BD 100%);"></div><div style="position:absolute;top:10%;right:15%;width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,#FFF59D,#FFEB3B,#FFC107);box-shadow:0 0 100px #FFF59D;animation:animMoonGlow 4s ease-in-out infinite;"></div><div style="position:absolute;bottom:0;width:100%;height:40%;background:linear-gradient(180deg,#0288D1 0%,#01579B 100%);"></div><div style="position:absolute;bottom:35%;left:10%;font-size:70px;">🌴</div><div style="position:absolute;bottom:38%;right:15%;font-size:60px;">🌴</div><div style="position:absolute;bottom:20%;left:40%;font-size:50px;animation:animBoat 8s ease-in-out infinite;">⛵</div>';
-  }
-  else if(designId === 'mountain'){
-    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#FF6B6B 0%,#FFB347 50%,#FFD93D 100%);"></div><div style="position:absolute;bottom:38%;left:50%;transform:translateX(-50%);width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,#FFF59D,#FFC107);box-shadow:0 0 120px #FFF59D;animation:animMoonGlow 5s ease-in-out infinite;"></div><div style="position:absolute;bottom:0;width:100%;height:40%;background:linear-gradient(135deg,#1a2332 0%,#2c3e50 50%,#415a77 100%);clip-path:polygon(0 100%,15% 30%,30% 60%,50% 15%,70% 55%,85% 25%,100% 100%);"></div><div class="anim-bird" style="top:20%;">🦅</div>';
-  }
-  else if(designId === 'city'){
-    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#0a0f1e 0%,#1a1a2e 50%,#2c1810 100%);"></div>';
+  
+  // City Buildings
+  if(designId === 'city'){
     for(var i=0;i<14;i++){
       var bd = document.createElement('div');
       bd.style.cssText = 'position:absolute;bottom:0;background:linear-gradient(180deg,#1a2332,#0a0f1e);border-top:2px solid #FFC107;left:' + (i*7) + '%;width:' + (6+Math.random()*3) + '%;height:' + (25+Math.random()*45) + '%;';
@@ -760,93 +721,71 @@ layer.style.pointerEvents = 'none';
       w2.style.cssText = 'position:absolute;width:4px;height:4px;background:#FFC107;box-shadow:0 0 6px #FFC107;animation:animTwinkle 3s ease-in-out infinite;left:' + (Math.random()*100) + '%;bottom:' + (5+Math.random()*55) + '%;animation-delay:' + (Math.random()*3) + 's;';
       layer.appendChild(w2);
     }
-    var m2 = document.createElement('div');
-    m2.className = 'anim-moon';
-    m2.style.cssText += 'top:10%;right:15%;width:70px;height:70px;';
-    layer.appendChild(m2);
   }
-  else if(designId === 'waterfall'){
-    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#1a2332 0%,#0a0f1e 100%);"></div><div style="position:absolute;top:0;left:30%;width:40%;height:85%;background:linear-gradient(90deg,#2c3e50,#0a0f1e,#2c3e50);border-radius:0 0 40px 40px;"></div><div style="position:absolute;top:0;left:42%;width:16%;height:100%;background:linear-gradient(180deg,rgba(135,206,250,.9),rgba(0,229,255,.5),rgba(0,229,255,.2));animation:animRainFall 1s linear infinite;"></div><div class="anim-bird" style="top:20%;">🕊️</div>';
+  
+  // Rainbow
+  if(designId === 'rainbow'){
+    var rb = document.createElement('div');
+    rb.className = 'anim-rainbow-arc';
+    rb.style.cssText = 'bottom:15%;left:50%;transform:translateX(-50%);width:600px;height:600px;border-width:20px;';
+    layer.appendChild(rb);
   }
-  else if(designId === 'fullmoon'){
-    layer.innerHTML = '<div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,#1a2332 0%,#0a0f1e 100%);"></div>';
-    var fm = document.createElement('div');
-    fm.className = 'anim-moon';
-    fm.style.cssText += 'top:15%;left:50%;transform:translateX(-50%);width:160px;height:160px;background:radial-gradient(circle at 40% 40%,#FFF9C4,#FFE082,#FFC107);';
-    layer.appendChild(fm);
-    for(var i=0;i<100;i++){
-      var s3 = document.createElement('div');
-      s3.className = 'anim-star';
-      s3.style.left = Math.random()*100 + '%';
-      s3.style.top = Math.random()*70 + '%';
-      s3.style.width = s3.style.height = (1+Math.random()*2) + 'px';
-      s3.style.animationDelay = Math.random()*3 + 's';
-      layer.appendChild(s3);
+  
+  // Butterflies
+  if(designId === 'butterflies'){
+    for(var i=0;i<10;i++){
+      var bf = document.createElement('div');
+      bf.style.cssText = 'position:absolute;font-size:30px;animation:animFireflyFloat 10s ease-in-out infinite;animation-delay:' + (i*0.5) + 's;left:' + (i*10+5) + '%;top:' + (20+Math.random()*50) + '%;';
+      bf.textContent = '🦋';
+      layer.appendChild(bf);
+    }
+    for(var i=0;i<15;i++){
+      var fl = document.createElement('div');
+      fl.style.cssText = 'position:absolute;font-size:24px;bottom:' + (Math.random()*30) + '%;left:' + (Math.random()*100) + '%;';
+      fl.textContent = ['🌻','🌷','🌺','🌼'][i % 4];
+      layer.appendChild(fl);
     }
   }
-  else if(designId === 'night-village'){
-    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#0a0f1e 0%,#0f172a 30%,#1a2332 60%,#1e3a2e 100%);"></div>';
-    var nv = document.createElement('div');
-    nv.className = 'anim-moon';
-    nv.style.cssText += 'top:60px;right:90px;width:80px;height:80px;';
-    layer.appendChild(nv);
-    for(var i=0;i<80;i++){
-      var s4 = document.createElement('div');
-      s4.className = 'anim-star';
-      s4.style.left = Math.random()*100 + '%';
-      s4.style.top = Math.random()*60 + '%';
-      s4.style.width = s4.style.height = (1+Math.random()*2) + 'px';
-      s4.style.animationDelay = Math.random()*3 + 's';
-      layer.appendChild(s4);
+  
+  // Tropical palms
+  if(designId === 'tropical' || designId === 'island'){
+    var p1 = document.createElement('div');
+    p1.style.cssText = 'position:absolute;bottom:20%;left:10%;font-size:70px;';
+    p1.textContent = '🌴';
+    layer.appendChild(p1);
+    var p2 = document.createElement('div');
+    p2.style.cssText = 'position:absolute;bottom:22%;right:15%;font-size:60px;';
+    p2.textContent = '🌴';
+    layer.appendChild(p2);
+  }
+  
+  // Water/Sea
+  if(['tropical','island','ocean-wave'].indexOf(designId) >= 0){
+    var water = document.createElement('div');
+    water.style.cssText = 'position:absolute;bottom:0;width:100%;height:35%;background:linear-gradient(180deg,rgba(2,136,209,.7),#01579B);';
+    layer.appendChild(water);
+  }
+  
+  // Fireworks
+  if(designId === 'fireworks'){
+    var colors = ['#FF1744','#FFD700','#00E676','#00E5FF','#E1306C','#FF9800'];
+    for(var i=0;i<12;i++){
+      var burst = document.createElement('div');
+      burst.style.cssText = 'position:absolute;width:8px;height:8px;border-radius:50%;animation:animTwinkle 2s ease-out infinite;background:' + colors[i % colors.length] + ';box-shadow:0 0 25px ' + colors[i % colors.length] + ',0 0 50px ' + colors[i % colors.length] + ';left:' + (10+Math.random()*80) + '%;top:' + (10+Math.random()*70) + '%;animation-delay:' + (i*0.4) + 's;';
+      layer.appendChild(burst);
     }
-    for(var i=0;i<6;i++){
-      var tr = document.createElement('div');
-      tr.style.cssText = 'position:absolute;bottom:10%;font-size:60px;left:' + (i*15+5) + '%;';
-      tr.textContent = '🌳';
-      layer.appendChild(tr);
-    }
-    var grd = document.createElement('div');
-    grd.style.cssText = 'position:absolute;bottom:0;width:100%;height:30%;background:linear-gradient(180deg,#1e3a2e,#081210);';
-    layer.appendChild(grd);
   }
-  else if(designId === 'island'){
-    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#4FC3F7 0%,#0288D1 60%,#0277BD 100%);"></div><div style="position:absolute;bottom:0;width:100%;height:30%;background:linear-gradient(180deg,#0277BD,#01579B);"></div><div style="position:absolute;bottom:25%;left:20%;width:40%;height:15%;background:linear-gradient(180deg,#FFD54F,#FFB300);border-radius:50% 50% 0 0;"></div><div style="position:absolute;bottom:30%;left:35%;font-size:80px;">🌴</div><div style="position:absolute;bottom:20%;right:20%;font-size:50px;animation:animBoat 8s ease-in-out infinite;">⛵</div><div style="position:absolute;top:15%;right:15%;width:80px;height:80px;border-radius:50%;background:radial-gradient(circle,#FFF59D,#FFC107);box-shadow:0 0 80px #FFF59D;"></div>';
-  }
-  else if(designId === 'volcano'){
-    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#1a0a0a 0%,#4a1a0a 60%,#8B0000 100%);"></div><div style="position:absolute;bottom:0;width:100%;height:50%;background:linear-gradient(135deg,#2c1810 0%,#1a0f0a 50%,#000 100%);clip-path:polygon(0 100%,25% 20%,40% 40%,50% 5%,60% 40%,75% 25%,100% 100%);"></div><div style="position:absolute;bottom:60%;left:50%;transform:translateX(-50%);width:80px;height:80px;border-radius:50%;background:radial-gradient(circle,#FF6B00,#D32F2F);box-shadow:0 0 60px #FF6B00;animation:animMoonGlow 2s ease-in-out infinite;"></div>';
-  }
-  else if(designId === 'amusement-park'){
-    layer.innerHTML = '<div style="position:absolute;inset:0;background:radial-gradient(ellipse at top,#1a0b2e 0%,#0a0f1e 70%);"></div>';
+  
+  // Amusement Park
+  if(designId === 'amusement-park'){
     var fw = document.createElement('div');
     fw.style.cssText = 'position:absolute;bottom:20%;left:50%;transform:translateX(-50%);font-size:120px;animation:animMoonGlow 3s ease-in-out infinite;';
     fw.textContent = '🎡';
     layer.appendChild(fw);
-    for(var i=0;i<12;i++){
-      var l = document.createElement('div');
-      l.style.cssText = 'position:absolute;bottom:' + (10+Math.random()*60) + '%;left:' + (Math.random()*100) + '%;width:6px;height:6px;border-radius:50%;background:' + ['#FF1744','#FFD700','#00E676','#00E5FF','#E1306C','#FF9800'][i % 6] + ';box-shadow:0 0 15px currentColor;animation:animTwinkle 2s ease-in-out infinite;animation-delay:' + (i*0.2) + 's;';
-      layer.appendChild(l);
-    }
-    for(var i=0;i<60;i++){
-      var s5 = document.createElement('div');
-      s5.className = 'anim-star';
-      s5.style.left = Math.random()*100 + '%';
-      s5.style.top = Math.random()*50 + '%';
-      s5.style.width = s5.style.height = (1+Math.random()*2) + 'px';
-      s5.style.animationDelay = Math.random()*3 + 's';
-      layer.appendChild(s5);
-    }
   }
-  else if(designId === 'space-rocket'){
-    layer.innerHTML = '<div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,#0a0f1e 0%,#1a0b2e 50%,#000 100%);"></div>';
-    for(var i=0;i<150;i++){
-      var s6 = document.createElement('div');
-      s6.className = 'anim-star';
-      s6.style.left = Math.random()*100 + '%';
-      s6.style.top = Math.random()*100 + '%';
-      s6.style.width = s6.style.height = (1+Math.random()*3) + 'px';
-      s6.style.animationDelay = Math.random()*3 + 's';
-      layer.appendChild(s6);
-    }
+  
+  // Space Rocket
+  if(designId === 'space-rocket'){
     var rocket = document.createElement('div');
     rocket.style.cssText = 'position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:60px;animation:animFireflyFloat 6s ease-in-out infinite;';
     rocket.textContent = '🚀';
@@ -856,8 +795,9 @@ layer.style.pointerEvents = 'none';
     planet.textContent = '🪐';
     layer.appendChild(planet);
   }
-  else if(designId === 'underwater'){
-    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#0a2a4a 0%,#0277BD 50%,#01579B 100%);"></div>';
+  
+  // Underwater
+  if(designId === 'underwater'){
     for(var i=0;i<20;i++){
       var b = document.createElement('div');
       b.className = 'anim-bubble';
@@ -882,9 +822,32 @@ layer.style.pointerEvents = 'none';
     coral2.textContent = '🪸';
     layer.appendChild(coral2);
   }
-  else {
-    // Default fallback
-    layer.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#0a0f1e 0%,#0f172a 30%,#1a2332 60%,#1e3a2e 100%);"></div>';
+  
+  // Volcano
+  if(designId === 'volcano'){
+    var vl = document.createElement('div');
+    vl.style.cssText = 'position:absolute;bottom:0;width:100%;height:50%;background:linear-gradient(135deg,#2c1810 0%,#1a0f0a 50%,#000 100%);clip-path:polygon(0 100%,25% 20%,40% 40%,50% 5%,60% 40%,75% 25%,100% 100%);';
+    layer.appendChild(vl);
+    var lava = document.createElement('div');
+    lava.style.cssText = 'position:absolute;bottom:55%;left:50%;transform:translateX(-50%);width:80px;height:80px;border-radius:50%;background:radial-gradient(circle,#FF6B00,#D32F2F);box-shadow:0 0 60px #FF6B00;animation:animMoonGlow 2s ease-in-out infinite;';
+    layer.appendChild(lava);
+  }
+  
+  // Mountain
+  if(designId === 'mountain'){
+    var mt = document.createElement('div');
+    mt.style.cssText = 'position:absolute;bottom:0;width:100%;height:40%;background:linear-gradient(135deg,#1a2332 0%,#2c3e50 50%,#415a77 100%);clip-path:polygon(0 100%,15% 30%,30% 60%,50% 15%,70% 55%,85% 25%,100% 100%);';
+    layer.appendChild(mt);
+  }
+  
+  // Waterfall
+  if(designId === 'waterfall'){
+    var rock = document.createElement('div');
+    rock.style.cssText = 'position:absolute;top:0;left:30%;width:40%;height:85%;background:linear-gradient(90deg,#2c3e50,#0a0f1e,#2c3e50);border-radius:0 0 40px 40px;';
+    layer.appendChild(rock);
+    var flow = document.createElement('div');
+    flow.style.cssText = 'position:absolute;top:0;left:42%;width:16%;height:100%;background:linear-gradient(180deg,rgba(135,206,250,.9),rgba(0,229,255,.5),rgba(0,229,255,.2));animation:animRainFall 1s linear infinite;';
+    layer.appendChild(flow);
   }
 }
 
@@ -967,13 +930,18 @@ function loadDesigns(){
     var designs = d || {};
     var adminLoginDesign = designs.adminLogin || 'night-village';
     var adminDashDesign = designs.adminDashboard || 'night-village';
-    // Admin Panel-এ Animation apply
-    applyAnimationToLayer(document.getElementById('loginBgLayer'), adminLoginDesign);
-    applyAnimationToLayer(document.getElementById('appBgLayer'), adminDashDesign);
+    
+    // Admin Login Screen-এ Apply
+    var loginLayer = document.getElementById('loginBgLayer');
+    if(loginLayer) applyAnimationToLayer(loginLayer, adminLoginDesign);
+    
+    // Admin Dashboard-এ Apply
+    var appLayer = document.getElementById('appBgLayer');
+    if(appLayer) applyAnimationToLayer(appLayer, adminDashDesign);
+    
     renderDesignGrid();
-  }).catch(function(){
-    applyAnimationToLayer(document.getElementById('loginBgLayer'), 'night-village');
-    applyAnimationToLayer(document.getElementById('appBgLayer'), 'night-village');
+  }).catch(function(e){
+    console.log('Design load error:', e);
     renderDesignGrid();
   });
 }
@@ -1000,12 +968,15 @@ function selectDesign(id){
   update[currentDesignTab] = id;
   DB.update('/settings/designs', update).then(function(){
     showToast('✅ Design updated!');
+    
     // Admin Panel-এ তৎক্ষণাৎ apply
     if(currentDesignTab === 'adminLogin'){
-      applyAnimationToLayer(document.getElementById('loginBgLayer'), id);
+      var layer = document.getElementById('loginBgLayer');
+      if(layer) applyAnimationToLayer(layer, id);
     }
     if(currentDesignTab === 'adminDashboard'){
-      applyAnimationToLayer(document.getElementById('appBgLayer'), id);
+      var layer2 = document.getElementById('appBgLayer');
+      if(layer2) applyAnimationToLayer(layer2, id);
     }
     renderDesignGrid();
   });
@@ -1327,8 +1298,7 @@ function renderOrders(){
         '<div><div style="color:' + statusColor + ';font-weight:900;font-size:12px;">' + (o.status || 'pending').toUpperCase() + '</div>' +
         '<div class="proof-date">' + new Date(o.date).toLocaleString('bn-BD') + '</div></div>' +
       '</div>' +
-      '<div class="proof-bio">🔗 Link: ' + (o.link || 'N/A') + '<br>💳 Payment: ' + (o.method || 'N/A') +
-      (o.txn ? '<br>📝 TrxID: ' + o.txn : '') + '</div>' +
+      '<div class="proof-bio">🔗 Link: ' + (o.link || 'N/A') + '<br>💳 Payment: ' + (o.method || 'N/A') + '</div>' +
       (o.status === 'pending' ? '<div class="proof-actions">' +
         '<button class="btn btn-green" onclick="approveOrder(\'' + o.id + '\')">✅ Approve</button>' +
         '<button class="btn btn-red" onclick="rejectOrder(\'' + o.id + '\')">❌ Reject</button>' +
@@ -1393,7 +1363,6 @@ function renderDeposits(){
         '<div class="proof-date">' + new Date(d.date).toLocaleString('bn-BD') + '</div></div>' +
       '</div>' +
       '<div class="proof-bio">📱 Sender: ' + (d.sender || 'N/A') + '<br>📝 TrxID: ' + (d.txn || 'N/A') + '</div>' +
-      (d.screenshot ? '<div class="proof-imgs"><img src="' + d.screenshot + '" onclick="window.open(this.src)"></div>' : '') +
       (d.status === 'pending' ? '<div class="proof-actions">' +
         '<button class="btn btn-green" onclick="approveDeposit(\'' + d.id + '\')">✅ Approve</button>' +
         '<button class="btn btn-red" onclick="rejectDeposit(\'' + d.id + '\')">❌ Reject</button>' +
@@ -1465,7 +1434,6 @@ function renderWithdraws(){
         '<div class="proof-date">' + new Date(w.date).toLocaleString('bn-BD') + '</div></div>' +
       '</div>' +
       '<div class="proof-bio">📱 Account: ' + (w.account || 'N/A') + '<br>💸 Fee: ৳' + (w.fee || 40) + '<br>✅ পাবেন: ৳' + (w.payable || 0).toFixed(2) + '</div>' +
-      (w.screenshot ? '<div class="proof-imgs"><img src="' + w.screenshot + '" onclick="window.open(this.src)"></div>' : '') +
       (w.status === 'pending' ? '<div class="proof-actions">' +
         '<button class="btn btn-green" onclick="markWithdrawPaid(\'' + w.id + '\')">✅ Mark as Paid</button>' +
         '<button class="btn btn-red" onclick="rejectWithdraw(\'' + w.id + '\')">❌ Reject</button>' +
@@ -1541,7 +1509,6 @@ function renderPremium(){
         '<div class="proof-date">' + new Date(p.date).toLocaleString('bn-BD') + '</div></div>' +
       '</div>' +
       '<div class="proof-bio">📱 Sender: ' + (p.sender || 'N/A') + '<br>📝 TrxID: ' + (p.txn || 'N/A') + '</div>' +
-      (p.screenshot ? '<div class="proof-imgs"><img src="' + p.screenshot + '" onclick="window.open(this.src)"></div>' : '') +
       (p.status === 'pending' ? '<div class="proof-actions">' +
         '<button class="btn btn-green" onclick="approvePremium(\'' + p.id + '\')">✅ Approve</button>' +
         '<button class="btn btn-red" onclick="rejectPremium(\'' + p.id + '\')">❌ Reject</button>' +
@@ -1585,11 +1552,9 @@ function loadRewardSettingsForm(){
     document.getElementById('sMathReward').value = s.mathReward || 0.04;
     document.getElementById('sAdsTimer').value = s.adsTimer || 8;
     document.getElementById('sAdDailyLimit').value = s.adDailyLimit || 10;
-    document.getElementById('sPopunderInterval').value = s.popunderInterval || 3;
-    document.getElementById('sInterstitialInterval').value = s.interstitialInterval || 5;
     document.getElementById('sMinDeposit').value = s.minDeposit || 100;
-    document.getElementById('sMinWithdraw').value = s.minWithdraw || 110;
-    document.getElementById('sWithdrawFee').value = s.withdrawFee || 10;
+    document.getElementById('sMinWithdraw').value = s.minWithdraw || 2780;
+    document.getElementById('sWithdrawFee').value = s.withdrawFee || 40;
     document.getElementById('sPremiumPrice').value = s.premiumPrice || 90;
   });
 }
@@ -1601,11 +1566,9 @@ function saveRewardSettings(){
     mathReward: parseFloat(document.getElementById('sMathReward').value) || 0.04,
     adsTimer: parseInt(document.getElementById('sAdsTimer').value) || 8,
     adDailyLimit: parseInt(document.getElementById('sAdDailyLimit').value) || 10,
-    popunderInterval: parseInt(document.getElementById('sPopunderInterval').value) || 3,
-    interstitialInterval: parseInt(document.getElementById('sInterstitialInterval').value) || 5,
     minDeposit: parseInt(document.getElementById('sMinDeposit').value) || 100,
-    minWithdraw: parseInt(document.getElementById('sMinWithdraw').value) || 110,
-    withdrawFee: parseInt(document.getElementById('sWithdrawFee').value) || 10,
+    minWithdraw: parseInt(document.getElementById('sMinWithdraw').value) || 2780,
+    withdrawFee: parseInt(document.getElementById('sWithdrawFee').value) || 40,
     premiumPrice: parseInt(document.getElementById('sPremiumPrice').value) || 90
   };
   DB.update('/settings', newSettings).then(function(){ showToast('✅ Settings saved!'); });
@@ -1615,10 +1578,10 @@ function saveRewardSettings(){
    📅 JOB CREATOR
    ================================================== */
 var DEFAULT_JOBS = [
-  { name: 'YouTube Subscribe', link: 'https://youtube.com/@aiatikfreelanch', reward: 0.20, icon: '▶️' },
-  { name: 'Facebook Like', link: 'https://www.facebook.com/profile.php?id=61592860621046', reward: 0.20, icon: '📘' },
-  { name: 'TikTok Follow', link: 'https://www.tiktok.com/@atikhasan60057', reward: 0.20, icon: '🎵' },
-  { name: 'Telegram Join', link: 'https://t.me/aiatikdailyearning', reward: 0.20, icon: '✈️' }
+  { name: 'YouTube Subscribe', link: 'https://youtube.com/@aiatikfreelanch', reward: 10, icon: '▶️' },
+  { name: 'Facebook Like', link: 'https://www.facebook.com/profile.php?id=61592860621046', reward: 10, icon: '📘' },
+  { name: 'TikTok Follow', link: 'https://www.tiktok.com/@atikhasan60057', reward: 10, icon: '🎵' },
+  { name: 'Telegram Join', link: 'https://t.me/aiatikdailyearning', reward: 10, icon: '✈️' }
 ];
 
 function loadJobs(){
@@ -1632,7 +1595,7 @@ function renderJobs(jobs){
   if(!arr.length){ container.innerHTML = '<div style="text-align:center;color:#6b7d94;padding:20px;">No jobs</div>'; return; }
   container.innerHTML = arr.map(function(j, i){
     return '<div class="job-item">' +
-      '<div class="job-info"><h4>' + (j.icon || '📌') + ' ' + j.name + '</h4><p>৳' + (j.reward || 0.20) + ' | ' + j.link + '</p></div>' +
+      '<div class="job-info"><h4>' + (j.icon || '📌') + ' ' + j.name + '</h4><p>৳' + (j.reward || 10) + ' | ' + j.link + '</p></div>' +
       '<button class="btn btn-red" onclick="deleteJob(' + i + ')" style="padding:6px 12px;font-size:11px;">🗑️ Delete</button>' +
     '</div>';
   }).join('');
@@ -1641,7 +1604,7 @@ function renderJobs(jobs){
 function createJob(){
   var name = document.getElementById('jobName').value.trim();
   var link = document.getElementById('jobLink').value.trim();
-  var reward = parseFloat(document.getElementById('jobRewardInput').value) || 0.20;
+  var reward = parseFloat(document.getElementById('jobRewardInput').value) || 10;
   var icon = document.getElementById('jobIcon').value.trim() || '📌';
   if(!name || !link) return showToast('❌ Name ও Link দিন!');
   DB.get('/jobs').then(function(data){
@@ -1673,11 +1636,11 @@ function deleteJob(index){
    🛒 PROMOTE PRICES
    ================================================== */
 var PROMOTE_CATEGORIES = {
-  facebook: ['Facebook ID Followers', 'Facebook ID Likes', 'Facebook Page Followers', 'Facebook Page Likes', 'Facebook Video Views', 'Facebook Reels Views', 'Facebook Post Reactions', 'Facebook Post Comments', 'Facebook Group Members', 'Facebook Watch Time'],
-  youtube: ['YouTube Channel Subscribers', 'YouTube Video Views', 'YouTube Shorts Views', 'YouTube Video Likes', 'YouTube Comments', 'YouTube Watch Time'],
-  tiktok: ['TikTok Profile Followers', 'TikTok Video Likes', 'TikTok Video Views', 'TikTok Shares', 'TikTok Saves', 'TikTok Comments'],
-  instagram: ['Instagram Profile Followers', 'Instagram Photo Likes', 'Instagram Video Views', 'Instagram Reels Views', 'Instagram Story Views', 'Instagram Comments'],
-  telegram: ['Telegram Channel Members', 'Telegram Group Members', 'Telegram Post Views', 'Telegram Post Reactions', 'Telegram Poll Votes']
+  facebook: ['Facebook ID Followers', 'Facebook Page Likes', 'Facebook Video Views'],
+  youtube: ['YouTube Subscribers', 'YouTube Video Views', 'YouTube Likes'],
+  tiktok: ['TikTok Followers', 'TikTok Likes', 'TikTok Video Views'],
+  instagram: ['Instagram Followers', 'Instagram Likes', 'Instagram Views'],
+  telegram: ['Telegram Channel Members', 'Telegram Post Views', 'Telegram Group Members']
 };
 
 function loadPromoteSettings(){
@@ -1821,7 +1784,7 @@ document.querySelectorAll('.menu-item[data-panel]').forEach(function(item){
 });
 
 /* ==================================================
-   INIT ON LOAD
+   INIT
    ================================================== */
 if(sessionStorage.getItem('atik_admin_logged') === 'true'){
   document.getElementById('loginScreen').style.display = 'none';

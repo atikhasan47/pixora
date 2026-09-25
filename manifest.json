@@ -1,8 +1,8 @@
 {
   "name": "Atik Daily Earning",
   "short_name": "Atik Earning",
-  "description": "Ads দেখে আয় করুন - Atik Daily Earning",
-  "start_url": "user.html",
+"description": "Earn money by watching ads, solving math, and doing jobs - Atik Daily Earning",
+  "start_url": "./user.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
@@ -10,6 +10,7 @@
   "theme_color": "#FFD700",
   "lang": "bn",
   "dir": "ltr",
+  "categories": ["finance", "business", "productivity"],
   "icons": [
     {
       "src": "https://i.ibb.co.com/bgMN2Yv8/IMG-20260429-WA0011.jpg",

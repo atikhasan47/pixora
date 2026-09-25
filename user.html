@@ -1650,7 +1650,6 @@ function generateMathProblem(){
   document.getElementById('mathFeedback').textContent = '';
 }
 
-/* 🔥 WATCH ADS এর ক্লেইম বাটনের জন্য (এটাই আগে মিসিং ছিল) */
 function submitMath(){
   var u = getCurrentUser(); if(!u) return;
   var ans = parseInt(document.getElementById('mathAnswer').value);
@@ -2112,6 +2111,94 @@ window.addEventListener('load', function(){
   console.log('✅ Admin-User Sync Loaded');
 })();
 </script>
+
+<!-- ==================================================
+     🔥 24/7 LIVE AUTO AD SYSTEM (Admin Adsterra Revenue)
+     এই Ad গুলো শুধু আপনার Adsterra অ্যাকাউন্টে ইনকাম বাড়াবে।
+     ইউজারকে কোনো টাকা দেওয়া হবে না।
+     adSlot1 এ প্রতি ৬০ সেকেন্ডে নতুন Ad লোড হবে — ২৪ ঘণ্টা।
+     ================================================== -->
+<script>
+(function(){
+  'use strict';
+  
+  var LIVE_AD_INTERVAL = 60000; // ৬০ সেকেন্ড
+  var liveTimer = null;
+  var isAppVisible = true;
+  var started = false;
+  var adCount = 0;
+  
+  document.addEventListener('visibilitychange', function(){
+    isAppVisible = !document.hidden;
+    if(isAppVisible){
+      if(!liveTimer && started) scheduleLiveAd(5000);
+      console.log('▶️ Live Ad resumed');
+    } else {
+      if(liveTimer){ clearTimeout(liveTimer); liveTimer = null; }
+      console.log('⏸️ Live Ad paused');
+    }
+  });
+  
+  function scheduleLiveAd(delay){
+    if(liveTimer) clearTimeout(liveTimer);
+    liveTimer = setTimeout(function(){
+      loadLiveAd();
+    }, delay || LIVE_AD_INTERVAL);
+  }
+  
+  function loadLiveAd(){
+    if(!isAppVisible) return;
+    
+    var slot = document.getElementById('adSlot1');
+    if(!slot){
+      scheduleLiveAd(5000);
+      return;
+    }
+    
+    var u = (typeof getCurrentUser === 'function') ? getCurrentUser() : null;
+    var appLayout = document.getElementById('appLayout');
+    if(!u || !appLayout || appLayout.style.display === 'none'){
+      scheduleLiveAd(LIVE_AD_INTERVAL);
+      return;
+    }
+    
+    // Ad লোড করুন adSlot1 এ
+    if(typeof injectAdIntoSlot === 'function'){
+      var ads = (typeof getAvailableAds === 'function') ? getAvailableAds() : [];
+      if(ads.length){
+        var bigAd = ads.find(function(a){ return a.width >= 300; }) || ads[0];
+        injectAdIntoSlot(slot, bigAd);
+        adCount++;
+        console.log('📺 Live Ad #' + adCount + ' loaded on adSlot1 — Adsterra Revenue');
+      }
+    }
+    
+    // পরের Ad schedule (৬০ সেকেন্ড পর)
+    scheduleLiveAd(LIVE_AD_INTERVAL);
+  }
+  
+  // ৮ সেকেন্ড পর প্রথম Ad শুরু (লগইন চেকসহ)
+  setTimeout(function(){
+    var u = (typeof getCurrentUser === 'function') ? getCurrentUser() : null;
+    if(u && !started){
+      started = true;
+      loadLiveAd();
+    }
+  }, 8000);
+  
+  // প্রতি ১৫ সেকেন্ডে চেক — লগইন হলে auto শুরু
+  setInterval(function(){
+    var u = (typeof getCurrentUser === 'function') ? getCurrentUser() : null;
+    if(u && !liveTimer && !started && isAppVisible){
+      started = true;
+      loadLiveAd();
+    }
+  }, 15000);
+  
+  console.log('✅ 24/7 Live Ad System Loaded — 60s interval on adSlot1');
+})();
+</script>
+
 <script>
 if('serviceWorker' in navigator){
   window.addEventListener('load', function(){

@@ -8,6 +8,41 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-family:'Poppins','Segoe UI',sans-serif;}
+
+/* 🎨 ANIMATION LAYER */
+#villageBg{position:fixed;inset:0;z-index:-1;overflow:hidden;}
+
+/* CSS Variables - Animation BG */
+body::before{content:'';position:fixed;inset:0;z-index:-2;pointer-events:none;background:var(--user-bg, linear-gradient(180deg,#0a0f1e 0%,#0f172a 30%,#1a2332 60%,#1e3a2e 100%));transition:background 0.5s ease;}
+
+/* Animation Elements */
+.anim-star{position:absolute;background:#fff;border-radius:50%;animation:animTwinkle 3s ease-in-out infinite;}
+@keyframes animTwinkle{0%,100%{opacity:.3;transform:scale(1);}50%{opacity:1;transform:scale(1.5);}}
+.anim-moon{position:absolute;border-radius:50%;background:radial-gradient(circle at 35% 35%,#FFF9C4,#FFE082,#B0BEC5);box-shadow:0 0 60px #FFE082,0 0 120px rgba(255,224,130,.5);animation:animMoonGlow 5s ease-in-out infinite;}
+@keyframes animMoonGlow{0%,100%{box-shadow:0 0 60px #FFE082,0 0 120px rgba(255,224,130,.5);}50%{box-shadow:0 0 90px #FFF9C4,0 0 180px rgba(255,224,130,.9);}}
+.anim-raindrop{position:absolute;top:-20px;width:2px;height:20px;background:linear-gradient(180deg,transparent,rgba(174,194,224,.9));animation:animRainFall linear infinite;}
+@keyframes animRainFall{0%{transform:translateY(-20px);}100%{transform:translateY(105vh);}}
+.anim-snow{position:absolute;top:-10px;color:#fff;animation:animSnowFall linear infinite;}
+@keyframes animSnowFall{0%{transform:translateY(-10px) rotate(0);opacity:0;}10%{opacity:.9;}100%{transform:translateY(105vh) rotate(720deg);opacity:0;}}
+.anim-leaf{position:absolute;top:-20px;animation:animLeafFall linear infinite;}
+@keyframes animLeafFall{0%{transform:translateY(-20px) rotate(0);opacity:0;}10%{opacity:1;}100%{transform:translateY(105vh) rotate(720deg) translateX(50px);opacity:0;}}
+.anim-firefly{position:absolute;width:6px;height:6px;background:#FFEB3B;border-radius:50%;box-shadow:0 0 15px #FFEB3B,0 0 30px #FFC107;animation:animFireflyFloat 8s ease-in-out infinite;}
+@keyframes animFireflyFloat{0%{transform:translate(0,0);opacity:0;}20%{opacity:1;}80%{opacity:1;}100%{transform:translate(100px,-200px);opacity:0;}}
+.anim-wave{position:absolute;bottom:0;left:-50%;width:200%;background:radial-gradient(ellipse at top,rgba(0,229,255,.5),transparent 70%);border-radius:50% 50% 0 0;animation:animWaveMove 6s ease-in-out infinite alternate;}
+@keyframes animWaveMove{0%{transform:translateX(0) scaleY(1);}100%{transform:translateX(-10%) scaleY(1.2);}}
+.anim-bird{position:absolute;font-size:22px;animation:animBird 12s linear infinite;}
+@keyframes animBird{0%{transform:translateX(-100px);}50%{transform:translateX(50vw) translateY(-30px);}100%{transform:translateX(110vw);}}
+.anim-boat{position:absolute;animation:animBoat 8s ease-in-out infinite;}
+@keyframes animBoat{0%,100%{transform:translateX(0) rotate(-3deg);}50%{transform:translateX(30px) rotate(3deg);}}
+.anim-fish{position:absolute;animation:animFish 10s linear infinite;}
+@keyframes animFish{0%{transform:translateX(-100px);}100%{transform:translateX(110vw);}}
+.anim-bubble{position:absolute;border:2px solid rgba(255,255,255,.6);border-radius:50%;animation:animBubbleUp linear infinite;}
+@keyframes animBubbleUp{0%{transform:translateY(0) scale(1);opacity:.8;}100%{transform:translateY(-100vh) scale(1.5);opacity:0;}}
+.anim-flash{position:absolute;inset:0;background:#fff;opacity:0;animation:animFlash 7s ease-in-out infinite;}
+@keyframes animFlash{0%,92%,100%{opacity:0;}94%{opacity:.6;}95%{opacity:0;}97%{opacity:.5;}98%{opacity:0;}}
+.anim-rainbow-arc{position:absolute;border-radius:50%;border-style:solid;border-color:#FF0000 #FF9800 #FFEB3B #4CAF50 #2196F3 #9C27B0 transparent transparent;opacity:.75;}
+
+/* Old animations still needed */
 .village-bg{position:fixed;inset:0;z-index:-1;overflow:hidden;}
 .sky-night{position:absolute;top:0;width:100%;height:100%;background:linear-gradient(180deg,#0a0f1e 0%,#0f172a 30%,#1a2332 60%,#1e3a2e 100%);}
 .stars{position:absolute;top:0;width:100%;height:60%;}
@@ -30,6 +65,8 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 @keyframes leafFall{0%{transform:translateY(-50px) rotate(0) translateX(0);opacity:0;}10%{opacity:.9;}50%{transform:translateY(50vh) rotate(360deg) translateX(50px);}100%{transform:translateY(105vh) rotate(720deg) translateX(120px);opacity:0;}}
 .firefly{position:absolute;width:4px;height:4px;background:#FFEB3B;border-radius:50%;box-shadow:0 0 10px #FFEB3B,0 0 20px #FFC107;animation:fireflyFloat linear infinite;opacity:.8;}
 @keyframes fireflyFloat{0%{transform:translate(0,0);opacity:0;}20%{opacity:1;}80%{opacity:1;}100%{transform:translate(100px,-200px);opacity:0;}}
+
+/* Rest of your existing CSS - SAME AS BEFORE */
 .splash{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(135deg,#0a0f1e,#1b263b,#415a77);transition:opacity 1s ease;}
 .splash.hide{opacity:0;pointer-events:none;}
 .splash-logo{width:130px;height:130px;border-radius:50%;object-fit:cover;border:4px solid #FFD700;box-shadow:0 0 60px #FFD700,0 0 120px rgba(255,215,0,.5);animation:logoBounceIn 1s ease,logoPulse 2.5s 1s ease-in-out infinite;}
@@ -52,7 +89,7 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;justify-content:center;align-items:center;z-index:1000;padding:15px;overflow-y:auto;backdrop-filter:blur(10px);}
 .modal-overlay.active{display:flex;animation:modalFadeIn .6s ease;}
 @keyframes modalFadeIn{from{opacity:0;}to{opacity:1;}}
-.login-box{background:linear-gradient(135deg,rgba(13,27,42,.98),rgba(27,38,59,.98));backdrop-filter:blur(20px);padding:38px 32px;border-radius:22px;width:100%;max-width:430px;border:3px solid #FFD700;box-shadow:0 0 80px rgba(255,215,0,.6);margin:auto;animation:loginSlideIn .7s cubic-bezier(.68,-.55,.27,1.55);transition:background .6s ease,border-color .6s ease,box-shadow .6s ease;}
+.login-box{background:linear-gradient(135deg,rgba(13,27,42,.98),rgba(27,38,59,.98));backdrop-filter:blur(20px);padding:38px 32px;border-radius:22px;width:100%;max-width:430px;border:3px solid #FFD700;box-shadow:0 0 80px rgba(255,215,0,.6);margin:auto;animation:loginSlideIn .7s cubic-bezier(.68,-.55,.27,1.55);}
 @keyframes loginSlideIn{from{opacity:0;transform:translateY(60px) scale(.9);}to{opacity:1;transform:translateY(0) scale(1);}}
 .login-logo-top{width:80px;height:80px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 15px;border:3px solid #FFD700;box-shadow:0 0 30px #FFD700;animation:logoPulse 2.5s infinite;}
 .login-box h2{color:#FFD700;text-align:center;margin-bottom:22px;font-size:22px;font-family:'Montserrat',sans-serif;}
@@ -316,11 +353,55 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 .ad-overlay-btn{width:100%;padding:14px;border:none;border-radius:12px;font-size:15px;font-weight:900;cursor:pointer;font-family:inherit;transition:.3s;background:linear-gradient(90deg,#00C853,#00E676);color:#fff;box-shadow:0 5px 20px rgba(0,230,118,.4);}
 .ad-overlay-btn:disabled{background:#4a5568;cursor:not-allowed;box-shadow:none;opacity:.6;}
 .ad-overlay-note{color:#6b7d94;font-size:10px;margin-top:10px;}
-@media(max-width:600px){
-  .ad-overlay-box{padding:18px 14px;}
-  .ad-slot-overlay{min-height:220px;padding:12px 6px;}
-  .ad-overlay-timer{font-size:12px;padding:5px 10px;}
+
+/* 🌐 STICKY BOTTOM AD (ছবির মতো) */
+.sticky-bottom-ad{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  z-index:998;
+  background:linear-gradient(135deg,#0d1b2a,#1b263b);
+  border-top:2px solid #FFD700;
+  padding:8px 10px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  box-shadow:0 -5px 25px rgba(255,215,0,.4);
+  min-height:60px;
+  transition:.3s;
 }
+.sticky-bottom-ad.hide{transform:translateY(100%);}
+.sticky-bottom-ad .stb-close{
+  position:absolute;
+  top:-14px;
+  right:10px;
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#FF1744,#D32F2F);
+  color:#fff;
+  border:2px solid #fff;
+  font-size:14px;
+  font-weight:900;
+  cursor:pointer;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  box-shadow:0 3px 10px rgba(0,0,0,.5);
+}
+.sticky-bottom-ad .stb-slot{
+  width:100%;
+  max-width:728px;
+  min-height:50px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
+.sticky-bottom-ad .stb-slot iframe{max-width:100%;border:none;}
+body{padding-bottom:80px;}
+
 @media(max-width:900px){
   .mobile-toggle{display:block;}
   .sidebar{position:fixed;left:-280px;top:0;z-index:998;}
@@ -341,6 +422,9 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
   .social-tab{font-size:11px;padding:8px 10px;min-width:70px;}
   .splash-title{font-size:24px;}
   .splash-logo{width:100px;height:100px;}
+  .ad-overlay-box{padding:18px 14px;}
+  .ad-slot-overlay{min-height:220px;padding:12px 6px;}
+  .ad-overlay-timer{font-size:12px;padding:5px 10px;}
 }
 @media(max-width:540px){.profile-banner-box{transform:scale(.55);transform-origin:top center;}.profile-banner-section{margin-bottom:-110px;}}
 @media(max-width:440px){.profile-banner-box{transform:scale(.45);transform-origin:top center;}.profile-banner-section{margin-bottom:-140px;}}
@@ -359,23 +443,18 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="https://i.ibb.co.com/bgMN2Yv8/IMG-20260429-WA0011.jpg">
 <link rel="icon" type="image/jpeg" href="https://i.ibb.co.com/bgMN2Yv8/IMG-20260429-WA0011.jpg">
+
+<!-- 🎯 MONETAG SERVICE WORKER -->
+<meta name="monetag" content="641735f28bc7115e82bfbd3c204b6248">
+<meta name="monetag" content="80e5976a1b14eca6012b823324e24640">
+
+<!-- 🎯 POPUNDER AD (HIGHEST INCOME) -->
+<script src="https://pl31331969.profitableratecpmnetwork.com/77/9e/51/779e51bf97d0bae03a5421c1c7b7c638.js"></script>
 </head>
 <body>
 
-<div class="village-bg" id="villageBg">
-  <div class="sky-night"></div>
-  <div class="stars" id="stars"></div>
-  <div class="moon"></div>
-  <div class="rain-container" id="rainContainer"></div>
-  <div class="ground"></div>
-  <div class="grass-layer"></div>
-  <div class="tree tree1"><div class="leaves"></div><div class="trunk"></div></div>
-  <div class="tree tree2"><div class="leaves"></div><div class="trunk"></div></div>
-  <div class="tree tree3"><div class="leaves"></div><div class="trunk"></div></div>
-  <div class="tree tree4"><div class="leaves"></div><div class="trunk"></div></div>
-  <div id="leafContainer"></div>
-  <div id="fireflyContainer"></div>
-</div>
+<!-- 🎨 ANIMATION LAYER -->
+<div class="village-bg" id="villageBg"></div>
 
 <div class="splash" id="splash">
   <img src="https://i.ibb.co.com/bgMN2Yv8/IMG-20260429-WA0011.jpg" class="splash-logo" alt="Logo">
@@ -571,38 +650,31 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
       <div class="section">
         <div class="section-title">📢 গুরুত্বপূর্ণ নোটিশ <span class="count">সবার জন্য</span></div>
         <div style="background:linear-gradient(135deg,rgba(255,215,0,.1),rgba(255,152,0,.05));border:2px solid #FFD700;border-radius:20px;padding:25px;box-shadow:0 0 40px rgba(255,215,0,.3);">
-          
           <div style="background:rgba(0,230,118,.08);border-left:4px solid #00E676;border-radius:12px;padding:14px 18px;margin-bottom:12px;">
             <div style="color:#00E676;font-size:14px;font-weight:900;margin-bottom:6px;">💸 উত্তোলন সংক্রান্ত</div>
             <div style="color:#e0e0e0;font-size:13px;line-height:1.7;">✅ উত্তোলন করার জন্য <strong style="color:#FFD700;">কোনো শেয়ার করা লাগবে না</strong>।<br>✅ আপনার কাজের মূল্য আপনি পেয়ে যাবেন।</div>
           </div>
-
           <div style="background:rgba(255,215,0,.08);border-left:4px solid #FFD700;border-radius:12px;padding:14px 18px;margin-bottom:12px;">
             <div style="color:#FFD700;font-size:14px;font-weight:900;margin-bottom:6px;">🤲 আল্লাহর রহমতে</div>
             <div style="color:#e0e0e0;font-size:13px;line-height:1.7;">✅ সবাই সুন্দর ভাবে কাজ করবেন।<br>✅ <strong style="color:#00E676;">আল্লাহর রহমতে সবাই কাজের টাকা পাবেন।</strong></div>
           </div>
-
           <div style="background:rgba(255,152,0,.08);border-left:4px solid #FF9800;border-radius:12px;padding:14px 18px;margin-bottom:12px;">
             <div style="color:#FF9800;font-size:14px;font-weight:900;margin-bottom:6px;">📞 যোগাযোগ</div>
             <div style="color:#e0e0e0;font-size:13px;line-height:1.7;">✅ উত্তোলন করতে বা ডিপোজিট করতে সমস্যা <strong style="color:#00E5FF;">যোগাযোগ + করুন</strong>।</div>
           </div>
-
           <div style="background:rgba(0,229,255,.08);border-left:4px solid #00E5FF;border-radius:12px;padding:14px 18px;margin-bottom:12px;">
             <div style="color:#00E5FF;font-size:14px;font-weight:900;margin-bottom:6px;">🙏 আমাদের অনুরোধ</div>
             <div style="color:#e0e0e0;font-size:13px;line-height:1.7;">✅ আপনারা কাজ করে দেন, আপনাদের থেকে কিছু <strong style="color:#FFD700;">বেনিফিট বা লাভ আমাদের থাকে</strong>।<br>✅ তাই কেউ খারাপ কাজে এখানে আসবেন না।</div>
           </div>
-
           <div style="background:rgba(0,230,118,.08);border-left:4px solid #00E676;border-radius:12px;padding:14px 18px;margin-bottom:12px;">
             <div style="color:#00E676;font-size:14px;font-weight:900;margin-bottom:6px;">💼 ব্যবসা করার সুযোগ</div>
             <div style="color:#e0e0e0;font-size:13px;line-height:1.7;">✅ আপনারা <strong style="color:#FFD700;">ব্যবসা করতে পারবেন (Boost/Sell)</strong>।<br>✅ <strong style="color:#00E5FF;">Facebook, YouTube, TikTok, Instagram, Telegram</strong> — এখানে সেল করে ব্যবসা করে কিছু আই করতে পারেন।</div>
           </div>
-
           <div style="background:linear-gradient(90deg,rgba(255,215,0,.2),rgba(255,152,0,.15));border:2px solid #FFD700;border-radius:12px;padding:18px;text-align:center;margin-bottom:12px;">
             <div style="color:#FFD700;font-size:16px;font-weight:900;margin-bottom:8px;">👑 ইনকাম বেশি করতে প্রিমিয়াম কিনুন</div>
             <div style="color:#e0e0e0;font-size:13px;line-height:1.6;margin-bottom:12px;">Premium মেম্বার হলে পাবেন ডাবল ইনকাম, আনলিমিটেড কাজ, দ্রুত Withdraw।</div>
             <button class="btn btn-gold" style="padding:12px 30px;font-size:14px;" onclick="goPanel('premium')">👑 Premium কিনুন →</button>
           </div>
-
           <div style="background:linear-gradient(135deg,rgba(255,215,0,.15),rgba(255,152,0,.1));border:2px solid #FFD700;border-radius:12px;padding:18px;margin-bottom:12px;">
             <div style="color:#FFD700;font-size:15px;font-weight:900;margin-bottom:10px;text-align:center;">⚠️ সাবধান! প্রতারিত হবেন না</div>
             <div style="color:#e0e0e0;font-size:13px;line-height:1.8;">
@@ -611,12 +683,10 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
               💬 <em style="color:#00E5FF;">"এখন অনেক জন আইসা বলবে আপনি কেন ভাইরাল না।<br>আরে ভাই, ভাইরাল হতে তো টাকা লাগে — টাকা তো আমার নাই!"</em>
             </div>
           </div>
-
           <div style="background:linear-gradient(135deg,rgba(0,230,118,.1),rgba(0,229,255,.05));border:2px solid #00E676;border-radius:12px;padding:18px;text-align:center;">
             <div style="color:#00E676;font-size:15px;font-weight:900;">🤲 সবাই ভালো থাকুন, সুস্থ থাকুন</div>
             <div style="color:#e0e0e0;font-size:13px;margin-top:8px;">✅ ভালো ভাবে কাজ করুন — আল্লাহর রহমতে সবাই কাজের টাকা পাবেন।</div>
           </div>
-
         </div>
       </div>
       <!-- 📢 NOTICE BOARD END -->
@@ -1033,6 +1103,14 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
   </div>
 </div>
 
+<!-- 🌐 STICKY BOTTOM AD -->
+<div class="sticky-bottom-ad" id="stickyBottomAd">
+  <button class="stb-close" onclick="document.getElementById('stickyBottomAd').classList.add('hide')">✕</button>
+  <div class="stb-slot" id="stickyAdSlot">
+    <div style="color:#8fa8c4;font-size:12px;">Ad Loading...</div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 <script>
 /* ==================================================
@@ -1116,17 +1194,349 @@ function fbStartListener(email){
 }
 
 /* ==================================================
-   AD CONFIGURATION
+   🎨 ANIMATION SYSTEM — Firebase থেকে Load
    ================================================== */
+function applyUserBackground(designId){
+  var bgs = {
+    'rainy-night':   'linear-gradient(180deg,#0a0f1e 0%,#1a2332 40%,#2c3e50 80%,#1e3a2e 100%)',
+    'snowfall':      'linear-gradient(180deg,#1a2332 0%,#2c3e50 50%,#415a77 100%)',
+    'ocean-wave':    'linear-gradient(180deg,#0a0f1e 0%,#1a237e 50%,#0277BD 100%)',
+    'starry-galaxy': 'radial-gradient(ellipse at center,#1a0b2e 0%,#0a0f1e 60%,#000 100%)',
+    'autumn':        'linear-gradient(180deg,#FFB347 0%,#FF8C42 30%,#E65100 70%,#8B4513 100%)',
+    'fireflies':     'linear-gradient(180deg,#0a0f1e 0%,#0f172a 40%,#0d3a1f 100%)',
+    'aurora':        'radial-gradient(ellipse at top,#0a0f1e 0%,#1a0b2e 50%,#0a0f1e 100%)',
+    'golden-sunset': 'linear-gradient(180deg,#FF6B35 0%,#F7931E 30%,#FDC830 60%,#F37335 100%)',
+    'green-forest':  'linear-gradient(180deg,#0a1f0a 0%,#0f3a0f 40%,#1e5c1e 100%)',
+    'cherry':        'linear-gradient(180deg,#FFF0F5 0%,#FFD1DC 40%,#FFB6C1 100%)',
+    'fireworks':     'radial-gradient(ellipse at center,#0a0f1e 0%,#000 100%)',
+    'lightning':     'linear-gradient(180deg,#0a0f1e 0%,#1a1a2e 50%,#16213e 100%)',
+    'rainbow':       'linear-gradient(180deg,#87CEEB 0%,#B0E0E6 40%,#E0F7FA 100%)',
+    'butterflies':   'linear-gradient(180deg,#FFF0F5 0%,#B2EBF2 50%,#80DEEA 100%)',
+    'tropical':      'linear-gradient(180deg,#4FC3F7 0%,#0288D1 60%,#0277BD 100%)',
+    'mountain':      'linear-gradient(180deg,#FF6B6B 0%,#FFB347 50%,#FFD93D 100%)',
+    'city':          'linear-gradient(180deg,#0a0f1e 0%,#1a1a2e 50%,#2c1810 100%)',
+    'waterfall':     'linear-gradient(180deg,#1a2332 0%,#0a0f1e 100%)',
+    'fullmoon':      'radial-gradient(ellipse at center,#1a2332 0%,#0a0f1e 100%)',
+    'island':        'linear-gradient(180deg,#4FC3F7 0%,#0288D1 60%,#0277BD 100%)',
+    'volcano':       'linear-gradient(180deg,#1a0a0a 0%,#4a1a0a 60%,#8B0000 100%)',
+    'amusement-park':'radial-gradient(ellipse at top,#1a0b2e 0%,#0a0f1e 70%)',
+    'space-rocket':  'radial-gradient(ellipse at center,#0a0f1e 0%,#1a0b2e 50%,#000 100%)',
+    'underwater':    'linear-gradient(180deg,#0a2a4a 0%,#0277BD 50%,#01579B 100%)'
+  };
+  var bg = bgs[designId] || 'linear-gradient(180deg,#0a0f1e 0%,#0f172a 30%,#1a2332 60%,#1e3a2e 100%)';
+  document.documentElement.style.setProperty('--user-bg', bg);
+  console.log('✅ BG:', designId);
+}
+
+function loadUserAnimationElements(designId){
+  var layer = document.getElementById('villageBg');
+  if(!layer) return;
+  layer.innerHTML = '';
+  layer.style.cssText = 'position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;display:block;';
+  
+  // ==== STARS ====
+  if(['night-village','starry-galaxy','aurora','fullmoon','space-rocket','fireflies','fireworks','amusement-park','city'].indexOf(designId) >= 0){
+    var cnt = (designId === 'space-rocket') ? 120 : 80;
+    for(var i=0;i<cnt;i++){
+      var s = document.createElement('div');
+      s.className = 'anim-star';
+      s.style.left = Math.random()*100 + '%';
+      s.style.top = Math.random()*70 + '%';
+      s.style.width = s.style.height = (1+Math.random()*2.5) + 'px';
+      s.style.animationDelay = Math.random()*3 + 's';
+      layer.appendChild(s);
+    }
+  }
+  
+  // ==== RAIN ====
+  if(designId === 'rainy-night' || designId === 'lightning'){
+    for(var i=0;i<100;i++){
+      var r = document.createElement('div');
+      r.className = 'anim-raindrop';
+      r.style.left = Math.random()*100 + '%';
+      r.style.animationDuration = (0.4+Math.random()*0.5) + 's';
+      r.style.animationDelay = Math.random()*3 + 's';
+      layer.appendChild(r);
+    }
+    var flash = document.createElement('div');
+    flash.className = 'anim-flash';
+    layer.appendChild(flash);
+  }
+  
+  // ==== SNOW ====
+  if(designId === 'snowfall'){
+    for(var i=0;i<70;i++){
+      var f = document.createElement('div');
+      f.className = 'anim-snow';
+      f.style.fontSize = (10+Math.random()*12) + 'px';
+      f.style.animationDuration = (6+Math.random()*6) + 's';
+      f.style.animationDelay = (Math.random()*8) + 's';
+      f.style.left = (Math.random()*100) + '%';
+      f.textContent = '❄';
+      layer.appendChild(f);
+    }
+  }
+  
+  // ==== LEAVES/CHERRY ====
+  if(designId === 'autumn' || designId === 'cherry'){
+    var leaves = (designId === 'autumn') ? ['🍂','🍁','🍃'] : ['🌸','🌸','🌸'];
+    for(var i=0;i<45;i++){
+      var lf = document.createElement('div');
+      lf.className = 'anim-leaf';
+      lf.style.fontSize = (20+Math.random()*16) + 'px';
+      lf.style.animationDuration = (5+Math.random()*7) + 's';
+      lf.style.animationDelay = (Math.random()*8) + 's';
+      lf.style.left = (Math.random()*100) + '%';
+      lf.textContent = leaves[i % leaves.length];
+      layer.appendChild(lf);
+    }
+  }
+  
+  // ==== FIREFLIES ====
+  if(designId === 'fireflies'){
+    for(var i=0;i<35;i++){
+      var fd = document.createElement('div');
+      fd.className = 'anim-firefly';
+      fd.style.left = Math.random()*100 + '%';
+      fd.style.bottom = (5+Math.random()*50) + '%';
+      fd.style.animationDuration = (6+Math.random()*8) + 's';
+      fd.style.animationDelay = Math.random()*6 + 's';
+      layer.appendChild(fd);
+    }
+  }
+  
+  // ==== WAVES ====
+  if(designId === 'ocean-wave'){
+    for(var i=0;i<4;i++){
+      var w = document.createElement('div');
+      w.className = 'anim-wave';
+      w.style.height = (80+i*40) + 'px';
+      w.style.animationDuration = (5+i*1.5) + 's';
+      layer.appendChild(w);
+    }
+  }
+  
+  // ==== MOON ====
+  if(['night-village','fireflies','city','fullmoon'].indexOf(designId) >= 0){
+    var m = document.createElement('div');
+    m.className = 'anim-moon';
+    if(designId === 'fullmoon'){
+      m.style.cssText += 'top:15%;left:50%;transform:translateX(-50%);width:160px;height:160px;background:radial-gradient(circle at 40% 40%,#FFF9C4,#FFE082,#FFC107);';
+    } else {
+      m.style.cssText += 'top:60px;right:90px;width:80px;height:80px;';
+    }
+    layer.appendChild(m);
+  }
+  
+  // ==== SUN ====
+  if(['ocean-wave','golden-sunset','mountain','tropical','island'].indexOf(designId) >= 0){
+    var sun = document.createElement('div');
+    sun.style.cssText = 'position:absolute;width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,#FFF59D,#FFEB3B,#FFC107);box-shadow:0 0 100px #FFF59D,0 0 200px rgba(255,235,59,.6);animation:animMoonGlow 4s ease-in-out infinite;';
+    if(designId === 'golden-sunset' || designId === 'mountain'){
+      sun.style.bottom = '30%';
+      sun.style.left = '50%';
+      sun.style.transform = 'translateX(-50%)';
+    } else {
+      sun.style.top = '12%';
+      sun.style.right = '15%';
+    }
+    layer.appendChild(sun);
+  }
+  
+  // ==== BOAT ====
+  if(['ocean-wave','tropical','island'].indexOf(designId) >= 0){
+    var boat = document.createElement('div');
+    boat.className = 'anim-boat';
+    boat.style.cssText = 'position:absolute;bottom:35%;left:40%;font-size:50px;';
+    boat.textContent = '⛵';
+    layer.appendChild(boat);
+  }
+  
+  // ==== BIRD ====
+  if(['ocean-wave','golden-sunset','mountain','autumn','waterfall'].indexOf(designId) >= 0){
+    var bird = document.createElement('div');
+    bird.className = 'anim-bird';
+    bird.style.top = '20%';
+    bird.textContent = '🕊️';
+    layer.appendChild(bird);
+  }
+  
+  // ==== TREES ====
+  if(designId === 'green-forest'){
+    for(var i=0;i<14;i++){
+      var t = document.createElement('div');
+      t.style.cssText = 'position:absolute;bottom:0;font-size:' + (50+Math.random()*30) + 'px;left:' + (i*7) + '%;';
+      t.textContent = '🌲';
+      layer.appendChild(t);
+    }
+  }
+  
+  // ==== DEER ====
+  if(designId === 'snowfall' || designId === 'green-forest'){
+    var deer = document.createElement('div');
+    deer.style.cssText = 'position:absolute;bottom:10%;right:20%;font-size:50px;';
+    deer.textContent = '🦌';
+    layer.appendChild(deer);
+  }
+  
+  // ==== HOUSE ====
+  if(designId === 'snowfall'){
+    var house = document.createElement('div');
+    house.style.cssText = 'position:absolute;bottom:10%;left:15%;font-size:60px;';
+    house.textContent = '🏠';
+    layer.appendChild(house);
+  }
+  
+  // ==== CITY ====
+  if(designId === 'city'){
+    for(var i=0;i<14;i++){
+      var bd = document.createElement('div');
+      bd.style.cssText = 'position:absolute;bottom:0;background:linear-gradient(180deg,#1a2332,#0a0f1e);border-top:2px solid #FFC107;left:' + (i*7) + '%;width:' + (6+Math.random()*3) + '%;height:' + (25+Math.random()*45) + '%;';
+      layer.appendChild(bd);
+    }
+    for(var i=0;i<50;i++){
+      var w2 = document.createElement('div');
+      w2.style.cssText = 'position:absolute;width:4px;height:4px;background:#FFC107;box-shadow:0 0 6px #FFC107;animation:animTwinkle 3s ease-in-out infinite;left:' + (Math.random()*100) + '%;bottom:' + (5+Math.random()*55) + '%;animation-delay:' + (Math.random()*3) + 's;';
+      layer.appendChild(w2);
+    }
+  }
+  
+  // ==== RAINBOW ====
+  if(designId === 'rainbow'){
+    var rb = document.createElement('div');
+    rb.className = 'anim-rainbow-arc';
+    rb.style.cssText = 'bottom:15%;left:50%;transform:translateX(-50%);width:600px;height:600px;border-width:20px;';
+    layer.appendChild(rb);
+  }
+  
+  // ==== BUTTERFLIES ====
+  if(designId === 'butterflies'){
+    for(var i=0;i<10;i++){
+      var bf = document.createElement('div');
+      bf.style.cssText = 'position:absolute;font-size:30px;animation:animFireflyFloat 10s ease-in-out infinite;animation-delay:' + (i*0.5) + 's;left:' + (i*10+5) + '%;top:' + (20+Math.random()*50) + '%;';
+      bf.textContent = '🦋';
+      layer.appendChild(bf);
+    }
+  }
+  
+  // ==== TROPICAL/ISLAND ====
+  if(designId === 'tropical' || designId === 'island'){
+    var p1 = document.createElement('div');
+    p1.style.cssText = 'position:absolute;bottom:20%;left:10%;font-size:70px;';
+    p1.textContent = '🌴';
+    layer.appendChild(p1);
+    var p2 = document.createElement('div');
+    p2.style.cssText = 'position:absolute;bottom:22%;right:15%;font-size:60px;';
+    p2.textContent = '🌴';
+    layer.appendChild(p2);
+    var water = document.createElement('div');
+    water.style.cssText = 'position:absolute;bottom:0;width:100%;height:35%;background:linear-gradient(180deg,rgba(2,136,209,.7),#01579B);';
+    layer.appendChild(water);
+  }
+  
+  // ==== FIREWORKS ====
+  if(designId === 'fireworks'){
+    var colors = ['#FF1744','#FFD700','#00E676','#00E5FF','#E1306C','#FF9800'];
+    for(var i=0;i<12;i++){
+      var burst = document.createElement('div');
+      burst.style.cssText = 'position:absolute;width:8px;height:8px;border-radius:50%;animation:animTwinkle 2s ease-out infinite;background:' + colors[i % colors.length] + ';box-shadow:0 0 25px ' + colors[i % colors.length] + ',0 0 50px ' + colors[i % colors.length] + ';left:' + (10+Math.random()*80) + '%;top:' + (10+Math.random()*70) + '%;animation-delay:' + (i*0.4) + 's;';
+      layer.appendChild(burst);
+    }
+  }
+  
+  // ==== AMUSEMENT PARK ====
+  if(designId === 'amusement-park'){
+    var fw = document.createElement('div');
+    fw.style.cssText = 'position:absolute;bottom:20%;left:50%;transform:translateX(-50%);font-size:120px;animation:animMoonGlow 3s ease-in-out infinite;';
+    fw.textContent = '🎡';
+    layer.appendChild(fw);
+  }
+  
+  // ==== SPACE ROCKET ====
+  if(designId === 'space-rocket'){
+    var rocket = document.createElement('div');
+    rocket.style.cssText = 'position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:60px;animation:animFireflyFloat 6s ease-in-out infinite;';
+    rocket.textContent = '🚀';
+    layer.appendChild(rocket);
+    var planet = document.createElement('div');
+    planet.style.cssText = 'position:absolute;top:15%;right:15%;font-size:70px;';
+    planet.textContent = '🪐';
+    layer.appendChild(planet);
+  }
+  
+  // ==== UNDERWATER ====
+  if(designId === 'underwater'){
+    for(var i=0;i<20;i++){
+      var b = document.createElement('div');
+      b.className = 'anim-bubble';
+      b.style.cssText += 'bottom:0;left:' + (Math.random()*100) + '%;width:' + (10+Math.random()*20) + 'px;height:' + (10+Math.random()*20) + 'px;animation-duration:' + (6+Math.random()*6) + 's;animation-delay:' + (Math.random()*5) + 's;';
+      layer.appendChild(b);
+    }
+    for(var i=0;i<8;i++){
+      var fish = document.createElement('div');
+      fish.className = 'anim-fish';
+      fish.style.top = (10+Math.random()*70) + '%';
+      fish.style.animationDuration = (8+Math.random()*6) + 's';
+      fish.style.animationDelay = (i*0.8) + 's';
+      fish.textContent = ['🐠','🐟','🐡','🦈','🐙'][i % 5];
+      layer.appendChild(fish);
+    }
+  }
+  
+  // ==== VOLCANO ====
+  if(designId === 'volcano'){
+    var vl = document.createElement('div');
+    vl.style.cssText = 'position:absolute;bottom:0;width:100%;height:50%;background:linear-gradient(135deg,#2c1810 0%,#1a0f0a 50%,#000 100%);clip-path:polygon(0 100%,25% 20%,40% 40%,50% 5%,60% 40%,75% 25%,100% 100%);';
+    layer.appendChild(vl);
+  }
+  
+  // ==== MOUNTAIN ====
+  if(designId === 'mountain'){
+    var mt = document.createElement('div');
+    mt.style.cssText = 'position:absolute;bottom:0;width:100%;height:40%;background:linear-gradient(135deg,#1a2332 0%,#2c3e50 50%,#415a77 100%);clip-path:polygon(0 100%,15% 30%,30% 60%,50% 15%,70% 55%,85% 25%,100% 100%);';
+    layer.appendChild(mt);
+  }
+  
+  // ==== WATERFALL ====
+  if(designId === 'waterfall'){
+    var flow = document.createElement('div');
+    flow.style.cssText = 'position:absolute;top:0;left:42%;width:16%;height:100%;background:linear-gradient(180deg,rgba(135,206,250,.9),rgba(0,229,255,.5),rgba(0,229,255,.2));animation:animRainFall 1s linear infinite;';
+    layer.appendChild(flow);
+  }
+  
+  console.log('✅ User Animation:', designId, '— total:', layer.children.length);
+}
+
+function loadUserDesignFromFirebase(){
+  FB.get('/settings/designs').then(function(d){
+    if(!d) return;
+    var dashDesign = d.userDashboard || d.dashboard || 'rainy-night';
+    console.log('📥 Loading User Design:', dashDesign);
+    applyUserBackground(dashDesign);
+    loadUserAnimationElements(dashDesign);
+  }).catch(function(e){
+    console.log('⚠️ Design error:', e);
+    applyUserBackground('rainy-night');
+    loadUserAnimationElements('rainy-night');
+  });
+}
+
+/* ==================================================
+   📺 AD SYSTEM — 4 IN 1 (HighRevenueFormat + Monetag + Direct Link + Popunder)
+   ================================================== */
+
+/* === HighRevenueFormat Banner Ads === */
 var AD_CONFIG = [
   { key: "f7b5fb1e6fc33ea203f08bdd042e987c", width: 300, height: 250 },
   { key: "22e82538f1de9118ba07f9a995a692d4", width: 320, height: 50 },
   { key: "fa90bcf6b604ee93575cf3bf5161abce", width: 728, height: 90 }
 ];
+
 function getAvailableAds(){
   if(window.innerWidth < 500) return AD_CONFIG.filter(function(a){ return a.width <= 320; });
   return AD_CONFIG;
 }
+
 var adLoadCounter = 0;
 function injectAdIntoSlot(slotElement, adObj){
   if(!slotElement) return;
@@ -1148,6 +1558,7 @@ function injectAdIntoSlot(slotElement, adObj){
   script.src = 'https://www.highrevenueformat.com/' + adObj.key + '/invoke.js';
   container.appendChild(script);
 }
+
 var adSlotRotation = {};
 function loadAdInSlot(slotId, adIndex){
   var slot = document.getElementById(slotId);
@@ -1158,10 +1569,12 @@ function loadAdInSlot(slotId, adIndex){
   adSlotRotation[slotId]++;
   injectAdIntoSlot(slot, ads[idx]);
 }
+
 function loadAllAds(){
   var slots = document.querySelectorAll('.ad-slot');
   slots.forEach(function(slot, i){ if(slot.id && slot.offsetParent !== null) loadAdInSlot(slot.id, i); });
 }
+
 var autoRotationInterval = null;
 function startAutoAdRotation(){
   setTimeout(loadAllAds, 2500);
@@ -1170,11 +1583,40 @@ function startAutoAdRotation(){
   if(autoRotationInterval) clearInterval(autoRotationInterval);
   autoRotationInterval = setInterval(function(){ loadAllAds(); }, 90000);
 }
-document.addEventListener('visibilitychange', function(){ if(!document.hidden) setTimeout(loadAllAds, 1500); });
 
-/* AD OVERLAY — SHORT ADS (15s) */
+/* === Sticky Bottom Ad === */
+function loadStickyBottomAd(){
+  var slot = document.getElementById('stickyAdSlot');
+  if(!slot) return;
+  var stickyObj = { key: '22e82538f1de9118ba07f9a995a692d4', width: 320, height: 50 };
+  if(window.innerWidth > 500){
+    stickyObj = { key: 'fa90bcf6b604ee93575cf3bf5161abce', width: 728, height: 90 };
+  }
+  injectAdIntoSlot(slot, stickyObj);
+}
+
+/* === Direct Link (omg10) — Reward Ad Overlay-এ === */
+var DIRECT_LINKS = [
+  'https://omg10.com/4/11796327',
+  'https://omg10.com/4/11867674',
+  'https://omg10.com/4/11898024'
+];
+
+function openDirectLink(){
+  var idx = Math.floor(Math.random() * DIRECT_LINKS.length);
+  try {
+    var w = window.open(DIRECT_LINKS[idx], '_blank');
+    if(w) w.blur();
+    window.focus();
+  } catch(e){
+    console.log('Direct link error:', e);
+  }
+}
+
+/* === Ad Overlay for Short Ads === */
 var adOverlayCallback = null;
 var adOverlayInterval = null;
+
 function showAdOverlay(callback){
   var overlay = document.getElementById('adOverlay');
   var slot = document.getElementById('adOverlaySlot');
@@ -1209,6 +1651,7 @@ function showAdOverlay(callback){
     }
   }, 1000);
 }
+
 function closeAdOverlay(){
   var closeBtn = document.getElementById('adCloseBtn');
   if(closeBtn.disabled) return;
@@ -1221,6 +1664,7 @@ function closeAdOverlay(){
     setTimeout(cb, 100);
   }
 }
+
 function withAd(callback){
   var called = false;
   var safeCallback = function(){
@@ -1237,6 +1681,26 @@ function withAd(callback){
   }, 20000);
 }
 
+/* === Popunder Trigger (User Click এ নতুন ট্যাব) === */
+var popunderTriggered = false;
+function triggerPopunder(){
+  if(popunderTriggered) return;
+  popunderTriggered = true;
+  setTimeout(function(){
+    openDirectLink();
+    popunderTriggered = false;
+  }, 500);
+}
+
+document.addEventListener('click', function(e){
+  // Every 5th click triggers popunder
+  if(!e.target.closest('.ad-space') && !e.target.closest('.sticky-bottom-ad')){
+    if(Math.random() < 0.15){
+      triggerPopunder();
+    }
+  }
+}, true);
+
 /* ==================================================
    💎 PREMIUM BIG ADS — 90 সেকেন্ড / ৳26.50
    ================================================== */
@@ -1247,7 +1711,7 @@ var premTimerInterval = null;
 var premIsRunning = false;
 
 function getPremLogs(){
-  var u = (typeof getCurrentUser === 'function') ? getCurrentUser() : null;
+  var u = getCurrentUser();
   if(!u || !u.adLog) return [];
   var today = new Date().toISOString().split('T')[0];
   return u.adLog.filter(function(l){
@@ -1268,51 +1732,31 @@ function updatePremStats(){
 }
 
 window.startPremiumAd = function(){
-  if(premIsRunning){
-    if(typeof showToast === 'function') showToast('⏳ Ad চলছে, অপেক্ষা করুন...');
-    return;
-  }
-  var u = (typeof getCurrentUser === 'function') ? getCurrentUser() : null;
-  if(!u){
-    if(typeof showToast === 'function') showToast('❌ লগইন করুন!');
-    return;
-  }
+  if(premIsRunning){ showToast('⏳ Ad চলছে, অপেক্ষা করুন...'); return; }
+  var u = getCurrentUser();
+  if(!u){ showToast('❌ লগইন করুন!'); return; }
   var logs = getPremLogs();
-  if(logs.length >= PREM_DAILY_LIMIT){
-    if(typeof showToast === 'function') showToast('❌ আজকের লিমিট শেষ! কাল আবার আসুন।');
-    return;
-  }
+  if(logs.length >= PREM_DAILY_LIMIT){ showToast('❌ আজকের লিমিট শেষ!'); return; }
   premIsRunning = true;
   showPremiumAdOverlay(function(){
-    var newLog = {
-      date: new Date().toISOString(),
-      reward: PREM_REWARD,
-      math: 0,
-      platform: 'PremiumAd',
-      duration: PREM_AD_DURATION
-    };
+    var newLog = { date: new Date().toISOString(), reward: PREM_REWARD, math: 0, platform: 'PremiumAd', duration: PREM_AD_DURATION };
     u.adLog = u.adLog || [];
     u.adLog.push(newLog);
     u.balance = (parseFloat(u.balance) || 0) + PREM_REWARD;
     u.totalEarned = (parseFloat(u.totalEarned) || 0) + PREM_REWARD;
     u.adsWatched = (parseInt(u.adsWatched) || 0) + 1;
-    if(typeof saveCurrentUser === 'function') saveCurrentUser(u);
-    if(typeof fbSaveUser === 'function') fbSaveUser(u);
-    if(typeof updateBalance === 'function') updateBalance();
+    saveCurrentUser(u);
+    fbSaveUser(u);
+    updateBalance();
     updatePremStats();
-    if(typeof showToast === 'function'){
-      showToast('🎉 Premium Ad থেকে ৳' + PREM_REWARD.toFixed(2) + ' যোগ!');
-    }
+    showToast('🎉 Premium Ad থেকে ৳' + PREM_REWARD.toFixed(2) + ' যোগ!');
     premIsRunning = false;
   });
 };
 
 function showPremiumAdOverlay(onComplete){
-  var u = (typeof getCurrentUser === 'function') ? getCurrentUser() : null;
-  if(!u){
-    premIsRunning = false;
-    return;
-  }
+  var u = getCurrentUser();
+  if(!u){ premIsRunning = false; return; }
   var overlay = document.createElement('div');
   overlay.id = 'premAdOverlay';
   overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.97);z-index:999999;display:flex;justify-content:center;align-items:center;padding:20px;backdrop-filter:blur(15px);';
@@ -1335,8 +1779,8 @@ function showPremiumAdOverlay(onComplete){
   overlay.appendChild(box);
   document.body.appendChild(overlay);
   var slot = document.getElementById('premAdSlot');
-  if(slot && typeof injectAdIntoSlot === 'function'){
-    var ads = (typeof getAvailableAds === 'function') ? getAvailableAds() : [];
+  if(slot){
+    var ads = getAvailableAds();
     if(ads.length){
       var bigAd = ads.find(function(a){ return a.width >= 300; }) || ads[0];
       injectAdIntoSlot(slot, bigAd);
@@ -1365,50 +1809,32 @@ function showPremiumAdOverlay(onComplete){
   }, 1000);
 }
 
-/* LIVE ANIMATION */
+/* ==================================================
+   LIVE OLD ANIMATIONS (fallback)
+   ================================================== */
 (function(){
   var starsC = document.getElementById('stars');
-  for(var i=0;i<80;i++){
-    var s = document.createElement('div');
-    s.className = 'star';
-    s.style.left = Math.random()*100 + '%';
-    s.style.top = Math.random()*100 + '%';
-    s.style.width = s.style.height = (1+Math.random()*2) + 'px';
-    s.style.animationDelay = Math.random()*3 + 's';
-    s.style.animationDuration = (2+Math.random()*3) + 's';
-    starsC.appendChild(s);
+  if(starsC){
+    for(var i=0;i<80;i++){
+      var s = document.createElement('div');
+      s.className = 'star';
+      s.style.left = Math.random()*100 + '%';
+      s.style.top = Math.random()*100 + '%';
+      s.style.width = s.style.height = (1+Math.random()*2) + 'px';
+      s.style.animationDelay = Math.random()*3 + 's';
+      starsC.appendChild(s);
+    }
   }
   var rainC = document.getElementById('rainContainer');
-  for(var i=0;i<100;i++){
-    var r = document.createElement('div');
-    r.className = 'raindrop';
-    r.style.left = Math.random()*100 + '%';
-    r.style.animationDuration = (0.4+Math.random()*0.5) + 's';
-    r.style.animationDelay = Math.random()*3 + 's';
-    r.style.height = (15+Math.random()*20) + 'px';
-    r.style.opacity = 0.4 + Math.random()*0.5;
-    rainC.appendChild(r);
-  }
-  var leafC = document.getElementById('leafContainer');
-  for(var i=0;i<35;i++){
-    var l = document.createElement('div');
-    l.className = 'leaf';
-    l.style.left = Math.random()*100 + '%';
-    l.style.animationDuration = (6+Math.random()*6) + 's';
-    l.style.animationDelay = Math.random()*8 + 's';
-    l.style.background = ['#8BC34A','#33691E','#FF9800','#FDD835','#4CAF50','#E91E63'][Math.floor(Math.random()*6)];
-    l.style.width = l.style.height = (10+Math.random()*10) + 'px';
-    leafC.appendChild(l);
-  }
-  var fireflyC = document.getElementById('fireflyContainer');
-  for(var i=0;i<15;i++){
-    var f = document.createElement('div');
-    f.className = 'firefly';
-    f.style.left = (Math.random()*100) + '%';
-    f.style.bottom = (5+Math.random()*30) + '%';
-    f.style.animationDuration = (6+Math.random()*8) + 's';
-    f.style.animationDelay = Math.random()*6 + 's';
-    fireflyC.appendChild(f);
+  if(rainC){
+    for(var i=0;i<100;i++){
+      var r = document.createElement('div');
+      r.className = 'raindrop';
+      r.style.left = Math.random()*100 + '%';
+      r.style.animationDuration = (0.4+Math.random()*0.5) + 's';
+      r.style.animationDelay = Math.random()*3 + 's';
+      rainC.appendChild(r);
+    }
   }
 })();
 
@@ -1573,10 +1999,11 @@ function initUI(){
     loadChat();
     startAutoAdRotation();
     updatePremStats();
+    loadStickyBottomAd();
     fbSaveUser(user);
-fbStartListener(user.email);
-loadUserDesignFromFirebase();
-} else {
+    fbStartListener(user.email);
+    loadUserDesignFromFirebase();
+  } else {
     modal.classList.add('active');
     modal.style.display = 'flex';
     app.style.display = 'none';
@@ -1674,7 +2101,6 @@ function toggleNotifications(){
   loadNotifications();
 }
 
-/* NAV */
 function goPanel(id){
   var panels = document.querySelectorAll('.panel');
   panels.forEach(function(p){ p.classList.remove('active'); });
@@ -1690,7 +2116,6 @@ document.querySelectorAll('.menu-item[data-panel]').forEach(function(item){
   item.addEventListener('click', function(){ goPanel(item.dataset.panel); });
 });
 
-/* VERIFY */
 function verifyAccount(){
   var u = getCurrentUser();
   if(!u) return;
@@ -1711,9 +2136,7 @@ function verifyAccount(){
   }, 1200);
 }
 
-/* ==================================================
-   SHORT ADS FLOW (15s + Math) → ৳7.00
-   ================================================== */
+/* SHORT ADS FLOW */
 var adMathCurrent = null;
 var adFlowStep = 'idle';
 function startAdFlow(){
@@ -1808,9 +2231,7 @@ function submitMath(){
   renderTxn(u);
 }
 
-/* ==================================================
-   MATH PAGE — ৳3.00
-   ================================================== */
+/* MATH PAGE */
 var mathPageCurrent = null;
 function newMathPageQuestion(){
   var a = Math.floor(10 + Math.random() * 90);
@@ -1858,9 +2279,7 @@ function submitMathPage(){
 }
 setTimeout(function(){ newMathPageQuestion(); }, 2000);
 
-/* ==================================================
-   JOB PROOF — ✅ FIXED: Firebase-এ /job_proofs এ পাঠায়
-   ================================================== */
+/* JOB PROOF */
 var currentJobName = '', currentJobReward = 0;
 var currentJobImg1 = '', currentJobImg2 = '';
 function openJobProof(name, reward){
@@ -1898,37 +2317,18 @@ function submitJobProof(){
   if(!bio){ showToast('⚠️ বিবরণ লিখুন!'); return; }
   if(!currentJobImg1){ showToast('📸 Screenshot 1 দিন!'); return; }
   if(!currentJobImg2){ showToast('📸 Screenshot 2 দিন!'); return; }
-  var proof = {
-    date: new Date().toISOString(),
-    job: currentJobName,
-    reward: currentJobReward,
-    bio: bio,
-    status: 'pending'
-  };
+  var proof = { date: new Date().toISOString(), job: currentJobName, reward: currentJobReward, bio: bio, status: 'pending' };
   u.jobProofs = u.jobProofs || [];
   u.jobProofs.push(proof);
   saveCurrentUser(u);
   fbSaveUser(u);
-  // 🔗 Admin Panel-এ পাঠানো
-  FB.push('/job_proofs', {
-    email: u.email,
-    name: u.name,
-    job: currentJobName,
-    reward: currentJobReward,
-    bio: bio,
-    img1: currentJobImg1,
-    img2: currentJobImg2,
-    date: new Date().toISOString(),
-    status: 'pending'
-  });
+  FB.push('/job_proofs', { email: u.email, name: u.name, job: currentJobName, reward: currentJobReward, bio: bio, img1: currentJobImg1, img2: currentJobImg2, date: new Date().toISOString(), status: 'pending' });
   showToast('✅ Admin এর কাছে পাঠানো হয়েছে!');
   closeJobProof();
   renderTxn(u);
 }
 
-/* ==================================================
-   SOCIAL PROMOTE
-   ================================================== */
+/* SOCIAL PROMOTE */
 var socialServices = {
   facebook: [
     { name: 'Facebook Page Like', price: 50, unit: '১০০০' },
@@ -1962,12 +2362,6 @@ function loadServices(){ switchSocial('facebook'); }
 function switchSocial(platform, btn){
   document.querySelectorAll('.social-tab').forEach(function(t){ t.classList.remove('active'); });
   if(btn) btn.classList.add('active');
-  else{
-    var tabs = document.querySelectorAll('.social-tab');
-    tabs.forEach(function(t){
-      if(t.getAttribute('onclick').includes(platform)) t.classList.add('active');
-    });
-  }
   var list = document.getElementById('serviceList');
   if(!list) return;
   list.innerHTML = socialServices[platform].map(function(s){
@@ -1991,7 +2385,6 @@ function togglePaymentMethod(){
   document.getElementById('walletPaymentBox').style.display = m === 'wallet' ? 'block' : 'none';
   document.getElementById('bkashPaymentBox').style.display = m === 'bkash' ? 'block' : 'none';
 }
-/* ✅ FIXED: Firebase-এ /orders এ পাঠায় */
 function submitOrder(){
   if(!orderService){ showToast('❌ Service নির্বাচন করুন!'); return; }
   var u = getCurrentUser();
@@ -2007,39 +2400,19 @@ function submitOrder(){
     txn = document.getElementById('orderTxn').value.trim();
     if(!txn){ showToast('⚠️ TrxID দিন!'); return; }
   }
-  var order = {
-    date: new Date().toISOString(),
-    service: orderService.name,
-    price: orderService.price,
-    link: link,
-    method: method,
-    status: 'pending'
-  };
+  var order = { date: new Date().toISOString(), service: orderService.name, price: orderService.price, link: link, method: method, status: 'pending' };
   u.orders = u.orders || [];
   u.orders.push(order);
   saveCurrentUser(u);
   fbSaveUser(u);
-  // 🔗 Admin Panel-এ পাঠানো
-  FB.push('/orders', {
-    email: u.email,
-    name: u.name,
-    service: orderService.name,
-    price: orderService.price,
-    link: link,
-    method: method,
-    txn: txn,
-    date: new Date().toISOString(),
-    status: 'pending'
-  });
+  FB.push('/orders', { email: u.email, name: u.name, service: orderService.name, price: orderService.price, link: link, method: method, txn: txn, date: new Date().toISOString(), status: 'pending' });
   updateBalance();
   renderTxn(u);
   showToast('✅ Order পাঠানো হয়েছে!');
   closeOrderModal();
 }
 
-/* ==================================================
-   DEPOSIT — ✅ FIXED: Firebase-এ /deposits এ পাঠায়
-   ================================================== */
+/* DEPOSIT */
 function doDeposit(){
   var u = getCurrentUser();
   if(!u) return;
@@ -2052,25 +2425,14 @@ function doDeposit(){
   u.deposits.push({ date: new Date().toISOString(), amount: amt, sender: sender, txn: txn, status: 'pending' });
   saveCurrentUser(u);
   fbSaveUser(u);
-  // 🔗 Admin Panel-এ পাঠানো
-  FB.push('/deposits', {
-    email: u.email,
-    name: u.name,
-    amount: amt,
-    sender: sender,
-    txn: txn,
-    date: new Date().toISOString(),
-    status: 'pending'
-  });
+  FB.push('/deposits', { email: u.email, name: u.name, amount: amt, sender: sender, txn: txn, date: new Date().toISOString(), status: 'pending' });
   showToast('✅ Deposit request পাঠানো হয়েছে!');
   document.getElementById('depositAmt').value = '';
   document.getElementById('depositSender').value = '';
   document.getElementById('depositTxn').value = '';
 }
 
-/* ==================================================
-   WITHDRAW — ✅ FIXED: Firebase-এ /withdraws এ পাঠায়
-   ================================================== */
+/* WITHDRAW */
 function doWithdraw(){
   var u = getCurrentUser();
   if(!u) return;
@@ -2082,10 +2444,7 @@ function doWithdraw(){
   if(u.lastWithdrawDate){
     var last = new Date(u.lastWithdrawDate);
     var diff = (Date.now() - last.getTime()) / (1000 * 60 * 60 * 24);
-    if(diff < 5){
-      showToast('⏳ ৫ দিনে একবার Withdraw! বাকি: ' + Math.ceil(5 - diff) + ' দিন');
-      return;
-    }
+    if(diff < 5){ showToast('⏳ ৫ দিনে একবার Withdraw! বাকি: ' + Math.ceil(5 - diff) + ' দিন'); return; }
   }
   var fee = 40;
   var payable = amt - fee;
@@ -2095,17 +2454,7 @@ function doWithdraw(){
   u.lastWithdrawDate = new Date().toISOString();
   saveCurrentUser(u);
   fbSaveUser(u);
-  // 🔗 Admin Panel-এ পাঠানো
-  FB.push('/withdraws', {
-    email: u.email,
-    name: u.name,
-    amount: amt,
-    fee: fee,
-    payable: payable,
-    account: acc,
-    date: new Date().toISOString(),
-    status: 'pending'
-  });
+  FB.push('/withdraws', { email: u.email, name: u.name, amount: amt, fee: fee, payable: payable, account: acc, date: new Date().toISOString(), status: 'pending' });
   updateBalance();
   renderTxn(u);
   showToast('✅ Withdraw request পাঠানো হয়েছে!');
@@ -2113,9 +2462,7 @@ function doWithdraw(){
   document.getElementById('withdrawAcc').value = '';
 }
 
-/* ==================================================
-   PREMIUM PURCHASE — ✅ FIXED: Firebase-এ /premium_requests এ পাঠায়
-   ================================================== */
+/* PREMIUM PURCHASE */
 function buyPremium(){
   var u = getCurrentUser();
   if(!u) return;
@@ -2126,22 +2473,11 @@ function buyPremium(){
   saveCurrentUser(u);
   fbSaveUser(u);
   updateBalance();
-  // 🔗 Admin Panel-এ পাঠানো
-  FB.push('/premium_requests', {
-    email: u.email,
-    name: u.name,
-    amount: 90,
-    sender: 'Wallet',
-    txn: 'Wallet Payment',
-    date: new Date().toISOString(),
-    status: 'approved'
-  });
+  FB.push('/premium_requests', { email: u.email, name: u.name, amount: 90, sender: 'Wallet', txn: 'Wallet Payment', date: new Date().toISOString(), status: 'approved' });
   showToast('👑 Premium activated!');
 }
 
-/* ==================================================
-   REFER
-   ================================================== */
+/* REFER */
 function copyRef(){
   var u = getCurrentUser();
   if(!u) return;
@@ -2165,9 +2501,7 @@ function shareRef(){
   else copyRef();
 }
 
-/* ==================================================
-   CHAT — ✅ Firebase /users/{email}/chat এ সেভ হয়
-   ================================================== */
+/* CHAT */
 function loadChat(){
   var u = getCurrentUser();
   if(!u) return;
@@ -2197,7 +2531,6 @@ function sendChat(){
   loadChat();
 }
 
-/* চ্যাট মেসেজ লোড (Admin থেকে রিপ্লাই আসলে দেখাবে) */
 setInterval(function(){
   var u = getCurrentUser();
   if(!u) return;
@@ -2213,9 +2546,7 @@ setInterval(function(){
   }).catch(function(){});
 }, 6000);
 
-/* ==================================================
-   COUNTDOWN
-   ================================================== */
+/* COUNTDOWN */
 (function(){
   var end = Date.now() + 145 * 24 * 60 * 60 * 1000;
   function tick(){
@@ -2243,119 +2574,30 @@ setInterval(function(){
   }, 4600);
 })();
 
-window.addEventListener('resize', function(){ loadAllAds(); });
+window.addEventListener('resize', function(){ loadAllAds(); loadStickyBottomAd(); });
 
-/* 🎨 Design Load - Firebase থেকে */
-function loadUserDesignFromFirebase(){
-  FB.get('/settings/designs').then(function(d){
-    if(!d) return;
-    var dashDesign = d.userDashboard || d.dashboard || 'rainy-night';
-    var layer = document.getElementById('villageBg');
-    if(!layer) return;
-    var bgStyle = '';
-    if(dashDesign === 'snowfall'){
-      bgStyle = 'linear-gradient(180deg,#1a2332,#2c3e50,#415a77)';
-    } else if(dashDesign === 'ocean-wave'){
-      bgStyle = 'linear-gradient(180deg,#0a0f1e,#1a237e,#0277BD)';
-    } else if(dashDesign === 'aurora'){
-      bgStyle = 'radial-gradient(ellipse at top,#0a0f1e 0%,#1a0b2e 50%,#0a0f1e 100%)';
-    } else if(dashDesign === 'autumn' || dashDesign === 'autumn-leaves'){
-      bgStyle = 'linear-gradient(180deg,#FFB347,#E65100,#8B4513)';
-    } else if(dashDesign === 'starry-galaxy'){
-      bgStyle = 'radial-gradient(ellipse at center,#1a0b2e 0%,#0a0f1e 70%)';
-    } else if(dashDesign === 'fireflies'){
-      bgStyle = 'linear-gradient(180deg,#0a0f1e,#0f172a,#0d3a1f)';
-    } else if(dashDesign === 'golden-sunset'){
-      bgStyle = 'linear-gradient(180deg,#FF6B35 0%,#F7931E 30%,#FDC830 60%,#F37335 100%)';
-    } else if(dashDesign === 'green-forest'){
-      bgStyle = 'linear-gradient(180deg,#0a1f0a,#0f3a0f,#1e5c1e)';
-    } else if(dashDesign === 'cherry'){
-      bgStyle = 'linear-gradient(180deg,#FFF0F5,#FFD1DC,#FFB6C1)';
-    } else if(dashDesign === 'lightning'){
-      bgStyle = 'linear-gradient(180deg,#0a0f1e,#1a1a2e,#16213e)';
-    } else if(dashDesign === 'rainbow'){
-      bgStyle = 'linear-gradient(180deg,#87CEEB,#B0E0E6,#E0F7FA)';
-    } else if(dashDesign === 'butterflies'){
-      bgStyle = 'linear-gradient(180deg,#FFF0F5,#B2EBF2,#80DEEA)';
-    } else if(dashDesign === 'tropical'){
-      bgStyle = 'linear-gradient(180deg,#4FC3F7,#0288D1,#0277BD)';
-    } else if(dashDesign === 'mountain'){
-      bgStyle = 'linear-gradient(180deg,#FF6B6B,#FFB347,#FFD93D)';
-    } else if(dashDesign === 'city'){
-      bgStyle = 'linear-gradient(180deg,#0a0f1e,#1a1a2e,#2c1810)';
-    } else if(dashDesign === 'waterfall'){
-      bgStyle = 'linear-gradient(180deg,#1a2332,#0a0f1e)';
-    } else if(dashDesign === 'fullmoon'){
-      bgStyle = 'radial-gradient(ellipse at center,#1a2332 0%,#0a0f1e 100%)';
-    } else if(dashDesign === 'fireworks'){
-      bgStyle = 'radial-gradient(ellipse at center,#0a0f1e,#000)';
-    } else if(dashDesign === 'rainy-night'){
-      bgStyle = 'linear-gradient(180deg,#0a0f1e,#1a2332,#2c3e50)';
-    } else {
-      bgStyle = 'linear-gradient(180deg,#0a0f1e 0%,#0f172a 30%,#1a2332 60%,#1e3a2e 100%)';
-    }
-    layer.innerHTML = '<div style="position:absolute;inset:0;background:' + bgStyle + ';"></div>';
-    
-    if(dashDesign === 'night-village' || dashDesign === 'starry-galaxy' || dashDesign === 'aurora' || dashDesign === 'fullmoon'){
-      for(var i=0;i<80;i++){
-        var s = document.createElement('div');
-        s.className = 'star';
-        s.style.left = Math.random()*100 + '%';
-        s.style.top = Math.random()*70 + '%';
-        s.style.width = s.style.height = (1+Math.random()*2) + 'px';
-        s.style.animationDelay = Math.random()*3 + 's';
-        layer.appendChild(s);
-      }
-    }
-    
-    if(dashDesign === 'rainy-night'){
-      for(var i=0;i<80;i++){
-        var r = document.createElement('div');
-        r.className = 'raindrop';
-        r.style.left = Math.random()*100 + '%';
-        r.style.animationDuration = (0.4+Math.random()*0.5) + 's';
-        r.style.animationDelay = Math.random()*3 + 's';
-        layer.appendChild(r);
-      }
-    }
-    
-    if(dashDesign === 'snowfall'){
-      for(var i=0;i<50;i++){
-        var f = document.createElement('div');
-        f.style.cssText = 'position:absolute;top:-10px;color:#fff;font-size:' + (10+Math.random()*10) + 'px;animation:leafFall linear infinite;animation-duration:' + (6+Math.random()*6) + 's;animation-delay:' + (Math.random()*6) + 's;left:' + (Math.random()*100) + '%;';
-        f.textContent = '❄';
-        layer.appendChild(f);
-      }
-    }
-    
-    if(dashDesign === 'autumn' || dashDesign === 'autumn-leaves'){
-      var leaves = ['🍂','🍁','🍃'];
-      for(var i=0;i<40;i++){
-        var lf = document.createElement('div');
-        lf.style.cssText = 'position:absolute;top:-20px;font-size:24px;animation:leafFall linear infinite;animation-duration:' + (6+Math.random()*6) + 's;animation-delay:' + (Math.random()*8) + 's;left:' + (Math.random()*100) + '%;';
-        lf.textContent = leaves[i % leaves.length];
-        layer.appendChild(lf);
-      }
-    }
-    
-    if(dashDesign === 'fireflies'){
-      for(var i=0;i<25;i++){
-        var fd = document.createElement('div');
-        fd.className = 'firefly';
-        fd.style.left = Math.random()*100 + '%';
-        fd.style.bottom = (5+Math.random()*40) + '%';
-        fd.style.animationDuration = (6+Math.random()*8) + 's';
-        fd.style.animationDelay = Math.random()*6 + 's';
-        layer.appendChild(fd);
-      }
-    }
-  }).catch(function(e){ console.log('Design load err:', e); });
-}
-
+/* প্রতি ১০ সেকেন্ডে Design আপডেট চেক */
 setInterval(function(){
   var u = getCurrentUser();
   if(u) loadUserDesignFromFirebase();
 }, 10000);
+
+/* ==================================================
+   🎯 MONETAG SERVICE WORKER REGISTRATION
+   ================================================== */
+if('serviceWorker' in navigator){
+  window.addEventListener('load', function(){
+    // Monetag SW - zone 1
+    navigator.serviceWorker.register('sw1.js').then(function(reg){
+      console.log('✅ SW1 registered:', reg.scope);
+    }).catch(function(e){ console.log('SW1 error:', e); });
+    
+    // Monetag SW - zone 2
+    navigator.serviceWorker.register('sw2.js').then(function(reg){
+      console.log('✅ SW2 registered:', reg.scope);
+    }).catch(function(e){ console.log('SW2 error:', e); });
+  });
+}
 </script>
 </body>
 </html>

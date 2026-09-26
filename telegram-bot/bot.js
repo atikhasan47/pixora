@@ -9,8 +9,7 @@ const http = require("http");
 const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const PORT = Number(process.env.PORT || 10000);
 
-const RENDER_URL = (process.env.RENDER_EXTERNAL_URL || "")
-  .replace(/\/+$/, "");
+const RENDER_URL = (process.env.RENDER_EXTERNAL_URL || "").replace(/\/+$/, "");
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 const OPENAI_MODEL = process.env.OPENAI_MODEL || "gpt-5";
@@ -36,6 +35,12 @@ const SUPPORT_CONTACT = "@atikbreand420";
 
 const MONETAG_LINK_1 = "https://omg10.com/4/11796327";
 const MONETAG_LINK_2 = "https://omg10.com/4/11867674";
+const MONETAG_LINK_3 = "https://omg10.com/4/11898024";
+
+function getRandomAdLink() {
+  const links = [MONETAG_LINK_1, MONETAG_LINK_2, MONETAG_LINK_3];
+  return links[Math.floor(Math.random() * links.length)];
+}
 
 // ======================================================
 // CHANNEL CONFIGURATION
@@ -70,9 +75,7 @@ const bot = new TelegramBot(TOKEN, {
 // OPENAI
 // ======================================================
 
-const openai = OPENAI_API_KEY
-  ? new OpenAI({ apiKey: OPENAI_API_KEY })
-  : null;
+const openai = OPENAI_API_KEY ? new OpenAI({ apiKey: OPENAI_API_KEY }) : null;
 
 if (openai) {
   console.log(`OpenAI enabled. Model: ${OPENAI_MODEL}`);
@@ -101,14 +104,8 @@ function mainMenu() {
       inline_keyboard: [
         [
           {
-            text: "🎯 Open Earning App",
-            url: APP_URL
-          }
-        ],
-        [
-          {
             text: "🎁 Special Offer",
-            url: MONETAG_LINK_1
+            url: getRandomAdLink()
           }
         ],
         [
@@ -155,12 +152,18 @@ function mainMenu() {
         ],
         [
           {
-            text: "📞 Support",
+            text: "🆘 Support",
             callback_data: "support"
           },
           {
             text: "❓ Help",
             callback_data: "help"
+          }
+        ],
+        [
+          {
+            text: "🌐 Open App",
+            url: APP_URL
           }
         ]
       ]
@@ -178,14 +181,14 @@ function backMenu() {
       inline_keyboard: [
         [
           {
-            text: "🎯 Open App",
-            url: APP_URL
+            text: "🎁 Special Offer",
+            url: getRandomAdLink()
           }
         ],
         [
           {
-            text: "🎁 Special Offer",
-            url: MONETAG_LINK_1
+            text: "🌐 Open App",
+            url: APP_URL
           }
         ],
         [
@@ -217,22 +220,12 @@ async function sendLongMessage(chatId, text) {
   const message = String(text || "").trim();
 
   if (!message) {
-    await bot.sendMessage(
-      chatId,
-      "⚠️ AI returned an empty response. Please try again."
-    );
+    await bot.sendMessage(chatId, "⚠️ AI returned an empty response. Please try again.");
     return;
   }
 
-  for (
-    let start = 0;
-    start < message.length;
-    start += TELEGRAM_MESSAGE_LIMIT
-  ) {
-    await bot.sendMessage(
-      chatId,
-      message.slice(start, start + TELEGRAM_MESSAGE_LIMIT)
-    );
+  for (let start = 0; start < message.length; start += TELEGRAM_MESSAGE_LIMIT) {
+    await bot.sendMessage(chatId, message.slice(start, start + TELEGRAM_MESSAGE_LIMIT));
   }
 }
 
@@ -260,14 +253,14 @@ async function postToChannel() {
           inline_keyboard: [
             [
               {
-                text: "🎯 Open Earning App",
-                url: APP_URL
+                text: "🎁 Special Offer",
+                url: getRandomAdLink()
               }
             ],
             [
               {
-                text: "🎁 Special Offer",
-                url: MONETAG_LINK_1
+                text: "🌐 Open App",
+                url: APP_URL
               }
             ],
             [
@@ -282,7 +275,6 @@ async function postToChannel() {
     );
 
     console.log("✅ Channel-এ Ad Post হয়েছে");
-
   } catch (error) {
     console.error("Channel Post Error:", error.message);
   }
@@ -324,7 +316,7 @@ bot.onText(/^\/start(?:@\w+)?$/, async (msg) => {
 📺 Watch Ads — ৳0.10
 📅 Daily Job — ৳0.20
 🧮 Math Earn — ৳0.04
-🛒 Social Promote
+🛒 Social Promote — বিভিন্ন প্রাইস
 
 🌐 *App:* ${APP_URL}
 
@@ -354,7 +346,7 @@ bot.onText(/^\/earn(?:@\w+)?$/, async (msg) => {
 📺 Watch Ads — ৳0.10
 📅 Daily Job — ৳0.20
 🧮 Math Earn — ৳0.04
-🛒 Social Promote — ৳0.50+
+🛒 Social Promote — Various Prices
 
 🌐 App: ${APP_URL}
 
@@ -365,14 +357,14 @@ bot.onText(/^\/earn(?:@\w+)?$/, async (msg) => {
           inline_keyboard: [
             [
               {
-                text: "🎯 Open Earning App",
-                url: APP_URL
+                text: "🎁 Special Offer",
+                url: getRandomAdLink()
               }
             ],
             [
               {
-                text: "🎁 Special Offer",
-                url: MONETAG_LINK_1
+                text: "🌐 Open App",
+                url: APP_URL
               }
             ],
             [
@@ -413,7 +405,7 @@ bot.onText(/^\/balance(?:@\w+)?$/, async (msg) => {
           inline_keyboard: [
             [
               {
-                text: "🎯 Open App & Check Balance",
+                text: "🌐 Open App",
                 url: APP_URL
               }
             ],
@@ -444,8 +436,9 @@ bot.onText(/^\/withdraw(?:@\w+)?$/, async (msg) => {
       chatId,
       `💸 *Withdraw Info*
 
-💰 Minimum: ৳110
-💸 Fee: ৳10
+💰 Minimum: ৳2780
+💸 Fee: ৳40
+📅 ৫ দিনে একবার
 📱 Bkash / Nagad
 
 Withdraw করতে App-এ যান।
@@ -459,7 +452,7 @@ Withdraw করতে App-এ যান।
           inline_keyboard: [
             [
               {
-                text: "🎯 Open App & Withdraw",
+                text: "🌐 Open App",
                 url: APP_URL
               }
             ],
@@ -509,19 +502,19 @@ bot.onText(/^\/help(?:@\w+)?$/, async (msg) => {
           inline_keyboard: [
             [
               {
-                text: "📞 Contact Admin",
+                text: "🆘 Support",
                 url: `https://t.me/${SUPPORT_CONTACT.replace("@", "")}`
               }
             ],
             [
               {
                 text: "🎁 Special Offer",
-                url: MONETAG_LINK_1
+                url: getRandomAdLink()
               }
             ],
             [
               {
-                text: "🎯 Open App",
+                text: "🌐 Open App",
                 url: APP_URL
               }
             ]
@@ -557,7 +550,7 @@ bot.onText(/^\/contact(?:@\w+)?$/, async (msg) => {
           inline_keyboard: [
             [
               {
-                text: "📞 Contact Admin",
+                text: "🆘 Support",
                 url: `https://t.me/${SUPPORT_CONTACT.replace("@", "")}`
               }
             ],
@@ -584,10 +577,7 @@ bot.onText(/^\/ai(?:@\w+)?$/, async (msg) => {
   const chatId = msg.chat.id;
 
   if (!openai) {
-    await bot.sendMessage(
-      chatId,
-      "🤖 AI Assistant is unavailable.\n\nOPENAI_API_KEY missing."
-    );
+    await bot.sendMessage(chatId, "🤖 AI Assistant is unavailable.\n\nOPENAI_API_KEY missing.");
     return;
   }
 
@@ -613,11 +603,7 @@ bot.onText(/^\/stop(?:@\w+)?$/, async (msg) => {
 
   resetAI(chatId);
 
-  await bot.sendMessage(
-    chatId,
-    "🛑 AI mode stopped.",
-    mainMenu()
-  );
+  await bot.sendMessage(chatId, "🛑 AI mode stopped.", mainMenu());
 });
 
 // ======================================================
@@ -657,7 +643,6 @@ bot.on("callback_query", async (query) => {
   }
 
   try {
-
     if (data === "earn_info") {
       return bot.sendMessage(
         chatId,
@@ -666,7 +651,7 @@ bot.on("callback_query", async (query) => {
 📺 *Watch Ads* — ৳0.10/Ad
 📅 *Daily Job* — ৳0.20/Job
 🧮 *Math Earn* — ৳0.04/Math
-🛒 *Social Promote* — Different Prices
+🛒 *Social Promote* — Various Prices
 
 🌐 App: ${APP_URL}`,
         {
@@ -696,8 +681,9 @@ App-এ Login করে Balance দেখুন।
         chatId,
         `💸 *Withdraw Info*
 
-💰 Minimum: ৳110
-💸 Fee: ৳10
+💰 Minimum: ৳2780
+💸 Fee: ৳40
+📅 ৫ দিনে একবার
 📱 Bkash / Nagad
 
 🌐 ${APP_URL}`,
@@ -711,7 +697,7 @@ App-এ Login করে Balance দেখুন।
     if (data === "support") {
       return bot.sendMessage(
         chatId,
-        `📞 *Support Center*
+        `🆘 *Support Center*
 
 🎯 Telegram: ${SUPPORT_CONTACT}
 👥 Group: Join করুন
@@ -724,7 +710,7 @@ App-এ Login করে Balance দেখুন।
             inline_keyboard: [
               [
                 {
-                  text: "📞 Contact Admin",
+                  text: "🆘 Support",
                   url: `https://t.me/${SUPPORT_CONTACT.replace("@", "")}`
                 }
               ],
@@ -768,16 +754,11 @@ App-এ Login করে Balance দেখুন।
 
     if (data === "back") {
       resetAI(chatId);
-      return bot.sendMessage(
-        chatId,
-        "🏠 *Main Menu*",
-        {
-          parse_mode: "Markdown",
-          ...mainMenu()
-        }
-      );
+      return bot.sendMessage(chatId, "🏠 *Main Menu*", {
+        parse_mode: "Markdown",
+        ...mainMenu()
+      });
     }
-
   } catch (error) {
     console.error("Callback error:", error.message || error);
   }
@@ -816,14 +797,14 @@ bot.on("new_chat_members", async (msg) => {
             inline_keyboard: [
               [
                 {
-                  text: "🎯 Open Earning App",
-                  url: APP_URL
+                  text: "🎁 Special Offer",
+                  url: getRandomAdLink()
                 }
               ],
               [
                 {
-                  text: "🎁 Special Offer",
-                  url: MONETAG_LINK_1
+                  text: "🌐 Open App",
+                  url: APP_URL
                 }
               ],
               [
@@ -860,10 +841,7 @@ bot.on("message", async (msg) => {
   }
 
   if (busy.has(chatId)) {
-    await bot.sendMessage(
-      chatId,
-      "⏳ Please wait for the previous response."
-    );
+    await bot.sendMessage(chatId, "⏳ Please wait for the previous response.");
     return;
   }
 
@@ -890,13 +868,9 @@ bot.on("message", async (msg) => {
     userHistory.set(chatId, history.slice(-MAX_HISTORY));
 
     await sendLongMessage(chatId, answer);
-
   } catch (error) {
     console.error("AI error:", error?.message || error);
-    await bot.sendMessage(
-      chatId,
-      "⚠️ AI response failed. Please try again."
-    );
+    await bot.sendMessage(chatId, "⚠️ AI response failed. Please try again.");
   } finally {
     busy.delete(chatId);
   }
@@ -907,7 +881,6 @@ bot.on("message", async (msg) => {
 // ======================================================
 
 const server = http.createServer((req, res) => {
-
   if (req.method === "GET" && (req.url === "/" || req.url === "/health")) {
     res.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
     return res.end("Ai Atik Daily Earning Bot is running.");
@@ -917,7 +890,9 @@ const server = http.createServer((req, res) => {
     let body = "";
     req.setEncoding("utf8");
 
-    req.on("data", (chunk) => { body += chunk; });
+    req.on("data", (chunk) => {
+      body += chunk;
+    });
 
     req.on("end", () => {
       try {
@@ -968,8 +943,7 @@ async function setupTelegramWebhook() {
 
     console.log(`📢 Channel ID: ${CHANNEL_ID}`);
     console.log(`⏰ Auto Post Hours: ${POST_HOURS.join(", ")}`);
-    console.log(`🎁 Monetag Links: ${MONETAG_LINK_1}, ${MONETAG_LINK_2}`);
-
+    console.log(`🎁 Monetag Links: ${MONETAG_LINK_1}, ${MONETAG_LINK_2}, ${MONETAG_LINK_3}`);
   } catch (error) {
     console.error("WEBHOOK SETUP FAILED:", error?.message || error);
   }

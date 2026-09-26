@@ -94,7 +94,6 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 .form-group label{display:block;margin-bottom:6px;color:#00E5FF;font-weight:600;font-size:13px;}
 .form-group input,.form-group textarea,.form-group select{width:100%;padding:13px;background:rgba(255,255,255,.05);border:2px solid rgba(0,229,255,.3);border-radius:12px;color:#fff;font-size:14px;font-family:inherit;}
 .form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:#00E5FF;outline:none;}
-.form-group small{color:#8fa8c4;font-size:11px;display:block;margin-top:4px;}
 .btn{padding:12px 22px;border:none;border-radius:12px;cursor:pointer;font-weight:700;font-size:13px;transition:.3s;display:inline-flex;align-items:center;gap:6px;font-family:inherit;}
 .btn-green{background:linear-gradient(90deg,#00C853,#00E676);color:#fff;}
 .btn-red{background:linear-gradient(90deg,#D32F2F,#FF1744);color:#fff;}
@@ -512,56 +511,77 @@ function showToast(msg){
 function toggleSidebar(){ document.getElementById('sidebar').classList.toggle('open'); }
 
 /* ==================================================
-   🎨 APPLY ANIMATION — সব ২৫টি Animation
+   🎨 APPLY ANIMATION — সব ২৫টি Animation (নতুন পদ্ধতি)
    ================================================== */
 function applyAnimation(layer, designId){
-  if(!layer) { console.log('❌ Layer is null'); return; }
+  if(!layer){
+    console.log('❌ Layer null');
+    return;
+  }
   
-  console.log('🎨 Applying:', designId, 'to', layer.id);
+  console.log('🎨 applyAnimation:', designId, '→', layer.id);
   
-  // Reset layer
+  // Reset completely
   layer.innerHTML = '';
-  layer.style.position = (layer.id === 'loginBgLayer') ? 'absolute' : 'fixed';
-  layer.style.inset = '0';
-  layer.style.zIndex = (layer.id === 'loginBgLayer') ? '1' : '-1';
-  layer.style.overflow = 'hidden';
-  layer.style.pointerEvents = 'none';
-  layer.style.display = 'block';
-  layer.style.background = '#0a0f1e';
+  layer.removeAttribute('style');
+  layer.setAttribute('style',
+    'position:' + (layer.id === 'loginBgLayer' ? 'absolute' : 'fixed') + ';' +
+    'inset:0;' +
+    'z-index:' + (layer.id === 'loginBgLayer' ? '1' : '-1') + ';' +
+    'overflow:hidden;' +
+    'pointer-events:none;' +
+    'display:block;'
+  );
   
-  // ==== Background ====
-  var bg = 'linear-gradient(180deg,#0a0f1e 0%,#0f172a 30%,#1a2332 60%,#1e3a2e 100%)';
-  if(designId === 'rainy-night') bg = 'linear-gradient(180deg,#0a0f1e 0%,#1a2332 40%,#2c3e50 80%,#1e3a2e 100%)';
-  else if(designId === 'snowfall') bg = 'linear-gradient(180deg,#1a2332 0%,#2c3e50 50%,#415a77 100%)';
-  else if(designId === 'ocean-wave') bg = 'linear-gradient(180deg,#0a0f1e 0%,#1a237e 50%,#0277BD 100%)';
-  else if(designId === 'starry-galaxy') bg = 'radial-gradient(ellipse at center,#1a0b2e 0%,#0a0f1e 60%,#000 100%)';
-  else if(designId === 'autumn') bg = 'linear-gradient(180deg,#FFB347 0%,#FF8C42 30%,#E65100 70%,#8B4513 100%)';
-  else if(designId === 'fireflies') bg = 'linear-gradient(180deg,#0a0f1e 0%,#0f172a 40%,#0d3a1f 100%)';
-  else if(designId === 'aurora') bg = 'radial-gradient(ellipse at top,#0a0f1e 0%,#1a0b2e 50%,#0a0f1e 100%)';
-  else if(designId === 'golden-sunset') bg = 'linear-gradient(180deg,#FF6B35 0%,#F7931E 30%,#FDC830 60%,#F37335 100%)';
-  else if(designId === 'green-forest') bg = 'linear-gradient(180deg,#0a1f0a 0%,#0f3a0f 40%,#1e5c1e 100%)';
-  else if(designId === 'cherry') bg = 'linear-gradient(180deg,#FFF0F5 0%,#FFD1DC 40%,#FFB6C1 100%)';
-  else if(designId === 'fireworks') bg = 'radial-gradient(ellipse at center,#0a0f1e 0%,#000 100%)';
-  else if(designId === 'lightning') bg = 'linear-gradient(180deg,#0a0f1e 0%,#1a1a2e 50%,#16213e 100%)';
-  else if(designId === 'rainbow') bg = 'linear-gradient(180deg,#87CEEB 0%,#B0E0E6 40%,#E0F7FA 100%)';
-  else if(designId === 'butterflies') bg = 'linear-gradient(180deg,#FFF0F5 0%,#B2EBF2 50%,#80DEEA 100%)';
-  else if(designId === 'tropical') bg = 'linear-gradient(180deg,#4FC3F7 0%,#0288D1 60%,#0277BD 100%)';
-  else if(designId === 'mountain') bg = 'linear-gradient(180deg,#FF6B6B 0%,#FFB347 50%,#FFD93D 100%)';
-  else if(designId === 'city') bg = 'linear-gradient(180deg,#0a0f1e 0%,#1a1a2e 50%,#2c1810 100%)';
-  else if(designId === 'waterfall') bg = 'linear-gradient(180deg,#1a2332 0%,#0a0f1e 100%)';
-  else if(designId === 'fullmoon') bg = 'radial-gradient(ellipse at center,#1a2332 0%,#0a0f1e 100%)';
-  else if(designId === 'island') bg = 'linear-gradient(180deg,#4FC3F7 0%,#0288D1 60%,#0277BD 100%)';
-  else if(designId === 'volcano') bg = 'linear-gradient(180deg,#1a0a0a 0%,#4a1a0a 60%,#8B0000 100%)';
-  else if(designId === 'amusement-park') bg = 'radial-gradient(ellipse at top,#1a0b2e 0%,#0a0f1e 70%)';
-  else if(designId === 'space-rocket') bg = 'radial-gradient(ellipse at center,#0a0f1e 0%,#1a0b2e 50%,#000 100%)';
-  else if(designId === 'underwater') bg = 'linear-gradient(180deg,#0a2a4a 0%,#0277BD 50%,#01579B 100%)';
+  // Get background
+  var bg = getBackground(designId);
   
+  // Create bg div
   var bgDiv = document.createElement('div');
   bgDiv.style.cssText = 'position:absolute;inset:0;background:' + bg + ';';
   layer.appendChild(bgDiv);
   
-  // ==== Stars ====
-  if(['night-village','starry-galaxy','aurora','fullmoon','space-rocket','fireflies','fireworks','amusement-park','city'].indexOf(designId) >= 0){
+  // Add elements based on design
+  addDesignElements(layer, designId);
+  
+  console.log('✅ Applied:', designId, '— children:', layer.children.length);
+}
+
+function getBackground(designId){
+  var bgs = {
+    'rainy-night':   'linear-gradient(180deg,#0a0f1e 0%,#1a2332 40%,#2c3e50 80%,#1e3a2e 100%)',
+    'snowfall':      'linear-gradient(180deg,#1a2332 0%,#2c3e50 50%,#415a77 100%)',
+    'ocean-wave':    'linear-gradient(180deg,#0a0f1e 0%,#1a237e 50%,#0277BD 100%)',
+    'starry-galaxy': 'radial-gradient(ellipse at center,#1a0b2e 0%,#0a0f1e 60%,#000 100%)',
+    'autumn':        'linear-gradient(180deg,#FFB347 0%,#FF8C42 30%,#E65100 70%,#8B4513 100%)',
+    'fireflies':     'linear-gradient(180deg,#0a0f1e 0%,#0f172a 40%,#0d3a1f 100%)',
+    'aurora':        'radial-gradient(ellipse at top,#0a0f1e 0%,#1a0b2e 50%,#0a0f1e 100%)',
+    'golden-sunset': 'linear-gradient(180deg,#FF6B35 0%,#F7931E 30%,#FDC830 60%,#F37335 100%)',
+    'green-forest':  'linear-gradient(180deg,#0a1f0a 0%,#0f3a0f 40%,#1e5c1e 100%)',
+    'cherry':        'linear-gradient(180deg,#FFF0F5 0%,#FFD1DC 40%,#FFB6C1 100%)',
+    'fireworks':     'radial-gradient(ellipse at center,#0a0f1e 0%,#000 100%)',
+    'lightning':     'linear-gradient(180deg,#0a0f1e 0%,#1a1a2e 50%,#16213e 100%)',
+    'rainbow':       'linear-gradient(180deg,#87CEEB 0%,#B0E0E6 40%,#E0F7FA 100%)',
+    'butterflies':   'linear-gradient(180deg,#FFF0F5 0%,#B2EBF2 50%,#80DEEA 100%)',
+    'tropical':      'linear-gradient(180deg,#4FC3F7 0%,#0288D1 60%,#0277BD 100%)',
+    'mountain':      'linear-gradient(180deg,#FF6B6B 0%,#FFB347 50%,#FFD93D 100%)',
+    'city':          'linear-gradient(180deg,#0a0f1e 0%,#1a1a2e 50%,#2c1810 100%)',
+    'waterfall':     'linear-gradient(180deg,#1a2332 0%,#0a0f1e 100%)',
+    'fullmoon':      'radial-gradient(ellipse at center,#1a2332 0%,#0a0f1e 100%)',
+    'island':        'linear-gradient(180deg,#4FC3F7 0%,#0288D1 60%,#0277BD 100%)',
+    'volcano':       'linear-gradient(180deg,#1a0a0a 0%,#4a1a0a 60%,#8B0000 100%)',
+    'amusement-park':'radial-gradient(ellipse at top,#1a0b2e 0%,#0a0f1e 70%)',
+    'space-rocket':  'radial-gradient(ellipse at center,#0a0f1e 0%,#1a0b2e 50%,#000 100%)',
+    'underwater':    'linear-gradient(180deg,#0a2a4a 0%,#0277BD 50%,#01579B 100%)',
+    'night-village': 'linear-gradient(180deg,#0a0f1e 0%,#0f172a 30%,#1a2332 60%,#1e3a2e 100%)'
+  };
+  return bgs[designId] || 'linear-gradient(180deg,#0a0f1e 0%,#0f172a 30%,#1a2332 60%,#1e3a2e 100%)';
+}
+
+function addDesignElements(layer, designId){
+  // ==== STARS (many designs) ====
+  var starDesigns = ['night-village','starry-galaxy','aurora','fullmoon','space-rocket','fireflies','fireworks','amusement-park','city'];
+  if(starDesigns.indexOf(designId) >= 0){
     var cnt = (designId === 'space-rocket') ? 120 : 80;
     for(var i=0;i<cnt;i++){
       var s = document.createElement('div');
@@ -574,7 +594,7 @@ function applyAnimation(layer, designId){
     }
   }
   
-  // ==== Rain ====
+  // ==== RAIN ====
   if(designId === 'rainy-night' || designId === 'lightning'){
     for(var i=0;i<100;i++){
       var r = document.createElement('div');
@@ -589,7 +609,7 @@ function applyAnimation(layer, designId){
     layer.appendChild(flash);
   }
   
-  // ==== Snow ====
+  // ==== SNOW ====
   if(designId === 'snowfall'){
     for(var i=0;i<70;i++){
       var f = document.createElement('div');
@@ -603,7 +623,7 @@ function applyAnimation(layer, designId){
     }
   }
   
-  // ==== Leaves/Cherry ====
+  // ==== LEAVES/CHERRY ====
   if(designId === 'autumn' || designId === 'cherry'){
     var leaves = (designId === 'autumn') ? ['🍂','🍁','🍃'] : ['🌸','🌸','🌸'];
     for(var i=0;i<45;i++){
@@ -618,7 +638,7 @@ function applyAnimation(layer, designId){
     }
   }
   
-  // ==== Fireflies ====
+  // ==== FIREFLIES ====
   if(designId === 'fireflies'){
     for(var i=0;i<35;i++){
       var fd = document.createElement('div');
@@ -631,7 +651,7 @@ function applyAnimation(layer, designId){
     }
   }
   
-  // ==== Waves ====
+  // ==== WAVES ====
   if(designId === 'ocean-wave'){
     for(var i=0;i<4;i++){
       var w = document.createElement('div');
@@ -642,7 +662,7 @@ function applyAnimation(layer, designId){
     }
   }
   
-  // ==== Moon ====
+  // ==== MOON ====
   if(['night-village','fireflies','city','fullmoon'].indexOf(designId) >= 0){
     var m = document.createElement('div');
     m.className = 'anim-moon';
@@ -654,7 +674,7 @@ function applyAnimation(layer, designId){
     layer.appendChild(m);
   }
   
-  // ==== Sun ====
+  // ==== SUN ====
   if(['ocean-wave','golden-sunset','mountain','tropical','island'].indexOf(designId) >= 0){
     var sun = document.createElement('div');
     sun.style.cssText = 'position:absolute;width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,#FFF59D,#FFEB3B,#FFC107);box-shadow:0 0 100px #FFF59D,0 0 200px rgba(255,235,59,.6);animation:animMoonGlow 4s ease-in-out infinite;';
@@ -669,7 +689,7 @@ function applyAnimation(layer, designId){
     layer.appendChild(sun);
   }
   
-  // ==== Boat ====
+  // ==== BOAT ====
   if(['ocean-wave','tropical','island'].indexOf(designId) >= 0){
     var boat = document.createElement('div');
     boat.className = 'anim-boat';
@@ -678,7 +698,7 @@ function applyAnimation(layer, designId){
     layer.appendChild(boat);
   }
   
-  // ==== Bird ====
+  // ==== BIRD ====
   if(['ocean-wave','golden-sunset','mountain','autumn','waterfall'].indexOf(designId) >= 0){
     var bird = document.createElement('div');
     bird.className = 'anim-bird';
@@ -687,7 +707,7 @@ function applyAnimation(layer, designId){
     layer.appendChild(bird);
   }
   
-  // ==== Trees ====
+  // ==== TREES ====
   if(designId === 'green-forest'){
     for(var i=0;i<14;i++){
       var t = document.createElement('div');
@@ -697,7 +717,7 @@ function applyAnimation(layer, designId){
     }
   }
   
-  // ==== Deer ====
+  // ==== DEER ====
   if(designId === 'snowfall' || designId === 'green-forest'){
     var deer = document.createElement('div');
     deer.style.cssText = 'position:absolute;bottom:10%;right:20%;font-size:50px;';
@@ -705,7 +725,7 @@ function applyAnimation(layer, designId){
     layer.appendChild(deer);
   }
   
-  // ==== House ====
+  // ==== HOUSE ====
   if(designId === 'snowfall'){
     var house = document.createElement('div');
     house.style.cssText = 'position:absolute;bottom:10%;left:15%;font-size:60px;';
@@ -713,7 +733,7 @@ function applyAnimation(layer, designId){
     layer.appendChild(house);
   }
   
-  // ==== City ====
+  // ==== CITY ====
   if(designId === 'city'){
     for(var i=0;i<14;i++){
       var bd = document.createElement('div');
@@ -727,7 +747,7 @@ function applyAnimation(layer, designId){
     }
   }
   
-  // ==== Rainbow ====
+  // ==== RAINBOW ====
   if(designId === 'rainbow'){
     var rb = document.createElement('div');
     rb.className = 'anim-rainbow-arc';
@@ -735,7 +755,7 @@ function applyAnimation(layer, designId){
     layer.appendChild(rb);
   }
   
-  // ==== Butterflies ====
+  // ==== BUTTERFLIES ====
   if(designId === 'butterflies'){
     for(var i=0;i<10;i++){
       var bf = document.createElement('div');
@@ -751,7 +771,7 @@ function applyAnimation(layer, designId){
     }
   }
   
-  // ==== Tropical/Island ====
+  // ==== TROPICAL/ISLAND ====
   if(designId === 'tropical' || designId === 'island'){
     var p1 = document.createElement('div');
     p1.style.cssText = 'position:absolute;bottom:20%;left:10%;font-size:70px;';
@@ -766,7 +786,7 @@ function applyAnimation(layer, designId){
     layer.appendChild(water);
   }
   
-  // ==== Fireworks ====
+  // ==== FIREWORKS ====
   if(designId === 'fireworks'){
     var colors = ['#FF1744','#FFD700','#00E676','#00E5FF','#E1306C','#FF9800'];
     for(var i=0;i<12;i++){
@@ -776,7 +796,7 @@ function applyAnimation(layer, designId){
     }
   }
   
-  // ==== Amusement Park ====
+  // ==== AMUSEMENT PARK ====
   if(designId === 'amusement-park'){
     var fw = document.createElement('div');
     fw.style.cssText = 'position:absolute;bottom:20%;left:50%;transform:translateX(-50%);font-size:120px;animation:animMoonGlow 3s ease-in-out infinite;';
@@ -784,7 +804,7 @@ function applyAnimation(layer, designId){
     layer.appendChild(fw);
   }
   
-  // ==== Space Rocket ====
+  // ==== SPACE ROCKET ====
   if(designId === 'space-rocket'){
     var rocket = document.createElement('div');
     rocket.style.cssText = 'position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:60px;animation:animFireflyFloat 6s ease-in-out infinite;';
@@ -796,7 +816,7 @@ function applyAnimation(layer, designId){
     layer.appendChild(planet);
   }
   
-  // ==== Underwater ====
+  // ==== UNDERWATER ====
   if(designId === 'underwater'){
     for(var i=0;i<20;i++){
       var b = document.createElement('div');
@@ -823,7 +843,7 @@ function applyAnimation(layer, designId){
     layer.appendChild(coral2);
   }
   
-  // ==== Volcano ====
+  // ==== VOLCANO ====
   if(designId === 'volcano'){
     var vl = document.createElement('div');
     vl.style.cssText = 'position:absolute;bottom:0;width:100%;height:50%;background:linear-gradient(135deg,#2c1810 0%,#1a0f0a 50%,#000 100%);clip-path:polygon(0 100%,25% 20%,40% 40%,50% 5%,60% 40%,75% 25%,100% 100%);';
@@ -833,14 +853,14 @@ function applyAnimation(layer, designId){
     layer.appendChild(lava);
   }
   
-  // ==== Mountain ====
+  // ==== MOUNTAIN ====
   if(designId === 'mountain'){
     var mt = document.createElement('div');
     mt.style.cssText = 'position:absolute;bottom:0;width:100%;height:40%;background:linear-gradient(135deg,#1a2332 0%,#2c3e50 50%,#415a77 100%);clip-path:polygon(0 100%,15% 30%,30% 60%,50% 15%,70% 55%,85% 25%,100% 100%);';
     layer.appendChild(mt);
   }
   
-  // ==== Waterfall ====
+  // ==== WATERFALL ====
   if(designId === 'waterfall'){
     var rock = document.createElement('div');
     rock.style.cssText = 'position:absolute;top:0;left:30%;width:40%;height:85%;background:linear-gradient(90deg,#2c3e50,#0a0f1e,#2c3e50);border-radius:0 0 40px 40px;';
@@ -849,8 +869,6 @@ function applyAnimation(layer, designId){
     flow.style.cssText = 'position:absolute;top:0;left:42%;width:16%;height:100%;background:linear-gradient(180deg,rgba(135,206,250,.9),rgba(0,229,255,.5),rgba(0,229,255,.2));animation:animRainFall 1s linear infinite;';
     layer.appendChild(flow);
   }
-  
-  console.log('✅ Applied ' + designId + ' — children:', layer.children.length);
 }
 
 /* ==================================================
@@ -879,7 +897,7 @@ function doAdminLogout(){
 }
 
 function initAdminPanel(){
-  console.log('🚀 initAdminPanel started');
+  console.log('🚀 initAdminPanel');
   loadDesigns();
   loadAllData();
   setInterval(refreshData, 8000);
@@ -929,35 +947,25 @@ function switchDesignTab(tabId, btn){
 }
 
 function loadDesigns(){
-  console.log('🎨 loadDesigns called');
+  console.log('🎨 loadDesigns');
   DB.get('/settings/designs').then(function(d){
     var designs = d || {};
     var adminLoginDesign = designs.adminLogin || 'night-village';
-    var adminDashDesign = designs.adminDashboard || 'night-village';
+    var adminDashDesign = designs.adminDashboard || designs.dashboard || 'night-village';
     
     console.log('📦 Designs:', designs);
     console.log('🔐 Admin Login:', adminLoginDesign);
     console.log('📊 Admin Dashboard:', adminDashDesign);
     
-    // Admin Login Screen
     var loginLayer = document.getElementById('loginBgLayer');
-    if(loginLayer){
-      applyAnimation(loginLayer, adminLoginDesign);
-    } else {
-      console.log('❌ loginBgLayer not found');
-    }
+    if(loginLayer) applyAnimation(loginLayer, adminLoginDesign);
     
-    // Admin Dashboard
     var appLayer = document.getElementById('appBgLayer');
-    if(appLayer){
-      applyAnimation(appLayer, adminDashDesign);
-    } else {
-      console.log('❌ appBgLayer not found');
-    }
+    if(appLayer) applyAnimation(appLayer, adminDashDesign);
     
     renderDesignGrid();
   }).catch(function(e){
-    console.log('❌ Design load error:', e);
+    console.log('❌ Design error:', e);
     renderDesignGrid();
   });
 }
@@ -986,7 +994,6 @@ function selectDesign(id){
   DB.update('/settings/designs', update).then(function(){
     showToast('✅ Design updated!');
     
-    // Admin Panel-এ তৎক্ষণাৎ apply
     if(currentDesignTab === 'adminLogin'){
       var layer = document.getElementById('loginBgLayer');
       if(layer) applyAnimation(layer, id);
@@ -1816,9 +1823,10 @@ document.getElementById('adminPassword').addEventListener('keypress', function(e
 
 /* প্রতি ১০ সেকেন্ডে Design আপডেট চেক */
 setInterval(function(){
-  if(document.getElementById('appLayout').style.display === 'flex'){
+  var appLayout = document.getElementById('appLayout');
+  if(appLayout && appLayout.style.display === 'flex'){
     var appLayer = document.getElementById('appBgLayer');
-    if(appLayer) {
+    if(appLayer){
       DB.get('/settings/designs').then(function(d){
         var designs = d || {};
         var adminDashDesign = designs.adminDashboard || 'night-village';

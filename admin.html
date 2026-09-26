@@ -1960,9 +1960,7 @@ setTimeout(function(){
 
 var _origSelectDesign = window.selectDesign;
 window.selectDesign = function(id){
-  if(currentDesignTab === 'adminDashboard'){
-    applyFinal(id);
-  }
+  applyFinal(id);
   if(_origSelectDesign) _origSelectDesign(id);
 };
 </script>

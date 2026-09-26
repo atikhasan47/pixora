@@ -154,7 +154,17 @@ async function postToChannel() {
   try {
     await bot.sendMessage(
       CHANNEL_ID,
-      `💰 *Ai Atik Daily Earning*\n\n📺 Watch Ads — ৳0.10\n📅 Daily Job — ৳0.20\n🧮 Math Earn — ৳0.04\n🛒 Social Promote\n\n🌐 *App:* ${APP_URL}\n\n👇 আয় শুরু করুন 👇`,
+      `💰 *Ai Atik Daily Earning*
+
+📺 Watch Short Ads — ৳7.00
+💎 Premium Big Ads — ৳26.50
+📅 Daily Job — ৳10.00
+🧮 Math Earn — ৳3.00
+🛒 Social Promote — Various Prices
+
+🌐 *App:* ${APP_URL}
+
+👇 আয় শুরু করুন 👇`,
       {
         parse_mode: "Markdown",
         reply_markup: {
@@ -191,7 +201,20 @@ bot.onText(/^\/start(?:@\w+)?$/, async (msg) => {
   try {
     await bot.sendMessage(
       chatId,
-      `🎉 স্বাগতম ${userName}!\n\n🎯 *Ai Atik Daily Earning* — এ স্বাগতম\n\n💰 *আমাদের সার্ভিস:*\n📺 Watch Ads — ৳0.10\n📅 Daily Job — ৳0.20\n🧮 Math Earn — ৳0.04\n🛒 Social Promote — বিভিন্ন প্রাইস\n\n🌐 *App:* ${APP_URL}\n\n👇 নিচের Button এ ক্লিক করুন 👇`,
+      `🎉 স্বাগতম ${userName}!
+
+🎯 *Ai Atik Daily Earning* — এ স্বাগতম
+
+💰 *আমাদের সার্ভিস:*
+📺 Watch Short Ads — ৳7.00
+💎 Premium Big Ads — ৳26.50
+📅 Daily Job — ৳10.00
+🧮 Math Earn — ৳3.00
+🛒 Social Promote — বিভিন্ন প্রাইস
+
+🌐 *App:* ${APP_URL}
+
+👇 নিচের Button এ ক্লিক করুন 👇`,
       { parse_mode: "Markdown", ...mainMenu() }
     );
   } catch (err) { console.error("/start error:", err.message); }
@@ -212,7 +235,33 @@ bot.on("callback_query", async (query) => {
     if (data === "earn_info") {
       return bot.sendMessage(
         chatId,
-        `💰 *ইনকামের বিবরণ (Earning Details)*\n\n📺 Watch Ads — ৳0.10/Ad\n📅 Daily Job — ৳0.20/Job\n🧮 Math Earn — ৳0.04/Math\n🛒 Social Promote — Various Prices\n\n🌐 App: ${APP_URL}`,
+        `💰 *ইনকামের বিবরণ (Earning Details)*
+
+📺 *Watch Short Ads* — ৳7.00/Ad
+১৫ সেকেন্ড Ads দেখুন → Math সলভ করুন
+
+💎 *Premium Big Ads* — ৳26.50/Ad
+৯০ সেকেন্ড Ads দেখুন
+
+📅 *Daily Job* — ৳10.00/Job
+কাজ করুন → Screenshot প্রুফ দিন → Admin Approve করলে ৳10.00
+
+🧮 *Math Earn* — ৳3.00/Math
+দৈনিক সর্বোচ্চ ২০টি, প্রতিটি সঠিক উত্তরে ৳3.00
+
+🛒 *Social Promote* — Various Prices
+Facebook, YouTube, TikTok, Instagram, Telegram
+
+🌐 *App:* ${APP_URL}
+
+━━━━━━━━━━━━━━━━━━━━
+
+👑 *ইনকাম বেশি করতে প্রিমিয়াম কিনুন*
+
+Premium মেম্বার হলে পাবেন ডাবল ইনকাম, আনলিমিটেড কাজ, দ্রুত Withdraw!
+
+👇 Premium কিনতে App-এ যান 👇
+${APP_URL}`,
         { parse_mode: "Markdown", ...backMenu() }
       );
     }
@@ -221,7 +270,18 @@ bot.on("callback_query", async (query) => {
     if (data === "balance") {
       return bot.sendMessage(
         chatId,
-        `📊 *আপনার ব্যালেন্স চেক করুন*\n\n💵 বর্তমান ব্যালেন্স: ৳ [ব্যবহারকারীর ব্যালেন্স]\n💰 মোট আয়: ৳ [মোট আয়]\n📺 দেখা অ্যাড: [অ্যাড সংখ্যা]\n🧮 ম্যাথ সলভ: [ম্যাথ সংখ্যা]\n\n🏧 উইথড্র করতে:\nন্যূনতম ৳2780 প্রয়োজন।\n\n🌐 অ্যাপে যান:\n${APP_URL}`,
+        `📊 *আপনার ব্যালেন্স চেক করুন*
+
+💵 বর্তমান ব্যালেন্স: ৳ [ব্যবহারকারীর ব্যালেন্স]
+💰 মোট আয়: ৳ [মোট আয়]
+📺 দেখা অ্যাড: [অ্যাড সংখ্যা]
+🧮 ম্যাথ সলভ: [ম্যাথ সংখ্যা]
+
+🏧 উইথড্র করতে:
+ন্যূনতম ৳2780 প্রয়োজন।
+
+🌐 অ্যাপে যান:
+${APP_URL}`,
         { parse_mode: "Markdown", ...backMenu() }
       );
     }
@@ -230,7 +290,28 @@ bot.on("callback_query", async (query) => {
     if (data === "withdraw") {
       return bot.sendMessage(
         chatId,
-        `💸 *উইথড্র রিকোয়েস্ট*\n\n🏧 ন্যূনতম উইথড্র: ৳2780\n💸 ফি: ৳40\n📅 সময়: ৫ দিনে একবার\n\n📱 পেমেন্ট মেথড:\n✅ bKash\n✅ Nagad\n\n📌 কীভাবে উইথড্র করবেন:\n১. ওয়েবসাইটে লগইন করুন।\n২. উইথড্র পেজে যান।\n৩. আপনার bKash/Nagad নম্বর দিন।\n৪. অ্যামাউন্ট লিখে সাবমিট করুন।\n৫. ২৪-৪৮ ঘণ্টার মধ্যে পেমেন্ট পাবেন।\n\n🌐 উইথড্র করতে ক্লিক করুন:\n${APP_URL}`,
+        `💸 *Withdraw Info*
+
+Minimum: ৳2780 | Fee: ৳40
+✅ আপনি পাবেন: ৳2740
+
+⚠️ *৫ দিনে একবার Withdraw করতে পারবেন।*
+✅ কোনো শেয়ার করার দরকার নেই।
+✅ আপনার কাজের মূল্য আপনি পেয়ে যাবেন।
+
+📱 *পেমেন্ট মেথড:*
+✅ bKash
+✅ Nagad
+
+📌 *কীভাবে Withdraw করবেন:*
+১. ওয়েবসাইটে লগইন করুন।
+২. Withdraw পেজে যান।
+৩. আপনার bKash/Nagad নম্বর দিন।
+৪. Amount লিখে Submit করুন।
+৫. ২৪-৪৮ ঘণ্টার মধ্যে পেমেন্ট পাবেন।
+
+🌐 Withdraw করতে ক্লিক করুন:
+${APP_URL}`,
         { parse_mode: "Markdown", ...backMenu() }
       );
     }
@@ -239,12 +320,43 @@ bot.on("callback_query", async (query) => {
     if (data === "support") {
       return bot.sendMessage(
         chatId,
-        `🆘 *Support Center*\n\n📞 টেলিগ্রাম: ${SUPPORT_CONTACT}\n📧 ইমেইল: ${SUPPORT_EMAIL}\n\n২৪/৭ আমাদের সাথে যোগাযোগ করুন।`,
+        `🆘 *Support Center*
+
+━━━━━━━━━━━━━━━━━━━━
+
+⚠️ *সাবধান! প্রতারিত হবেন না*
+
+🔴 কম টাকায় ফেক ভিউ (Fake Views) নিও না — প্রতারিত হবেন না।
+
+✅ অরজিনাল অর্গানিক ফ্লো ভিউ নিন — মনিটাইজ স্বপ্ন পূরণ করুন।
+
+💬 _"এখন অনেক জন আইসা বলবে আপনি কেন ভাইরাল না। আরে ভাই, ভাইরাল হতে তো টাকা লাগে — টাকা তো আমার নাই!"_
+
+━━━━━━━━━━━━━━━━━━━━
+
+🙏 *সবাই ভালো থাকুন, সুস্থ থাকুন*
+
+✅ ভালো ভাবে কাজ করুন — আল্লাহর রহমতে সবাই কাজের টাকা পাবেন।
+
+━━━━━━━━━━━━━━━━━━━━
+
+📞 *যোগাযোগ*
+
+✅ উত্তোলন করতে বা ডিপোজিট করতে সমস্যা হলে যোগাযোগ করুন।
+
+🙏 *আমাদের অনুরোধ*
+✅ আপনার কাজ করে দিন, আপনার থেকে কিছু বেনিফিট বা লাভ আমাদের থাকবে।
+✅ তাই কেউ খারাপ কাজে এখানে আসবেন না।
+
+📞 টেলিগ্রাম: ${SUPPORT_CONTACT}
+📧 ইমেইল: ${SUPPORT_EMAIL}
+
+২৪/৭ আমাদের সাথে যোগাযোগ করুন।`,
         {
           parse_mode: "Markdown",
           reply_markup: {
             inline_keyboard: [
-              [{ text: "🆘 Contact Support", url: `https://t.me/${SUPPORT_CONTACT.replace("@", "")}` }],
+              [{ text: "📞 Contact Support", url: `https://t.me/${SUPPORT_CONTACT.replace("@", "")}` }],
               [{ text: "👥 Join Group", url: TELEGRAM_GROUP }],
               [{ text: "🔙 Back to Menu", callback_data: "back" }]
             ]
@@ -257,7 +369,33 @@ bot.on("callback_query", async (query) => {
     if (data === "help") {
       return bot.sendMessage(
         chatId,
-        `❓ *Help & Support*\n\n📌 *কীভাবে অ্যাপ ব্যবহার করবেন:*\n১. ওয়েবসাইটে যান এবং রেজিস্ট্রেশন করুন।\n২. অ্যাড দেখুন এবং ম্যাথ সলভ করে আয় করুন।\n৩. ব্যালেন্স ৳2780 হলে উইথড্র করুন।\n৪. প্রতিদিন ২০টি অ্যাড এবং ২০টি ম্যাথ লিমিট।\n\n📌 *সাধারণ সমস্যা:*\n❌ লগইন না হলে → পাসওয়ার্ড রিসেট করুন।\n❌ অ্যাড না এলে → ইন্টারনেট চেক করুন।\n❌ উইথড্র না হলে → সাপোর্টে যোগাযোগ করুন।\n\n📞 সাপোর্ট:\nTelegram: t.me/atikbreand420\n📧 Email: ${SUPPORT_EMAIL}\n\n💡 আরও জানতে:\n${APP_URL}`,
+        `❓ *Help & Support*
+
+📌 *কীভাবে অ্যাপ ব্যবহার করবেন:*
+১. ওয়েবসাইটে যান এবং রেজিস্ট্রেশন করুন।
+২. অ্যাড দেখুন এবং ম্যাথ সলভ করে আয় করুন।
+৩. ব্যালেন্স ৳2780 হলে উইথড্র করুন।
+৪. প্রতিদিন ২০টি অ্যাড এবং ২০টি ম্যাথ লিমিট।
+
+━━━━━━━━━━━━━━━━━━━━
+
+📌 *সাধারণ সমস্যা:*
+❌ লগইন না হলে → পাসওয়ার্ড রিসেট করুন।
+❌ অ্যাড না এলে → ইন্টারনেট চেক করুন।
+❌ উইথড্র না হলে → সাপোর্টে যোগাযোগ করুন।
+
+━━━━━━━━━━━━━━━━━━━━
+
+💼 *ব্যবসা করার সুযোগ*
+✅ আপনার ব্যবসা করতে পারবেন (Boost/Sell)।
+✅ Facebook, YouTube, TikTok, Instagram, Telegram — এখানে সেল করে ব্যবসা করে কিছু আই করতে পারেন।
+
+━━━━━━━━━━━━━━━━━━━━
+
+🌐 App: ${APP_URL}
+
+📞 সাপোর্ট: ${SUPPORT_CONTACT}
+📧 Email: ${SUPPORT_EMAIL}`,
         { parse_mode: "Markdown", ...backMenu() }
       );
     }
@@ -283,7 +421,18 @@ bot.onText(/^\/help(?:@\w+)?$/, async (msg) => {
   const chatId = msg.chat.id;
   return bot.sendMessage(
     chatId,
-    `❓ *Help & Support*\n\n📌 *কীভাবে অ্যাপ ব্যবহার করবেন:*\n১. ওয়েবসাইটে যান এবং রেজিস্ট্রেশন করুন।\n২. অ্যাড দেখুন এবং ম্যাথ সলভ করে আয় করুন।\n৩. ব্যালেন্স ৳2780 হলে উইথড্র করুন।\n৪. প্রতিদিন ২০টি অ্যাড এবং ২০টি ম্যাথ লিমিট।\n\n📞 সাপোর্ট: t.me/atikbreand420\n📧 Email: ${SUPPORT_EMAIL}\n\n💡 আরও জানতে:\n${APP_URL}`,
+    `❓ *Help & Support*
+
+📌 *কীভাবে অ্যাপ ব্যবহার করবেন:*
+১. ওয়েবসাইটে যান এবং রেজিস্ট্রেশন করুন।
+২. অ্যাড দেখুন এবং ম্যাথ সলভ করে আয় করুন।
+৩. ব্যালেন্স ৳2780 হলে উইথড্র করুন।
+৪. প্রতিদিন ২০টি অ্যাড এবং ২০টি ম্যাথ লিমিট।
+
+📞 সাপোর্ট: ${SUPPORT_CONTACT}
+📧 Email: ${SUPPORT_EMAIL}
+
+🌐 ${APP_URL}`,
     { parse_mode: "Markdown", ...backMenu() }
   );
 });
@@ -300,7 +449,17 @@ bot.on("new_chat_members", async (msg) => {
       const name = member.first_name || "Friend";
       await bot.sendMessage(
         chatId,
-        `🎉 স্বাগতম ${name}!\n\n🎯 *Ai Atik Daily Earning* এ স্বাগতম\n\n💰 আয়ের সুযোগ:\n📺 Watch Ads — ৳0.10\n📅 Daily Job — ৳0.20\n🧮 Math Earn — ৳0.04\n\n🌐 App: ${APP_URL}`,
+        `🎉 স্বাগতম ${name}!
+
+🎯 *Ai Atik Daily Earning* এ স্বাগতম
+
+💰 আয়ের সুযোগ:
+📺 Watch Short Ads — ৳7.00
+💎 Premium Big Ads — ৳26.50
+📅 Daily Job — ৳10.00
+🧮 Math Earn — ৳3.00
+
+🌐 App: ${APP_URL}`,
         {
           parse_mode: "Markdown",
           reply_markup: {
@@ -325,7 +484,11 @@ bot.onText(/^\/ai(?:@\w+)?$/, async (msg) => {
   if (!openai) return bot.sendMessage(chatId, "🤖 AI Assistant এখন কাজ করছে না।");
   aiMode.add(chatId);
   userHistory.set(chatId, []);
-  await bot.sendMessage(chatId, `🤖 *AI Assistant চালু হয়েছে!*\n\nআপনার প্রশ্ন লিখুন — AI উত্তর দেবে।\n\n/stop — AI বন্ধ করতে`);
+  await bot.sendMessage(chatId, `🤖 *AI Assistant চালু হয়েছে!*
+
+আপনার প্রশ্ন লিখুন — AI উত্তর দেবে।
+
+/stop — AI বন্ধ করতে`);
 });
 
 bot.onText(/^\/stop(?:@\w+)?$/, async (msg) => {

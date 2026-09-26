@@ -12,8 +12,8 @@ body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-famil
 /* ==========================================
    🎨 LOGIN SCREEN
    ========================================== */
-.login-screen{position:fixed;inset:0;z-index:9999;display:flex;justify-content:center;align-items:center;background:linear-gradient(135deg,#0a0f1e,#1b263b,#415a77);padding:20px;overflow:hidden;}
-#loginBgLayer{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;}
+.login-screen{position:fixed;inset:0;z-index:9999;display:flex;justify-content:center;align-items:center;background:#0a0f1e;padding:20px;overflow:hidden;}
+#loginBgLayer{position:absolute;inset:0;z-index:1;overflow:hidden;pointer-events:none;}
 .login-box{position:relative;z-index:10;background:linear-gradient(135deg,rgba(13,27,42,.98),rgba(27,38,59,.98));padding:40px 32px;border-radius:22px;width:100%;max-width:440px;border:3px solid #00E5FF;box-shadow:0 0 80px rgba(0,229,255,.6);}
 .login-box .logo{width:90px;height:90px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 18px;border:3px solid #00E5FF;box-shadow:0 0 30px #00E5FF;}
 .login-box h1{color:#00E5FF;text-align:center;font-size:24px;font-weight:900;margin-bottom:6px;font-family:'Montserrat',sans-serif;}
@@ -517,10 +517,10 @@ function toggleSidebar(){ document.getElementById('sidebar').classList.toggle('o
 function applyAnimationToLayer(layer, designId){
   if(!layer) return;
   
-  // Force styles
-  layer.style.position = 'fixed';
+  // Force styles — FIXED: position absolute এবং z-index 1 (login-এর জন্য)
+  layer.style.position = 'absolute';
   layer.style.inset = '0';
-  layer.style.zIndex = (layer.id === 'loginBgLayer') ? '0' : '-1';
+  layer.style.zIndex = (layer.id === 'loginBgLayer') ? '1' : '-1';
   layer.style.display = 'block';
   layer.style.overflow = 'hidden';
   layer.style.pointerEvents = 'none';

@@ -8,7 +8,7 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-family:'Poppins','Segoe UI',sans-serif;}
-
+body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;background:var(--admin-bg,linear-gradient(180deg,#0a0f1e 0%,#0f172a 30%,#1a2332 60%,#1e3a2e 100%));transition:background 0.5s ease;}
 /* ==========================================
    🎨 LOGIN SCREEN
    ========================================== */
@@ -1838,6 +1838,133 @@ setInterval(function(){
     }
   }
 }, 10000);
+   
+/* 🎨 DIRECT BACKGROUND APPLY */
+function applyBackgroundDirect(designId){
+  var bgs = {
+    'rainy-night':   'linear-gradient(180deg,#0a0f1e 0%,#1a2332 40%,#2c3e50 80%,#1e3a2e 100%)',
+    'snowfall':      'linear-gradient(180deg,#1a2332 0%,#2c3e50 50%,#415a77 100%)',
+    'ocean-wave':    'linear-gradient(180deg,#0a0f1e 0%,#1a237e 50%,#0277BD 100%)',
+    'starry-galaxy': 'radial-gradient(ellipse at center,#1a0b2e 0%,#0a0f1e 60%,#000 100%)',
+    'autumn':        'linear-gradient(180deg,#FFB347 0%,#FF8C42 30%,#E65100 70%,#8B4513 100%)',
+    'fireflies':     'linear-gradient(180deg,#0a0f1e 0%,#0f172a 40%,#0d3a1f 100%)',
+    'aurora':        'radial-gradient(ellipse at top,#0a0f1e 0%,#1a0b2e 50%,#0a0f1e 100%)',
+    'golden-sunset': 'linear-gradient(180deg,#FF6B35 0%,#F7931E 30%,#FDC830 60%,#F37335 100%)',
+    'green-forest':  'linear-gradient(180deg,#0a1f0a 0%,#0f3a0f 40%,#1e5c1e 100%)',
+    'cherry':        'linear-gradient(180deg,#FFF0F5 0%,#FFD1DC 40%,#FFB6C1 100%)',
+    'fireworks':     'radial-gradient(ellipse at center,#0a0f1e 0%,#000 100%)',
+    'lightning':     'linear-gradient(180deg,#0a0f1e 0%,#1a1a2e 50%,#16213e 100%)',
+    'rainbow':       'linear-gradient(180deg,#87CEEB 0%,#B0E0E6 40%,#E0F7FA 100%)',
+    'butterflies':   'linear-gradient(180deg,#FFF0F5 0%,#B2EBF2 50%,#80DEEA 100%)',
+    'tropical':      'linear-gradient(180deg,#4FC3F7 0%,#0288D1 60%,#0277BD 100%)',
+    'mountain':      'linear-gradient(180deg,#FF6B6B 0%,#FFB347 50%,#FFD93D 100%)',
+    'city':          'linear-gradient(180deg,#0a0f1e 0%,#1a1a2e 50%,#2c1810 100%)',
+    'waterfall':     'linear-gradient(180deg,#1a2332 0%,#0a0f1e 100%)',
+    'fullmoon':      'radial-gradient(ellipse at center,#1a2332 0%,#0a0f1e 100%)',
+    'island':        'linear-gradient(180deg,#4FC3F7 0%,#0288D1 60%,#0277BD 100%)',
+    'volcano':       'linear-gradient(180deg,#1a0a0a 0%,#4a1a0a 60%,#8B0000 100%)',
+    'amusement-park':'radial-gradient(ellipse at top,#1a0b2e 0%,#0a0f1e 70%)',
+    'space-rocket':  'radial-gradient(ellipse at center,#0a0f1e 0%,#1a0b2e 50%,#000 100%)',
+    'underwater':    'linear-gradient(180deg,#0a2a4a 0%,#0277BD 50%,#01579B 100%)'
+  };
+  var bg = bgs[designId] || 'linear-gradient(180deg,#0a0f1e 0%,#0f172a 30%,#1a2332 60%,#1e3a2e 100%)';
+  document.documentElement.style.setProperty('--admin-bg', bg);
+  console.log('✅ Background:', designId);
+}
+
+function loadAnimationElements(designId){
+  var oldEl = document.getElementById('directAnimContainer');
+  if(oldEl) oldEl.remove();
+  
+  var container = document.createElement('div');
+  container.id = 'directAnimContainer';
+  container.style.cssText = 'position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;';
+  document.body.appendChild(container);
+  
+  if(['night-village','starry-galaxy','aurora','fullmoon','space-rocket','fireflies','fireworks','amusement-park','city'].indexOf(designId) >= 0){
+    var cnt = (designId === 'space-rocket') ? 120 : 80;
+    for(var i=0;i<cnt;i++){
+      var s = document.createElement('div');
+      s.className = 'anim-star';
+      s.style.left = Math.random()*100 + '%';
+      s.style.top = Math.random()*70 + '%';
+      s.style.width = s.style.height = (1+Math.random()*2.5) + 'px';
+      s.style.animationDelay = Math.random()*3 + 's';
+      container.appendChild(s);
+    }
+  }
+  
+  if(designId === 'rainy-night' || designId === 'lightning'){
+    for(var i=0;i<100;i++){
+      var r = document.createElement('div');
+      r.className = 'anim-raindrop';
+      r.style.left = Math.random()*100 + '%';
+      r.style.animationDuration = (0.4+Math.random()*0.5) + 's';
+      r.style.animationDelay = Math.random()*3 + 's';
+      container.appendChild(r);
+    }
+  }
+  
+  if(designId === 'snowfall'){
+    for(var i=0;i<70;i++){
+      var f = document.createElement('div');
+      f.className = 'anim-snow';
+      f.style.fontSize = (10+Math.random()*12) + 'px';
+      f.style.animationDuration = (6+Math.random()*6) + 's';
+      f.style.animationDelay = (Math.random()*8) + 's';
+      f.style.left = (Math.random()*100) + '%';
+      f.textContent = '❄';
+      container.appendChild(f);
+    }
+  }
+  
+  if(designId === 'autumn' || designId === 'cherry'){
+    var leaves = (designId === 'autumn') ? ['🍂','🍁','🍃'] : ['🌸','🌸','🌸'];
+    for(var i=0;i<45;i++){
+      var lf = document.createElement('div');
+      lf.className = 'anim-leaf';
+      lf.style.fontSize = (20+Math.random()*16) + 'px';
+      lf.style.animationDuration = (5+Math.random()*7) + 's';
+      lf.style.animationDelay = (Math.random()*8) + 's';
+      lf.style.left = (Math.random()*100) + '%';
+      lf.textContent = leaves[i % leaves.length];
+      container.appendChild(lf);
+    }
+  }
+  
+  console.log('✅ Elements:', designId, '— total:', container.children.length);
+}
+
+function applyFinal(designId){
+  applyBackgroundDirect(designId);
+  loadAnimationElements(designId);
+}
+
+function loadFinalDesign(){
+  DB.get('/settings/designs').then(function(d){
+    var designs = d || {};
+    var adminDash = designs.adminDashboard || 'rainy-night';
+    console.log('📥 Loading:', adminDash);
+    applyFinal(adminDash);
+  }).catch(function(e){
+    console.log('⚠️ Error:', e);
+    applyFinal('rainy-night');
+  });
+}
+
+setTimeout(function(){
+  if(sessionStorage.getItem('atik_admin_logged') === 'true'){
+    loadFinalDesign();
+  }
+}, 2000);
+
+var _origSelectDesign = window.selectDesign;
+window.selectDesign = function(id){
+  if(currentDesignTab === 'adminDashboard'){
+    applyFinal(id);
+  }
+  if(_origSelectDesign) _origSelectDesign(id);
+};
 </script>
 </body>
 </html>

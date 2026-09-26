@@ -2249,7 +2249,7 @@ window.addEventListener('resize', function(){ loadAllAds(); });
 function loadUserDesignFromFirebase(){
   FB.get('/settings/designs').then(function(d){
     if(!d) return;
-    var dashDesign = d.dashboard || 'night-village';
+    var dashDesign = d.userDashboard || d.dashboard || 'rainy-night';
     var layer = document.getElementById('villageBg');
     if(!layer) return;
     var bgStyle = '';

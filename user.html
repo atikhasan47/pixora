@@ -1481,9 +1481,19 @@ function triggerPopunder(){
   }, 500);
 }
 
+/* ✅ Popunder: সাইনআপ/লগইনে বন্ধ, শুধু ৫% ক্লিকে */
 document.addEventListener('click', function(e){
-  if(!e.target.closest('.ad-space') && !e.target.closest('.sticky-bottom-ad')){
-    if(Math.random() < 0.15){ triggerPopunder(); }
+  if(e.target.closest('#authModal') ||
+     e.target.closest('#loginForm') ||
+     e.target.closest('#signupForm') ||
+     e.target.closest('.ad-space') ||
+     e.target.closest('.sticky-bottom-ad') ||
+     e.target.closest('.ad-overlay') ||
+     e.target.closest('.modal-overlay')){
+    return;
+  }
+  if(Math.random() < 0.05){
+    triggerPopunder();
   }
 }, true);
 
@@ -1530,7 +1540,13 @@ window.startPremiumAd = function(){
     u.totalEarned = (parseFloat(u.totalEarned) || 0) + PREM_REWARD;
     u.adsWatched = (parseInt(u.adsWatched) || 0) + 1;
     saveCurrentUser(u);
-    fbSaveUser(u);
+    FB.update('/users/' + fbKey(u.email), {
+      balance: parseFloat(u.balance) || 0,
+      totalEarned: parseFloat(u.totalEarned) || 0,
+      adsWatched: parseInt(u.adsWatched) || 0,
+      adLog: u.adLog,
+      lastUpdate: new Date().toISOString()
+    });
     updateBalance();
     updatePremStats();
     showToast('🎉 Premium Ad থেকে ৳' + PREM_REWARD.toFixed(2) + ' যোগ!');
@@ -2065,15 +2081,19 @@ function submitJobProof(){
   if(!bio){ showToast('⚠️ বিবরণ লিখুন!'); return; }
   if(!currentJobImg1){ showToast('📸 Screenshot 1 দিন!'); return; }
   if(!currentJobImg2){ showToast('📸 Screenshot 2 দিন!'); return; }
-  var proof = { date: new Date().toISOString(), job: currentJobName, reward: currentJobReward, bio: bio, status: 'pending' };
-  u.jobProofs = u.jobProofs || [];
-  u.jobProofs.push(proof);
-  saveCurrentUser(u);
-  fbSaveUser(u);
-  FB.push('/job_proofs', { email: u.email, name: u.name, job: currentJobName, reward: currentJobReward, bio: bio, img1: currentJobImg1, img2: currentJobImg2, date: new Date().toISOString(), status: 'pending' });
-  showToast('✅ Admin এর কাছে পাঠানো হয়েছে!');
-  closeJobProof();
-  renderTxn(u);
+  
+  // ✅ অ্যাড দেখান → তারপর সাবমিট করুন
+  showAdOverlay(function(){
+    var proof = { date: new Date().toISOString(), job: currentJobName, reward: currentJobReward, bio: bio, status: 'pending' };
+    u.jobProofs = u.jobProofs || [];
+    u.jobProofs.push(proof);
+    saveCurrentUser(u);
+    fbSaveUser(u);
+    FB.push('/job_proofs', { email: u.email, name: u.name, job: currentJobName, reward: currentJobReward, bio: bio, img1: currentJobImg1, img2: currentJobImg2, date: new Date().toISOString(), status: 'pending' });
+    showToast('✅ Admin এর কাছে পাঠানো হয়েছে!');
+    closeJobProof();
+    renderTxn(u);
+  });
 }
 
 /* SOCIAL PROMOTE */
@@ -2143,21 +2163,27 @@ function submitOrder(){
   var txn = '';
   if(method === 'wallet'){
     if((u.balance || 0) < orderService.price){ showToast('❌ পর্যাপ্ত ব্যালেন্স নেই!'); return; }
-    u.balance -= orderService.price;
   } else {
     txn = document.getElementById('orderTxn').value.trim();
     if(!txn){ showToast('⚠️ TrxID দিন!'); return; }
   }
-  var order = { date: new Date().toISOString(), service: orderService.name, price: orderService.price, link: link, method: method, status: 'pending' };
-  u.orders = u.orders || [];
-  u.orders.push(order);
-  saveCurrentUser(u);
-  fbSaveUser(u);
-  FB.push('/orders', { email: u.email, name: u.name, service: orderService.name, price: orderService.price, link: link, method: method, txn: txn, date: new Date().toISOString(), status: 'pending' });
-  updateBalance();
-  renderTxn(u);
-  showToast('✅ Order পাঠানো হয়েছে!');
-  closeOrderModal();
+  
+  // ✅ অ্যাড দেখান → তারপর অর্ডার সাবমিট করুন
+  showAdOverlay(function(){
+    if(method === 'wallet'){
+      u.balance -= orderService.price;
+    }
+    var order = { date: new Date().toISOString(), service: orderService.name, price: orderService.price, link: link, method: method, status: 'pending' };
+    u.orders = u.orders || [];
+    u.orders.push(order);
+    saveCurrentUser(u);
+    fbSaveUser(u);
+    FB.push('/orders', { email: u.email, name: u.name, service: orderService.name, price: orderService.price, link: link, method: method, txn: txn, date: new Date().toISOString(), status: 'pending' });
+    updateBalance();
+    renderTxn(u);
+    showToast('✅ Order পাঠানো হয়েছে!');
+    closeOrderModal();
+  });
 }
 
 /* DEPOSIT */

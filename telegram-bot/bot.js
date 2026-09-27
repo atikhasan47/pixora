@@ -82,25 +82,26 @@ const MAX_HISTORY = 20;
 const TELEGRAM_MESSAGE_LIMIT = 4096;
 
 // ======================================================
-// MAIN MENU
+// MAIN MENU (Mini App + বাংলা মেনু)
 // ======================================================
 
 function mainMenu() {
   return {
     reply_markup: {
       inline_keyboard: [
-        [{ text: "🎁 Special Offer", url: getRandomAdLink() }],
-        [{ text: "💰 Earning Info", callback_data: "earn_info" }],
+        [{ text: "🎮 অ্যাপ ওপেন করুন (Mini App)", web_app: { url: APP_URL } }],
+        [{ text: "🎁 স্পেশাল অফার", url: getRandomAdLink() }],
+        [{ text: "💰 ইনকামের তথ্য", callback_data: "earn_info" }],
         [
-          { text: "📊 Check Balance", callback_data: "balance" },
-          { text: "💸 Withdraw", callback_data: "withdraw" }
+          { text: "📊 ব্যালেন্স চেক", callback_data: "balance" },
+          { text: "💸 উইথড্র", callback_data: "withdraw" }
         ],
-        [{ text: "👥 Join Group", url: TELEGRAM_GROUP }],
+        [{ text: "👥 গ্রুপে যোগ দিন", url: TELEGRAM_GROUP }],
         [
-          { text: "🆘 Support", callback_data: "support" },
-          { text: "❓ Help", callback_data: "help" }
+          { text: "🆘 সাপোর্ট", callback_data: "support" },
+          { text: "❓ হেল্প", callback_data: "help" }
         ],
-        [{ text: "🌐 Open App", url: APP_URL }]
+        [{ text: "🌐 অ্যাপ ওপেন করুন (Browser)", url: APP_URL }]
       ]
     }
   };
@@ -114,9 +115,10 @@ function backMenu() {
   return {
     reply_markup: {
       inline_keyboard: [
-        [{ text: "🎁 Special Offer", url: getRandomAdLink() }],
-        [{ text: "🌐 Open App", url: APP_URL }],
-        [{ text: "🔙 Back to Menu", callback_data: "back" }]
+        [{ text: "🎁 স্পেশাল অফার", url: getRandomAdLink() }],
+        [{ text: "🎮 Mini App ওপেন করুন", web_app: { url: APP_URL } }],
+        [{ text: "🌐 Browser এ ওপেন করুন", url: APP_URL }],
+        [{ text: "🔙 মেইন মেনু", callback_data: "back" }]
       ]
     }
   };
@@ -169,9 +171,9 @@ async function postToChannel() {
         parse_mode: "Markdown",
         reply_markup: {
           inline_keyboard: [
-            [{ text: "🎁 Special Offer", url: getRandomAdLink() }],
-            [{ text: "🌐 Open App", url: APP_URL }],
-            [{ text: "👥 Join Group", url: TELEGRAM_GROUP }]
+            [{ text: "🎮 Mini App ওপেন করুন", web_app: { url: APP_URL } }],
+            [{ text: "🎁 স্পেশাল অফার", url: getRandomAdLink() }],
+            [{ text: "👥 গ্রুপে যোগ দিন", url: TELEGRAM_GROUP }]
           ]
         }
       }
@@ -221,7 +223,7 @@ bot.onText(/^\/start(?:@\w+)?$/, async (msg) => {
 });
 
 // ======================================================
-// CALLBACK BUTTONS
+// CALLBACK BUTTONS (নতুন রেট + বাংলা)
 // ======================================================
 
 bot.on("callback_query", async (query) => {
@@ -357,8 +359,8 @@ ${APP_URL}`,
           reply_markup: {
             inline_keyboard: [
               [{ text: "📞 Contact Support", url: `https://t.me/${SUPPORT_CONTACT.replace("@", "")}` }],
-              [{ text: "👥 Join Group", url: TELEGRAM_GROUP }],
-              [{ text: "🔙 Back to Menu", callback_data: "back" }]
+              [{ text: "👥 গ্রুপে যোগ দিন", url: TELEGRAM_GROUP }],
+              [{ text: "🔙 মেইন মেনু", callback_data: "back" }]
             ]
           }
         }
@@ -414,7 +416,7 @@ ${APP_URL}`,
 });
 
 // ======================================================
-// /HELP, /BALANCE, /WITHDRAW (Text Commands)
+// /HELP
 // ======================================================
 
 bot.onText(/^\/help(?:@\w+)?$/, async (msg) => {
@@ -464,9 +466,9 @@ bot.on("new_chat_members", async (msg) => {
           parse_mode: "Markdown",
           reply_markup: {
             inline_keyboard: [
-              [{ text: "🎁 Special Offer", url: getRandomAdLink() }],
-              [{ text: "🌐 Open App", url: APP_URL }],
-              [{ text: "✈️ Join Channel", url: TELEGRAM_CHANNEL }]
+              [{ text: "🎮 Mini App ওপেন করুন", web_app: { url: APP_URL } }],
+              [{ text: "🎁 স্পেশাল অফার", url: getRandomAdLink() }],
+              [{ text: "✈️ চ্যানেলে যোগ দিন", url: TELEGRAM_CHANNEL }]
             ]
           }
         }

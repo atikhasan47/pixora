@@ -9,13 +9,9 @@
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 body{min-height:100vh;background:#0f172a;color:#fff;overflow-x:hidden;font-family:'Poppins','Segoe UI',sans-serif;}
 
-/* 🎨 ANIMATION LAYER */
 #villageBg{position:fixed;inset:0;z-index:-1;overflow:hidden;}
-
-/* CSS Variables - Animation BG */
 body::before{content:'';position:fixed;inset:0;z-index:-2;pointer-events:none;background:var(--user-bg, linear-gradient(180deg,#0a0f1e 0%,#0f172a 30%,#1a2332 60%,#1e3a2e 100%));transition:background 0.5s ease;}
 
-/* Animation Elements */
 .anim-star{position:absolute;background:#fff;border-radius:50%;animation:animTwinkle 3s ease-in-out infinite;}
 @keyframes animTwinkle{0%,100%{opacity:.3;transform:scale(1);}50%{opacity:1;transform:scale(1.5);}}
 .anim-moon{position:absolute;border-radius:50%;background:radial-gradient(circle at 35% 35%,#FFF9C4,#FFE082,#B0BEC5);box-shadow:0 0 60px #FFE082,0 0 120px rgba(255,224,130,.5);animation:animMoonGlow 5s ease-in-out infinite;}
@@ -42,31 +38,6 @@ body::before{content:'';position:fixed;inset:0;z-index:-2;pointer-events:none;ba
 @keyframes animFlash{0%,92%,100%{opacity:0;}94%{opacity:.6;}95%{opacity:0;}97%{opacity:.5;}98%{opacity:0;}}
 .anim-rainbow-arc{position:absolute;border-radius:50%;border-style:solid;border-color:#FF0000 #FF9800 #FFEB3B #4CAF50 #2196F3 #9C27B0 transparent transparent;opacity:.75;}
 
-/* Old animations still needed */
-.village-bg{position:fixed;inset:0;z-index:-1;overflow:hidden;}
-.sky-night{position:absolute;top:0;width:100%;height:100%;background:linear-gradient(180deg,#0a0f1e 0%,#0f172a 30%,#1a2332 60%,#1e3a2e 100%);}
-.stars{position:absolute;top:0;width:100%;height:60%;}
-.star{position:absolute;background:#fff;border-radius:50%;animation:twinkle 3s ease-in-out infinite;}
-@keyframes twinkle{0%,100%{opacity:.3;transform:scale(1);}50%{opacity:1;transform:scale(1.4);}}
-.moon{position:absolute;top:60px;right:90px;width:80px;height:80px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#FFF9C4,#FFE082,#B0BEC5);box-shadow:0 0 60px #FFE082,0 0 120px rgba(255,224,130,.5);animation:moonGlow 5s ease-in-out infinite;}
-@keyframes moonGlow{0%,100%{box-shadow:0 0 60px #FFE082,0 0 120px rgba(255,224,130,.5);}50%{box-shadow:0 0 80px #FFF9C4,0 0 160px rgba(255,224,130,.7);}}
-.ground{position:absolute;bottom:0;width:100%;height:35%;background:linear-gradient(180deg,#1e3a2e 0%,#0f2419 50%,#081210 100%);}
-.grass-layer{position:absolute;bottom:0;width:100%;height:25px;background:repeating-linear-gradient(90deg,transparent 0,transparent 3px,#2E7D32 3px,#2E7D32 5px,transparent 5px,transparent 8px);opacity:.6;}
-.tree{position:absolute;bottom:12%;transform-origin:bottom center;animation:treeSway 4s ease-in-out infinite;}
-.trunk{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:14px;height:80px;background:linear-gradient(90deg,#3E2723,#1a0f0a);border-radius:5px;}
-.leaves{position:absolute;bottom:70px;left:50%;transform:translateX(-50%);width:110px;height:110px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#4CAF50,#2E7D32 50%,#0d3a1f);box-shadow:inset -12px -12px 30px rgba(0,0,0,.5),0 0 40px rgba(76,175,80,.4);}
-@keyframes treeSway{0%,100%{transform:rotate(0);}50%{transform:rotate(2deg);}}
-.tree1{left:4%;}.tree2{left:18%;bottom:15%;transform:scale(1.3);animation-delay:.5s;}
-.tree3{right:5%;bottom:10%;transform:scale(.9);animation-delay:1s;}.tree4{right:25%;bottom:17%;transform:scale(1.4);animation-delay:1.5s;}
-.rain-container{position:absolute;inset:0;overflow:hidden;pointer-events:none;}
-.raindrop{position:absolute;top:-20px;width:2px;height:20px;background:linear-gradient(180deg,transparent,rgba(174,194,224,.7));animation:rainFall linear infinite;}
-@keyframes rainFall{0%{transform:translateY(-20px);}100%{transform:translateY(105vh);}}
-.leaf{position:absolute;top:-20px;width:14px;height:14px;border-radius:0 100% 0 100%;opacity:.9;animation:leafFall linear infinite;}
-@keyframes leafFall{0%{transform:translateY(-50px) rotate(0) translateX(0);opacity:0;}10%{opacity:.9;}50%{transform:translateY(50vh) rotate(360deg) translateX(50px);}100%{transform:translateY(105vh) rotate(720deg) translateX(120px);opacity:0;}}
-.firefly{position:absolute;width:4px;height:4px;background:#FFEB3B;border-radius:50%;box-shadow:0 0 10px #FFEB3B,0 0 20px #FFC107;animation:fireflyFloat linear infinite;opacity:.8;}
-@keyframes fireflyFloat{0%{transform:translate(0,0);opacity:0;}20%{opacity:1;}80%{opacity:1;}100%{transform:translate(100px,-200px);opacity:0;}}
-
-/* Rest of your existing CSS - SAME AS BEFORE */
 .splash{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(135deg,#0a0f1e,#1b263b,#415a77);transition:opacity 1s ease;}
 .splash.hide{opacity:0;pointer-events:none;}
 .splash-logo{width:130px;height:130px;border-radius:50%;object-fit:cover;border:4px solid #FFD700;box-shadow:0 0 60px #FFD700,0 0 120px rgba(255,215,0,.5);animation:logoBounceIn 1s ease,logoPulse 2.5s 1s ease-in-out infinite;}
@@ -86,6 +57,7 @@ body::before{content:'';position:fixed;inset:0;z-index:-2;pointer-events:none;ba
 .splash-loader span:nth-child(3){animation-delay:.4s;}
 @keyframes dotPulse{0%,80%,100%{transform:scale(.5);opacity:.5;}40%{transform:scale(1.2);opacity:1;}}
 .splash-tip{margin-top:20px;font-size:12px;color:#8fa8c4;text-align:center;padding:0 20px;animation:titleFadeIn 1s ease 1.5s both;}
+
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;justify-content:center;align-items:center;z-index:1000;padding:15px;overflow-y:auto;backdrop-filter:blur(10px);}
 .modal-overlay.active{display:flex;animation:modalFadeIn .6s ease;}
 @keyframes modalFadeIn{from{opacity:0;}to{opacity:1;}}
@@ -104,6 +76,7 @@ body::before{content:'';position:fixed;inset:0;z-index:-2;pointer-events:none;ba
 .auth-error.show{display:block;}
 .auth-hint{color:#8fa8c4;font-size:12px;text-align:center;margin-top:15px;}
 .auth-hint a{color:#FFD700;cursor:pointer;text-decoration:underline;}
+
 .app-layout{display:flex;min-height:100vh;position:relative;z-index:1;}
 .sidebar{width:250px;background:linear-gradient(180deg,rgba(13,27,42,.97),rgba(27,38,59,.97));backdrop-filter:blur(20px);border-right:2px solid rgba(255,215,0,.2);padding:20px 0;position:sticky;top:0;height:100vh;overflow-y:auto;transition:.3s;z-index:100;}
 .sidebar-logo{display:flex;align-items:center;gap:12px;padding:0 20px 20px;border-bottom:1px solid rgba(255,215,0,.2);margin-bottom:15px;}
@@ -156,32 +129,6 @@ body::before{content:'';position:fixed;inset:0;z-index:-2;pointer-events:none;ba
 .logo-brand{margin-top:6px;background:linear-gradient(90deg,#E65100,#F57C00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:9px;font-weight:900;letter-spacing:2.5px;}
 .logo-tag{margin-top:4px;color:#1B5E20;font-size:8px;font-weight:900;letter-spacing:1.5px;}
 .logo-corner{position:absolute;width:9px;height:9px;border-radius:50%;background:#0D47A1;}
-.profile-banner-section{display:flex;justify-content:center;margin-bottom:22px;padding:15px;overflow-x:auto;}
-.profile-banner-box{width:800px;height:440px;border-radius:22px;background:linear-gradient(135deg,#E3F2FD 0%,#BBDEFB 40%,#90CAF9 70%,#64B5F6 100%);border:5px solid #0D47A1;position:relative;overflow:hidden;display:flex;flex-direction:column;flex-shrink:0;box-shadow:0 0 60px rgba(255,179,0,.3);}
-.profile-banner-box::before{content:'';position:absolute;top:-100px;right:-100px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.7),transparent 70%);z-index:1;}
-.profile-banner-box::after{content:'';position:absolute;bottom:-100px;left:-100px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(255,179,0,.3),transparent 70%);z-index:1;}
-.banner-badge{position:absolute;top:14px;right:20px;background:linear-gradient(90deg,#E65100,#F57C00);color:#fff;padding:6px 18px;border-radius:16px;font-weight:900;font-size:12px;z-index:5;}
-.banner-content{display:grid;grid-template-columns:180px 1fr 200px;gap:20px;padding:25px 25px 15px 25px;flex:1;align-items:center;position:relative;z-index:2;}
-.banner-photo-wrap2{width:160px;height:200px;border-radius:18px;overflow:hidden;border:5px solid #0D47A1;box-shadow:0 10px 25px rgba(13,71,161,.5);position:relative;background:#E3F2FD;}
-.banner-photo-wrap2 img{width:100%;height:100%;object-fit:cover;object-position:center 20%;}
-.banner-photo-wrap2 .bolt{position:absolute;bottom:-8px;right:-8px;background:linear-gradient(135deg,#FFD700,#FF9800);width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;border:3px solid #fff;}
-.banner-title{color:#0D47A1;font-size:24px;font-weight:900;line-height:1.15;text-shadow:2px 2px 0 #fff;}
-.banner-title-ai{background:linear-gradient(90deg,#E65100 0%,#FF9800 25%,#FFD700 50%,#FF9800 75%,#E65100 100%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900;animation:shimmerText 3s linear infinite;}
-.banner-brand{margin-top:5px;color:#1B5E20;font-size:11px;font-weight:900;letter-spacing:3.5px;}
-.banner-divider{width:100%;height:2px;background:linear-gradient(90deg,#0D47A1,transparent);margin:8px 0 10px;}
-.banner-services-title{color:#0D47A1;font-size:12px;font-weight:900;margin-bottom:8px;}
-.banner-services{display:flex;flex-direction:column;gap:6px;}
-.banner-service{font-size:12px;font-weight:800;padding:6px 10px;border-radius:8px;background:rgba(255,255,255,.85);border-left:4px solid;}
-.banner-service.gold{color:#E65100;border-color:#E65100;}
-.banner-service.green{color:#1B5E20;border-color:#1B5E20;}
-.banner-service.blue{color:#0D47A1;border-color:#0D47A1;}
-.banner-service.purple{color:#6A1B9A;border-color:#6A1B9A;}
-.banner-platform-col{display:flex;flex-direction:column;align-items:center;}
-.banner-platforms-title{color:#0D47A1;font-size:12px;font-weight:900;margin-bottom:12px;text-align:center;}
-.banner-platforms{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;justify-items:center;}
-.platform-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;background:rgba(255,255,255,.95);border:2px solid rgba(13,71,161,.25);box-shadow:0 4px 12px rgba(0,0,0,.12);}
-.platform-yt{color:#FF0000;}.platform-tt{color:#000;}.platform-ig{color:#E1306C;}.platform-tg{color:#0088CC;}.platform-fb{color:#1877F2;}
-.banner-footer-bar{background:linear-gradient(90deg,#0D47A1,#1976D2);color:#fff;padding:10px 25px;display:flex;justify-content:space-between;align-items:center;font-size:11px;font-weight:800;}
 .welcome-card{background:linear-gradient(135deg,rgba(27,38,59,.95) 0%,rgba(65,90,119,.95) 50%,rgba(13,27,42,.95) 100%);backdrop-filter:blur(15px);border:2px solid #FFD700;border-radius:20px;padding:30px;margin-bottom:22px;box-shadow:0 0 50px rgba(255,215,0,.3);}
 .welcome-content{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;}
 .welcome-text .hello{color:#FFD700;font-size:13px;letter-spacing:2px;font-weight:600;text-transform:uppercase;}
@@ -353,55 +300,12 @@ body::before{content:'';position:fixed;inset:0;z-index:-2;pointer-events:none;ba
 .ad-overlay-btn{width:100%;padding:14px;border:none;border-radius:12px;font-size:15px;font-weight:900;cursor:pointer;font-family:inherit;transition:.3s;background:linear-gradient(90deg,#00C853,#00E676);color:#fff;box-shadow:0 5px 20px rgba(0,230,118,.4);}
 .ad-overlay-btn:disabled{background:#4a5568;cursor:not-allowed;box-shadow:none;opacity:.6;}
 .ad-overlay-note{color:#6b7d94;font-size:10px;margin-top:10px;}
-
-/* 🌐 STICKY BOTTOM AD (ছবির মতো) */
-.sticky-bottom-ad{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  z-index:998;
-  background:linear-gradient(135deg,#0d1b2a,#1b263b);
-  border-top:2px solid #FFD700;
-  padding:8px 10px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  box-shadow:0 -5px 25px rgba(255,215,0,.4);
-  min-height:60px;
-  transition:.3s;
-}
+.sticky-bottom-ad{position:fixed;bottom:0;left:0;right:0;z-index:998;background:linear-gradient(135deg,#0d1b2a,#1b263b);border-top:2px solid #FFD700;padding:8px 10px;display:flex;justify-content:center;align-items:center;box-shadow:0 -5px 25px rgba(255,215,0,.4);min-height:60px;transition:.3s;}
 .sticky-bottom-ad.hide{transform:translateY(100%);}
-.sticky-bottom-ad .stb-close{
-  position:absolute;
-  top:-14px;
-  right:10px;
-  width:28px;
-  height:28px;
-  border-radius:50%;
-  background:linear-gradient(135deg,#FF1744,#D32F2F);
-  color:#fff;
-  border:2px solid #fff;
-  font-size:14px;
-  font-weight:900;
-  cursor:pointer;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  box-shadow:0 3px 10px rgba(0,0,0,.5);
-}
-.sticky-bottom-ad .stb-slot{
-  width:100%;
-  max-width:728px;
-  min-height:50px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  overflow:hidden;
-}
+.sticky-bottom-ad .stb-close{position:absolute;top:-14px;right:10px;width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#FF1744,#D32F2F);color:#fff;border:2px solid #fff;font-size:14px;font-weight:900;cursor:pointer;display:flex;justify-content:center;align-items:center;box-shadow:0 3px 10px rgba(0,0,0,.5);}
+.sticky-bottom-ad .stb-slot{width:100%;max-width:728px;min-height:50px;display:flex;justify-content:center;align-items:center;overflow:hidden;}
 .sticky-bottom-ad .stb-slot iframe{max-width:100%;border:none;}
 body{padding-bottom:80px;}
-
 @media(max-width:900px){
   .mobile-toggle{display:block;}
   .sidebar{position:fixed;left:-280px;top:0;z-index:998;}
@@ -410,9 +314,6 @@ body{padding-bottom:80px;}
   .welcome-text .username{font-size:22px;}
   .service-cards{grid-template-columns:1fr;}
 }
-@media(max-width:850px){.profile-banner-box{transform:scale(.85);transform-origin:top center;}}
-@media(max-width:740px){.profile-banner-box{transform:scale(.75);transform-origin:top center;}.profile-banner-section{margin-bottom:-50px;}}
-@media(max-width:640px){.profile-banner-box{transform:scale(.65);transform-origin:top center;}.profile-banner-section{margin-bottom:-80px;}}
 @media(max-width:600px){
   .stats-grid{grid-template-columns:1fr 1fr;}
   .community-grid{grid-template-columns:1fr;}
@@ -426,14 +327,6 @@ body{padding-bottom:80px;}
   .ad-slot-overlay{min-height:220px;padding:12px 6px;}
   .ad-overlay-timer{font-size:12px;padding:5px 10px;}
 }
-@media(max-width:540px){.profile-banner-box{transform:scale(.55);transform-origin:top center;}.profile-banner-section{margin-bottom:-110px;}}
-@media(max-width:440px){.profile-banner-box{transform:scale(.45);transform-origin:top center;}.profile-banner-section{margin-bottom:-140px;}}
-@media(max-width:380px){
-  .profile-banner-box{transform:scale(.4);transform-origin:top center;}
-  .profile-banner-section{margin-bottom:-160px;}
-  .profile-logo-box{transform:scale(.85);transform-origin:top center;}
-  .profile-logo-section{margin-bottom:-30px;}
-}
 </style>
 <meta name="theme-color" content="#FFD700">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -443,12 +336,8 @@ body{padding-bottom:80px;}
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="https://i.ibb.co.com/bgMN2Yv8/IMG-20260429-WA0011.jpg">
 <link rel="icon" type="image/jpeg" href="https://i.ibb.co.com/bgMN2Yv8/IMG-20260429-WA0011.jpg">
-
-<!-- 🎯 MONETAG SERVICE WORKER -->
 <meta name="monetag" content="641735f28bc7115e82bfbd3c204b6248">
 <meta name="monetag" content="80e5976a1b14eca6012b823324e24640">
-
-<!-- 🎯 POPUNDER AD (HIGHEST INCOME) -->
 <script src="https://pl31331969.profitableratecpmnetwork.com/77/9e/51/779e51bf97d0bae03a5421c1c7b7c638.js"></script>
 </head>
 <body>
@@ -595,43 +484,6 @@ body{padding-bottom:80px;}
           <div class="logo-tag">PREMIUM PLATFORM</div>
         </div>
       </div>
-      <div class="profile-banner-section">
-        <div class="profile-banner-box">
-          <div class="banner-badge">PREMIUM</div>
-          <div class="banner-content">
-            <div class="banner-photo-wrap2">
-              <img src="https://i.ibb.co.com/bgMN2Yv8/IMG-20260429-WA0011.jpg" alt="Profile">
-              <div class="bolt">⚡</div>
-            </div>
-            <div>
-              <div class="banner-title">AI ATIK <span class="banner-title-ai">DAILY EARNING</span></div>
-              <div class="banner-brand">BRAND: ATIK FREELANCER</div>
-              <div class="banner-divider"></div>
-              <div class="banner-services-title">🎯 আমাদের সার্ভিসসমূহ</div>
-              <div class="banner-services">
-                <div class="banner-service gold">📺 ছোট Ads — ৳7.00 (১৫ সেকেন্ড)</div>
-                <div class="banner-service green">💎 বড় Ads — ৳26.50 (৯০ সেকেন্ড)</div>
-                <div class="banner-service blue">🧮 Math Earn — ৳3.00</div>
-                <div class="banner-service purple">📅 Daily Job — ৳10.00</div>
-              </div>
-            </div>
-            <div class="banner-platform-col">
-              <div class="banner-platforms-title">🌐 প্রমোট করি</div>
-              <div class="banner-platforms">
-                <div class="platform-icon platform-yt">▶</div>
-                <div class="platform-icon platform-tt">♪</div>
-                <div class="platform-icon platform-ig">◉</div>
-                <div class="platform-icon platform-tg">✈</div>
-                <div class="platform-icon platform-fb">f</div>
-              </div>
-            </div>
-          </div>
-          <div class="banner-footer-bar">
-            <span>🎯 Min Deposit ৳100 | Min Withdraw ৳2780</span>
-            <span>🌐 t.me/aiatikdailyearning</span>
-          </div>
-        </div>
-      </div>
       <div class="welcome-card">
         <div class="welcome-content">
           <div class="welcome-text">
@@ -646,7 +498,6 @@ body{padding-bottom:80px;}
         </div>
       </div>
 
-      <!-- 📢 NOTICE BOARD -->
       <div class="section">
         <div class="section-title">📢 গুরুত্বপূর্ণ নোটিশ <span class="count">সবার জন্য</span></div>
         <div style="background:linear-gradient(135deg,rgba(255,215,0,.1),rgba(255,152,0,.05));border:2px solid #FFD700;border-radius:20px;padding:25px;box-shadow:0 0 40px rgba(255,215,0,.3);">
@@ -689,7 +540,6 @@ body{padding-bottom:80px;}
           </div>
         </div>
       </div>
-      <!-- 📢 NOTICE BOARD END -->
 
       <div class="stats-grid">
         <div class="stat-card green clickable" onclick="goPanel('wallet-history')"><span class="icon">💰</span><h4>Main Balance</h4><div class="val">৳ <span id="mainBalance">0.00</span></div></div>
@@ -764,7 +614,6 @@ body{padding-bottom:80px;}
       </div>
     </div>
 
-    <!-- WATCH SHORT ADS -->
     <div class="panel" id="watch-ads">
       <div class="topbar"><h2>📺 Watch Short Ads <span>১৫ সেকেন্ডে ৳7.00</span></h2></div>
       <div class="ads-hero">
@@ -815,7 +664,6 @@ body{padding-bottom:80px;}
       <div class="ad-space" style="margin-top:20px;"><div class="ad-slot" id="adSlot3"></div></div>
     </div>
 
-    <!-- PREMIUM ADS -->
     <div class="panel" id="premium-ads">
       <div class="topbar"><h2>💎 Premium Big Ads <span>৯০ সেকেন্ডে ৳26.50</span></h2></div>
       <div class="ads-hero" style="border-color:#FFD700;background:linear-gradient(135deg,rgba(60,40,10,.95),rgba(150,80,10,.95));box-shadow:0 0 60px rgba(255,215,0,.6);">
@@ -844,7 +692,6 @@ body{padding-bottom:80px;}
       <div class="ad-space"><div class="ad-slot" id="adSlotPremium"></div></div>
     </div>
 
-    <!-- MATH EARN -->
     <div class="panel" id="math">
       <div class="topbar"><h2>🧮 Math Earn <span>প্রতি সঠিক উত্তরে ৳3.00</span></h2></div>
       <div class="math-hero">
@@ -870,7 +717,6 @@ body{padding-bottom:80px;}
       <div class="ad-space" style="margin-top:22px;"><div class="ad-slot" id="adSlot4"></div></div>
     </div>
 
-    <!-- DAILY JOB -->
     <div class="panel" id="job">
       <div class="topbar"><h2>📅 Daily Job <span>কাজ করে প্রুফ দিন — ৳10.00</span></h2></div>
       <div class="job-hero">
@@ -902,7 +748,6 @@ body{padding-bottom:80px;}
       <div class="ad-space" style="margin-top:22px;"><div class="ad-slot" id="adSlot5"></div></div>
     </div>
 
-    <!-- SOCIAL PROMOTE -->
     <div class="panel" id="social">
       <div class="topbar"><h2>🛒 Social Media Promote <span>সব Platform এর Service</span></h2></div>
       <div class="social-tabs">
@@ -916,7 +761,6 @@ body{padding-bottom:80px;}
       <div class="ad-space" style="margin-top:22px;"><div class="ad-slot" id="adSlot6"></div></div>
     </div>
 
-    <!-- WALLET HISTORY -->
     <div class="panel" id="wallet-history">
       <div class="topbar"><h2>📜 Wallet & History</h2></div>
       <div class="ad-space ad-space-inline"><div class="ad-slot" id="adSlot7"></div></div>
@@ -935,7 +779,6 @@ body{padding-bottom:80px;}
       <div class="ad-space" style="margin-top:22px;"><div class="ad-slot" id="adSlot8"></div></div>
     </div>
 
-    <!-- ADD FUNDS -->
     <div class="panel" id="add-funds">
       <div class="topbar"><h2>💵 Add Money</h2></div>
       <div class="ad-space ad-space-inline"><div class="ad-slot" id="adSlot9"></div></div>
@@ -955,7 +798,6 @@ body{padding-bottom:80px;}
       <div class="ad-space" style="margin-top:22px;"><div class="ad-slot" id="adSlot10"></div></div>
     </div>
 
-    <!-- WITHDRAW -->
     <div class="panel" id="withdraw-money">
       <div class="topbar"><h2>🏧 Withdraw <span>Min ৳2780 | Fee ৳40 | ৫ দিনে একবার</span></h2></div>
       <div class="ad-space ad-space-inline"><div class="ad-slot" id="adSlot11"></div></div>
@@ -974,7 +816,6 @@ body{padding-bottom:80px;}
       <div class="ad-space" style="margin-top:22px;"><div class="ad-slot" id="adSlot12"></div></div>
     </div>
 
-    <!-- PREMIUM -->
     <div class="panel" id="premium">
       <div class="topbar"><h2>👑 Get Premium</h2></div>
       <div class="ad-space ad-space-inline"><div class="ad-slot" id="adSlot13"></div></div>
@@ -997,7 +838,6 @@ body{padding-bottom:80px;}
       <div class="ad-space" style="margin-top:22px;"><div class="ad-slot" id="adSlot14"></div></div>
     </div>
 
-    <!-- REFER EARN -->
     <div class="panel" id="refer-earn">
       <div class="topbar"><h2>🎁 Refer & Earn</h2></div>
       <div style="background:linear-gradient(135deg,rgba(27,38,59,.95),rgba(13,27,42,.95));border:2px dashed #FFD700;border-radius:18px;padding:25px;text-align:center;">
@@ -1012,14 +852,12 @@ body{padding-bottom:80px;}
       <div class="ad-space" style="margin-top:22px;"><div class="ad-slot" id="adSlot15"></div></div>
     </div>
 
-    <!-- LEADERBOARD -->
     <div class="panel" id="leaderboard">
       <div class="topbar"><h2>🏆 Leadership Club <span>1,408 Members</span></h2></div>
       <div id="leaderBoard"></div>
       <div class="ad-space" style="margin-top:22px;"><div class="ad-slot" id="adSlot16"></div></div>
     </div>
 
-    <!-- SUPPORT -->
     <div class="panel" id="support">
       <div class="topbar"><h2>💬 Support</h2></div>
       <div class="ad-space ad-space-inline"><div class="ad-slot" id="adSlot17"></div></div>
@@ -1036,7 +874,6 @@ body{padding-bottom:80px;}
       <div class="ad-space" style="margin-top:22px;"><div class="ad-slot" id="adSlot18"></div></div>
     </div>
 
-    <!-- CHAT -->
     <div class="panel" id="chat">
       <div class="topbar"><h2>📨 Chat with Admin</h2></div>
       <div class="ad-space ad-space-inline"><div class="ad-slot" id="adSlot19"></div></div>
@@ -1103,7 +940,6 @@ body{padding-bottom:80px;}
   </div>
 </div>
 
-<!-- 🌐 STICKY BOTTOM AD -->
 <div class="sticky-bottom-ad" id="stickyBottomAd">
   <button class="stb-close" onclick="document.getElementById('stickyBottomAd').classList.add('hide')">✕</button>
   <div class="stb-slot" id="stickyAdSlot">
@@ -1194,7 +1030,7 @@ function fbStartListener(email){
 }
 
 /* ==================================================
-   🎨 ANIMATION SYSTEM — Firebase থেকে Load
+   🎨 ANIMATION SYSTEM
    ================================================== */
 function applyUserBackground(designId){
   var bgs = {
@@ -1225,7 +1061,6 @@ function applyUserBackground(designId){
   };
   var bg = bgs[designId] || 'linear-gradient(180deg,#0a0f1e 0%,#0f172a 30%,#1a2332 60%,#1e3a2e 100%)';
   document.documentElement.style.setProperty('--user-bg', bg);
-  console.log('✅ BG:', designId);
 }
 
 function loadUserAnimationElements(designId){
@@ -1234,7 +1069,6 @@ function loadUserAnimationElements(designId){
   layer.innerHTML = '';
   layer.style.cssText = 'position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;display:block;';
   
-  // ==== STARS ====
   if(['night-village','starry-galaxy','aurora','fullmoon','space-rocket','fireflies','fireworks','amusement-park','city'].indexOf(designId) >= 0){
     var cnt = (designId === 'space-rocket') ? 120 : 80;
     for(var i=0;i<cnt;i++){
@@ -1247,8 +1081,6 @@ function loadUserAnimationElements(designId){
       layer.appendChild(s);
     }
   }
-  
-  // ==== RAIN ====
   if(designId === 'rainy-night' || designId === 'lightning'){
     for(var i=0;i<100;i++){
       var r = document.createElement('div');
@@ -1262,8 +1094,6 @@ function loadUserAnimationElements(designId){
     flash.className = 'anim-flash';
     layer.appendChild(flash);
   }
-  
-  // ==== SNOW ====
   if(designId === 'snowfall'){
     for(var i=0;i<70;i++){
       var f = document.createElement('div');
@@ -1276,8 +1106,6 @@ function loadUserAnimationElements(designId){
       layer.appendChild(f);
     }
   }
-  
-  // ==== LEAVES/CHERRY ====
   if(designId === 'autumn' || designId === 'cherry'){
     var leaves = (designId === 'autumn') ? ['🍂','🍁','🍃'] : ['🌸','🌸','🌸'];
     for(var i=0;i<45;i++){
@@ -1291,8 +1119,6 @@ function loadUserAnimationElements(designId){
       layer.appendChild(lf);
     }
   }
-  
-  // ==== FIREFLIES ====
   if(designId === 'fireflies'){
     for(var i=0;i<35;i++){
       var fd = document.createElement('div');
@@ -1304,8 +1130,6 @@ function loadUserAnimationElements(designId){
       layer.appendChild(fd);
     }
   }
-  
-  // ==== WAVES ====
   if(designId === 'ocean-wave'){
     for(var i=0;i<4;i++){
       var w = document.createElement('div');
@@ -1315,8 +1139,6 @@ function loadUserAnimationElements(designId){
       layer.appendChild(w);
     }
   }
-  
-  // ==== MOON ====
   if(['night-village','fireflies','city','fullmoon'].indexOf(designId) >= 0){
     var m = document.createElement('div');
     m.className = 'anim-moon';
@@ -1327,23 +1149,16 @@ function loadUserAnimationElements(designId){
     }
     layer.appendChild(m);
   }
-  
-  // ==== SUN ====
   if(['ocean-wave','golden-sunset','mountain','tropical','island'].indexOf(designId) >= 0){
     var sun = document.createElement('div');
     sun.style.cssText = 'position:absolute;width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,#FFF59D,#FFEB3B,#FFC107);box-shadow:0 0 100px #FFF59D,0 0 200px rgba(255,235,59,.6);animation:animMoonGlow 4s ease-in-out infinite;';
     if(designId === 'golden-sunset' || designId === 'mountain'){
-      sun.style.bottom = '30%';
-      sun.style.left = '50%';
-      sun.style.transform = 'translateX(-50%)';
+      sun.style.bottom = '30%';sun.style.left = '50%';sun.style.transform = 'translateX(-50%)';
     } else {
-      sun.style.top = '12%';
-      sun.style.right = '15%';
+      sun.style.top = '12%';sun.style.right = '15%';
     }
     layer.appendChild(sun);
   }
-  
-  // ==== BOAT ====
   if(['ocean-wave','tropical','island'].indexOf(designId) >= 0){
     var boat = document.createElement('div');
     boat.className = 'anim-boat';
@@ -1351,8 +1166,6 @@ function loadUserAnimationElements(designId){
     boat.textContent = '⛵';
     layer.appendChild(boat);
   }
-  
-  // ==== BIRD ====
   if(['ocean-wave','golden-sunset','mountain','autumn','waterfall'].indexOf(designId) >= 0){
     var bird = document.createElement('div');
     bird.className = 'anim-bird';
@@ -1360,8 +1173,6 @@ function loadUserAnimationElements(designId){
     bird.textContent = '🕊️';
     layer.appendChild(bird);
   }
-  
-  // ==== TREES ====
   if(designId === 'green-forest'){
     for(var i=0;i<14;i++){
       var t = document.createElement('div');
@@ -1370,46 +1181,31 @@ function loadUserAnimationElements(designId){
       layer.appendChild(t);
     }
   }
-  
-  // ==== DEER ====
   if(designId === 'snowfall' || designId === 'green-forest'){
     var deer = document.createElement('div');
     deer.style.cssText = 'position:absolute;bottom:10%;right:20%;font-size:50px;';
     deer.textContent = '🦌';
     layer.appendChild(deer);
   }
-  
-  // ==== HOUSE ====
   if(designId === 'snowfall'){
     var house = document.createElement('div');
     house.style.cssText = 'position:absolute;bottom:10%;left:15%;font-size:60px;';
     house.textContent = '🏠';
     layer.appendChild(house);
   }
-  
-  // ==== CITY ====
   if(designId === 'city'){
     for(var i=0;i<14;i++){
       var bd = document.createElement('div');
       bd.style.cssText = 'position:absolute;bottom:0;background:linear-gradient(180deg,#1a2332,#0a0f1e);border-top:2px solid #FFC107;left:' + (i*7) + '%;width:' + (6+Math.random()*3) + '%;height:' + (25+Math.random()*45) + '%;';
       layer.appendChild(bd);
     }
-    for(var i=0;i<50;i++){
-      var w2 = document.createElement('div');
-      w2.style.cssText = 'position:absolute;width:4px;height:4px;background:#FFC107;box-shadow:0 0 6px #FFC107;animation:animTwinkle 3s ease-in-out infinite;left:' + (Math.random()*100) + '%;bottom:' + (5+Math.random()*55) + '%;animation-delay:' + (Math.random()*3) + 's;';
-      layer.appendChild(w2);
-    }
   }
-  
-  // ==== RAINBOW ====
   if(designId === 'rainbow'){
     var rb = document.createElement('div');
     rb.className = 'anim-rainbow-arc';
     rb.style.cssText = 'bottom:15%;left:50%;transform:translateX(-50%);width:600px;height:600px;border-width:20px;';
     layer.appendChild(rb);
   }
-  
-  // ==== BUTTERFLIES ====
   if(designId === 'butterflies'){
     for(var i=0;i<10;i++){
       var bf = document.createElement('div');
@@ -1418,8 +1214,6 @@ function loadUserAnimationElements(designId){
       layer.appendChild(bf);
     }
   }
-  
-  // ==== TROPICAL/ISLAND ====
   if(designId === 'tropical' || designId === 'island'){
     var p1 = document.createElement('div');
     p1.style.cssText = 'position:absolute;bottom:20%;left:10%;font-size:70px;';
@@ -1433,8 +1227,6 @@ function loadUserAnimationElements(designId){
     water.style.cssText = 'position:absolute;bottom:0;width:100%;height:35%;background:linear-gradient(180deg,rgba(2,136,209,.7),#01579B);';
     layer.appendChild(water);
   }
-  
-  // ==== FIREWORKS ====
   if(designId === 'fireworks'){
     var colors = ['#FF1744','#FFD700','#00E676','#00E5FF','#E1306C','#FF9800'];
     for(var i=0;i<12;i++){
@@ -1443,16 +1235,12 @@ function loadUserAnimationElements(designId){
       layer.appendChild(burst);
     }
   }
-  
-  // ==== AMUSEMENT PARK ====
   if(designId === 'amusement-park'){
     var fw = document.createElement('div');
     fw.style.cssText = 'position:absolute;bottom:20%;left:50%;transform:translateX(-50%);font-size:120px;animation:animMoonGlow 3s ease-in-out infinite;';
     fw.textContent = '🎡';
     layer.appendChild(fw);
   }
-  
-  // ==== SPACE ROCKET ====
   if(designId === 'space-rocket'){
     var rocket = document.createElement('div');
     rocket.style.cssText = 'position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:60px;animation:animFireflyFloat 6s ease-in-out infinite;';
@@ -1463,8 +1251,6 @@ function loadUserAnimationElements(designId){
     planet.textContent = '🪐';
     layer.appendChild(planet);
   }
-  
-  // ==== UNDERWATER ====
   if(designId === 'underwater'){
     for(var i=0;i<20;i++){
       var b = document.createElement('div');
@@ -1482,50 +1268,38 @@ function loadUserAnimationElements(designId){
       layer.appendChild(fish);
     }
   }
-  
-  // ==== VOLCANO ====
   if(designId === 'volcano'){
     var vl = document.createElement('div');
     vl.style.cssText = 'position:absolute;bottom:0;width:100%;height:50%;background:linear-gradient(135deg,#2c1810 0%,#1a0f0a 50%,#000 100%);clip-path:polygon(0 100%,25% 20%,40% 40%,50% 5%,60% 40%,75% 25%,100% 100%);';
     layer.appendChild(vl);
   }
-  
-  // ==== MOUNTAIN ====
   if(designId === 'mountain'){
     var mt = document.createElement('div');
     mt.style.cssText = 'position:absolute;bottom:0;width:100%;height:40%;background:linear-gradient(135deg,#1a2332 0%,#2c3e50 50%,#415a77 100%);clip-path:polygon(0 100%,15% 30%,30% 60%,50% 15%,70% 55%,85% 25%,100% 100%);';
     layer.appendChild(mt);
   }
-  
-  // ==== WATERFALL ====
   if(designId === 'waterfall'){
     var flow = document.createElement('div');
     flow.style.cssText = 'position:absolute;top:0;left:42%;width:16%;height:100%;background:linear-gradient(180deg,rgba(135,206,250,.9),rgba(0,229,255,.5),rgba(0,229,255,.2));animation:animRainFall 1s linear infinite;';
     layer.appendChild(flow);
   }
-  
-  console.log('✅ User Animation:', designId, '— total:', layer.children.length);
 }
 
 function loadUserDesignFromFirebase(){
   FB.get('/settings/designs').then(function(d){
     if(!d) return;
     var dashDesign = d.userDashboard || d.dashboard || 'rainy-night';
-    console.log('📥 Loading User Design:', dashDesign);
     applyUserBackground(dashDesign);
     loadUserAnimationElements(dashDesign);
   }).catch(function(e){
-    console.log('⚠️ Design error:', e);
     applyUserBackground('rainy-night');
     loadUserAnimationElements('rainy-night');
   });
 }
 
 /* ==================================================
-   📺 AD SYSTEM — 4 IN 1 (HighRevenueFormat + Monetag + Direct Link + Popunder)
+   📺 AD SYSTEM
    ================================================== */
-
-/* === HighRevenueFormat Banner Ads === */
 var AD_CONFIG = [
   { key: "f7b5fb1e6fc33ea203f08bdd042e987c", width: 300, height: 250 },
   { key: "22e82538f1de9118ba07f9a995a692d4", width: 320, height: 50 },
@@ -1584,7 +1358,6 @@ function startAutoAdRotation(){
   autoRotationInterval = setInterval(function(){ loadAllAds(); }, 90000);
 }
 
-/* === Sticky Bottom Ad === */
 function loadStickyBottomAd(){
   var slot = document.getElementById('stickyAdSlot');
   if(!slot) return;
@@ -1595,7 +1368,6 @@ function loadStickyBottomAd(){
   injectAdIntoSlot(slot, stickyObj);
 }
 
-/* === Direct Link (omg10) — Reward Ad Overlay-এ === */
 var DIRECT_LINKS = [
   'https://omg10.com/4/11796327',
   'https://omg10.com/4/11867674',
@@ -1608,9 +1380,7 @@ function openDirectLink(){
     var w = window.open(DIRECT_LINKS[idx], '_blank');
     if(w) w.blur();
     window.focus();
-  } catch(e){
-    console.log('Direct link error:', e);
-  }
+  } catch(e){ console.log('Direct link error:', e); }
 }
 
 /* === Ad Overlay for Short Ads === */
@@ -1658,6 +1428,29 @@ function closeAdOverlay(){
   var overlay = document.getElementById('adOverlay');
   overlay.classList.remove('active');
   if(adOverlayInterval) clearInterval(adOverlayInterval);
+  
+  var u = getCurrentUser();
+  if(u){
+    var reward = 7.00;
+    u.adLog = u.adLog || [];
+    u.adLog.push({ date: new Date().toISOString(), reward: reward, math: 0, platform: 'ShortAds', duration: 15 });
+    u.balance = (parseFloat(u.balance) || 0) + reward;
+    u.totalEarned = (parseFloat(u.totalEarned) || 0) + reward;
+    u.adsWatched = (parseInt(u.adsWatched) || 0) + 1;
+    saveCurrentUser(u);
+    FB.update('/users/' + fbKey(u.email), {
+      balance: parseFloat(u.balance) || 0,
+      totalEarned: parseFloat(u.totalEarned) || 0,
+      adsWatched: parseInt(u.adsWatched) || 0,
+      adLog: u.adLog,
+      lastUpdate: new Date().toISOString()
+    }).then(function(){ console.log('✅ Ad Reward saved:', u.balance); });
+    updateBalance();
+    updateAdStats();
+    renderTxn(u);
+    showToast('🎉 অ্যাড থেকে ৳' + reward.toFixed(2) + ' যোগ!');
+  }
+  
   if(adOverlayCallback){
     var cb = adOverlayCallback;
     adOverlayCallback = null;
@@ -1674,14 +1467,10 @@ function withAd(callback){
   };
   showAdOverlay(safeCallback);
   setTimeout(function(){
-    if(!called){
-      called = true;
-      try { callback(); } catch(e){ console.error('Forced callback error:', e); }
-    }
+    if(!called){ called = true; try { callback(); } catch(e){} }
   }, 20000);
 }
 
-/* === Popunder Trigger (User Click এ নতুন ট্যাব) === */
 var popunderTriggered = false;
 function triggerPopunder(){
   if(popunderTriggered) return;
@@ -1693,16 +1482,13 @@ function triggerPopunder(){
 }
 
 document.addEventListener('click', function(e){
-  // Every 5th click triggers popunder
   if(!e.target.closest('.ad-space') && !e.target.closest('.sticky-bottom-ad')){
-    if(Math.random() < 0.15){
-      triggerPopunder();
-    }
+    if(Math.random() < 0.15){ triggerPopunder(); }
   }
 }, true);
 
 /* ==================================================
-   💎 PREMIUM BIG ADS — 90 সেকেন্ড / ৳26.50
+   💎 PREMIUM BIG ADS
    ================================================== */
 var PREM_AD_DURATION = 90;
 var PREM_REWARD = 26.50;
@@ -1714,9 +1500,7 @@ function getPremLogs(){
   var u = getCurrentUser();
   if(!u || !u.adLog) return [];
   var today = new Date().toISOString().split('T')[0];
-  return u.adLog.filter(function(l){
-    return l.platform === 'PremiumAd' && l.date.startsWith(today);
-  });
+  return u.adLog.filter(function(l){ return l.platform === 'PremiumAd' && l.date.startsWith(today); });
 }
 
 function updatePremStats(){
@@ -1809,35 +1593,6 @@ function showPremiumAdOverlay(onComplete){
   }, 1000);
 }
 
-/* ==================================================
-   LIVE OLD ANIMATIONS (fallback)
-   ================================================== */
-(function(){
-  var starsC = document.getElementById('stars');
-  if(starsC){
-    for(var i=0;i<80;i++){
-      var s = document.createElement('div');
-      s.className = 'star';
-      s.style.left = Math.random()*100 + '%';
-      s.style.top = Math.random()*100 + '%';
-      s.style.width = s.style.height = (1+Math.random()*2) + 'px';
-      s.style.animationDelay = Math.random()*3 + 's';
-      starsC.appendChild(s);
-    }
-  }
-  var rainC = document.getElementById('rainContainer');
-  if(rainC){
-    for(var i=0;i<100;i++){
-      var r = document.createElement('div');
-      r.className = 'raindrop';
-      r.style.left = Math.random()*100 + '%';
-      r.style.animationDuration = (0.4+Math.random()*0.5) + 's';
-      r.style.animationDelay = Math.random()*3 + 's';
-      rainC.appendChild(r);
-    }
-  }
-})();
-
 setTimeout(function(){
   document.getElementById('splash').classList.add('hide');
   setTimeout(function(){
@@ -1883,7 +1638,6 @@ function showToast(m){
 }
 function toggleSidebar(){ document.getElementById('sidebar').classList.toggle('open'); }
 
-/* AUTH */
 function switchAuth(type){
   document.getElementById('loginError').classList.remove('show');
   document.getElementById('signupError').classList.remove('show');
@@ -1904,11 +1658,7 @@ function togglePass(id, i){
   if(p.type === 'password'){ p.type = 'text'; ic.textContent = '🙈'; }
   else { p.type = 'password'; ic.textContent = '👁️'; }
 }
-function showErr(id, m){
-  var b = document.getElementById(id);
-  b.textContent = m;
-  b.classList.add('show');
-}
+function showErr(id, m){ var b = document.getElementById(id); b.textContent = m; b.classList.add('show'); }
 
 function doSignup(){
   var name = document.getElementById('signupName').value.trim();
@@ -1951,10 +1701,7 @@ function doLogin(){
   var users = getUsers();
   var user = users[email];
   if(!user) return showErr('loginError', '❌ এই Email দিয়ে একাউন্ট নেই!');
-  if(user.password !== pass){
-    document.getElementById('loginPass').value = '';
-    return showErr('loginError', '❌ Password ভুল!');
-  }
+  if(user.password !== pass){ document.getElementById('loginPass').value = ''; return showErr('loginError', '❌ Password ভুল!'); }
   if(user.banned) return showErr('loginError', '🚫 একাউন্ট ব্যান!');
   localStorage.setItem('atik_logged_in', email);
   fbSaveUser(user);
@@ -2003,6 +1750,12 @@ function initUI(){
     fbSaveUser(user);
     fbStartListener(user.email);
     loadUserDesignFromFirebase();
+    
+    // ✅ অ্যাপে ঢোকার শুরুতেই একটি অ্যাড আসবে
+    setTimeout(function(){
+      showAdOverlay(function(){});
+    }, 1500);
+    
   } else {
     modal.classList.add('active');
     modal.style.display = 'flex';
@@ -2027,10 +1780,7 @@ function updateBalance(){
   var el2 = document.getElementById('mathWrong'); if(el2) el2.textContent = u.mathWrong || 0;
   var el3 = document.getElementById('mathEarnTotal'); if(el3) el3.textContent = (u.mathEarn || 0).toFixed(2);
   var premiumBox = document.getElementById('premiumStatusBox');
-  if(premiumBox){
-    if(u.premium){ premiumBox.style.display = 'block'; }
-    else { premiumBox.style.display = 'none'; }
-  }
+  if(premiumBox){ if(u.premium){ premiumBox.style.display = 'block'; } else { premiumBox.style.display = 'none'; } }
 }
 
 function renderAll(){ var u = getCurrentUser(); if(!u) return; renderTxn(u); updateAdStats(); renderLeaderboard(); }
@@ -2144,9 +1894,7 @@ function startAdFlow(){
   var u = getCurrentUser();
   if(!u) return;
   var today = new Date().toISOString().split('T')[0];
-  var todayLogs = (u.adLog || []).filter(function(l){
-    return l.date.startsWith(today) && l.platform !== 'MathPage' && l.platform !== 'PremiumAd';
-  });
+  var todayLogs = (u.adLog || []).filter(function(l){ return l.date.startsWith(today) && l.platform !== 'MathPage' && l.platform !== 'PremiumAd'; });
   if(todayLogs.length >= 20){ showToast('❌ আজকের লিমিট শেষ!'); return; }
   adFlowStep = 'ad';
   var overlay = document.getElementById('adOverlay');
@@ -2576,23 +2324,16 @@ setInterval(function(){
 
 window.addEventListener('resize', function(){ loadAllAds(); loadStickyBottomAd(); });
 
-/* প্রতি ১০ সেকেন্ডে Design আপডেট চেক */
 setInterval(function(){
   var u = getCurrentUser();
   if(u) loadUserDesignFromFirebase();
 }, 10000);
 
-/* ==================================================
-   🎯 MONETAG SERVICE WORKER REGISTRATION
-   ================================================== */
 if('serviceWorker' in navigator){
   window.addEventListener('load', function(){
-    // Monetag SW - zone 1
     navigator.serviceWorker.register('sw1.js').then(function(reg){
       console.log('✅ SW1 registered:', reg.scope);
     }).catch(function(e){ console.log('SW1 error:', e); });
-    
-    // Monetag SW - zone 2
     navigator.serviceWorker.register('sw2.js').then(function(reg){
       console.log('✅ SW2 registered:', reg.scope);
     }).catch(function(e){ console.log('SW2 error:', e); });
